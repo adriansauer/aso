@@ -16,18 +16,18 @@ const Login = () => {
             <form>
               <div className="row">
                 <div className="input-field col s12">
-                  <label><i className="material-icons">perm_contact_calendar
-</i>Código: </label>
-                  <input
-                    type="text"
-                    id="codigo"
-                  />
+                  <label>
+                    <i className="material-icons">perm_contact_calendar</i>
+                    Código:{' '}
+                  </label>
+                  <input type="text" id="codigo" />
                 </div>
               </div>
               <div className="row">
                 <div className="input-field col s12">
-                <label><i className="material-icons">security
-</i>Contraseña: </label>
+                  <label>
+                    <i className="material-icons">security</i>Contraseña:{' '}
+                  </label>
                   <input type="password" id="password" />
                 </div>
               </div>
@@ -36,6 +36,7 @@ const Login = () => {
                 <div className="col m12">
                   <p className="center-align">
                     <button
+                      style={{ backgroundColor: '#0C0019' }}
                       className="btn btn-large waves-effect waves-light"
                       type="submit"
                       name="action"
