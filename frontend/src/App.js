@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from './components/Home'
 import Login from './components/Login'
 import Header from './components/Header'
-
+import PrivateRoute from './components/PrivateRoute'
 const App = () => {
   return (
     <div className="App">
@@ -15,8 +15,13 @@ const App = () => {
 
         <>
           <Switch>
-            <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
+            <PrivateRoute
+              authed={true}
+              redirect="/login"
+              path="/"
+              component={Home}
+            />
           </Switch>
         </>
       </Router>
