@@ -1,51 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.4.4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.aso</groupId>
 	<artifactId>aso</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<version>1.0</version>
 	<name>aso</name>
 	<description>Asociacion de Bomberos Voluntarios del Paraguay</description>
+
 	<properties>
 		<java.version>1.8</java.version>
 		<org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
 	</properties>
 	<!-- Dependencias -->
 	<dependencies>
-	
+
 		<!-- Configuraciones basicas que necesita sprring -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
 
-		<!-- Bibloteca para la implementacion de test, incluye JUnit Jupiter y Mockito -->
+		<!-- Bibloteca para la implementacion de test, incluye JUnit Jupiter y 
+			Mockito -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Utilizacion de anotaciones de Spring boot -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
-		
+
 		<!-- Constructor de aplicaciones RestFul utiliza tomcat -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-		
+
 		<!-- Dependencia para hibernate -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -71,13 +75,13 @@
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
 		</dependency>
-		
+
 		<!-- Dependencia para validaciones de objetos -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
-		
+
 		<!-- Dependecias de mapper -->
 		<dependency>
 			<groupId>org.mapstruct</groupId>
@@ -90,8 +94,9 @@
 			<artifactId>mapstruct-processor</artifactId>
 			<version>${org.mapstruct.version}</version>
 		</dependency>
-		
-		<!-- Dependencia para la utilizacion de anotaciones para validaciones de beans-->
+
+		<!-- Dependencia para la utilizacion de anotaciones para validaciones de 
+			beans -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-bean-validators</artifactId>
@@ -116,14 +121,14 @@
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.9.2</version>
 		</dependency>
-		
+
 		<!-- Dependencia para la utilizacion de lombok -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<!-- Dependencias para la utilizacion de JWT -->
 		<dependency>
 			<groupId>io.jsonwebtoken</groupId>
@@ -144,12 +149,24 @@
 			<version>0.11.2</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
+		<!-- Dependecia para ddespligue en Tomcat -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
 
 	</dependencies>
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>3.0.3</version>
+			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
