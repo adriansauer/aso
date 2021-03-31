@@ -7,15 +7,16 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Header from './components/Header'
 
-function App () {
+const App = () => {
   return (
     <div className="App">
-       <Router>
-        <Header/>
+      <Router>
+        <Header />
+
         <>
           <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
           </Switch>
         </>
       </Router>

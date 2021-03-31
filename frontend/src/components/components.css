@@ -1,0 +1,12 @@
+
+.sidenav li{
+    margin-top: 5%;
+}
+.sidenav li:hover{
+    background-color: #1f023d;
+}
+.ulSidenav{
+    background-color: #0C0019;
+    top: auto;
+    color: white;
+}
