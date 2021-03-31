@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<include
+		file="/database/changelog/changes/creations/roles-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/settings-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/departaments-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/cities-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/users-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/userRoles-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/brigadeHistories-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/images-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/ranges-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/publications-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/files-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/likes-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/brigadeDetails-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/userDetails-table.xml" />
+
+</databaseChangeLog>

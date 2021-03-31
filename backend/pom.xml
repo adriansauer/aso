@@ -46,12 +46,6 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		
-		<!-- Iniciador para utilizar seguridad en spring -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		
 		<!-- Dependencia para hibernate -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
