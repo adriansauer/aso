@@ -1,13 +1,19 @@
 import React from 'react'
 import './App.css'
-
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Home from './components/Home'
+import Login from './components/Login'
 function App () {
   return (
     <div className="App">
-      <p className="flow-text">Sistema en desarrollo...</p>
-      <div className="progress">
-        <div className="indeterminate"></div>
-      </div>
+       <Router>
+        <>
+          <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          </Switch>
+        </>
+      </Router>
     </div>
   )
 }
