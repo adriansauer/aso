@@ -10,18 +10,19 @@ public class SettingMapper implements BaseMapper<SettingEntity, SettingDTO> {
 
 	@Override
 	public SettingEntity toEntity(SettingDTO dto) {
-		return SettingEntity.builder()//
-				.key(dto.getKey())//
-				.value(dto.getValue())//
-				.build();
+		SettingEntity entity = new SettingEntity();
+		entity.setKey(dto.getKey());
+		entity.setValue(dto.getValue());
+		return entity;
 	}
 
 	@Override
 	public SettingDTO toDTO(SettingEntity entity) {
-		return SettingDTO.builder()//
-				.key(entity.getKey())//
-				.value(entity.getValue())//
-				.build();
+		SettingDTO dto = new SettingDTO();
+		dto.setId(entity.getId());
+		dto.setKey(entity.getKey());
+		dto.setValue(entity.getValue());
+		return dto;
 	}
 
 }

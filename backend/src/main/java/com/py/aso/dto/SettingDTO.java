@@ -4,15 +4,13 @@ import javax.validation.constraints.NotBlank;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Getter
-@Setter
-@Builder
+@Data
 @ApiModel(description = "Objeto que representa a una configuracion del sistema")
 public class SettingDTO {
+
+	private Long id;
 
 	@NotBlank(message = "El key no puede ser nulo")
 	@ApiModelProperty(notes = "Key", example = "NAME_APP", required = true)
