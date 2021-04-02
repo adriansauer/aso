@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.py.aso.dto.SettingDTO;
+import com.py.aso.dto.update.SettingUpdateDTO;
 import com.py.aso.entity.SettingEntity;
 import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.SettingRepository;
@@ -63,7 +64,7 @@ public class SettingService implements BaseService<SettingDTO> {
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public SettingDTO updateByKey(final String key, final SettingDTO dto) throws Exception {
+	public SettingDTO updateByKey(final String key, final SettingUpdateDTO dto) throws Exception {
 		SettingEntity entity = this.settingRepository.findByKey(key)//
 				.orElseThrow(() -> new ResourceNotFoundException("Setting", "key", key));
 		entity.setValue(dto.getValue());

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.py.aso.dto.SettingDTO;
+import com.py.aso.dto.update.SettingUpdateDTO;
 import com.py.aso.service.SettingService;
 
 import io.swagger.annotations.Api;
@@ -64,7 +65,7 @@ public class SettingController implements BaseController<SettingDTO> {
 
 	@PutMapping("/settings/key/{key}")
 	@ApiOperation(value = "Actualizar una configuracion por el key")
-	public SettingDTO updateByKey(@PathVariable final String key, @Validated @RequestBody final SettingDTO dto)
+	public SettingDTO updateByKey(@PathVariable final String key, @Validated @RequestBody final SettingUpdateDTO dto)
 			throws Exception {
 		return settingService.updateByKey(key, dto);
 	}
