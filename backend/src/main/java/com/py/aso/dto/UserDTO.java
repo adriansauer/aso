@@ -3,11 +3,9 @@ package com.py.aso.dto;
 import java.util.List;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-
-import com.py.aso.entity.RoleEntity;
+import javax.validation.constraints.Size;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,12 +21,12 @@ public class UserDTO {
 	@ApiModelProperty(notes = "name", example = "Juan", required = true)
 	private String name;
 
-	@Max(value = 125, message = "El apellido solo se permite hasta 125 caracteres")
+	@Size(min = 0, max = 125, message = "El apellido puede contener como maximo 125 caracteres")
 	@ApiModelProperty(notes = "lastname", example = "Perez")
 	private String lastname;
 
 	@NotBlank(message = "El codigo de usuario es requerido")
-	@Max(value = 50, message = "El codigo solo permite hasta 50 caracteres")
+	@Size(min = 2, max = 50, message = "El codigo puede contener como maximo 50 caracteres")
 	@ApiModelProperty(notes = "usercode", example = "ABCDE-1234", required = true)
 	private String usercode;
 
@@ -45,6 +43,6 @@ public class UserDTO {
 	@ApiModelProperty(notes = "enabled", example = "true")
 	private boolean enabled;
 
-	private List<RoleEntity> roles;
+	private List<RoleDTO> roles;
 
 }
