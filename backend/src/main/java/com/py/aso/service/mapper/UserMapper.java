@@ -8,17 +8,19 @@ import org.springframework.stereotype.Component;
 
 import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.UserDTO;
+import com.py.aso.dto.create.UserCreateDTO;
+import com.py.aso.dto.detail.UserDetailDTO;
 import com.py.aso.entity.RoleEntity;
 import com.py.aso.entity.UserEntity;
 
 @Component
-public class UserMapper implements BaseMapper<UserEntity, UserDTO> {
+public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO, UserCreateDTO> {
 
 	@Autowired
 	private RoleMapper roleMapper;
 
 	@Override
-	public UserEntity toEntity(UserDTO dto) {
+	public UserEntity toEntity(UserCreateDTO dto) {
 		UserEntity entity = new UserEntity();
 		entity.setName(dto.getName());
 		entity.setLastname(dto.getLastname());
@@ -35,8 +37,20 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO> {
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setLastname(entity.getLastname());
+		dto.setUsercode(entity.getUsercode());
+		return dto;
+	}
+
+	@Override
+	public UserDetailDTO toDetailDTO(UserEntity entity) {
+		UserDetailDTO dto = new UserDetailDTO();
+		dto.setId(entity.getId());
+		dto.setName(entity.getName());
+		dto.setLastname(entity.getLastname());
 		dto.setEmail(entity.getEmail());
 		dto.setUsercode(entity.getUsercode());
+		dto.setCreatedAt(entity.getCreatedAt());
+		dto.setUpdatedAt(entity.getUpdatedAt());
 		List<RoleDTO> roles = entity.getRoles()//
 				.stream().map(this.roleMapper::toDTO).collect(Collectors.toList());
 		dto.setRoles(roles);

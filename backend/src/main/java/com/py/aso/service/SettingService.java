@@ -8,14 +8,14 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.py.aso.dto.SettingDTO;
-import com.py.aso.dto.update.SettingUpdateDTO;
+import com.py.aso.dto.create.SettingCreateDTO;
 import com.py.aso.entity.SettingEntity;
 import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.SettingRepository;
 import com.py.aso.service.mapper.SettingMapper;
 
 @Service
-public class SettingService implements BaseService<SettingDTO> {
+public class SettingService implements BaseService<SettingDTO, SettingDTO, SettingCreateDTO> {
 
 	@Autowired
 	private SettingMapper settingMapper;
@@ -47,14 +47,14 @@ public class SettingService implements BaseService<SettingDTO> {
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public SettingDTO save(final SettingDTO dto) throws Exception {
+	public SettingDTO save(final SettingCreateDTO dto) throws Exception {
 		final SettingEntity entity = this.settingMapper.toEntity(dto);
 		return this.settingMapper.toDTO(this.settingRepository.save(entity));
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public SettingDTO update(final long id, final SettingDTO dto) throws Exception {
+	public SettingDTO update(final long id, final SettingCreateDTO dto) throws Exception {
 		if (!this.settingRepository.existsById(id)) {
 			throw new ResourceNotFoundException("Setting", "id", id);
 		}
@@ -64,7 +64,7 @@ public class SettingService implements BaseService<SettingDTO> {
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public SettingDTO updateByKey(final String key, final SettingUpdateDTO dto) throws Exception {
+	public SettingDTO updateByKey(final String key, final SettingCreateDTO dto) throws Exception {
 		SettingEntity entity = this.settingRepository.findByKey(key)//
 				.orElseThrow(() -> new ResourceNotFoundException("Setting", "key", key));
 		entity.setValue(dto.getValue());

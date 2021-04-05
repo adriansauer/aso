@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.py.aso.dto.UserDTO;
+import com.py.aso.dto.create.UserCreateDTO;
+import com.py.aso.dto.detail.UserDetailDTO;
 import com.py.aso.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -22,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @Api(value = "Controlador de los usuarios activos")
-public class UserController implements BaseController<UserDTO> {
+public class UserController implements BaseController<UserDTO, UserDetailDTO, UserCreateDTO> {
 
 	@Autowired
 	private UserService userService;
@@ -37,22 +39,30 @@ public class UserController implements BaseController<UserDTO> {
 	@Override
 	@GetMapping("/users/{id}")
 	@ApiOperation(value = "Obtener un usuario activo por el id")
-	public UserDTO find(@PathVariable final long id) throws Exception {
+	public UserDetailDTO find(@PathVariable final long id) throws Exception {
 		return this.userService.findById(id);
 	}
 
 	@Override
 	@PostMapping("/users")
 	@ApiOperation(value = "Crear un nuevo usuario")
-	public UserDTO create(@Validated @RequestBody final UserDTO dto) throws Exception {
+	public UserDetailDTO create(@Validated @RequestBody final UserCreateDTO dto) throws Exception {
 		return this.userService.save(dto);
 	}
 
 	@Override
 	@PutMapping("/users/{id}")
 	@ApiOperation(value = "Actualizar un usuario activo")
-	public UserDTO update(@PathVariable final long id, @Validated @RequestBody final UserDTO dto) throws Exception {
+	public UserDetailDTO update(@PathVariable final long id, @Validated @RequestBody final UserCreateDTO dto)
+			throws Exception {
 		return this.userService.update(id, dto);
+	}
+
+	@PutMapping("/users/pass/{id}")
+	@ApiOperation(value = "Actualizar la contraseña de un usuario activo")
+	public UserDetailDTO updatePass(@PathVariable final long id, @Validated @RequestBody final UserCreateDTO dto)
+			throws Exception {
+		return this.userService.updatePass(id, dto);
 	}
 
 	@Override

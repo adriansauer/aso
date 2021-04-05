@@ -6,15 +6,15 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-public interface BaseController<DTO> {
+public interface BaseController<DTO, DetailDTO, CreateDTO> {
 
 	public Page<DTO> index(final Pageable pageable);
 
-	public DTO find(@PathVariable final long id) throws Exception;
+	public DetailDTO find(@PathVariable final long id) throws Exception;
 
-	public DTO create(@Validated @RequestBody final DTO dto) throws Exception;
+	public DetailDTO create(@Validated @RequestBody final CreateDTO dto) throws Exception;
 
-	public DTO update(@PathVariable final long id, @Validated @RequestBody final DTO dto) throws Exception;
+	public DetailDTO update(@PathVariable final long id, @Validated @RequestBody final CreateDTO dto) throws Exception;
 
 	public void deleted(@PathVariable final long id) throws Exception;
 }

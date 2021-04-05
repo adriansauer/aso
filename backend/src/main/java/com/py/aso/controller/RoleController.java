@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.py.aso.dto.RoleDTO;
+import com.py.aso.dto.create.RoleCreateDTO;
 import com.py.aso.service.RoleService;
 
 import io.swagger.annotations.Api;
@@ -22,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @Api(value = "Controlador de roles")
-public class RoleController implements BaseController<RoleDTO> {
+public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCreateDTO> {
 
 	@Autowired
 	private RoleService roleService;
@@ -44,14 +45,15 @@ public class RoleController implements BaseController<RoleDTO> {
 	@Override
 	@PostMapping("/roles")
 	@ApiOperation(value = "Crear un nuevo rol")
-	public RoleDTO create(@Validated @RequestBody final RoleDTO dto) throws Exception {
+	public RoleDTO create(@Validated @RequestBody final RoleCreateDTO dto) throws Exception {
 		return this.roleService.save(dto);
 	}
 
 	@Override
 	@PutMapping("/roles/{id}")
 	@ApiOperation(value = "Actualizar un rol por el id")
-	public RoleDTO update(@PathVariable final long id, @Validated @RequestBody final RoleDTO dto) throws Exception {
+	public RoleDTO update(@PathVariable final long id, @Validated @RequestBody final RoleCreateDTO dto)
+			throws Exception {
 		return this.roleService.update(id, dto);
 	}
 

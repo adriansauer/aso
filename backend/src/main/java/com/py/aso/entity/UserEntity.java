@@ -1,5 +1,6 @@
 package com.py.aso.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -40,11 +41,17 @@ public class UserEntity {
 	@Column(name = "password")
 	private String password;
 
+	@Column(name = "created_at")
+	private Date createdAt;
+
+	@Column(name = "updated_at")
+	private Date updatedAt;
+
 	@Column(name = "enabled")
 	private boolean enabled;
 
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "userRoles", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+	@JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<RoleEntity> roles;
 
 }
