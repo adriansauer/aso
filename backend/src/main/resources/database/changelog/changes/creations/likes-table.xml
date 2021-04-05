@@ -11,12 +11,12 @@
 			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="publicationId" type="INT">
+			<column name="publication_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkLikePublication"
 					referencedTableName="publications" referencedColumnNames="id" />
 			</column>
-			<column name="userId" type="INT">
+			<column name="user_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkLikeUser" referencedTableName="users"
 					referencedColumnNames="id" />

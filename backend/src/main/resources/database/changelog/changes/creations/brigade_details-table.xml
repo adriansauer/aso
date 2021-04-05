@@ -7,26 +7,26 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet author="Victor Ciceia" id="13">
-		<createTable tableName="brigadeDetails">
+		<createTable tableName="brigade_details">
 			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="userId" type="INT">
+			<column name="user_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkBrigadeDetailUser" referencedTableName="users"
 					referencedColumnNames="id" />
 			</column>
-			<column name="imageId" type="INT">
+			<column name="image_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkBrigadeDetailImage" referencedTableName="images"
 					referencedColumnNames="id" />
 			</column>
-			<column name="departamentId" type="INT">
+			<column name="departament_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkBrigadeDetailDepartament"
 					referencedTableName="departaments" referencedColumnNames="id" />
 			</column>
-			<column name="cityId" type="INT">
+			<column name="city_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkBrigadeDetailCity" referencedTableName="cities"
 					referencedColumnNames="id" />
@@ -48,7 +48,7 @@
 			</column>
 		</createTable>
 		<rollback>
-			<dropTable tableName="brigadeDetails" />
+			<dropTable tableName="brigade_details" />
 		</rollback>
 	</changeSet>
 

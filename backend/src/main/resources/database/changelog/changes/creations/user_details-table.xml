@@ -7,36 +7,36 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet author="Victor Ciceia" id="14">
-		<createTable tableName="userDetails">
+		<createTable tableName="user_details">
 			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="userId" type="INT">
+			<column name="user_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkUserDetailUser" referencedTableName="users"
 					referencedColumnNames="id" />
 			</column>
-			<column name="brigadeId" type="INT">
+			<column name="brigade_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkUserDetailUserBrigade"
 					referencedTableName="users" referencedColumnNames="id" />
 			</column>
-			<column name="imageId" type="INT">
+			<column name="image_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkUserDetailImage" referencedTableName="images"
 					referencedColumnNames="id" />
 			</column>
-			<column name="departamentId" type="INT">
+			<column name="departament_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkUserDetailDepartament"
 					referencedTableName="departaments" referencedColumnNames="id" />
 			</column>
-			<column name="cityId" type="INT">
+			<column name="city_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkUserDetailCity" referencedTableName="cities"
 					referencedColumnNames="id" />
 			</column>
-			<column name="rangeId" type="INT">
+			<column name="range_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkUserDetailRange" referencedTableName="ranges"
 					referencedColumnNames="id" />
@@ -62,7 +62,7 @@
 			</column>
 		</createTable>
 		<rollback>
-			<dropTable tableName="userDetails" />
+			<dropTable tableName="user_details" />
 		</rollback>
 	</changeSet>
 

@@ -6,24 +6,22 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<changeSet author="Victor Ciceia" id="6">
-		<createTable tableName="userRoles">
+	<changeSet author="Victor Ciceia" id="7">
+		<createTable tableName="brigade_histories">
 			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="userId" type="INT">
+			<column name="user_id" type="INT">
 				<constraints nullable="false"
-					foreignKeyName="fkRoleUser" referencedTableName="users"
+					foreignKeyName="fkHistoryUser" referencedTableName="users"
 					referencedColumnNames="id" />
 			</column>
-			<column name="roleId" type="INT">
-				<constraints nullable="false"
-					foreignKeyName="fkUserRole" referencedTableName="roles"
-					referencedColumnNames="id" />
+			<column name="text" type="TEXT">
+				<constraints nullable="true" />
 			</column>
 		</createTable>
 		<rollback>
-			<dropTable tableName="userRoles" />
+			<dropTable tableName="brigade_histories" />
 		</rollback>
 	</changeSet>
 
