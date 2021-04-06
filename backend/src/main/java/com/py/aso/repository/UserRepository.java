@@ -15,4 +15,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 	public Page<UserEntity> findAllByEnabled(final boolean enabled, final Pageable pageable);
 
 	public Optional<UserEntity> findByIdAndEnabled(final Long id, final boolean enabled);
+
+	public Optional<UserEntity> findByUsercodeAndEnabled(final String usercode, final boolean enabled);
 }

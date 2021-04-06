@@ -12,6 +12,6 @@ public class JwtProperties {
 
 	private String key;
 
-	private String expiration;
+	private long expiration;
 
 }

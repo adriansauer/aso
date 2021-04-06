@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +32,9 @@ public class UserService implements BaseService<UserDTO, UserDetailDTO, UserCrea
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<UserDTO> findAll(final Pageable pageable) {
@@ -51,7 +55,7 @@ public class UserService implements BaseService<UserDTO, UserDetailDTO, UserCrea
 	public UserDetailDTO save(final UserCreateDTO dto) throws Exception {
 		UserEntity entity = this.userMapper.toEntity(dto);
 		entity.setEnabled(true);
-		entity.setPassword(dto.getPassword());
+		entity.setPassword(this.passwordEncoder.encode(dto.getPassword()));
 		entity.setCreatedAt(new Date());
 		return this.userMapper.toDetailDTO(this.userRepository.save(entity));
 	}
@@ -74,7 +78,7 @@ public class UserService implements BaseService<UserDTO, UserDetailDTO, UserCrea
 	public UserDetailDTO updatePass(final long id, final UserCreateDTO dto) throws Exception {
 		UserEntity entity = this.userRepository.findByIdAndEnabled(id, true)//
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-		entity.setPassword(dto.getPassword());
+		entity.setPassword(this.passwordEncoder.encode(dto.getPassword()));
 		entity.setUpdatedAt(new Date());
 		return this.userMapper.toDetailDTO(this.userRepository.save(entity));
 	}
