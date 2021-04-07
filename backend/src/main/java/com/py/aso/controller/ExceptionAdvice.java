@@ -2,7 +2,9 @@ package com.py.aso.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,8 +22,24 @@ public class ExceptionAdvice {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ExceptionDTO resourceNotFoundExceptions(final ResourceNotFoundException ex) {
-		LOGGER.info(ex.getMessage());
+		LOGGER.warn(ex.getMessage());
 		return new ExceptionDTO(ex.getMessage());
+	}
+
+	@ResponseBody
+	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionDTO resourceNotValid(final MethodArgumentNotValidException ex) {
+		LOGGER.warn(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+		return new ExceptionDTO(ex.getBindingResult().getAllErrors().get(0).getDefaultMessage());
+	}
+
+	@ResponseBody
+	@ExceptionHandler(DataIntegrityViolationException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionDTO resourceNotValid(final DataIntegrityViolationException ex) {
+		LOGGER.warn(ex.getMessage());
+		return new ExceptionDTO("No se pudo realizar los cambios por violación a las politicas");
 	}
 
 	@ResponseBody

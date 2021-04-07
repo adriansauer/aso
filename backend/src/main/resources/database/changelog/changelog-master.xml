@@ -17,9 +17,9 @@
 	<include
 		file="/database/changelog/changes/creations/users-table.xml" />
 	<include
-		file="/database/changelog/changes/creations/userRoles-table.xml" />
+		file="/database/changelog/changes/creations/user_roles-table.xml" />
 	<include
-		file="/database/changelog/changes/creations/brigadeHistories-table.xml" />
+		file="/database/changelog/changes/creations/brigade_histories-table.xml" />
 	<include
 		file="/database/changelog/changes/creations/images-table.xml" />
 	<include
@@ -31,8 +31,8 @@
 	<include
 		file="/database/changelog/changes/creations/likes-table.xml" />
 	<include
-		file="/database/changelog/changes/creations/brigadeDetails-table.xml" />
+		file="/database/changelog/changes/creations/brigade_details-table.xml" />
 	<include
-		file="/database/changelog/changes/creations/userDetails-table.xml" />
+		file="/database/changelog/changes/creations/user_details-table.xml" />
 
 </databaseChangeLog>

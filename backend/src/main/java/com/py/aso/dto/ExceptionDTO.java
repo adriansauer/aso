@@ -16,5 +16,5 @@ public class ExceptionDTO {
 
 	@NotBlank(message = "La descripcion no puede ser nulo")
 	@ApiModelProperty(notes = "description", example = "Recurso no encontrado", required = true)
-	private String descrip;
+	private String description;
 }

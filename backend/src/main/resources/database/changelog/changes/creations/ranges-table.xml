@@ -11,7 +11,7 @@
 			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="imageId" type="INT">
+			<column name="image_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkRangeImage" referencedTableName="images"
 					referencedColumnNames="id" />

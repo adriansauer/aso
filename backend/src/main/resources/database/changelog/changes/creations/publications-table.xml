@@ -11,18 +11,21 @@
 			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="userId" type="INT">
+			<column name="user_id" type="INT">
 				<constraints nullable="false"
 					foreignKeyName="fkPublicationUser" referencedTableName="users"
 					referencedColumnNames="id" />
-			</column>
-			<column name="creation" type="DATE">
-				<constraints nullable="false" />
 			</column>
 			<column name="body" type="VARCHAR(255)">
 				<constraints nullable="false" />
 			</column>
 			<column name="destination" type="VARCHAR(10)">
+				<constraints nullable="false" />
+			</column>
+			<column name="created_at" type="TIMESTAMP">
+				<constraints nullable="false" />
+			</column>
+			<column name="updated_at" type="TIMESTAMP">
 				<constraints nullable="false" />
 			</column>
 			<column name="deleted" type="BOOL" defaultValue="false">
