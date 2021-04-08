@@ -7,11 +7,14 @@ exports["default"] = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
+var _baseURL = _interopRequireDefault(require("./baseURL"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var defaultOptions = {
-  baseURL: '',
+  baseURL: _baseURL["default"],
   headers: {
+    Accept: 'application/json',
     'Content-Type': 'application/json'
   }
 };
