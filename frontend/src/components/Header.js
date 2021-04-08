@@ -4,14 +4,17 @@ import perfil from '../images/perfil.jpg'
 import './components.css'
 const Header = () => {
   const [instance, setInstance] = useState(null)
+  /** Cuando se levanta el componente se instancia el Sidebar para almacenarlo en el estado y manipularlo desde ahi */
   useEffect(() => {
     const elem = document.querySelector('.sidenav')
+    /** El sidebar se abre a la izquierda y tiene una transicion de 300 milisegundos */
     const instance = M.Sidenav.init(elem, {
       edge: 'left',
       inDuration: 300
     })
     setInstance(instance)
   }, [])
+  /** Abrir o cerrar el sidebar */
   const handleToggle = () => {
     if (instance !== null) {
       if (instance.isOpen) {
@@ -24,6 +27,7 @@ const Header = () => {
 
   return (
     <>
+    {/** Vista del navbar */}
       <nav>
         <div className="nav-wrapper" style={{ backgroundColor: '#0C0019' }}>
           <a href="#" className="brand-logo right">
@@ -56,22 +60,24 @@ const Header = () => {
 
         </div>
       </nav>
+      {/** Vista del Sidebar */}
       <div>
         <ul id="slide-out" className="sidenav ulSidenav">
+          {/** Link del perfil del usuario */}
           <li>
             <a href="#!" className="white-text">
               <i className="medium material-icons white-text">person</i>
               Mi perfil
             </a>
           </li>
-
+          {/** Link de brigadas */}
           <li>
             <a href="#!" className="white-text">
               <i className="medium material-icons white-text">group</i>
               Brigadas
             </a>
           </li>
-
+          {/** Link de configuraciones */}
           <li>
             <a href="#!" className="white-text">
               <i className="medium material-icons white-text">settings</i>
