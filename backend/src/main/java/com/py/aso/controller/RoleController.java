@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +38,7 @@ public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCrea
 
 	@Override
 	@GetMapping("/roles/{id}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@ApiOperation(value = "Obtener un rol por el id")
 	public RoleDTO find(@PathVariable final long id) throws Exception {
 		return this.roleService.findById(id);

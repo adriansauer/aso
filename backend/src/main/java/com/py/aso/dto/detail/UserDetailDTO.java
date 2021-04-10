@@ -43,7 +43,7 @@ public class UserDetailDTO {
 	@ApiModelProperty(notes = "updatedAt", example = "2021-04-05T18:51:28.478+00:00")
 	private Date updatedAt;
 
-	@ApiModelProperty(notes = "roles", example = "pass1234-ABC_xzy")
+	@ApiModelProperty(notes = "roles", example = "ROLE_ADMIN")
 	private List<RoleDTO> roles;
 
 }

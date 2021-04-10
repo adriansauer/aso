@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -13,10 +14,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.py.aso.segurity.AuthenticationFilter;
+import com.py.aso.segurity.AuthorizationFilter;
 import com.py.aso.service.JpaUserService;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
@@ -50,14 +53,15 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.headers().frameOptions().disable();
 
 		http.addFilter(new AuthenticationFilter(authenticationManager(), getApplicationContext())) //
+				.addFilter(new AuthorizationFilter(authenticationManager(), getApplicationContext())) //
 				.csrf().disable() //
 				.exceptionHandling() //
 				.and() //
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
 				.and() //
 				.authorizeRequests().antMatchers("/login").permitAll() //
-				.and().authorizeRequests().antMatchers("/**").permitAll();
-
+				.and()//
+				.authorizeRequests().antMatchers("/api/**").authenticated();
 	}
 
 }
