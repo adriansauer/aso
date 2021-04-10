@@ -38,7 +38,6 @@ public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCrea
 
 	@Override
 	@GetMapping("/roles/{id}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@ApiOperation(value = "Obtener un rol por el id")
 	public RoleDTO find(@PathVariable final long id) throws Exception {
 		return this.roleService.findById(id);
@@ -46,6 +45,7 @@ public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCrea
 
 	@Override
 	@PostMapping("/roles")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Crear un nuevo rol")
 	public RoleDTO create(@Validated @RequestBody final RoleCreateDTO dto) throws Exception {
 		return this.roleService.save(dto);
@@ -53,6 +53,7 @@ public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCrea
 
 	@Override
 	@PutMapping("/roles/{id}")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Actualizar un rol por el id")
 	public RoleDTO update(@PathVariable final long id, @Validated @RequestBody final RoleCreateDTO dto)
 			throws Exception {
@@ -62,6 +63,7 @@ public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCrea
 	@Override
 	@DeleteMapping("/roles/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Eliminar un rol por el id")
 	public void deleted(@PathVariable final long id) throws Exception {
 		this.roleService.delete(id);
