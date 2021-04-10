@@ -46,12 +46,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
 
-		// Configuration for h2
-		http.authorizeRequests().antMatchers("/").permitAll().antMatchers("/h2-console/**").permitAll();
-
-		http.csrf().disable();
-		http.headers().frameOptions().disable();
-
 		http.addFilter(new AuthenticationFilter(authenticationManager(), getApplicationContext())) //
 				.addFilter(new AuthorizationFilter(authenticationManager(), getApplicationContext())) //
 				.csrf().disable() //
@@ -59,9 +53,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.and() //
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
 				.and() //
-				.authorizeRequests().antMatchers("/login").permitAll() //
+				.authorizeRequests().antMatchers("/login").permitAll()//
 				.and()//
-				.authorizeRequests().antMatchers("/**").authenticated();
+				.authorizeRequests().antMatchers("/h2-console/**").permitAll()//
+				.and()//
+				.headers().frameOptions().disable()//
+				.and()//
+				.authorizeRequests().antMatchers("/api/**").authenticated();
 	}
 
 }
