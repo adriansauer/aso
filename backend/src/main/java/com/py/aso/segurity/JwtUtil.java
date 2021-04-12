@@ -20,9 +20,9 @@ import io.jsonwebtoken.security.Keys;
 
 /**
  * 
- * @author Victor Ciceia
- * Informacion de apoyo para creacion de de la clase de la pagina
- * https://blog.softtek.com/en/token-based-api-authentication-with-spring-and-jwt
+ * @author Victor Ciceia Informacion de apoyo para creacion de de la clase de la
+ *         pagina
+ *         https://blog.softtek.com/en/token-based-api-authentication-with-spring-and-jwt
  */
 @Component
 public class JwtUtil {

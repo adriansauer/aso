@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,6 +41,14 @@ public class ExceptionAdvice {
 	public ExceptionDTO resourceNotValid(final DataIntegrityViolationException ex) {
 		LOGGER.warn(ex.getMessage());
 		return new ExceptionDTO("No se pudo realizar los cambios por violación a las politicas");
+	}
+
+	@ResponseBody
+	@ExceptionHandler(AccessDeniedException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ExceptionDTO exceptionAccessDeniedException(final Exception ex) {
+		LOGGER.warn("	Acceso denegado a un usuario");
+		return new ExceptionDTO("Acceso denegado");
 	}
 
 	@ResponseBody

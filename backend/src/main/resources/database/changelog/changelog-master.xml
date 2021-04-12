@@ -6,6 +6,7 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
+	<!-- Creaciones de tablas -->
 	<include
 		file="/database/changelog/changes/creations/roles-table.xml" />
 	<include
@@ -34,5 +35,13 @@
 		file="/database/changelog/changes/creations/brigade_details-table.xml" />
 	<include
 		file="/database/changelog/changes/creations/user_details-table.xml" />
+
+	<!-- Insercion de datos -->
+	<include
+		file="/database/changelog/changes/inserts/insert-roles-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-users-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-user_roles-1.xml" />
 
 </databaseChangeLog>

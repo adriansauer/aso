@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="16">
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="1" />
+			<column name="name" value="Juan" />
+			<column name="lastname" value="Rojas" />
+			<column name="usercode" value="ASO-001" />
+			<column name="email" value="juanrojas@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="2" />
+			<column name="name" value="Encarnación" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="ENC-001" />
+			<column name="email" value="asoencarnacion@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="3" />
+			<column name="name" value="Laura" />
+			<column name="lastname" value="Fernandez" />
+			<column name="usercode" value="ASO-999" />
+			<column name="email" value="laurafernandez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>
