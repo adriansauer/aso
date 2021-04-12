@@ -17,7 +17,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.py.aso.segurity.AuthenticationFilter;
 import com.py.aso.segurity.AuthorizationFilter;
-import com.py.aso.segurity.RankFilter;
 import com.py.aso.service.JpaUserService;
 
 @Configuration
@@ -53,7 +52,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
 
 		http.addFilter(new AuthenticationFilter(authenticationManager(), getApplicationContext())) //
 				.addFilter(new AuthorizationFilter(authenticationManager(), getApplicationContext())) //
-				.addFilter(new RankFilter(authenticationManager(), getApplicationContext())) //
 				.csrf().disable() //
 				.exceptionHandling() //
 				.and() //

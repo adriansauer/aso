@@ -55,12 +55,13 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 			tokenPayload = jwtUtil.validateToken(token);
 			final String usercode = (String) tokenPayload.get("usercode");
 			final Object roles = tokenPayload.get("authorities");
+			final int id = (Integer) tokenPayload.get("id");
 			Collection<? extends GrantedAuthority> authorities = Arrays.asList( //
 					new ObjectMapper() //
 							.addMixIn(SimpleGrantedAuthority.class, SimpleGrantedAuthorityMixin.class)//
 							.readValue(roles.toString().getBytes(), SimpleGrantedAuthority[].class));
 
-			authentication = new UsernamePasswordAuthenticationToken(usercode, null, authorities);
+			authentication = new UsernamePasswordAuthenticationToken(usercode, id, authorities);
 		} catch (final JwtException | IllegalArgumentException ex) {
 			LOGGER.warn("Token invalido");
 		}
