@@ -1,5 +1,6 @@
 package com.py.aso.segurity;
 
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Collection;
@@ -10,9 +11,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.py.aso.dto.detail.UserDetailDTO;
 import com.py.aso.properties.JwtProperties;
+import com.py.aso.service.UserService;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -30,21 +32,31 @@ public class JwtUtil {
 	@Autowired
 	private JwtProperties jwtProperties;
 
-	public String generateToken(final User user) throws JsonProcessingException {
+	@Autowired
+	private UserService userService;
+
+	public String generateToken(final User user) throws IOException {
 		final String secretKey = jwtProperties.getKey();
 
-		final Claims claims = Jwts.claims();
-		final Collection<? extends GrantedAuthority> roles = user.getAuthorities();
-		claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
-		claims.put("usercode", user.getUsername());
+		try {
+			final UserDetailDTO userDetailDTO = this.userService.findByUsercode(user.getUsername());
+			final Claims claims = Jwts.claims();
+			final Collection<? extends GrantedAuthority> roles = user.getAuthorities();
+			claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
+			claims.put("usercode", user.getUsername());
+			claims.put("id", userDetailDTO.getId());
 
-		return Jwts.builder()//
-				.setSubject(user.getUsername()) //
-				.signWith(getSigningKey(secretKey)) //
-				.setIssuedAt(new Date(System.currentTimeMillis())) //
-				.setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpiration())) //
-				.setClaims(claims) //
-				.compact();
+			return Jwts.builder()//
+					.setSubject(user.getUsername()) //
+					.signWith(getSigningKey(secretKey)) //
+					.setIssuedAt(new Date(System.currentTimeMillis())) //
+					.setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpiration())) //
+					.setClaims(claims) //
+					.compact();
+		} catch (Exception e) {
+			throw new IOException("Error usuario no encontrado");
+		}
+
 	}
 
 	public Claims validateToken(final String token) {
