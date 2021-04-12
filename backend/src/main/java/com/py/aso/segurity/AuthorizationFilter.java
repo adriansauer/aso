@@ -53,8 +53,8 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 		UsernamePasswordAuthenticationToken authentication = null;
 		try {
 			tokenPayload = jwtUtil.validateToken(token);
-			String usercode = (String) tokenPayload.get("usercode");
-			Object roles = tokenPayload.get("authorities");
+			final String usercode = (String) tokenPayload.get("usercode");
+			final Object roles = tokenPayload.get("authorities");
 			Collection<? extends GrantedAuthority> authorities = Arrays.asList( //
 					new ObjectMapper() //
 							.addMixIn(SimpleGrantedAuthority.class, SimpleGrantedAuthorityMixin.class)//

@@ -50,6 +50,13 @@ public class UserService implements BaseService<UserDTO, UserDetailDTO, UserCrea
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public UserDetailDTO findByUsercode(final String usercode) throws Exception {
+		return this.userRepository.findByUsercodeAndEnabled(usercode, true)//
+				.map(this.userMapper::toDetailDTO)//
+				.orElseThrow(() -> new ResourceNotFoundException("User", "usercode", usercode));
+	}
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public UserDetailDTO save(final UserCreateDTO dto) throws Exception {
