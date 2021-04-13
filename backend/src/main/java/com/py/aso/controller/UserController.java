@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,6 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Controlador de los usuarios activos")
 @RequestMapping("/api")
-//@CrossOrigin(origins = "http://localhost:3000")
 public class UserController implements BaseController<UserDTO, UserDetailDTO, UserCreateDTO> {
 
 	@Autowired
