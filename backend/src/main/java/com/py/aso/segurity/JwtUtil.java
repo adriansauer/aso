@@ -2,6 +2,7 @@ package com.py.aso.segurity;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
 
@@ -44,11 +45,11 @@ public class JwtUtil {
 		claims.put("id", userDetailDTO.getId());
 
 		return Jwts.builder()//
+				.setClaims(claims) //
 				.setSubject(user.getUsername()) //
 				.signWith(getSigningKey(secretKey)) //
 				.setIssuedAt(new Date(System.currentTimeMillis())) //
-				.setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpiration())) //
-				.setClaims(claims) //
+				.setExpiration(Date.from(Instant.now().plusMillis(jwtProperties.getExpiration()))) //
 				.compact();
 
 	}
@@ -58,6 +59,7 @@ public class JwtUtil {
 		return Jwts.parser() //
 				.setSigningKey(secretKey.getBytes()) //
 				.parseClaimsJws(token).getBody();
+
 	}
 
 	private Key getSigningKey(final String secretKey) {
