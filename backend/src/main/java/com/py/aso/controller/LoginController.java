@@ -2,6 +2,7 @@ package com.py.aso.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -21,4 +22,10 @@ public class LoginController {
 	@ResponseStatus(HttpStatus.ACCEPTED)
 	public void index(@Validated @RequestBody final LoginDTO loginDTO) {
 	}
+
+	@GetMapping("/istokenvalid")
+	@ApiOperation(value = "Verificar si el token es valido")
+	public void istokenvalid() throws Exception {
+	}
+
 }
