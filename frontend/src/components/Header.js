@@ -5,7 +5,7 @@ import './components.css'
 import userContext from '../context/userContext'
 const Header = () => {
   const [instance, setInstance] = useState(null)
-  const { isAutenticate, setIsAutenticate } = useContext(userContext)
+  const { isAutenticate, setIsAutenticate, userData } = useContext(userContext)
   /** Cuando se levanta el componente se instancia el Sidebar para almacenarlo en el estado y manipularlo desde ahi */
   useEffect(() => {
     const elem = document.querySelector('.sidenav')
@@ -41,7 +41,7 @@ const Header = () => {
               <a href="#" className="brand-logo right">
                 <ul>
                   <li>
-                    <h6 style={{ marginRight: '2%' }}>Victor Gimenez</h6>
+                    <h6 style={{ marginRight: '2%' }}>{userData.username}</h6>
                   </li>
                   <li>
                     <i

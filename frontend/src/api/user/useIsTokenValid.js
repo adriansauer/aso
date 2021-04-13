@@ -3,7 +3,7 @@ import api from '../api'
 const useIsTokenValid = () => {
   const execute = (token) => {
     return api
-      .get('/istokenvalid', { headers: { 'x-auth-token': token } })
+      .get('/istokenvalid', { headers: { Authorization: `Bearer ${token}` } })
   }
 
   return { execute }
