@@ -23,13 +23,19 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.py.aso.dto.ExceptionDTO;
+import com.py.aso.dto.detail.UserDetailDTO;
 import com.py.aso.entity.UserEntity;
+import com.py.aso.service.UserService;
 
 public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	private static final Logger log = LoggerFactory.getLogger(AuthenticationFilter.class);
 
 	private AuthenticationManager authManager;
+
 	private JwtUtil tokenProvider;
+
+	private UserService userService;
 
 	public AuthenticationFilter( //
 			final AuthenticationManager authenticationManager, final ApplicationContext applicationContext //
@@ -37,6 +43,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		this.authManager = authenticationManager;
 		setRequiresAuthenticationRequestMatcher(new AntPathRequestMatcher("/login", "POST"));
 		tokenProvider = applicationContext.getBean(JwtUtil.class);
+		userService = applicationContext.getBean(UserService.class);
 	}
 
 	@Override
@@ -76,19 +83,25 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
 		try {
 			final User user = (User) authResult.getPrincipal();
+			UserDetailDTO userDTO = userService.findByUsercode(user.getUsername());
+
 			final String token = tokenProvider.generateToken(user);
 			response.addHeader("Authorization", "Bearer " + token);
 
 			final Map<String, Object> body = new HashMap<>();
 			body.put("token", token);
-			body.put("user", user);
-			body.put("message", "Autenticación exitosa");
+			body.put("user", userDTO);
+			body.put("description", "Autenticación exitosa");
 
 			response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 			response.setStatus(200);
 			response.setContentType("application/json");
 		} catch (final Exception e) {
-			log.warn("No se pudo generar el token");
+			log.warn(e.toString());
+			response.getWriter()
+					.write(new ObjectMapper().writeValueAsString(new ExceptionDTO("No se pudo crear el token")));
+			response.setStatus(500);
+			response.setContentType("application/json");
 		}
 	}
 
@@ -99,7 +112,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		logger.warn("Error al autenticarse");
 
 		final Map<String, Object> body = new HashMap<>();
-		body.put("message", "Autenticación fallida");
+		body.put("description", "Autenticación fallida");
 
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(401);
