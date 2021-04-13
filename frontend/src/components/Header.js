@@ -5,7 +5,7 @@ import './components.css'
 import userContext from '../context/userContext'
 const Header = () => {
   const [instance, setInstance] = useState(null)
-  const { setUserData, isAutenticate } = useContext(userContext)
+  const { isAutenticate, setIsAutenticate } = useContext(userContext)
   /** Cuando se levanta el componente se instancia el Sidebar para almacenarlo en el estado y manipularlo desde ahi */
   useEffect(() => {
     const elem = document.querySelector('.sidenav')
@@ -28,14 +28,7 @@ const Header = () => {
   }
   const handleLogout = () => {
     localStorage.setItem('token', null)
-    setUserData({
-      token: null,
-      user: {
-        displayName: null,
-        id: null,
-        roles: null
-      }
-    })
+    setIsAutenticate(false)
   }
   return (
     <>
