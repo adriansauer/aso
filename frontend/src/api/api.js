@@ -4,7 +4,8 @@ const defaultOptions = {
   baseURL: BASE_URL,
   headers: {
     Accept: 'application/json',
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Origin': '*'
   }
 }
 const api = axios.create(defaultOptions)

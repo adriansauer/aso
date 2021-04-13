@@ -42,7 +42,7 @@ var useGetUsers = function useGetUsers() {
     setError(null);
     setLoading(true);
 
-    _api["default"].get("/users?page=".concat(page, "&size=").concat(size)).then(function (response) {
+    _api["default"].get('api/users').then(function (response) {
       setData(response.data.content);
       setError(null);
       setLoading(false);
