@@ -22,8 +22,9 @@ import com.py.aso.service.JpaUserService;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
 
+	private static final long MAX_AGE_SECS = 3600;
 
 	@Autowired
 	private JpaUserService jpaUserService;
@@ -51,9 +52,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 
 		http.addFilter(new AuthenticationFilter(authenticationManager(), getApplicationContext())) //
 				.addFilter(new AuthorizationFilter(authenticationManager(), getApplicationContext())) //
-				.csrf().disable() //
-				.exceptionHandling() //
+				.csrf().disable().exceptionHandling() //
 				.and() //
+				.cors()//
+				.and()//
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
 				.and() //
 				.authorizeRequests().antMatchers("/login").permitAll()//
@@ -65,5 +67,12 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter{
 				.authorizeRequests().antMatchers("/api/**").authenticated();
 	}
 
+	@Override
+	public void addCorsMappings(final CorsRegistry registry) {
+		registry.addMapping("/**") //
+				.allowedOrigins("*") //
+				.allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE") //
+				.maxAge(MAX_AGE_SECS);
+	}
 
 }

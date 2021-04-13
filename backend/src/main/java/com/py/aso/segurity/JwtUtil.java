@@ -1,6 +1,5 @@
 package com.py.aso.segurity;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Collection;
@@ -35,27 +34,22 @@ public class JwtUtil {
 	@Autowired
 	private UserService userService;
 
-	public String generateToken(final User user) throws IOException {
+	public String generateToken(final User user) throws Exception {
 		final String secretKey = jwtProperties.getKey();
+		final UserDetailDTO userDetailDTO = this.userService.findByUsercode(user.getUsername());
+		final Claims claims = Jwts.claims();
+		final Collection<? extends GrantedAuthority> roles = user.getAuthorities();
+		claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
+		claims.put("usercode", user.getUsername());
+		claims.put("id", userDetailDTO.getId());
 
-		try {
-			final UserDetailDTO userDetailDTO = this.userService.findByUsercode(user.getUsername());
-			final Claims claims = Jwts.claims();
-			final Collection<? extends GrantedAuthority> roles = user.getAuthorities();
-			claims.put("authorities", new ObjectMapper().writeValueAsString(roles));
-			claims.put("usercode", user.getUsername());
-			claims.put("id", userDetailDTO.getId());
-
-			return Jwts.builder()//
-					.setSubject(user.getUsername()) //
-					.signWith(getSigningKey(secretKey)) //
-					.setIssuedAt(new Date(System.currentTimeMillis())) //
-					.setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpiration())) //
-					.setClaims(claims) //
-					.compact();
-		} catch (Exception e) {
-			throw new IOException("Error usuario no encontrado");
-		}
+		return Jwts.builder()//
+				.setSubject(user.getUsername()) //
+				.signWith(getSigningKey(secretKey)) //
+				.setIssuedAt(new Date(System.currentTimeMillis())) //
+				.setExpiration(new Date(System.currentTimeMillis() + jwtProperties.getExpiration())) //
+				.setClaims(claims) //
+				.compact();
 
 	}
 
