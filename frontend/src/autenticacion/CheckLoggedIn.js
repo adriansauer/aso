@@ -6,12 +6,16 @@ const CheckLoggedIn = () => {
 
   const { execute: isTokenValidExecute } = useIsTokenValid()
 
-  const execute = (setIsAutenticate) => {
+  const execute = (setIsAutenticate, setUserData) => {
     setLoading(true)
     const token = localStorage.getItem('token')
     if (token !== 'null' && token !== undefined && token !== null) {
       isTokenValidExecute(token)
         .then((res) => {
+          setUserData({
+            username: `${res.data.name} ${res.data.lastname}`,
+            roles: res.data.roles
+          })
           setIsAutenticate(true)
         })
         .catch((err) => {

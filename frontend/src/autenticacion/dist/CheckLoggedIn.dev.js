@@ -33,12 +33,16 @@ var CheckLoggedIn = function CheckLoggedIn() {
   var _useIsTokenValid = (0, _useIsTokenValid2["default"])(),
       isTokenValidExecute = _useIsTokenValid.execute;
 
-  var execute = function execute(setIsAutenticate) {
+  var execute = function execute(setIsAutenticate, setUserData) {
     setLoading(true);
     var token = localStorage.getItem('token');
 
     if (token !== 'null' && token !== undefined && token !== null) {
       isTokenValidExecute(token).then(function (res) {
+        setUserData({
+          username: "".concat(res.data.name, " ").concat(res.data.lastname),
+          roles: res.data.roles
+        });
         setIsAutenticate(true);
       })["catch"](function (err) {
         setError(err);

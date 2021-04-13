@@ -18,11 +18,15 @@ import Header from './components/Header'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
   const { execute: checkLoggedIn } = useCheckLoggedIn()
+  const [userData, setUserData] = useState({
+    username: '',
+    roles: null
 
+  })
   const verifyAut = () => {
     const token = localStorage.getItem('token')
     if (token !== null || token !== undefined) {
-      checkLoggedIn(setIsAutenticate)
+      checkLoggedIn(setIsAutenticate, setUserData)
     }
   }
 
@@ -31,7 +35,7 @@ const App = () => {
   }, [])
   return (
     <div className="App">
-      <UserContext.Provider value={{ isAutenticate, setIsAutenticate }}>
+      <UserContext.Provider value={{ isAutenticate, setIsAutenticate, userData, setUserData }}>
       <Router>
         <Header />
         <>

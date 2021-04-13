@@ -13,7 +13,7 @@ var useIsTokenValid = function useIsTokenValid() {
   var execute = function execute(token) {
     return _api["default"].get('/istokenvalid', {
       headers: {
-        'x-auth-token': token
+        Authorization: "Bearer ".concat(token)
       }
     });
   };

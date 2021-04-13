@@ -1,21 +1,22 @@
 import React, { useState, useContext } from 'react'
-import userContext from '../context/userContext'
 import useLogin from '../api/user/useLogin'
+import useCheckLoggedIn from '../autenticacion/CheckLoggedIn'
 import M from 'materialize-css'
+import UserContext from '../context/userContext'
 const Login = () => {
   const [password, setPassword] = useState('')
   const [usercode, setUsercode] = useState('')
   const { execute: loginExecute } = useLogin()
-  const { setIsAutenticate } = useContext(userContext)
-
+  const { execute: checkLoggedIn } = useCheckLoggedIn()
+  const { setIsAutenticate, setUserData } = useContext(UserContext)
   const submit = (e) => {
     loginExecute({ password, usercode })
       .then((res) => {
         localStorage.setItem('token', res.data.token)
-        setIsAutenticate(true)
+        checkLoggedIn(setIsAutenticate, setUserData)
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.message })
+        M.toast({ html: err.response.data.description })
       })
     e.preventDefault()
   }
@@ -34,6 +35,7 @@ const Login = () => {
                     Código:{' '}
                   </label>
                   <input
+                  required
                   type="text"
                   id="codigo"
                   value={usercode}
@@ -47,6 +49,7 @@ const Login = () => {
                     <i className="material-icons">security</i>Contraseña:{' '}
                   </label>
                   <input
+                  required
                   type="password"
                   id="password"
                   value={password}
