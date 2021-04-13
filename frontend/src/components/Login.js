@@ -1,16 +1,28 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
+import userContext from '../context/userContext'
 import useLogin from '../api/user/useLogin'
+import M from 'materialize-css'
 const Login = () => {
   const [password, setPassword] = useState('')
   const [usercode, setUsercode] = useState('')
   const { execute: loginExecute } = useLogin()
+  const { setUserData } = useContext(userContext)
+
   const submit = (e) => {
     loginExecute({ password, usercode })
       .then((res) => {
-        console.log(res)
+        localStorage.setItem('token', res.token)
+        setUserData({
+          token: res.token,
+          user: {
+            displayName: null,
+            id: null,
+            roles: res.data.user.authorities
+          }
+        })
       })
       .catch((err) => {
-        console.log(err.response)
+        M.toast({ html: err.response.data.message })
       })
     e.preventDefault()
   }
