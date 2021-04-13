@@ -64,6 +64,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 			authentication = new UsernamePasswordAuthenticationToken(usercode, id, authorities);
 		} catch (final JwtException | IllegalArgumentException ex) {
 			LOGGER.warn("Token invalido");
+			response.setStatus(401);
 		}
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
