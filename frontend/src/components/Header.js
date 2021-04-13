@@ -27,6 +27,7 @@ const Header = () => {
     }
   }
   const handleLogout = () => {
+    localStorage.setItem('token', null)
     setUserData({
       token: null,
       user: {
