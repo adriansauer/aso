@@ -64,7 +64,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
 				.and()//
 				.headers().frameOptions().disable()//
 				.and()//
-				.authorizeRequests().antMatchers("/api/**").authenticated();
+				.authorizeRequests().antMatchers("/api/**").authenticated()//
+				.and()//
+				.authorizeRequests().antMatchers("/istokenvalid").authenticated();
 	}
 
 	@Override

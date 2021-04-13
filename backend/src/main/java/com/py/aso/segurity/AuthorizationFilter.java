@@ -44,6 +44,7 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 		String authorizationHeader = request.getHeader("Authorization");
 		if (!hasAuthorizationToken(authorizationHeader)) {
 			chain.doFilter(request, response);
+			response.setStatus(401);
 			return;
 		}
 
