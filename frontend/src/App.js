@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
+/** autenticacion */
+import useCheckLoggedIn from './autenticacion/CheckLoggedIn'
 /** Materialize */
 import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css/dist/js/materialize.min.js'
@@ -15,31 +17,21 @@ import Header from './components/Header'
 
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
-  const [userData, setUserData] = useState({
-    token: null,
-    user: {
-      displayName: null,
-      id: null,
-      roles: null
-    }
-  })
+  const { execute: checkLoggedIn } = useCheckLoggedIn()
 
-  /** Antes de iniciar la pagina se verifica la autenticacion */
-  useEffect(() => {
-    /** Si hay token y roles esta logueado */
-    if (userData.token !== null & userData.user.roles !== null) {
-      setIsAutenticate(true)
-      /** Si hay token pero no role se verifica el token */
-    } else if (userData.token !== null & userData.user.roles === null) {
-      /** Aqui se debe volver a verificar la cuenta */
-      /** Si no hay token tiene que loguearse de nuevo */
-    } else if (userData.token === null) {
-      setIsAutenticate(false)
+  const verifyAut = () => {
+    const token = localStorage.getItem('token')
+    if (token !== null || token !== undefined) {
+      checkLoggedIn(setIsAutenticate)
     }
-  }, [userData])
+  }
+
+  useEffect(() => {
+    verifyAut()
+  }, [])
   return (
     <div className="App">
-      <UserContext.Provider value={{ userData, setUserData, isAutenticate }}>
+      <UserContext.Provider value={{ isAutenticate, setIsAutenticate }}>
       <Router>
         <Header />
         <>

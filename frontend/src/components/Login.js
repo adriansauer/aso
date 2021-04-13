@@ -6,20 +6,13 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [usercode, setUsercode] = useState('')
   const { execute: loginExecute } = useLogin()
-  const { setUserData } = useContext(userContext)
+  const { setIsAutenticate } = useContext(userContext)
 
   const submit = (e) => {
     loginExecute({ password, usercode })
       .then((res) => {
-        localStorage.setItem('token', res.token)
-        setUserData({
-          token: res.token,
-          user: {
-            displayName: null,
-            id: null,
-            roles: res.data.user.authorities
-          }
-        })
+        localStorage.setItem('token', res.data.token)
+        setIsAutenticate(true)
       })
       .catch((err) => {
         M.toast({ html: err.response.data.message })
