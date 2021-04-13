@@ -11,7 +11,7 @@ const useGetUsers = () => {
     setError(null)
     setLoading(true)
     api
-      .get(`/users?page=${page}&size=${size}`)
+      .get('api/users')
       .then((response) => {
         setData(response.data.content)
         setError(null)

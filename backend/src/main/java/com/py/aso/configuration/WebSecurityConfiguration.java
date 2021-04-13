@@ -52,9 +52,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
 
 		http.addFilter(new AuthenticationFilter(authenticationManager(), getApplicationContext())) //
 				.addFilter(new AuthorizationFilter(authenticationManager(), getApplicationContext())) //
-				.csrf().disable() //
-				.exceptionHandling() //
+				.csrf().disable().exceptionHandling() //
 				.and() //
+				.cors()//
+				.and()//
 				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
 				.and() //
 				.authorizeRequests().antMatchers("/login").permitAll()//

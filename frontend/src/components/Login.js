@@ -1,26 +1,51 @@
-import React from 'react'
-
+import React, { useState, useContext } from 'react'
+import userContext from '../context/userContext'
+import useLogin from '../api/user/useLogin'
+import M from 'materialize-css'
 const Login = () => {
+  const [password, setPassword] = useState('')
+  const [usercode, setUsercode] = useState('')
+  const { execute: loginExecute } = useLogin()
+  const { setUserData } = useContext(userContext)
+
+  const submit = (e) => {
+    loginExecute({ password, usercode })
+      .then((res) => {
+        localStorage.setItem('token', res.token)
+        setUserData({
+          token: res.token,
+          user: {
+            displayName: null,
+            id: null,
+            roles: res.data.user.authorities
+          }
+        })
+      })
+      .catch((err) => {
+        M.toast({ html: err.response.data.message })
+      })
+    e.preventDefault()
+  }
+
   return (
     <div className="container">
       <div className="row">
         <div className="col m6 offset-m3">
           <h2 className="center-align">Login</h2>
           <div className="row">
-            {/** error && (
-              <ErrorNotice
-                message={error}
-                clearError={() => setError(undefined)}
-              />
-            ) */}
-            <form>
+            <form onSubmit={submit}>
               <div className="row">
                 <div className="input-field col s12">
                   <label>
                     <i className="material-icons">perm_contact_calendar</i>
                     Código:{' '}
                   </label>
-                  <input type="text" id="codigo" />
+                  <input
+                  type="text"
+                  id="codigo"
+                  value={usercode}
+                  onChange={(e) => { setUsercode(e.target.value) }}
+                  />
                 </div>
               </div>
               <div className="row">
@@ -28,7 +53,12 @@ const Login = () => {
                   <label>
                     <i className="material-icons">security</i>Contraseña:{' '}
                   </label>
-                  <input type="password" id="password" />
+                  <input
+                  type="password"
+                  id="password"
+                  value={password}
+                  onChange={(e) => { setPassword(e.target.value) }}
+                  />
                 </div>
               </div>
 

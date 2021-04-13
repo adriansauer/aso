@@ -18,6 +18,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -56,10 +57,14 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 				log.warn("Problemas al extraer el codigo de usuario o la contraseña");
 			}
 		}
+		try {
+			final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+					usercode.trim(), password);
+			return authManager.authenticate(authToken);
+		} catch (Exception ex) {
+			throw new UsernameNotFoundException("Error al crear autenticarse");
+		}
 
-		final UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(usercode.trim(),
-				password);
-		return authManager.authenticate(authToken);
 	}
 
 	@Override
@@ -69,18 +74,22 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 			final FilterChain chain, //
 			final Authentication authResult) throws IOException, ServletException {
 
-		final User user = (User) authResult.getPrincipal();
-		final String token = tokenProvider.generateToken(user);
-		response.addHeader("Authorization", "Bearer " + token);
+		try {
+			final User user = (User) authResult.getPrincipal();
+			final String token = tokenProvider.generateToken(user);
+			response.addHeader("Authorization", "Bearer " + token);
 
-		final Map<String, Object> body = new HashMap<>();
-		body.put("token", token);
-		body.put("user", user);
-		body.put("message", "Autenticación exitosa");
+			final Map<String, Object> body = new HashMap<>();
+			body.put("token", token);
+			body.put("user", user);
+			body.put("message", "Autenticación exitosa");
 
-		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
-		response.setStatus(200);
-		response.setContentType("application/json");
+			response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+			response.setStatus(200);
+			response.setContentType("application/json");
+		} catch (final Exception e) {
+			log.warn("No se pudo generar el token");
+		}
 	}
 
 	@Override

@@ -13,7 +13,7 @@ const PrivateRoute = ({ component: Component, authed, redirect, ...rest }) => {
             )
           : (
           <Redirect
-            to={{ pathname: redirect, state: { from: props.location } }}
+            to={{ pathname: redirect }}
           />
             )
       }
@@ -23,7 +23,6 @@ const PrivateRoute = ({ component: Component, authed, redirect, ...rest }) => {
 PrivateRoute.propTypes = {
   component: PropTypes.elementType,
   authed: PropTypes.bool,
-  redirect: PropTypes.string,
-  location
+  redirect: PropTypes.string
 }
 export default PrivateRoute
