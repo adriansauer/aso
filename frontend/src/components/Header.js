@@ -3,6 +3,7 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 import perfil from '../images/perfil.jpg'
 import './components.css'
 import userContext from '../context/userContext'
+import { Link } from 'react-router-dom'
 const Header = () => {
   const [instance, setInstance] = useState(null)
   const { isAutenticate, setIsAutenticate, userData } = useContext(userContext)
@@ -67,7 +68,7 @@ const Header = () => {
                 <li>
                   <button
                     style={{ backgroundColor: '#0C0019' }}
-                    className="btn btn-large waves-effect waves-light"
+                    className="btn btn-large waves-light"
                     onClick={handleToggle}
                   >
                     <i className="material-icons">dehaze</i>
@@ -91,10 +92,14 @@ const Header = () => {
           </li>
           {/** Link de brigadas */}
           <li>
-            <a href="#!" className="white-text">
+            <Link
+              to="/brigada"
+              className="link"
+              onClick={() => instance.close()}
+            >
               <i className="medium material-icons white-text">group</i>
-              Brigadas
-            </a>
+              <span style={{ color: 'white' }}> Brigadas</span>
+            </Link>
           </li>
           {/** Link de configuraciones */}
           <li>

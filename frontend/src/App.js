@@ -14,7 +14,7 @@ import UserContext from './context/userContext'
 import Home from './components/Home'
 import Login from './components/Login'
 import Header from './components/Header'
-
+import BrigadaPerfil from './components/BrigadaPerfil'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
   const { execute: checkLoggedIn } = useCheckLoggedIn()
@@ -23,10 +23,10 @@ const App = () => {
     roles: null
 
   })
-  const verifyAut = () => {
+  const verifyAut = async () => {
     const token = localStorage.getItem('token')
     if (token !== null || token !== undefined) {
-      checkLoggedIn(setIsAutenticate, setUserData)
+      await checkLoggedIn(setIsAutenticate, setUserData)
     }
   }
 
@@ -42,15 +42,21 @@ const App = () => {
           <Switch>
           <PrivateRoute
               authed={!isAutenticate}
-              redirect="/"
+              redirect="/home"
               path="/login"
               component={Login}
             />
             <PrivateRoute
               authed={isAutenticate}
               redirect="/login"
-              path="/"
+              path="/home"
               component={Home}
+            />
+            <PrivateRoute
+              authed={isAutenticate}
+              redirect="/login"
+              path="/brigada"
+              component={BrigadaPerfil}
             />
           </Switch>
         </>
