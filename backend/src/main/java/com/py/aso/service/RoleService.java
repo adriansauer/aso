@@ -15,7 +15,7 @@ import com.py.aso.repository.RoleRepository;
 import com.py.aso.service.mapper.RoleMapper;
 
 @Service
-public class RoleService implements BaseService<RoleDTO, RoleDTO, RoleCreateDTO> {
+public class RoleService implements BaseService<RoleDTO, RoleDTO, RoleCreateDTO, RoleCreateDTO> {
 
 	@Autowired
 	private RoleRepository roleRepository;

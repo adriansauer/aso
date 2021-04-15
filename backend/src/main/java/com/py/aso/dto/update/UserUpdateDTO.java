@@ -1,9 +1,8 @@
-package com.py.aso.dto.create;
+package com.py.aso.dto.update;
 
 import java.util.List;
 
 import javax.validation.constraints.Email;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
@@ -15,7 +14,7 @@ import lombok.Data;
 
 @Data
 @ApiModel(description = "Objeto que representa a los usuarios del sistema")
-public class UserCreateDTO {
+public class UserUpdateDTO {
 
 	@NotBlank(message = "El nombre del usuario es requerido")
 	@ApiModelProperty(notes = "name", example = "Juan", required = true)
@@ -34,15 +33,6 @@ public class UserCreateDTO {
 	@Email(message = "El correo electronico debe ser valido")
 	@ApiModelProperty(notes = "email", example = "user@gmail.com", required = true)
 	private String email;
-
-	@NotBlank(message = "La contraseña es requerida")
-	@Min(value = 8, message = "La contraseña debe contener 8 caracteres como minimo")
-	@ApiModelProperty(notes = "password", example = "pass1234-ABC_xzy", required = true)
-	private String password;
-
-	@NotBlank(message = "Repetir la contraseña es requerido")
-	@ApiModelProperty(notes = "repeatPassword", example = "12345678", required = true)
-	private String repeatPassword;
 
 	@ApiModelProperty(notes = "roles", example = "pass1234-ABC_xzy", required = true)
 	private List<RoleDTO> roles;

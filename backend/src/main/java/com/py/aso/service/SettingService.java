@@ -15,7 +15,7 @@ import com.py.aso.repository.SettingRepository;
 import com.py.aso.service.mapper.SettingMapper;
 
 @Service
-public class SettingService implements BaseService<SettingDTO, SettingDTO, SettingCreateDTO> {
+public class SettingService implements BaseService<SettingDTO, SettingDTO, SettingCreateDTO, SettingCreateDTO> {
 
 	@Autowired
 	private SettingMapper settingMapper;
