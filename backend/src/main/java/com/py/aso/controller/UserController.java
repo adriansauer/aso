@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.py.aso.dto.PasswordDTO;
 import com.py.aso.dto.UserDTO;
 import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.UserDetailDTO;
+import com.py.aso.dto.update.UserUpdateDTO;
 import com.py.aso.service.UserService;
 
 import io.swagger.annotations.Api;
@@ -27,14 +29,14 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Controlador de los usuarios activos")
 @RequestMapping("/api")
-public class UserController implements BaseController<UserDTO, UserDetailDTO, UserCreateDTO> {
+public class UserController implements BaseController<UserDTO, UserDetailDTO, UserCreateDTO, UserUpdateDTO> {
 
 	@Autowired
 	private UserService userService;
 
 	@Override
 	@GetMapping("/users")
-	@ApiOperation(value = "Obtener todos los usuarios activos, permite paginacion")
+	@ApiOperation(value = "Obtener todos los usuarios activos, permite paginación")
 	public Page<UserDTO> index(final Pageable pageable) {
 		return this.userService.findAll(pageable);
 	}
@@ -50,23 +52,23 @@ public class UserController implements BaseController<UserDTO, UserDetailDTO, Us
 	@PostMapping("/users")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_COMMANDANT')")
 	@ApiOperation(value = "Crear un nuevo usuario")
-	public UserDetailDTO create(@Validated @RequestBody final UserCreateDTO dto) throws Exception {
-		return this.userService.save(dto);
+	public UserDetailDTO create(@Validated @RequestBody final UserCreateDTO userCreateDTO) throws Exception {
+		return this.userService.save(userCreateDTO);
 	}
 
 	@Override
 	@PutMapping("/users/{id}")
 	@ApiOperation(value = "Actualizar un usuario activo")
-	public UserDetailDTO update(@PathVariable final long id, @Validated @RequestBody final UserCreateDTO dto)
+	public UserDetailDTO update(@PathVariable final long id, @Validated @RequestBody final UserUpdateDTO userUpdateDTO)
 			throws Exception {
-		return this.userService.update(id, dto);
+		return this.userService.update(id, userUpdateDTO);
 	}
 
 	@PutMapping("/users/pass/{id}")
 	@ApiOperation(value = "Actualizar la contraseña de un usuario activo")
-	public UserDetailDTO updatePass(@PathVariable final long id, @Validated @RequestBody final UserCreateDTO dto)
+	public UserDetailDTO updatePass(@PathVariable final long id, @Validated @RequestBody final PasswordDTO passwordDTO)
 			throws Exception {
-		return this.userService.updatePass(id, dto);
+		return this.userService.updatePass(id, passwordDTO);
 	}
 
 	@Override

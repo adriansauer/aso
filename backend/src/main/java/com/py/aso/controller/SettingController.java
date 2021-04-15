@@ -25,7 +25,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Controlador de configuraciones")
 @RequestMapping("/api")
-public class SettingController implements BaseController<SettingDTO, SettingDTO, SettingCreateDTO> {
+public class SettingController implements BaseController<SettingDTO, SettingDTO, SettingCreateDTO, SettingCreateDTO> {
 
 	@Autowired
 	private SettingService settingService;
@@ -53,23 +53,23 @@ public class SettingController implements BaseController<SettingDTO, SettingDTO,
 	@Override
 	@PostMapping("/settings")
 	@ApiOperation(value = "Crear una nueva configuracion")
-	public SettingDTO create(@Validated @RequestBody final SettingCreateDTO dto) throws Exception {
-		return settingService.save(dto);
+	public SettingDTO create(@Validated @RequestBody final SettingCreateDTO settingCreateDTO) throws Exception {
+		return settingService.save(settingCreateDTO);
 	}
 
 	@Override
 	@PutMapping("/settings/{id}")
 	@ApiOperation(value = "Actualizar una configuracion por el id")
-	public SettingDTO update(@PathVariable final long id, @Validated @RequestBody final SettingCreateDTO dto)
-			throws Exception {
-		return settingService.update(id, dto);
+	public SettingDTO update(@PathVariable final long id,
+			@Validated @RequestBody final SettingCreateDTO settingCreateDTO) throws Exception {
+		return settingService.update(id, settingCreateDTO);
 	}
 
 	@PutMapping("/settings/key/{key}")
 	@ApiOperation(value = "Actualizar una configuracion por el key")
-	public SettingDTO updateByKey(@PathVariable final String key, @Validated @RequestBody final SettingCreateDTO dto)
-			throws Exception {
-		return settingService.updateByKey(key, dto);
+	public SettingDTO updateByKey(@PathVariable final String key,
+			@Validated @RequestBody final SettingCreateDTO settingCreateDTO) throws Exception {
+		return settingService.updateByKey(key, settingCreateDTO);
 	}
 
 	@Override

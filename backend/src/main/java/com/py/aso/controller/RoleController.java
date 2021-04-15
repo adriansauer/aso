@@ -26,7 +26,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Controlador de roles")
 @RequestMapping("/api")
-public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCreateDTO> {
+public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCreateDTO, RoleCreateDTO> {
 
 	@Autowired
 	private RoleService roleService;
@@ -49,17 +49,17 @@ public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCrea
 	@PostMapping("/roles")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Crear un nuevo rol")
-	public RoleDTO create(@Validated @RequestBody final RoleCreateDTO dto) throws Exception {
-		return this.roleService.save(dto);
+	public RoleDTO create(@Validated @RequestBody final RoleCreateDTO roleCreateDTO) throws Exception {
+		return this.roleService.save(roleCreateDTO);
 	}
 
 	@Override
 	@PutMapping("/roles/{id}")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Actualizar un rol por el id")
-	public RoleDTO update(@PathVariable final long id, @Validated @RequestBody final RoleCreateDTO dto)
+	public RoleDTO update(@PathVariable final long id, @Validated @RequestBody final RoleCreateDTO roleCreateDTO)
 			throws Exception {
-		return this.roleService.update(id, dto);
+		return this.roleService.update(id, roleCreateDTO);
 	}
 
 	@Override
