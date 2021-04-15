@@ -1,31 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import M from 'materialize-css'
 import useCreateUser from '../api/user/useCreateUser'
-import useGetRoles from '../api/roles/useGetRoles'
+
 const CreateUserForm = (props) => {
-  // axios
   const { execute: createUserExecute } = useCreateUser()
-  const { execute: getRolesExecute } = useGetRoles()
-  const [roles, setRoles] = useState(null)
   const [name, setName] = useState('')
   const [lastname, setLastname] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [usercode, setUsercode] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  useEffect(() => {
-    fetchRoles()
-  }, [])
+
   const createUser = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
       M.toast({ html: 'Las contraseñas no coinciden' })
-    } else if (roles.filter(role => role.selected).length === 0) {
-      M.toast({ html: 'Seleccione al menos un rol' })
     } else {
       createUserExecute({
-        roles: roles.filter(role => role.selected),
+        roles: [{ authority: 'ROLE_USER' }],
         name,
         lastname,
         email,
@@ -38,74 +31,12 @@ const CreateUserForm = (props) => {
       })
     }
   }
-  const fetchRoles = () => {
-    getRolesExecute()
-      .then((res) => {
-        setRoles(
-          res.data.content.map((role) => {
-            return {
-              id: role.id,
-              authority: role.authority,
-              selected: false
-            }
-          })
-        )
-        M.AutoInit()
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-  }
-  const updateSelectedRoles = (e) => {
-    const array = Array.from(e.target.selectedOptions, option => Number.parseInt(option.value))
-    setRoles(
-      roles.map((role) => {
-        if (array.includes(role.id)) {
-          return {
-            id: role.id,
-            authority: role.authority,
-            selected: true
-          }
-        } else {
-          return {
-            id: role.id,
-            authority: role.authority,
-            selected: false
-          }
-        }
-      })
-    )
-  }
+
   return (
     <div id="modal1" className="modal modal-fixed-footer">
       <form onSubmit={createUser}>
         <div className="modal-content">
           <h4>Agregue un miembro a la brigada</h4>
-          {/** Agregar los roles */}
-          <div className="row">
-            <div className="input-field col s12">
-              {roles
-                ? (
-                <select
-                  multiple
-                  onChange={(e) => {
-                    updateSelectedRoles(e)
-                  }}
-                >
-                  {roles.map((role) => (
-                    <option
-                      key={role.id}
-                      value={role.id}
-                    >
-                      {role.authority}
-                    </option>
-                  ))}
-                </select>
-                  )
-                : null}
-              <label>Roles del usuario</label>
-            </div>
-          </div>
 
           {/** Email y Nombre del usaurio */}
           <div className="row">

@@ -59,6 +59,7 @@ const Header = () => {
                       width={60}
                       height={60}
                       src={perfil}
+                      alt=''
                     />
                   </li>
                 </ul>
@@ -94,7 +95,6 @@ const Header = () => {
           <li>
             <Link
               to="/brigada"
-              className="link"
               onClick={() => instance.close()}
             >
               <i className="medium material-icons white-text">group</i>
