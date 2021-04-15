@@ -53,20 +53,13 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter imple
 		http.addFilter(new AuthenticationFilter(authenticationManager(), getApplicationContext())) //
 				.addFilter(new AuthorizationFilter(authenticationManager(), getApplicationContext())) //
 				.csrf().disable().exceptionHandling() //
-				.and() //
-				.cors()//
-				.and()//
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
-				.and() //
-				.authorizeRequests().antMatchers("/login").permitAll()//
-				.and()//
-				.authorizeRequests().antMatchers("/h2-console/**").permitAll()//
-				.and()//
-				.headers().frameOptions().disable()//
-				.and()//
-				.authorizeRequests().antMatchers("/api/**").authenticated()//
-				.and()//
-				.authorizeRequests().antMatchers("/istokenvalid").authenticated();
+				.and().cors()//
+				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //
+				.and().authorizeRequests().antMatchers("/h2-console/**").permitAll()//
+				.and().headers().frameOptions().disable()//
+				.and().authorizeRequests().antMatchers("/login").permitAll()//
+				.and().authorizeRequests().antMatchers("/api/**").authenticated()//
+				.and().authorizeRequests().antMatchers("/istokenvalid").authenticated();
 	}
 
 	@Override
