@@ -86,10 +86,13 @@ const Header = () => {
         <ul id="slide-out" className="sidenav ulSidenav">
           {/** Link del perfil del usuario */}
           <li>
-            <a href="#!" className="white-text">
-              <i className="medium material-icons white-text">person</i>
-              Mi perfil
-            </a>
+            <Link
+              to="/user"
+              onClick={() => instance.close()}
+            >
+              <i className="medium material-icons white-text">group</i>
+              <span style={{ color: 'white' }}> Mi perfil</span>
+            </Link>
           </li>
           {/** Link de brigadas */}
           <li>
