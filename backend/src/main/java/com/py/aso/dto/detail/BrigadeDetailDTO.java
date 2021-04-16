@@ -62,9 +62,17 @@ public class BrigadeDetailDTO {
 	@ApiModelProperty(notes = "departamentId", example = "5", required = true)
 	private long departamentId;
 
+	@NotBlank(message = "El departamento de la brigada es requerida")
+	@ApiModelProperty(notes = "departament", example = "Itapúa", required = true)
+	private String departament;
+
 	@Positive(message = "El id de la ciudad debe ser mayor a 0")
 	@ApiModelProperty(notes = "cityId", example = "5", required = true)
 	private long cityId;
+
+	@NotBlank(message = "La ciudad de la brigada es requerida")
+	@ApiModelProperty(notes = "city", example = "Encarnación", required = true)
+	private String city;
 
 	@Positive(message = "El id del usuario debe ser mayor a 0")
 	@ApiModelProperty(notes = "userId", example = "5", required = true)

@@ -25,8 +25,8 @@ public class BrigadeCreateDTO {
 	@ApiModelProperty(notes = "usercode", example = "ABCDE", required = true)
 	private String usercode;
 
-	@NotBlank(message = "El departamento de la brigada es requerido")
-	@ApiModelProperty(notes = "departament", example = "Itapúa", required = true)
+	@NotBlank(message = "La direccion de la brigada es requerida")
+	@ApiModelProperty(notes = "address", example = "Av. Jose L. Oviedo", required = true)
 	private String address;
 
 	@ApiModelProperty(notes = "phone", example = "(0985)586 222")
