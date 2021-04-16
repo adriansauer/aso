@@ -41,9 +41,6 @@ public class BrigadeDTO {
 	@ApiModelProperty(notes = "numberMember", example = "5", required = true)
 	private int numberMember;
 
-	@ApiModelProperty(notes = "description", example = "El CVB es el mejor de la zona")
-	private String description;
-
 	@ApiModelProperty(notes = "imageId", example = "1")
 	private long imageId;
 
