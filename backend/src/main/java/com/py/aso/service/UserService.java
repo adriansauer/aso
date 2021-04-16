@@ -66,7 +66,7 @@ public class UserService implements BaseService<UserDTO, UserDetailDTO, UserCrea
 		if (!dto.getPassword().equals(dto.getRepeatPassword())) {
 			throw new InvalidPasswordException("La contraseña no son iguales");
 		}
-		UserEntity entity = this.userMapper.toEntity(dto);
+		UserEntity entity = this.userMapper.toCreateEntity(dto);
 		entity.setEnabled(true);
 		entity.setPassword(this.passwordEncode.encode(dto.getPassword()));
 		entity.setCreatedAt(new Date());
