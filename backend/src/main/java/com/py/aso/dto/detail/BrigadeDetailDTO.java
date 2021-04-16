@@ -45,6 +45,10 @@ public class BrigadeDetailDTO {
 	@ApiModelProperty(notes = "numberMember", example = "5", required = true)
 	private int numberMember;
 
+	@NotBlank(message = "La fecha de creación de la brigada es requerida")
+	@ApiModelProperty(notes = "creation", example = "2021-04-05T18:51:28.478+00:00", required = true)
+	private Date creation;
+
 	@ApiModelProperty(notes = "createdAt", example = "2021-04-05T18:51:28.478+00:00")
 	private Date createdAt;
 

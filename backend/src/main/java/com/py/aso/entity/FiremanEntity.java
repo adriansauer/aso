@@ -1,7 +1,6 @@
 package com.py.aso.entity;
 
 import java.util.Date;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -19,8 +17,8 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "brigade_details")
-public class BrigadeEntity {
+@Table(name = "user_details")
+public class FiremanEntity {
 
 	@Id
 	@Column
@@ -33,18 +31,25 @@ public class BrigadeEntity {
 	@Column(name = "description")
 	private String description;
 
-	@Column(name = "creation")
-	private Date creation;
+	@Column(name = "birthday")
+	private Date birthday;
 
-	@Column(name = "numberMembers")
-	private int numberMember;
+	@Column(name = "admission")
+	private Date admission;
 
 	@Column(name = "phone", length = 20)
 	private String phone;
 
+	@Column(name = "ci", length = 30)
+	private String ci;
+
 	@OneToOne
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "brigade_id")
+	private BrigadeEntity brigade;
 
 	@OneToOne
 	@JoinColumn(name = "image_id")
@@ -58,7 +63,8 @@ public class BrigadeEntity {
 	@JoinColumn(name = "city_id")
 	private CityEntity city;
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "brigade")
-	private Set<FiremanEntity> firemen;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "range_id")
+	private RankEntity rank;
 
 }

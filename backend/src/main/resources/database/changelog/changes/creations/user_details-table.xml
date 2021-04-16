@@ -18,8 +18,8 @@
 			</column>
 			<column name="brigade_id" type="INT">
 				<constraints nullable="false"
-					foreignKeyName="fkUserDetailUserBrigade"
-					referencedTableName="users" referencedColumnNames="id" />
+					foreignKeyName="fkUserDetailBrigade"
+					referencedTableName="brigade_details" referencedColumnNames="id" />
 			</column>
 			<column name="image_id" type="INT">
 				<constraints nullable="false"

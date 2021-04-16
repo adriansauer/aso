@@ -58,4 +58,7 @@ public class UserEntity {
 	@OneToOne(mappedBy = "user")
 	private BrigadeEntity brigade;
 
+	@OneToOne(mappedBy = "user")
+	private FiremanEntity fireman;
+
 }

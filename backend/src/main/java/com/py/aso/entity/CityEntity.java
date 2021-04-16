@@ -32,4 +32,7 @@ public class CityEntity {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
 	private Set<BrigadeEntity> brigades;
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "city")
+	private Set<FiremanEntity> firemen;
+
 }

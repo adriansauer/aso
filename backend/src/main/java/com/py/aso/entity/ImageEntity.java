@@ -31,4 +31,7 @@ public class ImageEntity {
 
 	@OneToOne(mappedBy = "image")
 	private BrigadeEntity brigade;
+
+	@OneToOne(mappedBy = "image")
+	private FiremanEntity fireman;
 }

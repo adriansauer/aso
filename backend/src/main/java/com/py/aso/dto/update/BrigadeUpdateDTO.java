@@ -1,5 +1,7 @@
 package com.py.aso.dto.update;
 
+import java.util.Date;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
@@ -28,6 +30,10 @@ public class BrigadeUpdateDTO {
 
 	@ApiModelProperty(notes = "phone", example = "(0985)586 222")
 	private String phone;
+
+	@NotBlank(message = "La fecha de creación de la brigada es requerida")
+	@ApiModelProperty(notes = "creation", example = "2021-04-05T18:51:28.478+00:00", required = true)
+	private Date creation;
 
 	@Email(message = "El correo electronico debe ser valido")
 	@ApiModelProperty(notes = "email", example = "brigada@gmail.com")

@@ -1,5 +1,7 @@
 package com.py.aso.dto;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
@@ -30,6 +32,10 @@ public class BrigadeDTO {
 	@NotBlank(message = "La ciudad de la brigada es requerida")
 	@ApiModelProperty(notes = "city", example = "Encarnación", required = true)
 	private String city;
+
+	@NotBlank(message = "La fecha de creación de la brigada es requerida")
+	@ApiModelProperty(notes = "creation", example = "2021-04-05T18:51:28.478+00:00", required = true)
+	private Date creation;
 
 	@PositiveOrZero(message = "La cantidad de miembros debe ser igual o mayor a 0")
 	@ApiModelProperty(notes = "numberMember", example = "5", required = true)
