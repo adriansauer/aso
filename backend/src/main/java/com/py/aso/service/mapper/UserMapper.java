@@ -10,26 +10,15 @@ import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.UserDTO;
 import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.UserDetailDTO;
+import com.py.aso.dto.update.UserUpdateDTO;
 import com.py.aso.entity.RoleEntity;
 import com.py.aso.entity.UserEntity;
 
 @Component
-public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO, UserCreateDTO> {
+public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO, UserCreateDTO, UserUpdateDTO> {
 
 	@Autowired
 	private RoleMapper roleMapper;
-
-	@Override
-	public UserEntity toEntity(UserCreateDTO dto) {
-		UserEntity entity = new UserEntity();
-		entity.setName(dto.getName());
-		entity.setLastname(dto.getLastname());
-		entity.setEmail(dto.getEmail());
-		entity.setUsercode(dto.getUsercode());
-		List<RoleEntity> roles = dto.getRoles().stream().map(this.roleMapper::toEntity).collect(Collectors.toList());
-		entity.setRoles(roles);
-		return entity;
-	}
 
 	@Override
 	public UserDTO toDTO(UserEntity entity) {
@@ -55,6 +44,40 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 				.stream().map(this.roleMapper::toDTO).collect(Collectors.toList());
 		dto.setRoles(roles);
 		return dto;
+	}
+
+	@Override
+	public UserEntity toEntity(UserDTO dto) {
+		UserEntity entity = new UserEntity();
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setLastname(dto.getLastname());
+		entity.setUsercode(dto.getUsercode());
+		return entity;
+	}
+
+	@Override
+	public UserEntity toCreateEntity(UserCreateDTO dto) {
+		UserEntity entity = new UserEntity();
+		entity.setName(dto.getName());
+		entity.setLastname(dto.getLastname());
+		entity.setEmail(dto.getEmail());
+		entity.setUsercode(dto.getUsercode());
+		List<RoleEntity> roles = dto.getRoles().stream().map(this.roleMapper::toEntity).collect(Collectors.toList());
+		entity.setRoles(roles);
+		return entity;
+	}
+
+	@Override
+	public UserEntity toUpdateEntity(UserUpdateDTO dto) {
+		UserEntity entity = new UserEntity();
+		entity.setName(dto.getName());
+		entity.setLastname(dto.getLastname());
+		entity.setEmail(dto.getEmail());
+		entity.setUsercode(dto.getUsercode());
+		List<RoleEntity> roles = dto.getRoles().stream().map(this.roleMapper::toEntity).collect(Collectors.toList());
+		entity.setRoles(roles);
+		return entity;
 	}
 
 }

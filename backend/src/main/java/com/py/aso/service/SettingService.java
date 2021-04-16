@@ -9,13 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.py.aso.dto.SettingDTO;
 import com.py.aso.dto.create.SettingCreateDTO;
+import com.py.aso.dto.detail.SettingDetailDTO;
+import com.py.aso.dto.update.SettingUpdateDTO;
 import com.py.aso.entity.SettingEntity;
 import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.SettingRepository;
 import com.py.aso.service.mapper.SettingMapper;
 
 @Service
-public class SettingService implements BaseService<SettingDTO, SettingDTO, SettingCreateDTO, SettingCreateDTO> {
+public class SettingService implements BaseService<SettingDTO, SettingDetailDTO, SettingCreateDTO, SettingUpdateDTO> {
 
 	@Autowired
 	private SettingMapper settingMapper;
@@ -32,43 +34,43 @@ public class SettingService implements BaseService<SettingDTO, SettingDTO, Setti
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public SettingDTO findById(final long id) throws Exception {
+	public SettingDetailDTO findById(final long id) throws Exception {
 		return this.settingRepository.findById(id)//
-				.map(this.settingMapper::toDTO)//
+				.map(this.settingMapper::toDetailDTO)//
 				.orElseThrow(() -> new ResourceNotFoundException("Setting", "id", id));
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public SettingDTO findByKey(final String key) throws Exception {
+	public SettingDetailDTO findByKey(final String key) throws Exception {
 		return this.settingRepository.findByKey(key)//
-				.map(this.settingMapper::toDTO)//
+				.map(this.settingMapper::toDetailDTO)//
 				.orElseThrow(() -> new ResourceNotFoundException("Setting", "key", key));
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public SettingDTO save(final SettingCreateDTO dto) throws Exception {
-		final SettingEntity entity = this.settingMapper.toEntity(dto);
-		return this.settingMapper.toDTO(this.settingRepository.save(entity));
+	public SettingDetailDTO save(final SettingCreateDTO dto) throws Exception {
+		final SettingEntity entity = this.settingMapper.toCreateEntity(dto);
+		return this.settingMapper.toDetailDTO(this.settingRepository.save(entity));
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public SettingDTO update(final long id, final SettingCreateDTO dto) throws Exception {
+	public SettingDetailDTO update(final long id, final SettingUpdateDTO dto) throws Exception {
 		if (!this.settingRepository.existsById(id)) {
 			throw new ResourceNotFoundException("Setting", "id", id);
 		}
-		SettingEntity entity = this.settingMapper.toEntity(dto);
+		SettingEntity entity = this.settingMapper.toUpdateEntity(dto);
 		entity.setId(id);
-		return this.settingMapper.toDTO(this.settingRepository.save(entity));
+		return this.settingMapper.toDetailDTO(this.settingRepository.save(entity));
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public SettingDTO updateByKey(final String key, final SettingCreateDTO dto) throws Exception {
+	public SettingDetailDTO updateByKey(final String key, final SettingUpdateDTO dto) throws Exception {
 		SettingEntity entity = this.settingRepository.findByKey(key)//
 				.orElseThrow(() -> new ResourceNotFoundException("Setting", "key", key));
 		entity.setValue(dto.getValue());
-		return this.settingMapper.toDTO(this.settingRepository.save(entity));
+		return this.settingMapper.toDetailDTO(this.settingRepository.save(entity));
 	}
 
 	@Override

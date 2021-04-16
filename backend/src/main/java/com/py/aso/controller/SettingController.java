@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.py.aso.dto.SettingDTO;
 import com.py.aso.dto.create.SettingCreateDTO;
+import com.py.aso.dto.detail.SettingDetailDTO;
+import com.py.aso.dto.update.SettingUpdateDTO;
 import com.py.aso.service.SettingService;
 
 import io.swagger.annotations.Api;
@@ -25,7 +27,8 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Controlador de configuraciones")
 @RequestMapping("/api")
-public class SettingController implements BaseController<SettingDTO, SettingDTO, SettingCreateDTO, SettingCreateDTO> {
+public class SettingController
+		implements BaseController<SettingDTO, SettingDetailDTO, SettingCreateDTO, SettingUpdateDTO> {
 
 	@Autowired
 	private SettingService settingService;
@@ -40,36 +43,36 @@ public class SettingController implements BaseController<SettingDTO, SettingDTO,
 	@Override
 	@GetMapping("/settings/{id}")
 	@ApiOperation(value = "Obtener una configuracion por el id")
-	public SettingDTO find(@PathVariable final long id) throws Exception {
+	public SettingDetailDTO find(@PathVariable final long id) throws Exception {
 		return settingService.findById(id);
 	}
 
 	@GetMapping("/settings/key/{key}")
 	@ApiOperation(value = "Obtener una configuracion por el key")
-	public SettingDTO find(@PathVariable final String key) throws Exception {
+	public SettingDetailDTO find(@PathVariable final String key) throws Exception {
 		return settingService.findByKey(key);
 	}
 
 	@Override
 	@PostMapping("/settings")
 	@ApiOperation(value = "Crear una nueva configuracion")
-	public SettingDTO create(@Validated @RequestBody final SettingCreateDTO settingCreateDTO) throws Exception {
+	public SettingDetailDTO create(@Validated @RequestBody final SettingCreateDTO settingCreateDTO) throws Exception {
 		return settingService.save(settingCreateDTO);
 	}
 
 	@Override
 	@PutMapping("/settings/{id}")
 	@ApiOperation(value = "Actualizar una configuracion por el id")
-	public SettingDTO update(@PathVariable final long id,
-			@Validated @RequestBody final SettingCreateDTO settingCreateDTO) throws Exception {
-		return settingService.update(id, settingCreateDTO);
+	public SettingDetailDTO update(@PathVariable final long id,
+			@Validated @RequestBody final SettingUpdateDTO settingUpdateDTO) throws Exception {
+		return settingService.update(id, settingUpdateDTO);
 	}
 
 	@PutMapping("/settings/key/{key}")
 	@ApiOperation(value = "Actualizar una configuracion por el key")
-	public SettingDTO updateByKey(@PathVariable final String key,
-			@Validated @RequestBody final SettingCreateDTO settingCreateDTO) throws Exception {
-		return settingService.updateByKey(key, settingCreateDTO);
+	public SettingDetailDTO updateByKey(@PathVariable final String key,
+			@Validated @RequestBody final SettingUpdateDTO settingUpdateDTO) throws Exception {
+		return settingService.updateByKey(key, settingUpdateDTO);
 	}
 
 	@Override
