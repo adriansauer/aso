@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <>
       {/** Vista del navbar */}
-      <nav>
+      <nav style={{ position: 'fixed', zIndex: 9999, left: 0, right: 0, top: 0 }}>
         <div className="nav-wrapper" style={{ backgroundColor: '#0C0019' }}>
           {isAutenticate
             ? (

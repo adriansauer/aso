@@ -10,3 +10,8 @@
     top: auto;
     color: white;
 }
+.brigada_button:hover{
+    color: #077BF7;
+background-color: #077BF7;
+
+}
