@@ -30,9 +30,8 @@ public class UserCreateDTO {
 	@ApiModelProperty(notes = "usercode", example = "ABCDE-1234", required = true)
 	private String usercode;
 
-	@NotBlank(message = "El correo electronico es requerido")
 	@Email(message = "El correo electronico debe ser valido")
-	@ApiModelProperty(notes = "email", example = "user@gmail.com", required = true)
+	@ApiModelProperty(notes = "email", example = "user@gmail.com")
 	private String email;
 
 	@NotBlank(message = "La contraseña es requerida")
