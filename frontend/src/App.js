@@ -14,7 +14,7 @@ import UserContext from './context/userContext'
 import Home from './components/Home'
 import Login from './components/Login'
 import Header from './components/Header'
-import BigradaList from './components/BigradaList'
+import BrigadaPerfil from './components/BrigadaPerfil'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
   const { execute: checkLoggedIn } = useCheckLoggedIn()
@@ -50,7 +50,7 @@ const App = () => {
               authed={isAutenticate}
               redirect="/login"
               path="/brigada"
-              component={BigradaList}
+              component={BrigadaPerfil}
             />
             <PrivateRoute
               authed={isAutenticate}
