@@ -1,11 +1,14 @@
 package com.py.aso.service.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.py.aso.dto.CityDTO;
 import com.py.aso.dto.create.CityCreateDTO;
 import com.py.aso.dto.detail.CityDetailDTO;
 import com.py.aso.dto.update.CityUpdateDTO;
 import com.py.aso.entity.CityEntity;
 
+@Component
 public class CityMapper implements BaseMapper<CityEntity, CityDTO, CityDetailDTO, CityCreateDTO, CityUpdateDTO> {
 
 	@Override
