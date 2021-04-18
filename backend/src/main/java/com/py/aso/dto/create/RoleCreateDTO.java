@@ -7,11 +7,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Objeto que representa a los roles que se crearan o actualizaran en el sistema")
+@ApiModel(description = "Objeto que representa a los roles, se utiliza para crear")
 public class RoleCreateDTO {
 
 	@NotBlank(message = "La autoridad es requerida")
-	@ApiModelProperty(notes = "authority", example = "ROLE_ADMIN", required = true)
+	@ApiModelProperty(notes = "Titulo del Rol", example = "ROLE_ADMIN", required = true)
 	private String authority;
 
 }

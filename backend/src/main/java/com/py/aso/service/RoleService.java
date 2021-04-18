@@ -50,10 +50,8 @@ public class RoleService implements BaseService<RoleDTO, RoleDetailDTO, RoleCrea
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public RoleDetailDTO update(final long id, final RoleUpdateDTO dto) throws Exception {
-		if (!this.roleRepository.existsById(id)) {
-			throw new ResourceNotFoundException("Role", "id", id);
-		}
-		RoleEntity entity = this.roleRepository.findById(id).get();
+		RoleEntity entity = this.roleRepository.findById(id)//
+				.orElseThrow(() -> new ResourceNotFoundException("Role", "id", id));
 		entity.setAuthority(dto.getAuthority());
 		return this.roleMapper.toDetailDTO(this.roleRepository.save(entity));
 	}

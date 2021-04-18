@@ -1,11 +1,14 @@
 package com.py.aso.service.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.py.aso.dto.DepartamentDTO;
 import com.py.aso.dto.create.DepartamentCreateDTO;
 import com.py.aso.dto.detail.DepartamentDetailDTO;
 import com.py.aso.dto.update.DepartamentUpdateDTO;
 import com.py.aso.entity.DepartamentEntity;
 
+@Component
 public class DepartamentMapper implements
 		BaseMapper<DepartamentEntity, DepartamentDTO, DepartamentDetailDTO, DepartamentCreateDTO, DepartamentUpdateDTO> {
 

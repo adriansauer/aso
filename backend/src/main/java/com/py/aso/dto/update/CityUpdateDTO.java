@@ -7,11 +7,11 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Objeto que representa a una ciudad")
+@ApiModel(description = "Objeto que representa a una ciudad, utilizado para actualizar el objeto")
 public class CityUpdateDTO {
 
 	@NotBlank(message = "El nombre de la ciudad es requerida")
-	@ApiModelProperty(notes = "name", example = "Encarnación", required = true)
+	@ApiModelProperty(notes = "Nombre de la Ciudad", example = "Encarnación", required = true)
 	private String name;
 
 }

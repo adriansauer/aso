@@ -1,5 +1,7 @@
 package com.py.aso.service.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.py.aso.dto.RankDTO;
 import com.py.aso.dto.create.RankCreateDTO;
 import com.py.aso.dto.detail.RankDetailDTO;
@@ -7,6 +9,7 @@ import com.py.aso.dto.update.RankUpdateDTO;
 import com.py.aso.entity.ImageEntity;
 import com.py.aso.entity.RankEntity;
 
+@Component
 public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO, RankCreateDTO, RankUpdateDTO> {
 
 	@Override

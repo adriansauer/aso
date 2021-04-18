@@ -1,5 +1,7 @@
 package com.py.aso.service.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.py.aso.dto.FiremanDTO;
 import com.py.aso.dto.create.FiremanCreateDTO;
 import com.py.aso.dto.detail.FiremanDetailDTO;
@@ -10,6 +12,7 @@ import com.py.aso.entity.DepartamentEntity;
 import com.py.aso.entity.FiremanEntity;
 import com.py.aso.entity.RankEntity;
 
+@Component
 public class FiremanMapper
 		implements BaseMapper<FiremanEntity, FiremanDTO, FiremanDetailDTO, FiremanCreateDTO, FiremanUpdateDTO> {
 

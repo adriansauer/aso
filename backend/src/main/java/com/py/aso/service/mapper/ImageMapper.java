@@ -1,11 +1,14 @@
 package com.py.aso.service.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.py.aso.dto.ImageDTO;
 import com.py.aso.dto.create.ImageCreateDTO;
 import com.py.aso.dto.detail.ImageDetailDTO;
 import com.py.aso.dto.update.ImageUpdateDTO;
 import com.py.aso.entity.ImageEntity;
 
+@Component
 public class ImageMapper implements BaseMapper<ImageEntity, ImageDTO, ImageDetailDTO, ImageCreateDTO, ImageUpdateDTO> {
 
 	@Override

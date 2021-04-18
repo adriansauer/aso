@@ -1,49 +1,43 @@
 package com.py.aso.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Positive;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Objeto que representa a un bombero")
+@ApiModel(description = "Objeto que representa a un bombero, se utiliza para listar")
 public class FiremanDTO {
 
+	@Positive(message = "El id debe ser mayor a 0")
+	@ApiModelProperty(notes = "Numero identificador", example = "1", required = true)
 	private Long id;
 
-	@NotBlank(message = "El nombre de la brigada es requerida")
-	@ApiModelProperty(notes = "name", example = "CVB de Encarnación", required = true)
+	@ApiModelProperty(notes = "Nombre del bombero", example = "Juan")
 	private String name;
 
-	@Size(min = 0, max = 125, message = "El apellido puede contener como maximo 125 caracteres")
-	@ApiModelProperty(notes = "lastname", example = "Perez")
+	@ApiModelProperty(notes = "Apellido del Bombero", example = "Perez")
 	private String lastname;
 
-	@NotBlank(message = "El codigo de usuario es requerido")
-	@Size(min = 2, max = 50, message = "El codigo puede contener como maximo 50 caracteres")
-	@ApiModelProperty(notes = "usercode", example = "ABCDE", required = true)
+	@ApiModelProperty(notes = "Codigo del Bombero", example = "ASO-1234")
 	private String usercode;
 
-	@NotBlank(message = "La ciudad de la brigada es requerida")
-	@ApiModelProperty(notes = "city", example = "Encarnación", required = true)
+	@ApiModelProperty(notes = "Nombre de la ciudad de residencia", example = "Encarnación")
 	private String city;
 
-	@NotBlank(message = "El nombre del rango es requerido")
-	@ApiModelProperty(notes = "titleRank", example = "Comandante", required = true)
+	@ApiModelProperty(notes = "Nombre del rango del Bombero", example = "Comandante")
 	private String rankTitle;
 
-	@NotBlank(message = "El nombre de la brigada es requerida")
-	@ApiModelProperty(notes = "brigadeName", example = "CVB de Encarnación", required = true)
+	@ApiModelProperty(notes = "Nombre de la brigada a la que pertenece", example = "CVB de Encarnación")
 	private String brigadeName;
 
-	@ApiModelProperty(notes = "imageId", example = "1", required = true)
+	@ApiModelProperty(notes = "Id de la imagen del perfil", example = "1")
 	private long imageId;
 
-	@ApiModelProperty(notes = "brigadeId", example = "1", required = true)
+	@ApiModelProperty(notes = "Id de la brigada a la que pertenece", example = "1")
 	private long brigadeId;
 
-	@ApiModelProperty(notes = "rankId", example = "1", required = true)
+	@ApiModelProperty(notes = "Id del rango", example = "1")
 	private long rankId;
 }

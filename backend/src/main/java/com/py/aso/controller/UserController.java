@@ -50,7 +50,7 @@ public class UserController implements BaseController<UserDTO, UserDetailDTO, Us
 
 	@Override
 	@PostMapping("/users")
-	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_COMMANDANT')")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
 	@ApiOperation(value = "Crear un nuevo usuario")
 	public UserDetailDTO create(@Validated @RequestBody final UserCreateDTO userCreateDTO) throws Exception {
 		return this.userService.save(userCreateDTO);
@@ -73,7 +73,7 @@ public class UserController implements BaseController<UserDTO, UserDetailDTO, Us
 
 	@Override
 	@DeleteMapping("/users/{id}")
-	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_COMMANDANT')")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@ApiOperation(value = "Eliminar un usuario activo")
 	public void deleted(@PathVariable final long id) throws Exception {
