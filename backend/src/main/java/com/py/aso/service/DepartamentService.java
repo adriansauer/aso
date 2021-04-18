@@ -29,14 +29,14 @@ public class DepartamentService
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<DepartamentDTO> findAll(final Pageable pageable) {
-		return this.departamentRepository.findAll(pageable)//
+		return this.departamentRepository.findAllByDeleted(false, pageable)//
 				.map(this.departamentMapper::toDTO);
 	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public DepartamentDetailDTO findById(final long id) throws Exception {
-		return this.departamentRepository.findById(id)//
+		return this.departamentRepository.findByIdAndDeleted(id, false)//
 				.map(this.departamentMapper::toDetailDTO)//
 				.orElseThrow(() -> new ResourceNotFoundException("Departament", "id", id));
 	}
@@ -52,10 +52,8 @@ public class DepartamentService
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public DepartamentDetailDTO update(final long id, final DepartamentUpdateDTO dto) throws Exception {
-		if (!this.departamentRepository.existsById(id)) {
-			throw new ResourceNotFoundException("Departament", "id", id);
-		}
-		DepartamentEntity entity = this.departamentRepository.findById(id).get();
+		DepartamentEntity entity = this.departamentRepository.findByIdAndDeleted(id, false)//
+				.orElseThrow(() -> new ResourceNotFoundException("Departament", "id", id));
 		entity.setName(dto.getName());
 		return this.departamentMapper.toDetailDTO(this.departamentRepository.save(entity));
 	}
@@ -63,13 +61,12 @@ public class DepartamentService
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void delete(final long id) throws Exception {
-		if (!this.departamentRepository.existsById(id)) {
+		if (!this.departamentRepository.existsByIdAndDeleted(id, false)) {
 			throw new ResourceNotFoundException("Departament", "id", id);
 		}
 		DepartamentEntity entity = this.departamentRepository.findById(id).get();
 		entity.setDeleted(true);
 		this.departamentRepository.save(entity);
-
 	}
 
 }

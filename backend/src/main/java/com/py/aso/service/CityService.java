@@ -25,13 +25,13 @@ public class CityService implements BaseService<CityDTO, CityDetailDTO, CityCrea
 
 	@Override
 	public Page<CityDTO> findAll(final Pageable pageable) {
-		return this.cityRepository.findAll(pageable)//
+		return this.cityRepository.findAllByDeleted(false, pageable)//
 				.map(this.cityMapper::toDTO);
 	}
 
 	@Override
 	public CityDetailDTO findById(final long id) throws Exception {
-		return this.cityRepository.findById(id)//
+		return this.cityRepository.findByIdAndDeleted(id, false)//
 				.map(this.cityMapper::toDetailDTO)//
 				.orElseThrow(() -> new ResourceNotFoundException("City", "id", id));
 	}
@@ -45,23 +45,20 @@ public class CityService implements BaseService<CityDTO, CityDetailDTO, CityCrea
 
 	@Override
 	public CityDetailDTO update(final long id, final CityUpdateDTO dto) throws Exception {
-		if (!this.cityRepository.existsById(id)) {
-			throw new ResourceNotFoundException("City", "id", id);
-		}
-		CityEntity entity = this.cityRepository.findById(id).get();
+		CityEntity entity = this.cityRepository.findByIdAndDeleted(id, false)//
+				.orElseThrow(() -> new ResourceNotFoundException("City", "id", id));
 		entity.setName(dto.getName());
 		return this.cityMapper.toDetailDTO(this.cityRepository.save(entity));
 	}
 
 	@Override
 	public void delete(final long id) throws Exception {
-		if (!this.cityRepository.existsById(id)) {
+		if (!this.cityRepository.existsByIdAndDeleted(id, false)) {
 			throw new ResourceNotFoundException("City", "id", id);
 		}
 		CityEntity entity = this.cityRepository.findById(id).get();
 		entity.setDeleted(true);
 		this.cityRepository.save(entity);
-
 	}
 
 }

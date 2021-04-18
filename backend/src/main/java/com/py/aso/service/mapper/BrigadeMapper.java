@@ -1,11 +1,14 @@
 package com.py.aso.service.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.py.aso.dto.BrigadeDTO;
 import com.py.aso.dto.create.BrigadeCreateDTO;
 import com.py.aso.dto.detail.BrigadeDetailDTO;
 import com.py.aso.dto.update.BrigadeUpdateDTO;
 import com.py.aso.entity.BrigadeEntity;
 
+@Component
 public class BrigadeMapper
 		implements BaseMapper<BrigadeEntity, BrigadeDTO, BrigadeDetailDTO, BrigadeCreateDTO, BrigadeUpdateDTO> {
 

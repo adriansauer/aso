@@ -36,7 +36,7 @@ public class BrigadeEntity {
 	@Column(name = "creation")
 	private Date creation;
 
-	@Column(name = "numberMembers")
+	@Column(name = "number_members")
 	private int numberMember;
 
 	@Column(name = "phone", length = 20)

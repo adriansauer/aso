@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.py.aso.dto.RoleDTO;
@@ -34,8 +35,8 @@ public class UserUpdateDTO {
 	@ApiModelProperty(notes = "Email del Usuario", example = "user@gmail.com", required = true)
 	private String email;
 
-	@NotBlank(message = "La lista de roles es requerido")
-	@ApiModelProperty(notes = "Lista de roles del Usuario", example = "[{id:1}]", required = true)
+	@NotNull(message = "La lista de roles es requerido")
+	@ApiModelProperty(notes = "Lista de roles del Usuario", example = "[{\"id\":1}]", required = true)
 	private List<RoleDTO> roles;
 
 }

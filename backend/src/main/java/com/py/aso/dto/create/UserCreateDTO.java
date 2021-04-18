@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.py.aso.dto.RoleDTO;
@@ -43,8 +44,8 @@ public class UserCreateDTO {
 	@ApiModelProperty(notes = "Repeticion de la contrseña ", example = "pass1234-ABC_xzy", required = true)
 	private String repeatPassword;
 
-	@NotBlank(message = "Los roles de Usuario es requerido")
-	@ApiModelProperty(notes = "Lista de roles del Usuario", example = "[{id:1}]", required = true)
+	@NotNull(message = "Los roles de Usuario es requerido")
+	@ApiModelProperty(notes = "Lista de roles del Usuario", example = "[{\"id\":1}]", required = true)
 	private List<RoleDTO> roles;
 
 }
