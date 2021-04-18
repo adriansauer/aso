@@ -7,10 +7,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Objeto que representa a una imagen")
+@ApiModel(description = "Objeto que representa a una imagen, utilizado para actualizar el objeto")
 public class ImageUpdateDTO {
 
 	@NotBlank(message = "El nombre de la imagen es requerida")
-	@ApiModelProperty(notes = "name", example = "Perfil de Juan", required = true)
+	@ApiModelProperty(notes = "Nombre de la Imagen", example = "Perfil de Juan", required = true)
 	private String name;
 }

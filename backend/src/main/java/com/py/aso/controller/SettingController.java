@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -55,6 +56,7 @@ public class SettingController
 
 	@Override
 	@PostMapping("/settings")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Crear una nueva configuracion")
 	public SettingDetailDTO create(@Validated @RequestBody final SettingCreateDTO settingCreateDTO) throws Exception {
 		return settingService.save(settingCreateDTO);
@@ -78,6 +80,7 @@ public class SettingController
 	@Override
 	@DeleteMapping("/settings/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Eliminar una configuracion por el id")
 	public void deleted(@PathVariable final long id) throws Exception {
 		settingService.delete(id);

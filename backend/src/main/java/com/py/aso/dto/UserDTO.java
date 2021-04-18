@@ -1,29 +1,26 @@
 package com.py.aso.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Positive;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Objeto que representa a los usuarios del sistema")
+@ApiModel(description = "Objeto que representa un Usuario del sistema, se utiliza para listar")
 public class UserDTO {
 
+	@Positive(message = "El id debe ser mayor a 0")
+	@ApiModelProperty(notes = "Numero identificador", example = "1", required = true)
 	private Long id;
 
-	@NotBlank(message = "El nombre del usuario es requerido")
-	@ApiModelProperty(notes = "name", example = "Juan", required = true)
+	@ApiModelProperty(notes = "Nombre del Usuario", example = "Juan")
 	private String name;
 
-	@Size(min = 0, max = 125, message = "El apellido puede contener como maximo 125 caracteres")
-	@ApiModelProperty(notes = "lastname", example = "Perez")
+	@ApiModelProperty(notes = "Apellido del Usuario", example = "Perez")
 	private String lastname;
 
-	@NotBlank(message = "El codigo de usuario es requerido")
-	@Size(min = 2, max = 50, message = "El codigo puede contener como maximo 50 caracteres")
-	@ApiModelProperty(notes = "usercode", example = "ABCDE-1234", required = true)
+	@ApiModelProperty(notes = "Codigo del Usuario", example = "ABCDE-1234")
 	private String usercode;
 
 }

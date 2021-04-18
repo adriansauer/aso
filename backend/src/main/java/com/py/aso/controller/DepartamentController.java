@@ -50,19 +50,20 @@ public class DepartamentController
 
 	@Override
 	@PostMapping("/departaments")
-	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_COMMANDANT')")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
 	@ApiOperation(value = "Crear un nuevo departamento")
-	public DepartamentDetailDTO create(@Validated @RequestBody final DepartamentCreateDTO dto) throws Exception {
-		return this.departamentService.save(dto);
+	public DepartamentDetailDTO create(@Validated @RequestBody final DepartamentCreateDTO departamentCreateDTO)
+			throws Exception {
+		return this.departamentService.save(departamentCreateDTO);
 	}
 
 	@Override
 	@PutMapping("/departaments/{id}")
-	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_COMMANDANT')")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
 	@ApiOperation(value = "Actualizar un departamento por el id")
 	public DepartamentDetailDTO update(@PathVariable final long id,
-			@Validated @RequestBody final DepartamentUpdateDTO dto) throws Exception {
-		return this.departamentService.update(id, dto);
+			@Validated @RequestBody final DepartamentUpdateDTO departamentUpdateDTO) throws Exception {
+		return this.departamentService.update(id, departamentUpdateDTO);
 	}
 
 	@Override

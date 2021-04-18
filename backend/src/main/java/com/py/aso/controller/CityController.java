@@ -35,40 +35,40 @@ public class CityController implements BaseController<CityDTO, CityDetailDTO, Ci
 
 	@Override
 	@GetMapping("/cities")
-	@ApiOperation(value = "Obtener todos los departamentos, permite paginacion")
+	@ApiOperation(value = "Obtener todas las ciudades, permite paginacion")
 	public Page<CityDTO> index(Pageable pageable) {
 		return this.cityService.findAll(pageable);
 	}
 
 	@Override
 	@GetMapping("/cities/{id}")
-	@ApiOperation(value = "Obtener un departamento por el id")
+	@ApiOperation(value = "Obtener una ciudad por el id")
 	public CityDetailDTO find(@PathVariable final long id) throws Exception {
 		return this.cityService.findById(id);
 	}
 
 	@Override
 	@PostMapping("/cities")
-	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_COMMANDANT')")
-	@ApiOperation(value = "Crear un nuevo departamento")
-	public CityDetailDTO create(@Validated @RequestBody CityCreateDTO dto) throws Exception {
-		return this.cityService.save(dto);
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
+	@ApiOperation(value = "Crear una nueva ciudad")
+	public CityDetailDTO create(@Validated @RequestBody CityCreateDTO cityCreateDTO) throws Exception {
+		return this.cityService.save(cityCreateDTO);
 	}
 
 	@Override
 	@PutMapping("/cities/{id}")
-	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_COMMANDANT')")
-	@ApiOperation(value = "Actualizar un departamento por el id")
-	public CityDetailDTO update(@PathVariable final long id, @Validated @RequestBody CityUpdateDTO dto)
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
+	@ApiOperation(value = "Actualizar una ciudad por el id")
+	public CityDetailDTO update(@PathVariable final long id, @Validated @RequestBody CityUpdateDTO cityUpdateDTO)
 			throws Exception {
-		return this.cityService.update(id, dto);
+		return this.cityService.update(id, cityUpdateDTO);
 	}
 
 	@Override
 	@DeleteMapping("/cities/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
-	@ApiOperation(value = "Eliminar un departamento por el id")
+	@ApiOperation(value = "Eliminar una ciudad por el id")
 	public void deleted(@PathVariable final long id) throws Exception {
 		this.cityService.delete(id);
 	}

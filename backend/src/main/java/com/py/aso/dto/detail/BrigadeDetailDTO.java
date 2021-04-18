@@ -13,32 +13,34 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
-@ApiModel(description = "Objeto que representa a una brigada")
+@ApiModel(description = "Objeto que representa a una brigada, se utiliza para mostrar todos los datos del objeto")
 public class BrigadeDetailDTO {
 
+	@Positive(message = "El id debe ser mayor a 0")
+	@ApiModelProperty(notes = "Numero identificador", example = "1", required = true)
 	private Long id;
 
 	@NotBlank(message = "El nombre de la brigada es requerido")
-	@ApiModelProperty(notes = "name", example = "CVB de Encarnación", required = true)
+	@ApiModelProperty(notes = "Nombre de la Brigada", example = "CVB de Encarnación", required = true)
 	private String name;
 
 	@NotBlank(message = "El codigo de la brigada es requerido")
 	@Size(min = 2, max = 50, message = "El codigo puede contener como maximo 50 caracteres")
-	@ApiModelProperty(notes = "usercode", example = "ABCDE", required = true)
+	@ApiModelProperty(notes = "Codigo de usuario de la Brigada", example = "ABCDE", required = true)
 	private String usercode;
 
 	@NotBlank(message = "La dirección de la brigada es requerida")
-	@ApiModelProperty(notes = "address", example = "Esq. Juan A. Villar y Argentina", required = true)
+	@ApiModelProperty(notes = "Dirección del cuartel de la Brigada", example = "Esq. Juan A. Villar y Argentina", required = true)
 	private String address;
 
-	@ApiModelProperty(notes = "phone", example = "(0985)586 222")
+	@ApiModelProperty(notes = "Telefono del cuartel de la Brigadas", example = "(0985)586 222")
 	private String phone;
 
-	@ApiModelProperty(notes = "description", example = "El CVB es el mejor de la zona")
+	@ApiModelProperty(notes = "Dirección del cuartel de la Brigada", example = "El CVB es el mejor de la zona")
 	private String description;
 
 	@Email(message = "El correo electronico debe ser valido")
-	@ApiModelProperty(notes = "email", example = "brigada@gmail.com")
+	@ApiModelProperty(notes = "Email de la Brigada", example = "brigada@gmail.com")
 	private String email;
 
 	@PositiveOrZero(message = "La cantidad de miembros debe ser igual o mayor a 0")
@@ -46,36 +48,36 @@ public class BrigadeDetailDTO {
 	private int numberMember;
 
 	@NotBlank(message = "La fecha de creación de la brigada es requerida")
-	@ApiModelProperty(notes = "creation", example = "2021-04-05T18:51:28.478+00:00", required = true)
+	@ApiModelProperty(notes = "Fecha de creación de la Brigada", example = "2021-04-05T18:51:28.478+00:00", required = true)
 	private Date creation;
 
-	@ApiModelProperty(notes = "createdAt", example = "2021-04-05T18:51:28.478+00:00")
+	@ApiModelProperty(notes = "Fecha de creación de recurso en el sistema", example = "2021-04-05T18:51:28.478+00:00")
 	private Date createdAt;
 
-	@ApiModelProperty(notes = "updatedAt", example = "2021-04-05T18:51:28.478+00:00")
+	@ApiModelProperty(notes = "Fecha de modificación de recurso en el sistema", example = "2021-04-05T18:51:28.478+00:00")
 	private Date updatedAt;
 
-	@ApiModelProperty(notes = "imageId", example = "5")
+	@ApiModelProperty(notes = "Id de la imagen de perfil de la Brigada", example = "5")
 	private long imageId;
 
 	@Positive(message = "El id del departamento debe ser mayor a 0")
-	@ApiModelProperty(notes = "departamentId", example = "5", required = true)
+	@ApiModelProperty(notes = "Id del departamento donde se encuentra la Brigada", example = "5", required = true)
 	private long departamentId;
 
-	@NotBlank(message = "El departamento de la brigada es requerida")
-	@ApiModelProperty(notes = "departament", example = "Itapúa", required = true)
+	@NotBlank(message = "El nombre del departamento de la brigada es requerida")
+	@ApiModelProperty(notes = "Nombre del departamento donde se encuentra la Brigada", example = "Itapúa", required = true)
 	private String departament;
 
 	@Positive(message = "El id de la ciudad debe ser mayor a 0")
-	@ApiModelProperty(notes = "cityId", example = "5", required = true)
+	@ApiModelProperty(notes = "Id de la ciudad donde se encuentra la Brigada", example = "5", required = true)
 	private long cityId;
 
-	@NotBlank(message = "La ciudad de la brigada es requerida")
-	@ApiModelProperty(notes = "city", example = "Encarnación", required = true)
+	@NotBlank(message = "El nombre de la ciudad de la brigada es requerida")
+	@ApiModelProperty(notes = "Nombre de la ciudad donde se encuentra la Brigada", example = "Encarnación", required = true)
 	private String city;
 
 	@Positive(message = "El id del usuario debe ser mayor a 0")
-	@ApiModelProperty(notes = "userId", example = "5", required = true)
+	@ApiModelProperty(notes = "Id del usuario de la Brigada", example = "5", required = true)
 	private long userId;
 
 }
