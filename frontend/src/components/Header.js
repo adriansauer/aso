@@ -87,21 +87,39 @@ const Header = () => {
           {/** Link del perfil del usuario */}
           <li>
             <Link
-              to="/user"
+              to="/usuarioperfil"
               onClick={() => instance.close()}
             >
               <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}> Mi perfil</span>
+              <span style={{ color: 'white' }}>Perfil de un usuario</span>
             </Link>
           </li>
           {/** Link de brigadas */}
           <li>
             <Link
-              to="/brigada"
+              to="/brigadaperfil"
               onClick={() => instance.close()}
             >
               <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}> Brigadas</span>
+              <span style={{ color: 'white' }}>Perfil de una brigada</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/usuariolist"
+              onClick={() => instance.close()}
+            >
+              <i className="medium material-icons white-text">group</i>
+              <span style={{ color: 'white' }}>Lista de usuarios</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/brigadalist"
+              onClick={() => instance.close()}
+            >
+              <i className="medium material-icons white-text">group</i>
+              <span style={{ color: 'white' }}>Lista de brigadas</span>
             </Link>
           </li>
           {/** Link de configuraciones */}
