@@ -15,7 +15,9 @@ import Home from './components/Home'
 import Login from './components/Login'
 import Header from './components/Header'
 import BrigadaPerfil from './components/BrigadaPerfil'
+import UsuarioList from './components/UsuarioList'
 import UsuarioPerfil from './components/UsusarioPerfil'
+import BrigadaList from './components/BigradaList'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
   const { execute: checkLoggedIn } = useCheckLoggedIn()
@@ -50,14 +52,26 @@ const App = () => {
             <PrivateRoute
               authed={isAutenticate}
               redirect="/login"
-              path="/user"
+              path="/usuarioperfil"
               component={UsuarioPerfil}
+            />
+             <PrivateRoute
+              authed={isAutenticate}
+              redirect="/login"
+              path="/usuariolist"
+              component={UsuarioList}
             />
             <PrivateRoute
               authed={isAutenticate}
               redirect="/login"
-              path="/brigada"
+              path="/brigadaperfil"
               component={BrigadaPerfil}
+            />
+             <PrivateRoute
+              authed={isAutenticate}
+              redirect="/login"
+              path="/brigadalist"
+              component={BrigadaList}
             />
             <PrivateRoute
               authed={isAutenticate}
