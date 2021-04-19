@@ -49,12 +49,16 @@ public class RankService implements BaseService<RankDTO, RankDetailDTO, RankCrea
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public RankDetailDTO save(final RankCreateDTO dto) throws Exception {
+		// Crea una imagen por defecto
 		ImageCreateDTO imageCreateDTO = new ImageCreateDTO();
 		imageCreateDTO.setName(dto.getTitle());
 		ImageDetailDTO imageDTO = this.imageService.save(imageCreateDTO);
 
+		// Genera la entidad para relacionar con el rango
 		ImageEntity imageEntity = new ImageEntity();
 		imageEntity.setId(imageDTO.getId());
+
+		// Crea el rango
 		RankEntity entity = this.rankMapper.toCreateEntity(dto);
 		entity.setImage(imageEntity);
 		entity.setDeleted(false);
@@ -64,7 +68,6 @@ public class RankService implements BaseService<RankDTO, RankDetailDTO, RankCrea
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public RankDetailDTO update(final long id, final RankUpdateDTO dto) throws Exception {
-
 		RankEntity entity = this.rankRepository.findByIdAndDeleted(id, false)//
 				.orElseThrow(() -> new ResourceNotFoundException("Rank", "id", id));
 
@@ -78,7 +81,6 @@ public class RankService implements BaseService<RankDTO, RankDetailDTO, RankCrea
 	public void delete(final long id) throws Exception {
 		RankEntity entity = this.rankRepository.findByIdAndDeleted(id, false)//
 				.orElseThrow(() -> new ResourceNotFoundException("Rank", "id", id));
-
 		this.rankRepository.deleteById(entity.getId());
 		this.imageService.delete(entity.getImage().getId());
 
