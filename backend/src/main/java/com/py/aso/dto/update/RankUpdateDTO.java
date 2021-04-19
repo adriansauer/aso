@@ -17,7 +17,4 @@ public class RankUpdateDTO {
 	@ApiModelProperty(notes = "Descripción del Rango", example = "Es el rango mas alto")
 	private String description;
 
-	@ApiModelProperty(notes = "Id de la imagen que representa al Rango", example = "1", required = true)
-	private long imageId;
-
 }

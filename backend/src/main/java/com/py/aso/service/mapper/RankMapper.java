@@ -48,7 +48,6 @@ public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO
 		entity.setTitle(dto.getTitle());
 		entity.setDescription(dto.getDescription());
 		ImageEntity imageEntity = new ImageEntity();
-		imageEntity.setId(dto.getImageId());
 		entity.setImage(imageEntity);
 		return entity;
 	}
@@ -59,7 +58,6 @@ public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO
 		entity.setTitle(dto.getTitle());
 		entity.setDescription(dto.getDescription());
 		ImageEntity imageEntity = new ImageEntity();
-		imageEntity.setId(dto.getImageId());
 		entity.setImage(imageEntity);
 		return entity;
 	}
