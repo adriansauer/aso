@@ -8,7 +8,7 @@ const CreateBrigadaForm = (props) => {
   const [name, setName] = useState('')
   const [usercode, setUsercode] = useState('')
   const [city, setCity] = useState('')
-  // const [departament, setDepartament] = useState('')  
+  // const [departament, setDepartament] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   // const [date, setDate] = useState('')
