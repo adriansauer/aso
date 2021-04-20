@@ -1,14 +1,46 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from '../images/logo1.png'
 import Perfil1 from '../images/perfil1.jpg'
 import Perfil2 from '../images/perfil2.jpg'
 import Perfil3 from '../images/perfil3.jpg'
 import './components.css'
+import M from 'materialize-css'
+import CreateBrigadaForm from './CreateBrigadaForm'
 const BrigadaList = () => {
+  const [instance, setInstance] = useState(null)
+  useEffect(() => {
+    const elem1 = document.querySelector('.modal')
+    const instance = M.Modal.init(elem1, {
+      inDuration: 300
+    })
+    setInstance(instance)
+    M.AutoInit()
+  }, [])
+  // Cerrar el modal de agregar usuario
+  const closeModal = () => {
+    instance.close()
+  }
   return (
     <div className="container">
+      <CreateBrigadaForm close={closeModal} />
       <div className="row">
-        <h1>Brigadas</h1>
+        <div className="col m12 s12 center-align">
+          <h1>
+            Brigadas
+              <button
+                className="btn btn-floating btn-medium waves-light tooltipped"
+                data-position="top"
+                data-tooltip="Agregar nueva brigada"
+                onClick={() => instance.open()}
+                style={{
+                  backgroundColor: '#0C0019',
+                  marginLeft: '5%'
+                }}
+              >
+                <i className="material-icons">add</i>
+              </button>
+          </h1>
+        </div>
       </div>
       <div className="row">
         <div className="collection">
@@ -80,8 +112,8 @@ const BrigadaList = () => {
               </div>
             </div>
           </div>
-                    {/** Item collection representa cada una de las brigadas */}
-                    <div
+          {/** Item collection representa cada una de las brigadas */}
+          <div
             className="btn btn-large collection-item avatar brigada_button"
             style={{
               margin: '4%',
