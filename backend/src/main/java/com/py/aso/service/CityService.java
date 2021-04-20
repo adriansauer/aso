@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.py.aso.dto.CityDTO;
 import com.py.aso.dto.create.CityCreateDTO;
@@ -24,12 +26,14 @@ public class CityService implements BaseService<CityDTO, CityDetailDTO, CityCrea
 	private CityMapper cityMapper;
 
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<CityDTO> findAll(final Pageable pageable) {
 		return this.cityRepository.findAllByDeleted(false, pageable)//
 				.map(this.cityMapper::toDTO);
 	}
 
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public CityDetailDTO findById(final long id) throws Exception {
 		return this.cityRepository.findByIdAndDeleted(id, false)//
 				.map(this.cityMapper::toDetailDTO)//
@@ -37,6 +41,7 @@ public class CityService implements BaseService<CityDTO, CityDetailDTO, CityCrea
 	}
 
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public CityDetailDTO save(final CityCreateDTO dto) throws Exception {
 		CityEntity entity = this.cityMapper.toCreateEntity(dto);
 		entity.setDeleted(false);
@@ -44,6 +49,7 @@ public class CityService implements BaseService<CityDTO, CityDetailDTO, CityCrea
 	}
 
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public CityDetailDTO update(final long id, final CityUpdateDTO dto) throws Exception {
 		CityEntity entity = this.cityRepository.findByIdAndDeleted(id, false)//
 				.orElseThrow(() -> new ResourceNotFoundException("City", "id", id));
@@ -52,6 +58,7 @@ public class CityService implements BaseService<CityDTO, CityDetailDTO, CityCrea
 	}
 
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public void delete(final long id) throws Exception {
 		if (!this.cityRepository.existsByIdAndDeleted(id, false)) {
 			throw new ResourceNotFoundException("City", "id", id);

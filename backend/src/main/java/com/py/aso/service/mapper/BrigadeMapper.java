@@ -4,9 +4,13 @@ import org.springframework.stereotype.Component;
 
 import com.py.aso.dto.BrigadeDTO;
 import com.py.aso.dto.create.BrigadeCreateDTO;
+import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.BrigadeDetailDTO;
 import com.py.aso.dto.update.BrigadeUpdateDTO;
+import com.py.aso.dto.update.UserUpdateDTO;
 import com.py.aso.entity.BrigadeEntity;
+import com.py.aso.entity.CityEntity;
+import com.py.aso.entity.DepartamentEntity;
 
 @Component
 public class BrigadeMapper
@@ -63,6 +67,12 @@ public class BrigadeMapper
 		entity.setDescription(dto.getDescription());
 		entity.setCreation(dto.getCreation());
 		entity.setPhone(dto.getPhone());
+		DepartamentEntity departamentEntity = new DepartamentEntity();
+		departamentEntity.setId(dto.getDepartamentId());
+		entity.setDepartament(departamentEntity);
+		CityEntity cityEntity = new CityEntity();
+		cityEntity.setId(dto.getCityId());
+		entity.setCity(cityEntity);
 		return entity;
 	}
 
@@ -73,7 +83,27 @@ public class BrigadeMapper
 		entity.setDescription(dto.getDescription());
 		entity.setCreation(dto.getCreation());
 		entity.setPhone(dto.getPhone());
+		entity.getCity().setId(dto.getCityId());
+		entity.getDepartament().setId(dto.getDepartamentId());
 		return entity;
+	}
+
+	public UserCreateDTO toUserCreateDTO(BrigadeCreateDTO dto) {
+		UserCreateDTO userDTO = new UserCreateDTO();
+		userDTO.setName(dto.getName());
+		userDTO.setUsercode(dto.getUsercode());
+		userDTO.setEmail(dto.getEmail());
+		userDTO.setPassword(dto.getPassword());
+		userDTO.setRepeatPassword(dto.getRepeatPassword());
+		return userDTO;
+	}
+
+	public UserUpdateDTO toUserUpdateDTO(BrigadeUpdateDTO dto) {
+		UserUpdateDTO userDTO = new UserUpdateDTO();
+		userDTO.setName(dto.getName());
+		userDTO.setUsercode(dto.getUsercode());
+		userDTO.setEmail(dto.getEmail());
+		return userDTO;
 	}
 
 }

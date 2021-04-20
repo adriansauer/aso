@@ -36,6 +36,13 @@ public class DepartamentMapper implements
 		return entity;
 	}
 
+	public DepartamentEntity toEntity(DepartamentDetailDTO dto) {
+		DepartamentEntity entity = new DepartamentEntity();
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		return entity;
+	}
+
 	@Override
 	public DepartamentEntity toCreateEntity(DepartamentCreateDTO dto) {
 		DepartamentEntity entity = new DepartamentEntity();
