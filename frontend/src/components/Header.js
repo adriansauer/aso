@@ -129,6 +129,16 @@ const Header = () => {
               Configuraciones
             </a>
           </li>
+          {/** Ciudades */}
+          <li>
+            <Link
+              to="/cities"
+              onClick={() => instance.close()}
+            >
+              <i className="medium material-icons white-text">group</i>
+              <span style={{ color: 'white' }}>Ciudades y Departamentos</span>
+            </Link>
+          </li>
         </ul>
       </div>
     </>

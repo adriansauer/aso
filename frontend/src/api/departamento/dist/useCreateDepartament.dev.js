@@ -9,9 +9,12 @@ var _api = _interopRequireDefault(require("../api"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var useGetBrigadas = function useGetBrigadas() {
-  var execute = function execute() {
-    return _api["default"].get('api/brigades');
+var useCreateDepartament = function useCreateDepartament() {
+  var execute = function execute(depto) {
+    var name = depto.name;
+    return _api["default"].post('api/departaments', {
+      name: name
+    });
   };
 
   return {
@@ -19,5 +22,5 @@ var useGetBrigadas = function useGetBrigadas() {
   };
 };
 
-var _default = useGetBrigadas;
+var _default = useCreateDepartament;
 exports["default"] = _default;
