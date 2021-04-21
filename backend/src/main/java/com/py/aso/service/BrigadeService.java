@@ -26,6 +26,7 @@ import com.py.aso.entity.CityEntity;
 import com.py.aso.entity.DepartamentEntity;
 import com.py.aso.entity.ImageEntity;
 import com.py.aso.entity.UserEntity;
+import com.py.aso.exception.InvalidAmountException;
 import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.BrigadeRepository;
 import com.py.aso.service.mapper.BrigadeMapper;
@@ -176,6 +177,25 @@ public class BrigadeService implements BaseService<BrigadeDTO, BrigadeDetailDTO,
 				.orElseThrow(() -> new ResourceNotFoundException("Brigade", "id", id));
 		this.userService.delete(brigadeEntity.getUser().getId());
 
+	}
+
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void subtractAMember(final long id) throws Exception {
+		final BrigadeEntity entity = this.brigadeRepository.findByIdAndEnabled(id, true)//
+				.orElseThrow(() -> new ResourceNotFoundException("Brigade", "id", id));
+		if (0 >= entity.getNumberMember()) {
+			throw new InvalidAmountException("Cantidad de miembros de la brigada");
+		}
+		entity.setNumberMember(entity.getNumberMember() - 1);
+		this.brigadeRepository.save(entity);
+	}
+
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void addAMember(final long id) throws Exception {
+		final BrigadeEntity entity = this.brigadeRepository.findByIdAndEnabled(id, true)//
+				.orElseThrow(() -> new ResourceNotFoundException("Brigade", "id", id));
+		entity.setNumberMember(entity.getNumberMember() + 1);
+		this.brigadeRepository.save(entity);
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -54,11 +55,11 @@ public class FiremanCreateDTO {
 	@ApiModelProperty(notes = "Contraseña repetida", example = "pass1234-ABC_xzy", required = true)
 	private String repeatPassword;
 
-	@NotBlank(message = "La fecha de admisión del bombero en la brigada es requerida")
+	@NotNull(message = "La fecha de admisión del bombero en la brigada es requerida")
 	@ApiModelProperty(notes = "Fecha de adminsión de Bombero al cuartel", example = "2021-04-05T18:51:28.478+00:00", required = true)
 	private Date admission;
 
-	@NotBlank(message = "La fecha de nacimiento del bombero es requerida")
+	@NotNull(message = "La fecha de nacimiento del bombero es requerida")
 	@ApiModelProperty(notes = "Fecha de cumpleaños del Bombero", example = "2021-04-05T18:51:28.478+00:00", required = true)
 	private Date birthday;
 
@@ -81,9 +82,5 @@ public class FiremanCreateDTO {
 	@Positive(message = "El id de la brigada debe ser mayor a 0")
 	@ApiModelProperty(notes = "Id de la brigada del Bombero", example = "1", required = true)
 	private long brigadeId;
-
-	@Positive(message = "El id de la imagen debe ser mayor a 0")
-	@ApiModelProperty(notes = "Id de la imagen de perfil del Bombero", example = "1", required = true)
-	private long imageId;
 
 }

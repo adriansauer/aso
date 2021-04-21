@@ -56,6 +56,18 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 		return entity;
 	}
 
+	public UserEntity toEntity(UserDetailDTO dto) {
+		UserEntity entity = new UserEntity();
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setLastname(dto.getLastname());
+		entity.setUsercode(dto.getUsercode());
+		entity.setEmail(dto.getEmail());
+		entity.setCreatedAt(dto.getCreatedAt());
+		entity.setUpdatedAt(dto.getUpdatedAt());
+		return entity;
+	}
+
 	@Override
 	public UserEntity toCreateEntity(UserCreateDTO dto) {
 		UserEntity entity = new UserEntity();

@@ -42,6 +42,16 @@ public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO
 		return entity;
 	}
 
+	public RankEntity toEntity(RankDetailDTO dto) {
+		RankEntity entity = new RankEntity();
+		entity.setId(dto.getId());
+		entity.setTitle(dto.getTitle());
+		ImageEntity imageEntity = new ImageEntity();
+		imageEntity.setId(dto.getImageId());
+		entity.setImage(imageEntity);
+		return entity;
+	}
+
 	@Override
 	public RankEntity toCreateEntity(RankCreateDTO dto) {
 		RankEntity entity = new RankEntity();
