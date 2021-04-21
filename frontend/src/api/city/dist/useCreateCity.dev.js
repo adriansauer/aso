@@ -9,9 +9,12 @@ var _api = _interopRequireDefault(require("../api"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var useGetBrigadas = function useGetBrigadas() {
-  var execute = function execute() {
-    return _api["default"].get('api/brigades');
+var useCreateCity = function useCreateCity() {
+  var execute = function execute(city) {
+    var name = city.name;
+    return _api["default"].post('api/cities', {
+      name: name
+    });
   };
 
   return {
@@ -19,5 +22,5 @@ var useGetBrigadas = function useGetBrigadas() {
   };
 };
 
-var _default = useGetBrigadas;
+var _default = useCreateCity;
 exports["default"] = _default;
