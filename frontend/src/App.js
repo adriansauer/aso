@@ -16,7 +16,7 @@ import Login from './components/Login'
 import Header from './components/Header'
 import BrigadaPerfil from './components/BrigadaPerfil'
 import UsuarioList from './components/UsuarioList'
-import UsuarioPerfil from './components/UsusarioPerfil'
+import UsuarioPerfil from './components/UsuarioPerfil'
 import BrigadaList from './components/BigradaList'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
