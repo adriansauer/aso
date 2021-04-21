@@ -48,16 +48,16 @@ public class RankController implements BaseController<RankDTO, RankDetailDTO, Ra
 	@PostMapping("/ranges")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
 	@ApiOperation(value = "Crear un nuevo rango")
-	public RankDetailDTO create(final RankCreateDTO dto) throws Exception {
-		return this.rankService.save(dto);
+	public RankDetailDTO create(final RankCreateDTO rankCreateDTO) throws Exception {
+		return this.rankService.save(rankCreateDTO);
 	}
 
 	@Override
 	@PutMapping("/ranges/{id}")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
 	@ApiOperation(value = "Actualizar un rango por el id")
-	public RankDetailDTO update(final long id, final RankUpdateDTO dto) throws Exception {
-		return this.rankService.update(id, dto);
+	public RankDetailDTO update(final long id, final RankUpdateDTO rankUpdateDTO) throws Exception {
+		return this.rankService.update(id, rankUpdateDTO);
 	}
 
 	@Override

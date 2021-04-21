@@ -54,6 +54,13 @@ public class UserService implements BaseService<UserDTO, UserDetailDTO, UserCrea
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public boolean isActive(final long id) throws Exception {
+		boolean b = this.userRepository.existsByIdAndEnabled(id, true);
+		System.out.println(b);
+		return b;
+	}
+
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public UserDetailDTO findByUsercode(final String usercode) throws Exception {
 		return this.userRepository.findByUsercodeAndEnabled(usercode, true)//
 				.map(this.userMapper::toDetailDTO)//

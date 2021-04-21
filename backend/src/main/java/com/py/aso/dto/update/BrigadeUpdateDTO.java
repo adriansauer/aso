@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
@@ -31,7 +32,7 @@ public class BrigadeUpdateDTO {
 	@ApiModelProperty(notes = "Telefono del cuartel de la Brigadas", example = "(0985)586 222")
 	private String phone;
 
-	@NotBlank(message = "La fecha de creación de la brigada es requerida")
+	@NotNull(message = "La fecha de creación de la brigada es requerida")
 	@ApiModelProperty(notes = "Fecha de creación de la Brigada", example = "2021-04-05T18:51:28.478+00:00", required = true)
 	private Date creation;
 
@@ -41,9 +42,6 @@ public class BrigadeUpdateDTO {
 
 	@ApiModelProperty(notes = "Dirección del cuartel de la Brigada", example = "El CVB es el mejor de la zona")
 	private String description;
-
-	@ApiModelProperty(notes = "Id de la imagen de perfil de la Brigada", example = "5")
-	private long imageId;
 
 	@Positive(message = "El id del departamento debe ser mayor a 0")
 	@ApiModelProperty(notes = "Id del departamento donde se encuentra la Brigada", example = "5", required = true)

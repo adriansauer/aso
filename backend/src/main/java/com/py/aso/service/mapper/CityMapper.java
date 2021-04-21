@@ -35,6 +35,13 @@ public class CityMapper implements BaseMapper<CityEntity, CityDTO, CityDetailDTO
 		return entity;
 	}
 
+	public CityEntity toEntity(CityDetailDTO dto) {
+		CityEntity entity = new CityEntity();
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		return entity;
+	}
+
 	@Override
 	public CityEntity toCreateEntity(CityCreateDTO dto) {
 		CityEntity entity = new CityEntity();
