@@ -29,9 +29,6 @@ public class FiremanDTO {
 	@ApiModelProperty(notes = "Nombre del rango del Bombero", example = "Comandante")
 	private String rankTitle;
 
-	@ApiModelProperty(notes = "Nombre de la brigada a la que pertenece", example = "CVB de Encarnación")
-	private String brigadeName;
-
 	@ApiModelProperty(notes = "Id de la imagen del perfil", example = "1")
 	private long imageId;
 

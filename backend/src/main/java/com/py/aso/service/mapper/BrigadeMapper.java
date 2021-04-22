@@ -60,6 +60,12 @@ public class BrigadeMapper
 		return entity;
 	}
 
+	public BrigadeEntity toEntity(BrigadeDetailDTO dto) {
+		BrigadeEntity entity = new BrigadeEntity();
+		entity.setId(dto.getId());
+		return entity;
+	}
+
 	@Override
 	public BrigadeEntity toCreateEntity(BrigadeCreateDTO dto) {
 		BrigadeEntity entity = new BrigadeEntity();

@@ -90,10 +90,6 @@ public class FiremanDetailDTO {
 	@ApiModelProperty(notes = "Id del rango del Bombero", example = "1", required = true)
 	private long rankId;
 
-	@NotBlank(message = "El nombre de la brigada es requerida")
-	@ApiModelProperty(notes = "Nombre de la brigada del Bombero", example = "CVB de Encarnación", required = true)
-	private String brigadeName;
-
 	@Positive(message = "El id de la brigada debe ser mayor a 0")
 	@ApiModelProperty(notes = "Id de la brigada del Bombero", example = "1", required = true)
 	private long brigadeId;

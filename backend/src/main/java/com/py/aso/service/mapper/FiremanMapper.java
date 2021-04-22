@@ -4,8 +4,10 @@ import org.springframework.stereotype.Component;
 
 import com.py.aso.dto.FiremanDTO;
 import com.py.aso.dto.create.FiremanCreateDTO;
+import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.FiremanDetailDTO;
 import com.py.aso.dto.update.FiremanUpdateDTO;
+import com.py.aso.dto.update.UserUpdateDTO;
 import com.py.aso.entity.BrigadeEntity;
 import com.py.aso.entity.CityEntity;
 import com.py.aso.entity.DepartamentEntity;
@@ -25,7 +27,6 @@ public class FiremanMapper
 		dto.setUsercode(entity.getUser().getUsercode());
 		dto.setCity(entity.getCity().getName());
 		dto.setRankTitle(entity.getRank().getTitle());
-		dto.setBrigadeName(entity.getBrigade().getUser().getName());
 		dto.setImageId(entity.getImage().getId());
 		dto.setBrigadeId(entity.getBrigade().getId());
 		dto.setRankId(entity.getRank().getId());
@@ -35,26 +36,25 @@ public class FiremanMapper
 	@Override
 	public FiremanDetailDTO toDetailDTO(FiremanEntity entity) {
 		FiremanDetailDTO dto = new FiremanDetailDTO();
-		dto.setId(entity.getId());
 		dto.setName(entity.getUser().getName());
 		dto.setLastname(entity.getUser().getLastname());
-		dto.setUsercode(entity.getUser().getUsercode());
-		dto.setCi(entity.getCi());
-		dto.setPhone(entity.getPhone());
-		dto.setDescription(entity.getDescription());
 		dto.setEmail(entity.getUser().getEmail());
-		dto.setAdmission(entity.getAdmission());
-		dto.setBirthday(entity.getBirthday());
+		dto.setUsercode(entity.getUser().getUsercode());
+		dto.setId(entity.getId());
+		dto.setCi(entity.getCi());
 		dto.setCreatedAt(entity.getUser().getCreatedAt());
 		dto.setUpdatedAt(entity.getUser().getUpdatedAt());
+		dto.setPhone(entity.getPhone());
+		dto.setDescription(entity.getDescription());
+		dto.setAdmission(entity.getAdmission());
+		dto.setBirthday(entity.getBirthday());
 		dto.setAddress(entity.getAddress());
 		dto.setCityId(entity.getCity().getId());
 		dto.setCity(entity.getCity().getName());
 		dto.setDepartamentId(entity.getDepartament().getId());
 		dto.setDepartament(entity.getDepartament().getName());
-		dto.setRankTitle(entity.getRank().getTitle());
 		dto.setRankId(entity.getRank().getId());
-		dto.setBrigadeName(entity.getBrigade().getUser().getName());
+		dto.setRankTitle(entity.getRank().getTitle());
 		dto.setBrigadeId(entity.getBrigade().getId());
 		dto.setImageId(entity.getImage().getId());
 		dto.setUserId(entity.getUser().getId());
@@ -77,18 +77,6 @@ public class FiremanMapper
 		entity.setAdmission(dto.getAdmission());
 		entity.setPhone(dto.getPhone());
 		entity.setCi(dto.getCi());
-		BrigadeEntity brigateEntity = new BrigadeEntity();
-		brigateEntity.setId(dto.getBrigadeId());
-		entity.setBrigade(brigateEntity);
-		DepartamentEntity departamentEntity = new DepartamentEntity();
-		departamentEntity.setId(dto.getDepartamentId());
-		entity.setDepartament(departamentEntity);
-		CityEntity cityEntity = new CityEntity();
-		cityEntity.setId(dto.getCityId());
-		entity.setCity(cityEntity);
-		RankEntity rankEntity = new RankEntity();
-		rankEntity.setId(dto.getRankId());
-		entity.setRank(rankEntity);
 		return entity;
 	}
 
@@ -114,6 +102,26 @@ public class FiremanMapper
 		rankEntity.setId(dto.getRankId());
 		entity.setRank(rankEntity);
 		return entity;
+	}
+
+	public UserCreateDTO toUserCreateDTO(FiremanCreateDTO dto) {
+		UserCreateDTO userDTO = new UserCreateDTO();
+		userDTO.setName(dto.getName());
+		userDTO.setLastname(dto.getLastname());
+		userDTO.setUsercode(dto.getUsercode());
+		userDTO.setEmail(dto.getEmail());
+		userDTO.setPassword(dto.getPassword());
+		userDTO.setRepeatPassword(dto.getRepeatPassword());
+		return userDTO;
+	}
+
+	public UserUpdateDTO toUserUpdateDTO(FiremanUpdateDTO dto) {
+		UserUpdateDTO userDTO = new UserUpdateDTO();
+		userDTO.setName(dto.getName());
+		userDTO.setLastname(dto.getLastname());
+		userDTO.setUsercode(dto.getUsercode());
+		userDTO.setEmail(dto.getEmail());
+		return userDTO;
 	}
 
 }
