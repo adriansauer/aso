@@ -13,7 +13,7 @@ import com.py.aso.entity.RankEntity;
 public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO, RankCreateDTO, RankUpdateDTO> {
 
 	@Override
-	public RankDTO toDTO(RankEntity entity) {
+	public RankDTO toDTO(final RankEntity entity) {
 		RankDTO dto = new RankDTO();
 		dto.setId(entity.getId());
 		dto.setTitle(entity.getTitle());
@@ -22,7 +22,7 @@ public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO
 	}
 
 	@Override
-	public RankDetailDTO toDetailDTO(RankEntity entity) {
+	public RankDetailDTO toDetailDTO(final RankEntity entity) {
 		RankDetailDTO dto = new RankDetailDTO();
 		dto.setId(entity.getId());
 		dto.setTitle(entity.getTitle());
@@ -32,7 +32,7 @@ public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO
 	}
 
 	@Override
-	public RankEntity toEntity(RankDTO dto) {
+	public RankEntity toEntity(final RankDTO dto) {
 		RankEntity entity = new RankEntity();
 		entity.setId(dto.getId());
 		entity.setTitle(dto.getTitle());
@@ -42,7 +42,7 @@ public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO
 		return entity;
 	}
 
-	public RankEntity toEntity(RankDetailDTO dto) {
+	public RankEntity toEntity(final RankDetailDTO dto) {
 		RankEntity entity = new RankEntity();
 		entity.setId(dto.getId());
 		entity.setTitle(dto.getTitle());
@@ -53,7 +53,7 @@ public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO
 	}
 
 	@Override
-	public RankEntity toCreateEntity(RankCreateDTO dto) {
+	public RankEntity toCreateEntity(final RankCreateDTO dto) {
 		RankEntity entity = new RankEntity();
 		entity.setTitle(dto.getTitle());
 		entity.setDescription(dto.getDescription());
@@ -63,7 +63,7 @@ public class RankMapper implements BaseMapper<RankEntity, RankDTO, RankDetailDTO
 	}
 
 	@Override
-	public RankEntity toUpdateEntity(RankUpdateDTO dto) {
+	public RankEntity toUpdateEntity(final RankUpdateDTO dto) {
 		RankEntity entity = new RankEntity();
 		entity.setTitle(dto.getTitle());
 		entity.setDescription(dto.getDescription());

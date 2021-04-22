@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.py.aso.dto.FiremanDTO;
 import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.create.FiremanCreateDTO;
-import com.py.aso.dto.create.ImageCreateDTO;
 import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.FiremanDetailDTO;
 import com.py.aso.dto.detail.ImageDetailDTO;
@@ -84,6 +83,7 @@ public class FiremanService implements BaseService<FiremanDTO, FiremanDetailDTO,
 	private RoleMapper roleMapper;
 
 	private final long ROLE_FIREMAN = 1L;
+	private final String IMAGE_FIREMAN = "perfil.png";
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -122,9 +122,7 @@ public class FiremanService implements BaseService<FiremanDTO, FiremanDetailDTO,
 		UserDetailDTO userDetailDTO = this.userService.save(userCreateDTO);
 
 		// Creando una imagen
-		ImageCreateDTO imageCreateDTO = new ImageCreateDTO();
-		imageCreateDTO.setName(dto.getName());
-		ImageDetailDTO imageDetailDTO = this.imageService.save(imageCreateDTO);
+		ImageDetailDTO imageDetailDTO = this.imageService.saveFile(this.IMAGE_FIREMAN, dto.getName());
 
 		// Creando usuario para relacionar
 		UserEntity userEntity = this.userMapper.toEntity(userDetailDTO);

@@ -17,7 +17,7 @@ public class BrigadeMapper
 		implements BaseMapper<BrigadeEntity, BrigadeDTO, BrigadeDetailDTO, BrigadeCreateDTO, BrigadeUpdateDTO> {
 
 	@Override
-	public BrigadeDTO toDTO(BrigadeEntity entity) {
+	public BrigadeDTO toDTO(final BrigadeEntity entity) {
 		BrigadeDTO dto = new BrigadeDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getUser().getName());
@@ -31,7 +31,7 @@ public class BrigadeMapper
 	}
 
 	@Override
-	public BrigadeDetailDTO toDetailDTO(BrigadeEntity entity) {
+	public BrigadeDetailDTO toDetailDTO(final BrigadeEntity entity) {
 		BrigadeDetailDTO dto = new BrigadeDetailDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getUser().getName());
@@ -54,20 +54,20 @@ public class BrigadeMapper
 	}
 
 	@Override
-	public BrigadeEntity toEntity(BrigadeDTO dto) {
+	public BrigadeEntity toEntity(final BrigadeDTO dto) {
 		BrigadeEntity entity = new BrigadeEntity();
 		entity.setId(dto.getId());
 		return entity;
 	}
 
-	public BrigadeEntity toEntity(BrigadeDetailDTO dto) {
+	public BrigadeEntity toEntity(final BrigadeDetailDTO dto) {
 		BrigadeEntity entity = new BrigadeEntity();
 		entity.setId(dto.getId());
 		return entity;
 	}
 
 	@Override
-	public BrigadeEntity toCreateEntity(BrigadeCreateDTO dto) {
+	public BrigadeEntity toCreateEntity(final BrigadeCreateDTO dto) {
 		BrigadeEntity entity = new BrigadeEntity();
 		entity.setAddress(dto.getAddress());
 		entity.setDescription(dto.getDescription());
@@ -83,7 +83,7 @@ public class BrigadeMapper
 	}
 
 	@Override
-	public BrigadeEntity toUpdateEntity(BrigadeUpdateDTO dto) {
+	public BrigadeEntity toUpdateEntity(final BrigadeUpdateDTO dto) {
 		BrigadeEntity entity = new BrigadeEntity();
 		entity.setAddress(dto.getAddress());
 		entity.setDescription(dto.getDescription());
@@ -94,7 +94,7 @@ public class BrigadeMapper
 		return entity;
 	}
 
-	public UserCreateDTO toUserCreateDTO(BrigadeCreateDTO dto) {
+	public UserCreateDTO toUserCreateDTO(final BrigadeCreateDTO dto) {
 		UserCreateDTO userDTO = new UserCreateDTO();
 		userDTO.setName(dto.getName());
 		userDTO.setUsercode(dto.getUsercode());
@@ -104,7 +104,7 @@ public class BrigadeMapper
 		return userDTO;
 	}
 
-	public UserUpdateDTO toUserUpdateDTO(BrigadeUpdateDTO dto) {
+	public UserUpdateDTO toUserUpdateDTO(final BrigadeUpdateDTO dto) {
 		UserUpdateDTO userDTO = new UserUpdateDTO();
 		userDTO.setName(dto.getName());
 		userDTO.setUsercode(dto.getUsercode());

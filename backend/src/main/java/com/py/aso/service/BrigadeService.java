@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.py.aso.dto.BrigadeDTO;
 import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.create.BrigadeCreateDTO;
-import com.py.aso.dto.create.ImageCreateDTO;
 import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.BrigadeDetailDTO;
 import com.py.aso.dto.detail.ImageDetailDTO;
@@ -65,6 +64,7 @@ public class BrigadeService implements BaseService<BrigadeDTO, BrigadeDetailDTO,
 	private DepartamentMapper departamentMapper;
 
 	private final long ROLE_BRIGADE = 2L;
+	private final String IMAGE_BRIGADE = "perfil_brigade.png";
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -100,9 +100,7 @@ public class BrigadeService implements BaseService<BrigadeDTO, BrigadeDetailDTO,
 		UserDetailDTO userDetailDTO = this.userService.save(userCreateDTO);
 
 		// Creando una imagen
-		ImageCreateDTO imageCreateDTO = new ImageCreateDTO();
-		imageCreateDTO.setName(dto.getName());
-		ImageDetailDTO imageDetailDTO = this.imageService.save(imageCreateDTO);
+		ImageDetailDTO imageDetailDTO = this.imageService.saveFile(this.IMAGE_BRIGADE, dto.getName());
 
 		// Creando usuario para relacionar
 		UserEntity userEntity = new UserEntity();

@@ -19,7 +19,7 @@ public class FiremanMapper
 		implements BaseMapper<FiremanEntity, FiremanDTO, FiremanDetailDTO, FiremanCreateDTO, FiremanUpdateDTO> {
 
 	@Override
-	public FiremanDTO toDTO(FiremanEntity entity) {
+	public FiremanDTO toDTO(final FiremanEntity entity) {
 		FiremanDTO dto = new FiremanDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getUser().getName());
@@ -34,7 +34,7 @@ public class FiremanMapper
 	}
 
 	@Override
-	public FiremanDetailDTO toDetailDTO(FiremanEntity entity) {
+	public FiremanDetailDTO toDetailDTO(final FiremanEntity entity) {
 		FiremanDetailDTO dto = new FiremanDetailDTO();
 		dto.setName(entity.getUser().getName());
 		dto.setLastname(entity.getUser().getLastname());
@@ -62,14 +62,14 @@ public class FiremanMapper
 	}
 
 	@Override
-	public FiremanEntity toEntity(FiremanDTO dto) {
+	public FiremanEntity toEntity(final FiremanDTO dto) {
 		FiremanEntity entity = new FiremanEntity();
 		entity.setId(dto.getId());
 		return entity;
 	}
 
 	@Override
-	public FiremanEntity toCreateEntity(FiremanCreateDTO dto) {
+	public FiremanEntity toCreateEntity(final FiremanCreateDTO dto) {
 		FiremanEntity entity = new FiremanEntity();
 		entity.setAddress(dto.getAddress());
 		entity.setDescription(dto.getDescription());
@@ -81,7 +81,7 @@ public class FiremanMapper
 	}
 
 	@Override
-	public FiremanEntity toUpdateEntity(FiremanUpdateDTO dto) {
+	public FiremanEntity toUpdateEntity(final FiremanUpdateDTO dto) {
 		FiremanEntity entity = new FiremanEntity();
 		entity.setAddress(dto.getAddress());
 		entity.setDescription(dto.getDescription());
@@ -104,7 +104,7 @@ public class FiremanMapper
 		return entity;
 	}
 
-	public UserCreateDTO toUserCreateDTO(FiremanCreateDTO dto) {
+	public UserCreateDTO toUserCreateDTO(final FiremanCreateDTO dto) {
 		UserCreateDTO userDTO = new UserCreateDTO();
 		userDTO.setName(dto.getName());
 		userDTO.setLastname(dto.getLastname());
@@ -115,7 +115,7 @@ public class FiremanMapper
 		return userDTO;
 	}
 
-	public UserUpdateDTO toUserUpdateDTO(FiremanUpdateDTO dto) {
+	public UserUpdateDTO toUserUpdateDTO(final FiremanUpdateDTO dto) {
 		UserUpdateDTO userDTO = new UserUpdateDTO();
 		userDTO.setName(dto.getName());
 		userDTO.setLastname(dto.getLastname());

@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Component
 @Data
-@ConfigurationProperties(prefix = "image.files.upload")
+@ConfigurationProperties(prefix = "image.files.images")
 public class ImageFileProperties {
 
 	private String root;

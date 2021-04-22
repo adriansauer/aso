@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.py.aso.dto.RankDTO;
-import com.py.aso.dto.create.ImageCreateDTO;
 import com.py.aso.dto.create.RankCreateDTO;
 import com.py.aso.dto.detail.ImageDetailDTO;
 import com.py.aso.dto.detail.RankDetailDTO;
@@ -31,6 +30,8 @@ public class RankService implements BaseService<RankDTO, RankDetailDTO, RankCrea
 	@Autowired
 	private ImageService imageService;
 
+	private final String IMAGE = "image.png";
+
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<RankDTO> findAll(final Pageable pageable) {
@@ -49,10 +50,9 @@ public class RankService implements BaseService<RankDTO, RankDetailDTO, RankCrea
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public RankDetailDTO save(final RankCreateDTO dto) throws Exception {
+
 		// Crea una imagen por defecto
-		ImageCreateDTO imageCreateDTO = new ImageCreateDTO();
-		imageCreateDTO.setName(dto.getTitle());
-		ImageDetailDTO imageDTO = this.imageService.save(imageCreateDTO);
+		ImageDetailDTO imageDTO = this.imageService.saveFile(this.IMAGE, dto.getTitle());
 
 		// Genera la entidad para relacionar con el rango
 		ImageEntity imageEntity = new ImageEntity();
