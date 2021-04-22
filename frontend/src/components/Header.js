@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import M from 'materialize-css/dist/js/materialize.min.js'
-import perfil from '../images/perfil.jpg'
+import perfil from '../images/default.jpg'
 import './components.css'
 import userContext from '../context/userContext'
 import { Link } from 'react-router-dom'

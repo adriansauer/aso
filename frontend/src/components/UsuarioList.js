@@ -1,16 +1,24 @@
-import React from 'react'
-import Perfil from '../images/perfil2.jpg'
-import Perfil2 from '../images/perfil3.jpg'
+import React, { useEffect } from 'react'
+import perfil from '../images/default.jpg'
+import { useLocation, useHistory } from 'react-router-dom'
 const UsuarioList = () => {
+  const location = useLocation()
+  const history = useHistory()
+  useEffect(() => {
+    if (location.brigada === undefined) {
+      history.goBack()
+    }
+  }, [])
+
   return (
-  <div className="container" style={{ marginTop: '5%' }}>
+    <div className="container" style={{ marginTop: '5%' }}>
       <div className="row">
-        <h3>Miembros de Cambyreta</h3>
+        <h3>Miembros de {location.brigada.name}</h3>
       </div>
       <div className="row">
-        <div className='collection'>
+        <div className="collection">
           {/** Item collection representa cada uno de los usuarios */}
-            <div
+          <div
             className="btn btn-large collection-item avatar brigada_button"
             style={{
               margin: '4%',
@@ -25,7 +33,7 @@ const UsuarioList = () => {
             <div className="row">
               <div className="col s6 m2">
                 <img
-                  src={Perfil}
+                  src={perfil}
                   alt=""
                   className="circle"
                   style={{ height: 80, width: 80, marginBottom: '5%' }}
@@ -33,15 +41,15 @@ const UsuarioList = () => {
               </div>
               <div className="col s6 m6" style={{ textAlign: 'left' }}>
                 <span style={{ fontSize: 24 }} className="title">
-                 Carlos Britez
+                  Carlos Britez
                 </span>
                 <br />
                 <span>CMP-56</span>
               </div>
             </div>
           </div>
-         {/** Item collection representa cada uno de los usuarios */}
-         <div
+          {/** Item collection representa cada uno de los usuarios */}
+          <div
             className="btn btn-large collection-item avatar brigada_button"
             style={{
               margin: '4%',
@@ -56,7 +64,7 @@ const UsuarioList = () => {
             <div className="row">
               <div className="col s6 m2">
                 <img
-                  src={Perfil2}
+                  src={perfil}
                   alt=""
                   className="circle"
                   style={{ height: 80, width: 80, marginBottom: '5%' }}
@@ -64,7 +72,7 @@ const UsuarioList = () => {
               </div>
               <div className="col s6 m6" style={{ textAlign: 'left' }}>
                 <span style={{ fontSize: 24 }} className="title">
-                 Cecilio Dominguez
+                  Cecilio Dominguez
                 </span>
                 <br />
                 <span>ENC-999</span>
@@ -73,7 +81,7 @@ const UsuarioList = () => {
           </div>
         </div>
       </div>
-  </div>
+    </div>
   )
 }
 

@@ -37,7 +37,7 @@ const BrigadaList = () => {
         console.log(err)
       })
   }
-  useEffect(() => { console.log(brigadas) }, [brigadas])
+
   return (
     <div className="container">
       <CreateBrigadaForm close={closeModal} />

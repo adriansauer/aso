@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import CreateUserForm from './CreateUserForm'
 import M from 'materialize-css'
-import Perfil1 from '../images/perfil1.jpg'
-import Perfil2 from '../images/perfil2.jpg'
-import Perfil3 from '../images/perfil3.jpg'
-import Logo from '../images/logo1.png'
-const BrigadaPerfil = () => {
+import perfil from '../images/default.jpg'
+import PropTypes from 'prop-types'
+import { useLocation, useHistory } from 'react-router-dom'
+const BrigadaPerfil = (props) => {
   // Instancia del modal para el formulario de usuario
   const [instance, setInstance] = useState(null)
-  const [tabInstance, setTabInstance] = useState(null)
+  const location = useLocation()
+  const history = useHistory()
   // Creo la instancia al inicio
   useEffect(() => {
+    if (location.brigada === undefined) {
+      history.goBack()
+    }
     const elem1 = document.querySelector('.modal')
     const instance = M.Modal.init(elem1, {
       inDuration: 300
     })
-    const elem2 = document.querySelector('.tabs')
-    const tab = M.Tabs.init(elem2)
+    M.AutoInit()
     setInstance(instance)
-    setTabInstance(tab)
-    console.log(tabInstance)
   }, [])
   // Cerrar el modal de agregar usuario
   const closeModal = () => {
@@ -33,24 +33,32 @@ const BrigadaPerfil = () => {
           alt=""
           className="circle"
           style={{ width: '15%' }}
-          src={Logo}
+          src={perfil}
         ></img>
       </div>
       <div className="row center">
-        <h4 style={{ margin: 0 }}>Brigada de Cambyreta</h4>
+        <h4 style={{ margin: 0 }}>
+          {location.brigada === undefined ? null : location.brigada.name}
+        </h4>
       </div>
       <div className="row center">
         <div className="col s6 right-align">
           <button
             className="btn btn-small waves-light"
             style={{ backgroundColor: '#0C0019', color: 'white' }}
+            onClick={() => {
+              history.push({
+                pathname: '/usuariolist',
+                brigada: location.brigada
+              })
+            }}
           >
-            24 MIEMBROS
+            {location.brigada === undefined ? null : location.brigada.numberMember} MIEMBROS
           </button>
         </div>
         <div className="col s6 left-align">
           <img
-            src={Perfil1}
+            src={perfil}
             alt=""
             className="circle"
             style={{
@@ -60,7 +68,7 @@ const BrigadaPerfil = () => {
             }}
           />
           <img
-            src={Perfil2}
+            src={perfil}
             alt=""
             className="circle"
             style={{
@@ -71,7 +79,7 @@ const BrigadaPerfil = () => {
             }}
           />
           <img
-            src={Perfil3}
+            src={perfil}
             alt=""
             className="circle"
             style={{
@@ -136,5 +144,7 @@ const BrigadaPerfil = () => {
     </div>
   )
 }
-
+BrigadaPerfil.propTypes = {
+  brigada: PropTypes.object
+}
 export default BrigadaPerfil
