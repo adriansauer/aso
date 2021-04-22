@@ -36,7 +36,7 @@ public class CityController implements BaseController<CityDTO, CityDetailDTO, Ci
 	@Override
 	@GetMapping("/cities")
 	@ApiOperation(value = "Obtener todas las ciudades, permite paginacion")
-	public Page<CityDTO> index(Pageable pageable) {
+	public Page<CityDTO> index(final Pageable pageable) {
 		return this.cityService.findAll(pageable);
 	}
 
