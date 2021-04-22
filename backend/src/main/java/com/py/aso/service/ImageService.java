@@ -43,7 +43,9 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 	@Autowired
 	private ImageFileProperties imageFileProperties;
 
-	private final String IMAGE_PERFIL = "perfil.png";
+	private final String IMAGE_FIREMAN = "perfil.png";
+	private final String IMAGE_BRIGADE = "perfil_brigade.png";
+	private final String IMAGE = "image.png";
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -91,7 +93,7 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public ImageDetailDTO save(final ImageCreateDTO dto) throws Exception {
 		// Crea el path de la imagen por defecto.
-		final Path newFilePath = Paths.get(this.imageFileProperties.getRoot(), IMAGE_PERFIL).normalize();
+		final Path newFilePath = Paths.get(this.imageFileProperties.getRoot(), IMAGE).normalize();
 		final File newFile = new File(newFilePath.toUri());
 
 		// Valida que la imagen exista.
@@ -127,6 +129,42 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 		// Crea el path y lo guarda en los archivos
 		final Path newFilePath = Paths.get(this.imageFileProperties.getRoot(), nameFile(file.getOriginalFilename()))
 				.normalize();
+		final File newFile = new File(newFilePath.toUri());
+		final boolean isFileCreated = newFile.createNewFile();
+
+		// Validad si se creo correctamente
+		if (!isFileCreated) {
+			throw new FileProblemsException("La imagen no se pudo crear");
+		}
+
+		// Se escribe el archivo para guardar la imagen
+		try (final FileOutputStream fout = new FileOutputStream(newFile)) {
+			fout.write(file.getBytes());
+		} catch (IOException ex) {
+			throw new FileProblemsException("La imagen no se pudo guardar");
+		}
+
+		// Se registra en la base de datos en la tabla images.
+		ImageEntity entity = new ImageEntity();
+		entity.setName(name);
+		entity.setPath(newFilePath.toString());
+		return this.imageMapper.toDetailDTO(this.imageRepository.save(entity));
+	}
+
+	/**
+	 * Metodo saveFile Guarda una imagen en los archivos y lo registra en la base de
+	 * datos en la tabla images
+	 * 
+	 * @param file Nombre del archivo de la imagen
+	 * @param name Nombre de la imagen
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public ImageDetailDTO saveFile(final String file, final String name) throws Exception {
+
+		// Crea el path y lo guarda en los archivos
+		final Path newFilePath = Paths.get(this.imageFileProperties.getRoot(), file).normalize();
 		final File newFile = new File(newFilePath.toUri());
 		final boolean isFileCreated = newFile.createNewFile();
 
@@ -206,7 +244,8 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 
 		// Se elimina el viejo archivo
 		final File oldFile = new File(oldPath.toUri());
-		if (!oldFile.getName().equals(this.IMAGE_PERFIL)) {
+		if (!oldFile.getName().equals(this.IMAGE) || !oldFile.getName().equals(this.IMAGE_BRIGADE)
+				|| !oldFile.getName().equals(this.IMAGE_FIREMAN)) {
 			final boolean isFileDelete = oldFile.delete();
 			if (!isFileDelete) {
 				throw new FileProblemsException("La imagen no se cambiar");
@@ -225,7 +264,8 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 				.orElseThrow(() -> new ResourceNotFoundException("Image", "id", id));
 		final Path oldPath = Paths.get(entity.getPath());
 		final File oldFile = new File(oldPath.toUri());
-		if (!oldFile.getName().equals(this.IMAGE_PERFIL)) {
+		if (!oldFile.getName().equals(this.IMAGE) || !oldFile.getName().equals(this.IMAGE_BRIGADE)
+				|| !oldFile.getName().equals(this.IMAGE_FIREMAN)) {
 			final boolean isFileDelete = oldFile.delete();
 			if (!isFileDelete) {
 				throw new FileProblemsException("La imagen no se cambiar");
@@ -235,7 +275,7 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 	}
 
 	/**
-	 * Metodo nameFile Crea un nombre de un archivo a partir del nombre de usuario,
+	 * Metodo nameFile Crea un nombre de un archivo a partir del nombre de usuario,s
 	 * la fecha y el nombre del archivo.
 	 * 
 	 * @param fileName Nombre del archivo recibidos

@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="18">
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="1" />
+			<column name="name" value="Bombero Voluntario" />
+			<column name="path"
+				value="src\main\resources\files\images\bomberovoluntario.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="2" />
+			<column name="name" value="Cabo" />
+			<column name="path"
+				value="src\main\resources\files\images\cabo.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="3" />
+			<column name="name" value="Sargento" />
+			<column name="path"
+				value="src\main\resources\files\images\sargento.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="4" />
+			<column name="name" value="Sargento Mayor" />
+			<column name="path"
+				value="src\main\resources\files\images\sargentomayor.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="5" />
+			<column name="name" value="Sub Oficial" />
+			<column name="path"
+				value="src\main\resources\files\images\suboficial.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="6" />
+			<column name="name" value="Sub Teniente" />
+			<column name="path"
+				value="src\main\resources\files\images\subteniente.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="7" />
+			<column name="name" value="Teniente" />
+			<column name="path"
+				value="src\main\resources\files\images\teniente.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="8" />
+			<column name="name" value="Capitán" />
+			<column name="path"
+				value="src\main\resources\files\images\capitan.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="9" />
+			<column name="name" value="Capitán General" />
+			<column name="path"
+				value="src\main\resources\files\images\capitangeneral.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="10" />
+			<column name="name" value="Sub Rigadier" />
+			<column name="path"
+				value="src\main\resources\files\images\subrigadier.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="11" />
+			<column name="name" value="Brigadier" />
+			<column name="path"
+				value="src\main\resources\files\images\brigadier.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="12" />
+			<column name="name" value="Brigadier General" />
+			<column name="path"
+				value="src\main\resources\files\images\brigadiergeneral.JPG" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="13" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Nueva Alborada" />
+			<column name="path"
+				value="src\main\resources\files\images\alborada.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="14" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Bella Vista" />
+			<column name="path"
+				value="src\main\resources\files\images\bella_vista.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="15" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Cambyreta" />
+			<column name="path"
+				value="src\main\resources\files\images\cambyreta.jpg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="16" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Capitan Meza" />
+			<column name="path"
+				value="src\main\resources\files\images\capitan_meza.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="17" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Carlos Antonio Lopez" />
+			<column name="path"
+				value="src\main\resources\files\images\carlos_antonio_lopez.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="18" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Colonias Unidas" />
+			<column name="path"
+				value="src\main\resources\files\images\colonias_unidas.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="19" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Coronel Bogado" />
+			<column name="path"
+				value="src\main\resources\files\images\coronel_bogado.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="20" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Encarnación" />
+			<column name="path"
+				value="src\main\resources\files\images\encarnacion.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="21" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Fram" />
+			<column name="path"
+				value="src\main\resources\files\images\fram.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="22" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de General Artigas" />
+			<column name="path"
+				value="src\main\resources\files\images\general_artigas.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="23" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de La Paz" />
+			<column name="path"
+				value="src\main\resources\files\images\la_paz.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="24" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Mayor Ortaño" />
+			<column name="path"
+				value="src\main\resources\files\images\mayor_otaño.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="25" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Capitan Miranda" />
+			<column name="path"
+				value="src\main\resources\files\images\miranda.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="26" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Naranjito" />
+			<column name="path"
+				value="src\main\resources\files\images\naranjito.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="27" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Natalio" />
+			<column name="path"
+				value="src\main\resources\files\images\natalio.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="28" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Pirapey" />
+			<column name="path"
+				value="src\main\resources\files\images\pirapey.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="29" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de San Juan del Parana" />
+			<column name="path"
+				value="src\main\resources\files\images\san_juan_del_parana.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="30" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de San Pedro del Parana" />
+			<column name="path"
+				value="src\main\resources\files\images\san_pedro_del_parana.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="31" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Tomas Romero Pereira" />
+			<column name="path"
+				value="src\main\resources\files\images\tomas_romero_pereira.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="32" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Trinidad" />
+			<column name="path"
+				value="src\main\resources\files\images\trinidad.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="33" />
+			<column name="name"
+				value="Cuerpo de Bomberos Voluntarios de Yatytay" />
+			<column name="path"
+				value="src\main\resources\files\images\yatytay.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="34" />
+			<column name="name"
+				value="Asociación de Cuerpos de Bomberos Voluntarios de Itapúa" />
+			<column name="path"
+				value="src\main\resources\files\images\acbvi.jpeg" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="35" />
+			<column name="name" value="Nicolas García" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="36" />
+			<column name="name" value="Lucas Fernández" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="37" />
+			<column name="name" value="Alex González" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="38" />
+			<column name="name" value="Juan Luis Rodríguez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="39" />
+			<column name="name" value="Albert López" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="40" />
+			<column name="name" value="Ines Martínez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="41" />
+			<column name="name" value="Emilia Sánchez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="42" />
+			<column name="name" value="Agustin Pérez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="43" />
+			<column name="name" value="Ismael Martín" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="44" />
+			<column name="name" value="Iker Martín" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="45" />
+			<column name="name" value="Esther Ruiz" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="46" />
+			<column name="name" value="Noelia Fernández" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="47" />
+			<column name="name" value="Ana Belen Rodríguez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="48" />
+			<column name="name" value="Claudia González" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="49" />
+			<column name="name" value="Susana García" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="50" />
+			<column name="name" value="Lorena López" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="51" />
+			<column name="name" value="Jordi Martínez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="52" />
+			<column name="name" value="Guillermo Pérez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="53" />
+			<column name="name" value="Julian Álvarez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="54" />
+			<column name="name" value="Ignacio Gómez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="55" />
+			<column name="name" value="Ricardo Sánchez" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="56" />
+			<column name="name" value="Natalia Smith" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="57" />
+			<column name="name" value="Xavier Johnson" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="58" />
+			<column name="name" value="Amparo Williams" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="59" />
+			<column name="name" value="Maria Brown" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="60" />
+			<column name="name" value="Gloria Jones" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="61" />
+			<column name="name" value="Fatima Miller" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="images">
+			<column name="id" value="62" />
+			<column name="name" value="Miriam Davis" />
+			<column name="path"
+				value="src\main\resources\files\images\perfil.png" />
+		</insert>
+
+
+
+	</changeSet>
+
+</databaseChangeLog>

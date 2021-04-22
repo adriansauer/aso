@@ -43,5 +43,17 @@
 		file="/database/changelog/changes/inserts/insert-users-1.xml" />
 	<include
 		file="/database/changelog/changes/inserts/insert-user_roles-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-images-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-cities-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-departaments-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-ranges-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-brigade_details-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-user_details-1.xml" />
 
 </databaseChangeLog>
