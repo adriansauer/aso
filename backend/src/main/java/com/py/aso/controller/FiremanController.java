@@ -48,6 +48,12 @@ public class FiremanController
 		return this.firemanService.findById(id);
 	}
 
+	@GetMapping("/fireman/by/brigade/{id}")
+	@ApiOperation(value = "Obtener los bomberos por brigada, permite paginacion")
+	public Page<FiremanDTO> findByBrigade(@PathVariable final long id, final Pageable pageable) throws Exception {
+		return this.firemanService.findByBrigadeId(id, pageable);
+	}
+
 	@Override
 	@PostMapping("/fireman")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")

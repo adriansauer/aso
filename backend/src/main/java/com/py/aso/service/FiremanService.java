@@ -100,6 +100,12 @@ public class FiremanService implements BaseService<FiremanDTO, FiremanDetailDTO,
 				.orElseThrow(() -> new ResourceNotFoundException("Fireman", "id", id));
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public Page<FiremanDTO> findByBrigadeId(final long id, final Pageable pageable) throws Exception {
+		return this.firemanRepository.findAllByBrigadeIdAndEnabled(id, true, pageable)//
+				.map(this.firemanMapper::toDTO);
+	}
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FiremanDetailDTO save(final FiremanCreateDTO dto) throws Exception {
