@@ -13,7 +13,7 @@ public class DepartamentMapper implements
 		BaseMapper<DepartamentEntity, DepartamentDTO, DepartamentDetailDTO, DepartamentCreateDTO, DepartamentUpdateDTO> {
 
 	@Override
-	public DepartamentDTO toDTO(DepartamentEntity entity) {
+	public DepartamentDTO toDTO(final DepartamentEntity entity) {
 		DepartamentDTO dto = new DepartamentDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -21,7 +21,7 @@ public class DepartamentMapper implements
 	}
 
 	@Override
-	public DepartamentDetailDTO toDetailDTO(DepartamentEntity entity) {
+	public DepartamentDetailDTO toDetailDTO(final DepartamentEntity entity) {
 		DepartamentDetailDTO dto = new DepartamentDetailDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -29,14 +29,14 @@ public class DepartamentMapper implements
 	}
 
 	@Override
-	public DepartamentEntity toEntity(DepartamentDTO dto) {
+	public DepartamentEntity toEntity(final DepartamentDTO dto) {
 		DepartamentEntity entity = new DepartamentEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
 		return entity;
 	}
 
-	public DepartamentEntity toEntity(DepartamentDetailDTO dto) {
+	public DepartamentEntity toEntity(final DepartamentDetailDTO dto) {
 		DepartamentEntity entity = new DepartamentEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
@@ -44,14 +44,14 @@ public class DepartamentMapper implements
 	}
 
 	@Override
-	public DepartamentEntity toCreateEntity(DepartamentCreateDTO dto) {
+	public DepartamentEntity toCreateEntity(final DepartamentCreateDTO dto) {
 		DepartamentEntity entity = new DepartamentEntity();
 		entity.setName(dto.getName());
 		return entity;
 	}
 
 	@Override
-	public DepartamentEntity toUpdateEntity(DepartamentUpdateDTO dto) {
+	public DepartamentEntity toUpdateEntity(final DepartamentUpdateDTO dto) {
 		DepartamentEntity entity = new DepartamentEntity();
 		entity.setName(dto.getName());
 		return entity;

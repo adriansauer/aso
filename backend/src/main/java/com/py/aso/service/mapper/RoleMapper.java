@@ -12,7 +12,7 @@ import com.py.aso.entity.RoleEntity;
 public class RoleMapper implements BaseMapper<RoleEntity, RoleDTO, RoleDetailDTO, RoleCreateDTO, RoleUpdateDTO> {
 
 	@Override
-	public RoleDTO toDTO(RoleEntity entity) {
+	public RoleDTO toDTO(final RoleEntity entity) {
 		RoleDTO dto = new RoleDTO();
 		dto.setId(entity.getId());
 		dto.setAuthority(entity.getAuthority());
@@ -20,7 +20,7 @@ public class RoleMapper implements BaseMapper<RoleEntity, RoleDTO, RoleDetailDTO
 	}
 
 	@Override
-	public RoleDetailDTO toDetailDTO(RoleEntity entity) {
+	public RoleDetailDTO toDetailDTO(final RoleEntity entity) {
 		RoleDetailDTO dto = new RoleDetailDTO();
 		dto.setId(entity.getId());
 		dto.setAuthority(entity.getAuthority());
@@ -28,7 +28,7 @@ public class RoleMapper implements BaseMapper<RoleEntity, RoleDTO, RoleDetailDTO
 	}
 
 	@Override
-	public RoleEntity toEntity(RoleDTO dto) {
+	public RoleEntity toEntity(final RoleDTO dto) {
 		RoleEntity entity = new RoleEntity();
 		entity.setId(dto.getId());
 		entity.setAuthority(dto.getAuthority());
@@ -36,14 +36,14 @@ public class RoleMapper implements BaseMapper<RoleEntity, RoleDTO, RoleDetailDTO
 	}
 
 	@Override
-	public RoleEntity toCreateEntity(RoleCreateDTO dto) {
+	public RoleEntity toCreateEntity(final RoleCreateDTO dto) {
 		RoleEntity entity = new RoleEntity();
 		entity.setAuthority(dto.getAuthority());
 		return entity;
 	}
 
 	@Override
-	public RoleEntity toUpdateEntity(RoleUpdateDTO dto) {
+	public RoleEntity toUpdateEntity(final RoleUpdateDTO dto) {
 		RoleEntity entity = new RoleEntity();
 		entity.setAuthority(dto.getAuthority());
 		return entity;

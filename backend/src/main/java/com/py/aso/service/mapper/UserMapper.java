@@ -21,7 +21,7 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 	private RoleMapper roleMapper;
 
 	@Override
-	public UserDTO toDTO(UserEntity entity) {
+	public UserDTO toDTO(final UserEntity entity) {
 		UserDTO dto = new UserDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -31,7 +31,7 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 	}
 
 	@Override
-	public UserDetailDTO toDetailDTO(UserEntity entity) {
+	public UserDetailDTO toDetailDTO(final UserEntity entity) {
 		UserDetailDTO dto = new UserDetailDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -47,7 +47,7 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 	}
 
 	@Override
-	public UserEntity toEntity(UserDTO dto) {
+	public UserEntity toEntity(final UserDTO dto) {
 		UserEntity entity = new UserEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
@@ -56,7 +56,7 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 		return entity;
 	}
 
-	public UserEntity toEntity(UserDetailDTO dto) {
+	public UserEntity toEntity(final UserDetailDTO dto) {
 		UserEntity entity = new UserEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
@@ -69,7 +69,7 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 	}
 
 	@Override
-	public UserEntity toCreateEntity(UserCreateDTO dto) {
+	public UserEntity toCreateEntity(final UserCreateDTO dto) {
 		UserEntity entity = new UserEntity();
 		entity.setName(dto.getName());
 		entity.setLastname(dto.getLastname());
@@ -81,7 +81,7 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 	}
 
 	@Override
-	public UserEntity toUpdateEntity(UserUpdateDTO dto) {
+	public UserEntity toUpdateEntity(final UserUpdateDTO dto) {
 		UserEntity entity = new UserEntity();
 		entity.setName(dto.getName());
 		entity.setLastname(dto.getLastname());

@@ -12,7 +12,7 @@ import com.py.aso.entity.ImageEntity;
 public class ImageMapper implements BaseMapper<ImageEntity, ImageDTO, ImageDetailDTO, ImageCreateDTO, ImageUpdateDTO> {
 
 	@Override
-	public ImageDTO toDTO(ImageEntity entity) {
+	public ImageDTO toDTO(final ImageEntity entity) {
 		ImageDTO dto = new ImageDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -20,7 +20,7 @@ public class ImageMapper implements BaseMapper<ImageEntity, ImageDTO, ImageDetai
 	}
 
 	@Override
-	public ImageDetailDTO toDetailDTO(ImageEntity entity) {
+	public ImageDetailDTO toDetailDTO(final ImageEntity entity) {
 		ImageDetailDTO dto = new ImageDetailDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -28,7 +28,7 @@ public class ImageMapper implements BaseMapper<ImageEntity, ImageDTO, ImageDetai
 	}
 
 	@Override
-	public ImageEntity toEntity(ImageDTO dto) {
+	public ImageEntity toEntity(final ImageDTO dto) {
 		ImageEntity entity = new ImageEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
@@ -36,14 +36,14 @@ public class ImageMapper implements BaseMapper<ImageEntity, ImageDTO, ImageDetai
 	}
 
 	@Override
-	public ImageEntity toCreateEntity(ImageCreateDTO dto) {
+	public ImageEntity toCreateEntity(final ImageCreateDTO dto) {
 		ImageEntity entity = new ImageEntity();
 		entity.setName(dto.getName());
 		return entity;
 	}
 
 	@Override
-	public ImageEntity toUpdateEntity(ImageUpdateDTO dto) {
+	public ImageEntity toUpdateEntity(final ImageUpdateDTO dto) {
 		ImageEntity entity = new ImageEntity();
 		entity.setName(dto.getName());
 		return entity;

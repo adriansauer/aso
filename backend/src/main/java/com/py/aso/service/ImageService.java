@@ -166,18 +166,11 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 		// Crea el path y lo guarda en los archivos
 		final Path newFilePath = Paths.get(this.imageFileProperties.getRoot(), file).normalize();
 		final File newFile = new File(newFilePath.toUri());
-		final boolean isFileCreated = newFile.createNewFile();
+		final boolean isFileExists = newFile.exists();
 
-		// Validad si se creo correctamente
-		if (!isFileCreated) {
-			throw new FileProblemsException("La imagen no se pudo crear");
-		}
-
-		// Se escribe el archivo para guardar la imagen
-		try (final FileOutputStream fout = new FileOutputStream(newFile)) {
-			fout.write(file.getBytes());
-		} catch (IOException ex) {
-			throw new FileProblemsException("La imagen no se pudo guardar");
+		// Validad si se existe la imagen
+		if (!isFileExists) {
+			throw new FileProblemsException("La imagen no existe");
 		}
 
 		// Se registra en la base de datos en la tabla images.
@@ -244,8 +237,8 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 
 		// Se elimina el viejo archivo
 		final File oldFile = new File(oldPath.toUri());
-		if (!oldFile.getName().equals(this.IMAGE) || !oldFile.getName().equals(this.IMAGE_BRIGADE)
-				|| !oldFile.getName().equals(this.IMAGE_FIREMAN)) {
+		if (!(oldFile.getName().equals(this.IMAGE) || oldFile.getName().equals(this.IMAGE_BRIGADE)
+				|| oldFile.getName().equals(this.IMAGE_FIREMAN))) {
 			final boolean isFileDelete = oldFile.delete();
 			if (!isFileDelete) {
 				throw new FileProblemsException("La imagen no se cambiar");
@@ -264,8 +257,8 @@ public class ImageService implements BaseService<ImageDTO, ImageDetailDTO, Image
 				.orElseThrow(() -> new ResourceNotFoundException("Image", "id", id));
 		final Path oldPath = Paths.get(entity.getPath());
 		final File oldFile = new File(oldPath.toUri());
-		if (!oldFile.getName().equals(this.IMAGE) || !oldFile.getName().equals(this.IMAGE_BRIGADE)
-				|| !oldFile.getName().equals(this.IMAGE_FIREMAN)) {
+		if (!(oldFile.getName().equals(this.IMAGE) || !oldFile.getName().equals(this.IMAGE_BRIGADE)
+				|| !oldFile.getName().equals(this.IMAGE_FIREMAN))) {
 			final boolean isFileDelete = oldFile.delete();
 			if (!isFileDelete) {
 				throw new FileProblemsException("La imagen no se cambiar");

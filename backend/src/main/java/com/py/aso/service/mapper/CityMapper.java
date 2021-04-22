@@ -12,7 +12,7 @@ import com.py.aso.entity.CityEntity;
 public class CityMapper implements BaseMapper<CityEntity, CityDTO, CityDetailDTO, CityCreateDTO, CityUpdateDTO> {
 
 	@Override
-	public CityDTO toDTO(CityEntity entity) {
+	public CityDTO toDTO(final CityEntity entity) {
 		CityDTO dto = new CityDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -20,7 +20,7 @@ public class CityMapper implements BaseMapper<CityEntity, CityDTO, CityDetailDTO
 	}
 
 	@Override
-	public CityDetailDTO toDetailDTO(CityEntity entity) {
+	public CityDetailDTO toDetailDTO(final CityEntity entity) {
 		CityDetailDTO dto = new CityDetailDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -28,14 +28,14 @@ public class CityMapper implements BaseMapper<CityEntity, CityDTO, CityDetailDTO
 	}
 
 	@Override
-	public CityEntity toEntity(CityDTO dto) {
+	public CityEntity toEntity(final CityDTO dto) {
 		CityEntity entity = new CityEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
 		return entity;
 	}
 
-	public CityEntity toEntity(CityDetailDTO dto) {
+	public CityEntity toEntity(final CityDetailDTO dto) {
 		CityEntity entity = new CityEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
@@ -43,14 +43,14 @@ public class CityMapper implements BaseMapper<CityEntity, CityDTO, CityDetailDTO
 	}
 
 	@Override
-	public CityEntity toCreateEntity(CityCreateDTO dto) {
+	public CityEntity toCreateEntity(final CityCreateDTO dto) {
 		CityEntity entity = new CityEntity();
 		entity.setName(dto.getName());
 		return entity;
 	}
 
 	@Override
-	public CityEntity toUpdateEntity(CityUpdateDTO dto) {
+	public CityEntity toUpdateEntity(final CityUpdateDTO dto) {
 		CityEntity entity = new CityEntity();
 		entity.setName(dto.getName());
 		return entity;

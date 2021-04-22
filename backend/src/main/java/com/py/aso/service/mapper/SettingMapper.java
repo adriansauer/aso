@@ -13,7 +13,7 @@ public class SettingMapper
 		implements BaseMapper<SettingEntity, SettingDTO, SettingDetailDTO, SettingCreateDTO, SettingUpdateDTO> {
 
 	@Override
-	public SettingDTO toDTO(SettingEntity entity) {
+	public SettingDTO toDTO(final SettingEntity entity) {
 		SettingDTO dto = new SettingDTO();
 		dto.setId(entity.getId());
 		dto.setKey(entity.getKey());
@@ -22,7 +22,7 @@ public class SettingMapper
 	}
 
 	@Override
-	public SettingDetailDTO toDetailDTO(SettingEntity entity) {
+	public SettingDetailDTO toDetailDTO(final SettingEntity entity) {
 		SettingDetailDTO dto = new SettingDetailDTO();
 		dto.setId(entity.getId());
 		dto.setKey(entity.getKey());
@@ -31,7 +31,7 @@ public class SettingMapper
 	}
 
 	@Override
-	public SettingEntity toEntity(SettingDTO dto) {
+	public SettingEntity toEntity(final SettingDTO dto) {
 		SettingEntity entity = new SettingEntity();
 		entity.setId(dto.getId());
 		entity.setKey(dto.getKey());
@@ -40,7 +40,7 @@ public class SettingMapper
 	}
 
 	@Override
-	public SettingEntity toCreateEntity(SettingCreateDTO dto) {
+	public SettingEntity toCreateEntity(final SettingCreateDTO dto) {
 		SettingEntity entity = new SettingEntity();
 		entity.setKey(dto.getKey());
 		entity.setValue(dto.getValue());
@@ -48,7 +48,7 @@ public class SettingMapper
 	}
 
 	@Override
-	public SettingEntity toUpdateEntity(SettingUpdateDTO dto) {
+	public SettingEntity toUpdateEntity(final SettingUpdateDTO dto) {
 		SettingEntity entity = new SettingEntity();
 		entity.setKey(dto.getKey());
 		entity.setValue(dto.getValue());
