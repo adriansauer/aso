@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import Logo from '../images/logo1.png'
-import Perfil1 from '../images/perfil1.jpg'
-import Perfil2 from '../images/perfil2.jpg'
-import Perfil3 from '../images/perfil3.jpg'
+import perfil from '../images/default.jpg'
 import './components.css'
 import M from 'materialize-css'
 import CreateBrigadaForm from './CreateBrigadaForm'
+import useGetBrigadas from '../api/brigada/useGetBrigadas'
+import { useHistory } from 'react-router-dom'
+
 const BrigadaList = () => {
   const [instance, setInstance] = useState(null)
+  const { execute: getBrigadasExecute } = useGetBrigadas()
+  const [brigadas, setBrigadas] = useState(null)
+  const history = useHistory()
+
   useEffect(() => {
+    fetchBrigadas()
+
     const elem1 = document.querySelector('.modal')
     const instance = M.Modal.init(elem1, {
       inDuration: 300
@@ -19,7 +25,19 @@ const BrigadaList = () => {
   // Cerrar el modal de agregar usuario
   const closeModal = () => {
     instance.close()
+    fetchBrigadas()
   }
+
+  const fetchBrigadas = () => {
+    getBrigadasExecute()
+      .then((res) => {
+        setBrigadas(res.data.content)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+  useEffect(() => { console.log(brigadas) }, [brigadas])
   return (
     <div className="container">
       <CreateBrigadaForm close={closeModal} />
@@ -27,159 +45,101 @@ const BrigadaList = () => {
         <div className="col m12 s12 center-align">
           <h1>
             Brigadas
-              <button
-                className="btn btn-floating btn-medium waves-light tooltipped"
-                data-position="top"
-                data-tooltip="Agregar nueva brigada"
-                onClick={() => instance.open()}
-                style={{
-                  backgroundColor: '#0C0019',
-                  marginLeft: '5%'
-                }}
-              >
-                <i className="material-icons">add</i>
-              </button>
+            <button
+              className="btn btn-floating btn-medium waves-light tooltipped"
+              data-position="top"
+              data-tooltip="Agregar nueva brigada"
+              onClick={() => instance.open()}
+              style={{
+                backgroundColor: '#0C0019',
+                marginLeft: '5%'
+              }}
+            >
+              <i className="material-icons">add</i>
+            </button>
           </h1>
         </div>
       </div>
       <div className="row">
         <div className="collection">
-          {/** Item collection representa cada una de las brigadas */}
-          <div
-            className="btn btn-large collection-item avatar brigada_button"
-            style={{
-              margin: '4%',
-              color: 'black',
-              paddingTop: 0,
-              paddingLeft: 0,
-              marginTop: '2%',
-              width: '90%',
-              borderRadius: '1%'
-            }}
-          >
-            <div className="row">
-              <div className="col s2">
-                <img
-                  src={Logo}
-                  alt=""
-                  className="circle"
-                  style={{ height: 80, width: 80, marginBottom: '5%' }}
-                />
-              </div>
-              <div className="col s6" style={{ textAlign: 'left' }}>
-                <span style={{ fontSize: 24 }} className="title">
-                  Brigada de Cambyreta
-                </span>
-                <br />
-                <span>24 Miembros</span>
-              </div>
-              <div className="col s3">
-                <img
-                  src={Perfil1}
-                  alt=""
-                  className="circle secondary-content"
-                  style={{
-                    height: 50,
-                    width: 50,
-                    marginBottom: '5%',
-                    left: 'auto'
+          {brigadas !== null
+            ? brigadas.map((b) => (
+                <div
+                  key={b.id}
+                  className="btn btn-large collection-item avatar brigada_button"
+                  onClick={() => {
+                    history.push({
+                      pathname: '/brigadaperfil',
+                      brigada: b
+                    })
                   }}
-                />
-                <img
-                  src={Perfil2}
-                  alt=""
-                  className="circle secondary-content"
                   style={{
-                    height: 50,
-                    width: 50,
-                    marginBottom: '5%',
-                    left: 'auto',
-                    marginRight: '30px'
+                    margin: '4%',
+                    color: 'black',
+                    paddingTop: 0,
+                    paddingLeft: 0,
+                    marginTop: '2%',
+                    width: '90%',
+                    borderRadius: '1%'
                   }}
-                />
-                <img
-                  src={Perfil3}
-                  alt=""
-                  className="circle secondary-content"
-                  style={{
-                    height: 50,
-                    width: 50,
-                    marginBottom: '5%',
-                    left: 'auto',
-                    marginRight: '60px'
-                  }}
-                />
-              </div>
-            </div>
-          </div>
-          {/** Item collection representa cada una de las brigadas */}
-          <div
-            className="btn btn-large collection-item avatar brigada_button"
-            style={{
-              margin: '4%',
-              color: 'black',
-              paddingTop: 0,
-              paddingLeft: 0,
-              marginTop: '2%',
-              width: '90%',
-              borderRadius: '1%'
-            }}
-          >
-            <div className="row">
-              <div className="col s2">
-                <img
-                  src={Logo}
-                  alt=""
-                  className="circle"
-                  style={{ height: 80, width: 80, marginBottom: '5%' }}
-                />
-              </div>
-              <div className="col s6" style={{ textAlign: 'left' }}>
-                <span style={{ fontSize: 24 }} className="title">
-                  Brigada de Cambyreta
-                </span>
-                <br />
-                <span>24 Miembros</span>
-              </div>
-              <div className="col s3">
-                <img
-                  src={Perfil1}
-                  alt=""
-                  className="circle secondary-content"
-                  style={{
-                    height: 50,
-                    width: 50,
-                    marginBottom: '5%',
-                    left: 'auto'
-                  }}
-                />
-                <img
-                  src={Perfil2}
-                  alt=""
-                  className="circle secondary-content"
-                  style={{
-                    height: 50,
-                    width: 50,
-                    marginBottom: '5%',
-                    left: 'auto',
-                    marginRight: '30px'
-                  }}
-                />
-                <img
-                  src={Perfil3}
-                  alt=""
-                  className="circle secondary-content"
-                  style={{
-                    height: 50,
-                    width: 50,
-                    marginBottom: '5%',
-                    left: 'auto',
-                    marginRight: '60px'
-                  }}
-                />
-              </div>
-            </div>
-          </div>
+                >
+                  <div className="row">
+                    <div className="col s2">
+                      <img
+                        src={perfil}
+                        alt=""
+                        className="circle"
+                        style={{ height: 80, width: 80, marginBottom: '5%' }}
+                     />
+                    </div>
+                    <div className="col s6" style={{ textAlign: 'left' }}>
+                      <span style={{ fontSize: 24 }} className="title">
+                        {b.name}
+                      </span>
+                      <br />
+                      <span>{b.numberMember} MIEMBROS</span>
+                    </div>
+                    <div className="col s3">
+                      <img
+                        src={perfil}
+                        alt=""
+                        className="circle secondary-content"
+                        style={{
+                          height: 50,
+                          width: 50,
+                          marginBottom: '5%',
+                          left: 'auto'
+                        }}
+                      />
+                      <img
+                        src={perfil}
+                        alt=""
+                        className="circle secondary-content"
+                        style={{
+                          height: 50,
+                          width: 50,
+                          marginBottom: '5%',
+                          left: 'auto',
+                          marginRight: '30px'
+                        }}
+                      />
+                      <img
+                        src={perfil}
+                        alt=""
+                        className="circle secondary-content"
+                        style={{
+                          height: 50,
+                          width: 50,
+                          marginBottom: '5%',
+                          left: 'auto',
+                          marginRight: '60px'
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+            ))
+            : null}
         </div>
       </div>
     </div>
