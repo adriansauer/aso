@@ -76,7 +76,7 @@ const Ciudades = () => {
       })
   }
   return (
-    <div className="container" style={{ marginTop: '5%' }}>
+    <div className="container" style={{ marginTop: '2%' }}>
       <DepartamentForm close={closeModal} />
       <CitForm close={closeModal} />
       <div className="row">

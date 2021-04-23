@@ -69,7 +69,7 @@ const BrigadaList = () => {
                   className="btn btn-large collection-item avatar brigada_button"
                   onClick={() => {
                     history.push({
-                      pathname: '/brigadaperfil',
+                      pathname: '/brigada',
                       brigada: b
                     })
                   }}

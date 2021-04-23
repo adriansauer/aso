@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 const Header = () => {
   const [instance, setInstance] = useState(null)
   const { isAutenticate, setIsAutenticate, userData } = useContext(userContext)
+
   /** Cuando se levanta el componente se instancia el Sidebar para almacenarlo en el estado y manipularlo desde ahi */
   useEffect(() => {
     const elem = document.querySelector('.sidenav')
@@ -31,10 +32,13 @@ const Header = () => {
     localStorage.setItem('token', null)
     setIsAutenticate(false)
   }
+
   return (
     <>
       {/** Vista del navbar */}
-      <nav style={{ position: 'fixed', zIndex: 9999, left: 0, right: 0, top: 0 }}>
+      <nav
+        style={{ position: 'fixed', zIndex: 9999, left: 0, right: 0, top: 0 }}
+      >
         <div className="nav-wrapper" style={{ backgroundColor: '#0C0019' }}>
           {isAutenticate
             ? (
@@ -59,7 +63,7 @@ const Header = () => {
                       width={60}
                       height={60}
                       src={perfil}
-                      alt=''
+                      alt=""
                     />
                   </li>
                 </ul>
@@ -87,39 +91,31 @@ const Header = () => {
           {/** Link del perfil del usuario */}
           <li>
             <Link
-              to="/usuarioperfil"
-              onClick={() => instance.close()}
+              to={{
+                pathname: '/perfil',
+                member: { id: userData.id }
+              }}
+              onClick={() => {
+                instance.close()
+              }}
             >
               <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}>Perfil de un usuario</span>
+              <span style={{ color: 'white' }}>Mi perfil</span>
             </Link>
           </li>
-          {/** Link de brigadas */}
+          {/** Link de lisa de brigadas */}
           <li>
-            <Link
-              to="/brigadaperfil"
-              onClick={() => instance.close()}
-            >
+            <Link to="/brigadas" onClick={() => instance.close()}>
               <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}>Perfil de una brigada</span>
+              <span style={{ color: 'white' }}>Brigadas</span>
             </Link>
           </li>
+
+          {/** Ciudades y departamentos */}
           <li>
-            <Link
-              to="/usuariolist"
-              onClick={() => instance.close()}
-            >
+            <Link to="/cities" onClick={() => instance.close()}>
               <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}>Lista de usuarios</span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/brigadalist"
-              onClick={() => instance.close()}
-            >
-              <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}>Lista de brigadas</span>
+              <span style={{ color: 'white' }}>Ciudades y Departamentos</span>
             </Link>
           </li>
           {/** Link de configuraciones */}
@@ -128,16 +124,6 @@ const Header = () => {
               <i className="medium material-icons white-text">settings</i>
               Configuraciones
             </a>
-          </li>
-          {/** Ciudades */}
-          <li>
-            <Link
-              to="/cities"
-              onClick={() => instance.close()}
-            >
-              <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}>Ciudades y Departamentos</span>
-            </Link>
           </li>
         </ul>
       </div>

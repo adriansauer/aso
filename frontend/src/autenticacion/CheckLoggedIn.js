@@ -14,7 +14,8 @@ const CheckLoggedIn = () => {
         .then((res) => {
           setUserData({
             username: `${res.data.name} ${res.data.lastname}`,
-            roles: res.data.roles
+            roles: res.data.roles,
+            id: res.data.id
           })
           setIsAutenticate(true)
         })

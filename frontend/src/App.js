@@ -24,8 +24,8 @@ const App = () => {
   const { execute: checkLoggedIn } = useCheckLoggedIn()
   const [userData, setUserData] = useState({
     username: '',
-    roles: null
-
+    roles: null,
+    id: null
   })
   const verifyAut = async () => {
     const token = localStorage.getItem('token')
@@ -39,56 +39,58 @@ const App = () => {
   }, [])
   return (
     <div className="App">
-      <UserContext.Provider value={{ isAutenticate, setIsAutenticate, userData, setUserData }}>
-      <Router>
-        <Header />
-        <>
-          <Switch>
-          <PrivateRoute
-              authed={!isAutenticate}
-              redirect="/"
-              path="/login"
-              component={Login}
-            />
-             <PrivateRoute
-              authed={isAutenticate}
-              redirect="/login"
-              path="/cities"
-              component={Ciudades}
-            />
-            <PrivateRoute
-              authed={isAutenticate}
-              redirect="/login"
-              path="/usuarioperfil"
-              component={UsuarioPerfil}
-            />
-             <PrivateRoute
-              authed={isAutenticate}
-              redirect="/login"
-              path="/usuariolist"
-              component={UsuarioList}
-            />
-            <PrivateRoute
-              authed={isAutenticate}
-              redirect="/login"
-              path="/brigadaperfil"
-              component={BrigadaPerfil}
-            />
-             <PrivateRoute
-              authed={isAutenticate}
-              redirect="/login"
-              path="/brigadalist"
-              component={BrigadaList}
-            />
-            <PrivateRoute
-              authed={isAutenticate}
-              redirect="/login"
-              path="/"
-              component={Home}
-            />
-          </Switch>
-        </>
-      </Router>
+      <UserContext.Provider
+        value={{ isAutenticate, setIsAutenticate, userData, setUserData }}
+      >
+        <Router>
+          <Header />
+          <>
+            <Switch>
+              <PrivateRoute
+                authed={!isAutenticate}
+                redirect="/"
+                path="/login"
+                component={Login}
+              />
+              <PrivateRoute
+                authed={isAutenticate}
+                redirect="/login"
+                path="/cities"
+                component={Ciudades}
+              />
+              <PrivateRoute
+                authed={isAutenticate}
+                redirect="/login"
+                path="/perfil"
+                component={UsuarioPerfil}
+              />
+              <PrivateRoute
+                authed={isAutenticate}
+                redirect="/login"
+                path="/usuarios"
+                component={UsuarioList}
+              />
+              <PrivateRoute
+                authed={isAutenticate}
+                redirect="/login"
+                path="/brigada"
+                component={BrigadaPerfil}
+              />
+              <PrivateRoute
+                authed={isAutenticate}
+                redirect="/login"
+                path="/brigadas"
+                component={BrigadaList}
+              />
+              <PrivateRoute
+                authed={isAutenticate}
+                redirect="/login"
+                path="/"
+                component={Home}
+              />
+            </Switch>
+          </>
+        </Router>
       </UserContext.Provider>
     </div>
   )

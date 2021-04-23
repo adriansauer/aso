@@ -48,7 +48,7 @@ const BrigadaPerfil = (props) => {
             style={{ backgroundColor: '#0C0019', color: 'white' }}
             onClick={() => {
               history.push({
-                pathname: '/usuariolist',
+                pathname: '/usuarios',
                 brigada: location.brigada
               })
             }}
