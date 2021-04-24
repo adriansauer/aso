@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import M from 'materialize-css'
-import useCreateCity from '../api/city/useCreateCity'
+import useCreateCity from '../../api/city/useCreateCity'
 const CityForm = (props) => {
   const [name, setName] = useState('')
   const { execute: createCityExecute } = useCreateCity()
