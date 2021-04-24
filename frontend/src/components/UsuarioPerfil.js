@@ -2,12 +2,25 @@ import React, { useEffect, useState } from 'react'
 import perfil from '../images/default.jpg'
 import { useLocation, useHistory } from 'react-router-dom'
 import useGetMemberById from '../api/miembros/useGetMemberById'
+import M from 'materialize-css'
+import EditUserForm from './modals/EditUserForm'
 const UsuarioPerfil = (props) => {
   const location = useLocation()
   const history = useHistory()
   const [image, setImage] = useState(null)
   const { execute: getMemberByIdExecute } = useGetMemberById()
   const [member, setMember] = useState(null)
+  const [editUserModal, setEditUserModal] = useState(null)
+  useEffect(() => {
+    if (member !== null) {
+      /** INSTANCIA DEL MODAL EDITAR */
+      const elem1 = document.getElementById('modal')
+      const editarModalInstance = M.Modal.init(elem1, {
+        inDuration: 300
+      })
+      setEditUserModal(editarModalInstance)
+    }
+  }, [member])
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader()
@@ -20,12 +33,12 @@ const UsuarioPerfil = (props) => {
   useEffect(() => {
     if (location.member === undefined) {
       history.goBack()
+    } else {
+      fetchMember()
     }
-    fetchMember()
   }, [])
 
   const fetchMember = () => {
-    console.log(location.member)
     if (location.member !== undefined) {
       getMemberByIdExecute(location.member.id)
         .then((res) => {
@@ -36,6 +49,13 @@ const UsuarioPerfil = (props) => {
           console.log(err)
         })
     }
+  }
+  /** CERRAR MODAL DE EDITAR USUARIO */
+  const closeModal = () => {
+    if (editUserModal.isOpen) {
+      editUserModal.close()
+    }
+    fetchMember()
   }
   if (member !== null) {
     return (
@@ -157,7 +177,9 @@ const UsuarioPerfil = (props) => {
                     <span style={{ fontSize: 16 }}>{member.email}</span>
                   </div>
                   <div className="col s3 m5 right-align">
+                    {/** BOTON PARA ABRIR EL MODAL DE EDITAR USUARIO */}
                     <button
+                      onClick={() => editUserModal.open()}
                       style={{ backgroundColor: '#0C0019' }}
                       className="btn-floating btn-medium"
                     >
@@ -169,6 +191,16 @@ const UsuarioPerfil = (props) => {
             </ul>
           </div>
         </div>
+        {/** RENDERIZAR EL MODAL DE EDITAR EL USUARIO SOLO SI YA SE OBTUVO EL MIEMBRO */}
+        {member !== null || location.brigada !== undefined
+          ? (
+          <EditUserForm
+            usuario={member}
+            brigada={location.brigada.name}
+            close={closeModal}
+          />
+            )
+          : null}
       </div>
     )
   } else {
