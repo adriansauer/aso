@@ -4,12 +4,14 @@ import './components.css'
 import M from 'materialize-css'
 import CreateBrigadaForm from './modals/CreateBrigadaForm'
 import useGetBrigadas from '../api/brigada/useGetBrigadas'
+import PreLoader from './PreLoader'
 import { useHistory } from 'react-router-dom'
 
 const BrigadaList = () => {
   const [instance, setInstance] = useState(null)
   const { execute: getBrigadasExecute } = useGetBrigadas()
   const [brigadas, setBrigadas] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
   const history = useHistory()
 
   useEffect(() => {
@@ -29,18 +31,22 @@ const BrigadaList = () => {
   }
 
   const fetchBrigadas = () => {
+    setIsLoading(true)
     getBrigadasExecute()
       .then((res) => {
         setBrigadas(res.data.content)
+        setIsLoading(false)
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
+        setIsLoading(false)
       })
   }
 
   return (
     <div className="container">
       <CreateBrigadaForm close={closeModal} />
+      <PreLoader visible={isLoading}/>
       <div className="row">
         <div className="col m12 s12 center-align">
           <h1>
@@ -90,7 +96,7 @@ const BrigadaList = () => {
                         alt=""
                         className="circle"
                         style={{ height: 80, width: 80, marginBottom: '5%' }}
-                     />
+                      />
                     </div>
                     <div className="col s6" style={{ textAlign: 'left' }}>
                       <span style={{ fontSize: 24 }} className="title">

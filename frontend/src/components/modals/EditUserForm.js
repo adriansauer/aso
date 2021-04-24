@@ -5,11 +5,14 @@ import useUpdateMember from '../../api/miembros/useUpdateMember'
 import UseGetDepartaments from '../../api/departamento/useGetDepartament'
 import useGetCity from '../../api/city/useGetCity'
 import useGetRangos from '../../api/rangos/useGetRangos'
+import PreLoader from '../PreLoader'
 const EditUserForm = (props) => {
   const { execute: getDepartamentsExecute } = UseGetDepartaments()
   const { execute: getCityExecute } = useGetCity()
   const { execute: updateMemberExecute } = useUpdateMember()
   const { execute: getRangosExecute } = useGetRangos()
+  // SI ESTA CARGANDO
+  const [isLoading, setIsLoading] = useState(false)
   // LISTA DE DEPARTAMENTOS
   const [departaments, setDepartaments] = useState(null)
   // LISTA DE CIUDADES
@@ -27,7 +30,9 @@ const EditUserForm = (props) => {
   const [birthday, setBirthday] = useState(props.usuario.birthday)
   // DEPARTAMENTO Y CIUDAD
   const [cityId, setCityId] = useState(props.usuario.cityId)
-  const [departamentId, setDepartamentId] = useState(props.usuario.departamentId)
+  const [departamentId, setDepartamentId] = useState(
+    props.usuario.departamentId
+  )
   // BRIGADA Y RANGO
   const [brigadeId] = useState(props.usuario.brigadeId)
   const [rankId, setRankId] = useState(props.usuario.rankId)
@@ -39,6 +44,7 @@ const EditUserForm = (props) => {
   const [usercode, setUsercode] = useState(props.usuario.usercode)
 
   useEffect(() => {
+    setIsLoading(true)
     // OBTENGO TODOS LOS DEPARTAMENTOS
     getDepartamentsExecute()
       .then((res) => {
@@ -46,7 +52,7 @@ const EditUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
     // OBTENGO TODAS LAS CIUDADES
     getCityExecute()
@@ -55,7 +61,7 @@ const EditUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
     // OBTENGO TODOS LOS RANGOS
     getRangosExecute()
@@ -64,10 +70,12 @@ const EditUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
+    setIsLoading(false)
   }, [])
   const createUser = (e) => {
+    setIsLoading(true)
     e.preventDefault()
     updateMemberExecute({
       id: props.usuario.id,
@@ -88,15 +96,18 @@ const EditUserForm = (props) => {
     })
       .then((res) => {
         M.toast({ html: 'Miembro modificado exitosamente' })
+        setIsLoading(false)
         props.close()
       })
       .catch((err) => {
         M.toast({ html: err.response.data.description })
+        setIsLoading(false)
       })
   }
 
   return (
     <div id="modal" className="modal modal-fixed-footer">
+      <PreLoader visible={isLoading}/>
       <form onSubmit={createUser}>
         <div className="modal-content">
           <h4>Agregue un miembro a la brigada</h4>
@@ -243,11 +254,7 @@ const EditUserForm = (props) => {
                 )
               : null}
             <div className="input-field col m6">
-              <input
-                disabled
-                type="text"
-                value={props.brigada}
-              />
+              <input disabled type="text" value={props.brigada} />
             </div>
           </div>
           {/** CEDULA DE IDENTIDAD Y CELULAR */}

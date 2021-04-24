@@ -4,6 +4,7 @@ import M from 'materialize-css'
 import UseGetDepartaments from '../../api/departamento/useGetDepartament'
 import useGetCity from '../../api/city/useGetCity'
 import useCreateBrigada from '../../api/brigada/useCreateBrigada'
+import PreLoader from '../PreLoader'
 const CreateBrigadaForm = (props) => {
   const { execute: getDepartamentsExecute } = UseGetDepartaments()
   const { execute: getCityExecute } = useGetCity()
@@ -20,7 +21,7 @@ const CreateBrigadaForm = (props) => {
   const [departamentId, setDepartamentId] = useState('null')
   const [cityId, setCityId] = useState('null')
   const [repeatPassword, setRepeatPassord] = useState('')
-
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     getDepartamentsExecute()
       .then((res) => {
@@ -28,7 +29,7 @@ const CreateBrigadaForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
     getCityExecute()
       .then((res) => {
@@ -36,16 +37,20 @@ const CreateBrigadaForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
   }, [])
   const createBrigada = (e) => {
+    setIsLoading(true)
     if (departamentId === 'null') {
       M.toast({ html: 'Seleccione un departamento' })
+      setIsLoading(false)
     } else if (cityId === 'null') {
       M.toast({ html: 'Seleccione una ciudad' })
+      setIsLoading(false)
     } else if (repeatPassword !== password) {
       M.toast({ html: 'Las contraseñas no coinciden' })
+      setIsLoading(false)
     } else {
       createBrigadaExecute({
         name,
@@ -61,10 +66,12 @@ const CreateBrigadaForm = (props) => {
       })
         .then((res) => {
           M.toast({ html: 'Se ha agregado una nueva brigada' })
+          setIsLoading(false)
           props.close()
         })
         .catch((err) => {
-          console.log(err)
+          M.toast({ html: err.response.data.description })
+          setIsLoading(false)
         })
     }
     e.preventDefault()
@@ -72,6 +79,7 @@ const CreateBrigadaForm = (props) => {
 
   return (
     <div id="modal1" className="modal modal-fixed-footer">
+      <PreLoader visible={isLoading}/>
       <form onSubmit={createBrigada}>
         <div className="modal-content">
           <h4>Agregue una nueva brigada</h4>

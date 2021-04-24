@@ -4,10 +4,13 @@ import M from 'materialize-css'
 import UseGetDepartaments from '../../api/departamento/useGetDepartament'
 import useGetCity from '../../api/city/useGetCity'
 import useUpdateBrigada from '../../api/brigada/useUpdateBrigada'
+import PreLoader from '../PreLoader'
 const EditBrigadaForm = (props) => {
   const { execute: getDepartamentsExecute } = UseGetDepartaments()
   const { execute: getCityExecute } = useGetCity()
   const { execute: updateBrigadaExecute } = useUpdateBrigada()
+  /** SI ESTA CARGANDO */
+  const [isLoading, setIsLoading] = useState(false)
   /** LISTA DE CIUDADES Y DEPARTAMENTOS DISPONIBLES */
   const [departaments, setDepartaments] = useState(null)
   const [cities, setCities] = useState(null)
@@ -27,6 +30,7 @@ const EditBrigadaForm = (props) => {
   const [phone, setPhone] = useState(props.brigada.phone)
 
   useEffect(() => {
+    setIsLoading(true)
     /** OBTENGO LA LISTA DE DEPARTAMENTOS DISPONIBLES */
     getDepartamentsExecute()
       .then((res) => {
@@ -34,7 +38,7 @@ const EditBrigadaForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
     /** OBTENGO LA LISTA DE CIUDADES DISPONIBLES */
     getCityExecute()
@@ -43,15 +47,19 @@ const EditBrigadaForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
+    setIsLoading(false)
   }, [])
   /** EDITAR LA BRIGADA */
   const updateBrigada = (e) => {
+    setIsLoading(true)
     if (departamentId === 'null') {
       M.toast({ html: 'Seleccione un departamento' })
+      setIsLoading(false)
     } else if (cityId === 'null') {
       M.toast({ html: 'Seleccione una ciudad' })
+      setIsLoading(false)
     } else {
       updateBrigadaExecute({
         id: props.brigada.id,
@@ -66,10 +74,12 @@ const EditBrigadaForm = (props) => {
       })
         .then((res) => {
           M.toast({ html: 'Se ha modificado la brigada' })
+          setIsLoading(false)
           props.close()
         })
         .catch((err) => {
           M.toast({ html: err.response.data.description })
+          setIsLoading(false)
         })
     }
     e.preventDefault()
@@ -77,6 +87,7 @@ const EditBrigadaForm = (props) => {
 
   return (
     <div id="modal1" className="modal modal-fixed-footer">
+      <PreLoader visible={isLoading}/>
       <form onSubmit={updateBrigada}>
         <div className="modal-content">
           <h4>Editar brigada</h4>

@@ -6,9 +6,10 @@ import PropTypes from 'prop-types'
 import { useLocation, useHistory } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import EditBrigadaForm from './modals/EditBrigadaForm'
+import PreLoader from './PreLoader'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
-
+  const [isLoading, setIsLoading] = useState(false)
   const location = useLocation()
   const history = useHistory()
   const [brigada, setBrigada] = useState(null)
@@ -31,7 +32,6 @@ const BrigadaPerfil = (props) => {
       history.goBack()
     } else {
       fertchBrigadaById()
-      console.log(brigada)
     }
 
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
@@ -44,12 +44,15 @@ const BrigadaPerfil = (props) => {
   }, [])
   /** OBTENER LA BRIGADA */
   const fertchBrigadaById = () => {
+    setIsLoading(true)
     getBrigadaByIdExecute(location.brigada.id)
       .then((res) => {
         setBrigada(res.data)
+        setIsLoading(false)
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
+        setIsLoading(false)
       })
   }
   /** CERRA CUALQUIERA DE LOS MODALES Y ACTUALIZAR LA BRIGADA */
@@ -64,7 +67,8 @@ const BrigadaPerfil = (props) => {
   }
 
   return (
-    <div className="container" style={{ marginTop: '5%' }}>
+    <div className="container" style={{ marginTop: '4%' }}>
+      <PreLoader visible={isLoading}/>
       <div style={{ margin: 0 }} className="row center">
         <img
           alt=""
