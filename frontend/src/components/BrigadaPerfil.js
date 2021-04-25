@@ -51,7 +51,7 @@ const BrigadaPerfil = (props) => {
         setIsLoading(false)
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
         setIsLoading(false)
       })
   }
@@ -77,21 +77,23 @@ const BrigadaPerfil = (props) => {
           src={perfil}
         ></img>
       </div>
-      <div className="row center">
-        <h4 style={{ margin: 0 }}>
+      <div className="row">
+        <div className='col s12 m12 center-align'>
+        <h5 style={{ margin: 0 }}>
           {brigada === null ? null : brigada.name}
-          <button
-            className="btn-floating btn-medium waves-light"
+        </h5>
+        <button
+            className="btn-floating btn-small waves-light"
             onClick={() => editarModal.open()}
             style={{
               backgroundColor: '#0C0019',
-              position: 'absolute',
-              marginLeft: 75
+              marginTop: '1%'
             }}
           >
             <i className="material-icons">edit</i>
           </button>
-        </h4>
+        </div>
+
       </div>
       <div className="row center">
         <div className="col s6 right-align">

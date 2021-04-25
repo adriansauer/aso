@@ -29,7 +29,7 @@ const CreateBrigadaForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     getCityExecute()
       .then((res) => {
@@ -37,7 +37,7 @@ const CreateBrigadaForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
   }, [])
   const createBrigada = (e) => {
@@ -70,7 +70,7 @@ const CreateBrigadaForm = (props) => {
           props.close()
         })
         .catch((err) => {
-          M.toast({ html: err.response.data.description })
+          M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
           setIsLoading(false)
         })
     }
@@ -235,6 +235,7 @@ const CreateBrigadaForm = (props) => {
         <div className="modal-footer">
           <button
             className="btn-small waves-effect red darken-4"
+            type='button'
             style={{ marginRight: '5%' }}
             onClick={() => props.close()}
           >

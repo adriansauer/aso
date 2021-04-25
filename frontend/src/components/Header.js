@@ -60,8 +60,8 @@ const Header = () => {
                   <li>
                     <img
                       className="circle"
-                      width={60}
-                      height={60}
+                      width={55}
+                      height={55}
                       src={perfil}
                       alt=""
                     />
@@ -72,7 +72,7 @@ const Header = () => {
               <ul id="nav-mobile" className="left">
                 <li>
                   <button
-                    style={{ backgroundColor: '#0C0019' }}
+                    style={{ backgroundColor: '#0C0019', marginBottom: '3%' }}
                     className="btn btn-large waves-light"
                     onClick={handleToggle}
                   >
@@ -100,14 +100,14 @@ const Header = () => {
               }}
             >
               <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}>Mi perfil</span>
+              <span style={{ color: 'white', fontSize: 16 }}>Mi perfil</span>
             </Link>
           </li>
           {/** Link de lisa de brigadas */}
           <li>
             <Link to="/brigadas" onClick={() => instance.close()}>
               <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}>Brigadas</span>
+              <span style={{ color: 'white', fontSize: 16 }}>Brigadas</span>
             </Link>
           </li>
 
@@ -115,14 +115,14 @@ const Header = () => {
           <li>
             <Link to="/cities" onClick={() => instance.close()}>
               <i className="medium material-icons white-text">group</i>
-              <span style={{ color: 'white' }}>Ciudades y Departamentos</span>
+              <span style={{ color: 'white', fontSize: 14 }}>Ciudades y Departamentos</span>
             </Link>
           </li>
           {/** Link de configuraciones */}
           <li>
             <a href="#!" className="white-text">
               <i className="medium material-icons white-text">settings</i>
-              Configuraciones
+              <span style={{ color: 'white', fontSize: 16 }}>Configuraciones</span>
             </a>
           </li>
         </ul>

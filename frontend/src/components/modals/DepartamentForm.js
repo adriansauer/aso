@@ -20,12 +20,12 @@ const DepartamentForm = (props) => {
         props.close()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
         setIsLoading(false)
       })
   }
   return (
-    <div id="modal1" className="modal modal-fixed-footer">
+    <div id="modal1" className="modal">
       <PreLoader visible={isLoading}/>
       <form onSubmit={createDepartament}>
         <div className="modal-content">
@@ -48,6 +48,7 @@ const DepartamentForm = (props) => {
           <button
             className="btn-small waves-effect red darken-4"
             style={{ marginRight: '5%' }}
+            type='button'
             onClick={() => props.close()}
           >
             Cancelar

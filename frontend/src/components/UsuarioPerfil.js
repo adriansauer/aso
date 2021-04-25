@@ -49,7 +49,7 @@ const UsuarioPerfil = (props) => {
           setIsLoading(false)
         })
         .catch((err) => {
-          M.toast({ html: err.response.data.description })
+          M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
           setIsLoading(false)
         })
     }
@@ -103,7 +103,7 @@ const UsuarioPerfil = (props) => {
               <ul>
                 <li>
                   <div className="row left-align">
-                    <div className="col s2 m1 left-align">
+                    <div className="col s3 m1 left-align">
                       <img
                         alt=""
                         className="circle"

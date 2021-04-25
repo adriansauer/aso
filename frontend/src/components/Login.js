@@ -21,7 +21,7 @@ const Login = () => {
         setIsLoading(false)
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
         setIsLoading(false)
       })
     e.preventDefault()
@@ -31,12 +31,12 @@ const Login = () => {
     <div className="container">
       <PreLoader visible={isLoading}/>
       <div className="row">
-        <div className="col m6 offset-m3">
+        <div className="col m6 offset-m3 s6 offset-s3">
           <h2 className="center-align">Login</h2>
           <div className="row">
             <form onSubmit={submit}>
               <div className="row">
-                <div className="input-field col s12">
+                <div className="input-field col s12 m12">
                   <label>
                     <i className="material-icons">perm_contact_calendar</i>
                     Código:{' '}
@@ -53,7 +53,7 @@ const Login = () => {
                 </div>
               </div>
               <div className="row">
-                <div className="input-field col s12">
+                <div className="input-field col s12 m12">
                   <label>
                     <i className="material-icons">security</i>Contraseña:{' '}
                   </label>
@@ -70,7 +70,7 @@ const Login = () => {
               </div>
 
               <div className="row">
-                <div className="col m12">
+                <div className="col m12 s12">
                   <p className="center-align">
                     <button
                       style={{ backgroundColor: '#0C0019' }}
