@@ -52,7 +52,7 @@ const CreateUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     // OBTENGO TODAS LAS CIUDADES
     getCityExecute()
@@ -61,7 +61,7 @@ const CreateUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     // OBTENGO TODOS LOS RANGOS
     getRangosExecute()
@@ -70,7 +70,7 @@ const CreateUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     // OBTENGO LA BRIGADA
     if (props.brigada !== undefined) {
@@ -107,7 +107,7 @@ const CreateUserForm = (props) => {
         props.close()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
         setIsLoading(false)
       })
   }
@@ -342,6 +342,7 @@ const CreateUserForm = (props) => {
           <button
             className="btn-small waves-effect red darken-4"
             style={{ marginRight: '5%' }}
+            type='button'
             onClick={() => props.close()}
           >
             Cancelar

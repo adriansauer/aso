@@ -20,12 +20,12 @@ const CityForm = (props) => {
         props.close()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
         setIsLoading(false)
       })
   }
   return (
-    <div id="modal2" className="modal modal-fixed-footer">
+    <div id="modal2" className="modal" style={{ width: '20%' }}>
     <PreLoader visible={isLoading} />
       <form onSubmit={createCity}>
         <div className="modal-content">
@@ -47,6 +47,7 @@ const CityForm = (props) => {
         <div className="modal-footer">
           <button
             className="btn-small waves-effect red darken-4"
+            type='button'
             style={{ marginRight: '5%' }}
             onClick={() => props.close()}
           >

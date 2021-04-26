@@ -52,7 +52,7 @@ const EditUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     // OBTENGO TODAS LAS CIUDADES
     getCityExecute()
@@ -61,7 +61,7 @@ const EditUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     // OBTENGO TODOS LOS RANGOS
     getRangosExecute()
@@ -70,7 +70,7 @@ const EditUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     setIsLoading(false)
   }, [])
@@ -100,7 +100,7 @@ const EditUserForm = (props) => {
         props.close()
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
         setIsLoading(false)
       })
   }
@@ -110,7 +110,7 @@ const EditUserForm = (props) => {
       <PreLoader visible={isLoading}/>
       <form onSubmit={createUser}>
         <div className="modal-content">
-          <h4>Agregue un miembro a la brigada</h4>
+          <h4>Editar usuario</h4>
 
           {/** NOMBRE Y APELLIDO */}
           <div className="row">
@@ -309,6 +309,7 @@ const EditUserForm = (props) => {
           <button
             className="btn-small waves-effect red darken-4"
             style={{ marginRight: '5%' }}
+            type='button'
             onClick={() => props.close()}
           >
             Cancelar

@@ -13,7 +13,16 @@ const BrigadaList = () => {
   const [brigadas, setBrigadas] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
   const history = useHistory()
-
+  const [width, setWidth] = useState(window.innerWidth)
+  function handleWindowSizeChange () {
+    setWidth(window.innerWidth)
+  }
+  useEffect(() => {
+    window.addEventListener('resize', handleWindowSizeChange)
+    return () => {
+      window.removeEventListener('resize', handleWindowSizeChange)
+    }
+  }, [])
   useEffect(() => {
     fetchBrigadas()
 
@@ -38,7 +47,7 @@ const BrigadaList = () => {
         setIsLoading(false)
       })
       .catch((err) => {
-        M.toast({ html: err.response.data.description })
+        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
         setIsLoading(false)
       })
   }
@@ -90,58 +99,62 @@ const BrigadaList = () => {
                   }}
                 >
                   <div className="row">
-                    <div className="col s2">
+                    <div className="col s4 m2">
                       <img
                         src={perfil}
                         alt=""
                         className="circle"
-                        style={{ height: 80, width: 80, marginBottom: '5%' }}
+                        style={{ height: 70, width: 70, marginBottom: '5%' }}
                       />
                     </div>
-                    <div className="col s6" style={{ textAlign: 'left' }}>
-                      <span style={{ fontSize: 24 }} className="title">
+                    <div className="col s8 m6" style={{ textAlign: 'left' }}>
+                      <span className="title responsive">
                         {b.name}
                       </span>
                       <br />
-                      <span>{b.numberMember} MIEMBROS</span>
+                      <span className='responsive'>{b.numberMember} MIEMBROS</span>
                     </div>
-                    <div className="col s3">
-                      <img
-                        src={perfil}
-                        alt=""
-                        className="circle secondary-content"
-                        style={{
-                          height: 50,
-                          width: 50,
-                          marginBottom: '5%',
-                          left: 'auto'
-                        }}
-                      />
-                      <img
-                        src={perfil}
-                        alt=""
-                        className="circle secondary-content"
-                        style={{
-                          height: 50,
-                          width: 50,
-                          marginBottom: '5%',
-                          left: 'auto',
-                          marginRight: '30px'
-                        }}
-                      />
-                      <img
-                        src={perfil}
-                        alt=""
-                        className="circle secondary-content"
-                        style={{
-                          height: 50,
-                          width: 50,
-                          marginBottom: '5%',
-                          left: 'auto',
-                          marginRight: '60px'
-                        }}
-                      />
-                    </div>
+                    {(width <= 768)
+                      ? null
+                      : <div className="col s3 m4">
+                    <img
+                      src={perfil}
+                      alt=""
+                      className="circle secondary-content responsive"
+                      style={{
+                        height: 50,
+                        width: 50,
+                        marginBottom: '5%',
+                        left: 'auto'
+                      }}
+                    />
+                    <img
+                      src={perfil}
+                      alt=""
+                      className="circle secondary-content"
+                      style={{
+                        height: 50,
+                        width: 50,
+                        marginBottom: '5%',
+                        left: 'auto',
+                        marginRight: '30px'
+                      }}
+                    />
+                    <img
+                      src={perfil}
+                      alt=""
+                      className="circle secondary-content"
+                      style={{
+                        height: 50,
+                        width: 50,
+                        marginBottom: '5%',
+                        left: 'auto',
+                        marginRight: '60px'
+                      }}
+                    />
+                  </div>
+                    }
+
                   </div>
                 </div>
             ))

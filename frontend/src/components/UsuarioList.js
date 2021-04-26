@@ -4,6 +4,7 @@ import useGetMembers from '../api/miembros/useGetMembers'
 import PreLoader from './PreLoader'
 import { useLocation, useHistory } from 'react-router-dom'
 import M from 'materialize-css'
+import './components.css'
 const UsuarioList = () => {
   const location = useLocation()
   const history = useHistory()
@@ -26,7 +27,7 @@ const UsuarioList = () => {
           setIsLoading(false)
         })
         .catch((err) => {
-          M.toast({ html: err.response.data.description })
+          M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
           setIsLoading(false)
         })
     }
@@ -67,16 +68,16 @@ const UsuarioList = () => {
               >
                 {/** Foto de perfil */}
                 <div className="row">
-                  <div className="col s6 m2">
+                  <div className="col s4 m2">
                     <img
                       src={perfil}
                       alt=""
                       className="circle"
-                      style={{ height: 80, width: 80, marginBottom: '5%' }}
+                      style={{ height: 75, width: 75, marginBottom: '5%' }}
                     />
                   </div>
-                  <div className="col s6 m6" style={{ textAlign: 'left' }}>
-                    <span style={{ fontSize: 24 }} className="title">
+                  <div className="col s8 m6" style={{ textAlign: 'left' }}>
+                    <span className="title responsive">
                       {member.name} {member.lastname}
                     </span>
                     <br />
