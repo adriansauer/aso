@@ -1,41 +1,66 @@
 import React, { useEffect, useState } from 'react'
-import CreateUserForm from './CreateUserForm'
+import CreateUserForm from './modals/CreateUserForm'
 import M from 'materialize-css'
 import perfil from '../images/default.jpg'
 import PropTypes from 'prop-types'
 import { useLocation, useHistory } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
+import EditBrigadaForm from './modals/EditBrigadaForm'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
-  // Instancia del modal para el formulario de usuario
-  const [instance, setInstance] = useState(null)
+
   const location = useLocation()
   const history = useHistory()
   const [brigada, setBrigada] = useState(null)
-  // Creo la instancia al inicio
+  /** INSTANCIA DE LOS MODALES */
+  const [editarModal, setEditarModal] = useState(null)
+  const [agregarModal, setAgregarModal] = useState(null)
   useEffect(() => {
+    if (brigada !== null) {
+      /** INSTANCIA DEL MODAL EDITAR */
+      const elem1 = document.getElementById('modal1')
+      const editarModalInstance = M.Modal.init(elem1, {
+        inDuration: 300
+      })
+      setEditarModal(editarModalInstance)
+    }
+  }, [brigada])
+  useEffect(() => {
+    /** OBTENGO LA BRIGADA DE LAS PROPIEDADES */
     if (location.brigada === undefined) {
       history.goBack()
     } else {
-      setBrigada(location.brigada)
+      fertchBrigadaById()
+      console.log(brigada)
     }
-    const elem1 = document.querySelector('.modal')
-    const instance = M.Modal.init(elem1, {
+
+    /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
+    const elem2 = document.getElementById('modal2')
+    const agregarModalInstance = M.Modal.init(elem2, {
       inDuration: 300
     })
+    setAgregarModal(agregarModalInstance)
     M.AutoInit()
-    setInstance(instance)
   }, [])
-  // Cerrar el modal de agregar usuario
-  const closeModal = () => {
-    instance.close()
-    getBrigadaByIdExecute(brigada.id)
-      .then(res => {
+  /** OBTENER LA BRIGADA */
+  const fertchBrigadaById = () => {
+    getBrigadaByIdExecute(location.brigada.id)
+      .then((res) => {
         setBrigada(res.data)
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err)
       })
+  }
+  /** CERRA CUALQUIERA DE LOS MODALES Y ACTUALIZAR LA BRIGADA */
+  const closeModal = () => {
+    if (editarModal.isOpen) {
+      editarModal.close()
+    }
+    if (agregarModal.isOpen) {
+      agregarModal.close()
+    }
+    fertchBrigadaById()
   }
 
   return (
@@ -51,6 +76,17 @@ const BrigadaPerfil = (props) => {
       <div className="row center">
         <h4 style={{ margin: 0 }}>
           {brigada === null ? null : brigada.name}
+          <button
+            className="btn-floating btn-medium waves-light"
+            onClick={() => editarModal.open()}
+            style={{
+              backgroundColor: '#0C0019',
+              position: 'absolute',
+              marginLeft: 75
+            }}
+          >
+            <i className="material-icons">edit</i>
+          </button>
         </h4>
       </div>
       <div className="row center">
@@ -104,7 +140,7 @@ const BrigadaPerfil = (props) => {
 
           <button
             className="btn-floating btn-medium waves-light"
-            onClick={() => instance.open()}
+            onClick={() => agregarModal.open()}
             style={{
               backgroundColor: '#0C0019',
               position: 'absolute',
@@ -153,6 +189,11 @@ const BrigadaPerfil = (props) => {
       </div>
 
       <CreateUserForm brigada={location.brigada} close={closeModal} />
+      {brigada !== null
+        ? (
+        <EditBrigadaForm brigada={brigada} close={closeModal} />
+          )
+        : null}
     </div>
   )
 }

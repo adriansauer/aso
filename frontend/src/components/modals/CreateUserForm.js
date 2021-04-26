@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import M from 'materialize-css'
-import useCreateMember from '../api/miembros/useCreateMember'
-import UseGetDepartaments from '../api/departamento/useGetDepartament'
-import useGetCity from '../api/city/useGetCity'
-import useGetRangos from '../api/rangos/useGetRangos'
+import useCreateMember from '../../api/miembros/useCreateMember'
+import UseGetDepartaments from '../../api/departamento/useGetDepartament'
+import useGetCity from '../../api/city/useGetCity'
+import useGetRangos from '../../api/rangos/useGetRangos'
 const CreateUserForm = (props) => {
   const { execute: getDepartamentsExecute } = UseGetDepartaments()
   const { execute: getCityExecute } = useGetCity()
@@ -106,7 +106,7 @@ const CreateUserForm = (props) => {
   }
 
   return (
-    <div id="modal1" className="modal modal-fixed-footer">
+    <div id="modal2" className="modal modal-fixed-footer">
       <form onSubmit={createUser}>
         <div className="modal-content">
           <h4>Agregue un miembro a la brigada</h4>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import perfil from '../images/default.jpg'
 import './components.css'
 import M from 'materialize-css'
-import CreateBrigadaForm from './CreateBrigadaForm'
+import CreateBrigadaForm from './modals/CreateBrigadaForm'
 import useGetBrigadas from '../api/brigada/useGetBrigadas'
 import { useHistory } from 'react-router-dom'
 

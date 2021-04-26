@@ -3,8 +3,8 @@ import useGetDepartaments from '../api/departamento/useGetDepartament'
 import useGetCities from '../api/city/useGetCity'
 import useDeleteDepartament from '../api/departamento/useDeleteDepartament'
 import useDeleteCity from '../api/city/useDeleteCity'
-import DepartamentForm from './DepartamentForm'
-import CitForm from './CityForm'
+import DepartamentForm from './modals/DepartamentForm'
+import CitForm from './modals/CityForm'
 import M from 'materialize-css'
 const Ciudades = () => {
   const [cities, setCities] = useState(null)

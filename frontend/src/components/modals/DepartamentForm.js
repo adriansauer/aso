@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import M from 'materialize-css'
-import useCreateDepartament from '../api/departamento/useCreateDepartament'
+import useCreateDepartament from '../../api/departamento/useCreateDepartament'
 const DepartamentForm = (props) => {
   const [name, setName] = useState('')
   const { execute: createDepartamentExecute } = useCreateDepartament()
