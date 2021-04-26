@@ -5,6 +5,7 @@ import useDeleteDepartament from '../api/departamento/useDeleteDepartament'
 import useDeleteCity from '../api/city/useDeleteCity'
 import DepartamentForm from './modals/DepartamentForm'
 import CitForm from './modals/CityForm'
+import PreLoader from './PreLoader'
 import M from 'materialize-css'
 const Ciudades = () => {
   const [cities, setCities] = useState(null)
@@ -15,6 +16,7 @@ const Ciudades = () => {
   const { execute: deleteCityExecute } = useDeleteCity()
   const [departamentModal, setDepartamentModal] = useState(null)
   const [cityModal, setCityModal] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
     const elem1 = document.getElementById('modal1')
     const departamentModal = M.Modal.init(elem1, {
@@ -40,45 +42,58 @@ const Ciudades = () => {
     fetchDepartaments()
   }, [])
   const fetchDepartaments = () => {
+    setIsLoading(true)
     getDepartamentsExecute()
       .then((res) => {
         setDepartaments(res.data.content)
+        setIsLoading(false)
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
+        setIsLoading(false)
       })
   }
   const fetchCities = () => {
+    setIsLoading(true)
     getCitiesExecute()
       .then((res) => {
         setCities(res.data.content)
+        setIsLoading(false)
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
+        setIsLoading(false)
       })
   }
   const deleteDepartament = (id) => {
+    setIsLoading(true)
     deleteDepartamentsExecute(id)
       .then((res) => {
         fetchDepartaments()
+        setIsLoading(false)
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
+        setIsLoading(false)
       })
   }
   const deleteCity = (id) => {
+    setIsLoading(true)
     deleteCityExecute(id)
       .then((res) => {
         fetchCities()
+        setIsLoading(false)
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
+        setIsLoading(false)
       })
   }
   return (
     <div className="container" style={{ marginTop: '2%' }}>
       <DepartamentForm close={closeModal} />
       <CitForm close={closeModal} />
+      <PreLoader visible={isLoading} />
       <div className="row">
         <div className="col s6 m6">
           <blockquote style={{ borderColor: '#0C0019' }}>

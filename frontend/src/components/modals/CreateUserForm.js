@@ -5,11 +5,14 @@ import useCreateMember from '../../api/miembros/useCreateMember'
 import UseGetDepartaments from '../../api/departamento/useGetDepartament'
 import useGetCity from '../../api/city/useGetCity'
 import useGetRangos from '../../api/rangos/useGetRangos'
+import PreLoader from '../PreLoader'
 const CreateUserForm = (props) => {
   const { execute: getDepartamentsExecute } = UseGetDepartaments()
   const { execute: getCityExecute } = useGetCity()
   const { execute: createMemberExecute } = useCreateMember()
   const { execute: getRangosExecute } = useGetRangos()
+  /** SI CARGA LA PAGINA */
+  const [isLoading, setIsLoading] = useState(false)
   // LISTA DE DEPARTAMENTOS
   const [departaments, setDepartaments] = useState(null)
   // LISTA DE CIUDADES
@@ -41,6 +44,7 @@ const CreateUserForm = (props) => {
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
   useEffect(() => {
+    setIsLoading(true)
     // OBTENGO TODOS LOS DEPARTAMENTOS
     getDepartamentsExecute()
       .then((res) => {
@@ -48,7 +52,7 @@ const CreateUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
     // OBTENGO TODAS LAS CIUDADES
     getCityExecute()
@@ -57,7 +61,7 @@ const CreateUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
     // OBTENGO TODOS LOS RANGOS
     getRangosExecute()
@@ -66,7 +70,7 @@ const CreateUserForm = (props) => {
         M.AutoInit()
       })
       .catch((err) => {
-        console.log(err)
+        M.toast({ html: err.response.data.description })
       })
     // OBTENGO LA BRIGADA
     if (props.brigada !== undefined) {
@@ -74,10 +78,11 @@ const CreateUserForm = (props) => {
     } else {
       setBrigadaId(null)
     }
+    setIsLoading(false)
   }, [])
   const createUser = (e) => {
     e.preventDefault()
-
+    setIsLoading(true)
     createMemberExecute({
       address,
       admission,
@@ -98,15 +103,18 @@ const CreateUserForm = (props) => {
     })
       .then((res) => {
         M.toast({ html: 'Miembro agregado exitosamente' })
+        setIsLoading(false)
         props.close()
       })
       .catch((err) => {
-        console.log(err.response)
+        M.toast({ html: err.response.data.description })
+        setIsLoading(false)
       })
   }
 
   return (
     <div id="modal2" className="modal modal-fixed-footer">
+      <PreLoader visible={isLoading}/>
       <form onSubmit={createUser}>
         <div className="modal-content">
           <h4>Agregue un miembro a la brigada</h4>

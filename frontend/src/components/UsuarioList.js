@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import perfil from '../images/default.jpg'
 import useGetMembers from '../api/miembros/useGetMembers'
+import PreLoader from './PreLoader'
 import { useLocation, useHistory } from 'react-router-dom'
+import M from 'materialize-css'
 const UsuarioList = () => {
   const location = useLocation()
   const history = useHistory()
   const [members, setMembers] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   const { execute: getMembersExecute } = useGetMembers()
   useEffect(() => {
     if (location.brigada === undefined) {
@@ -15,19 +18,22 @@ const UsuarioList = () => {
   }, [])
 
   const fetchMembers = () => {
+    setIsLoading(true)
     if (location.brigada !== undefined) {
       getMembersExecute(location.brigada.id)
         .then((res) => {
           setMembers(res.data.content)
-          console.log(res.data.content)
+          setIsLoading(false)
         })
         .catch((err) => {
-          console.log(err)
+          M.toast({ html: err.response.data.description })
+          setIsLoading(false)
         })
     }
   }
   return (
     <div className="container" style={{ marginTop: '4%' }}>
+      <PreLoader visible={isLoading} />
       <div className="row">
         <h3>
           Miembros de{' '}
