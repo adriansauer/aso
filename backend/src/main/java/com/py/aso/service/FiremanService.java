@@ -101,9 +101,34 @@ public class FiremanService implements BaseService<FiremanDTO, FiremanDetailDTO,
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public FiremanDetailDTO findByUserId(final long id) throws Exception {
+		return this.firemanRepository.findByUserIdAndEnabled(id, true)//
+				.map(this.firemanMapper::toDetailDTO)//
+				.orElseThrow(() -> new ResourceNotFoundException("Fireman", "id", id));
+	}
+
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<FiremanDTO> findByBrigadeId(final long id, final Pageable pageable) throws Exception {
 		return this.firemanRepository.findAllByBrigadeIdAndEnabled(id, true, pageable)//
 				.map(this.firemanMapper::toDTO);
+	}
+
+	/**
+	 * Verifica si existe un bombero con un id de usuario especifico Retorna el id
+	 * si lo encuentra y si no existe retorna -1
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public long existsByUserId(final long id) throws Exception {
+		try {
+			FiremanEntity entity = this.firemanRepository.findByUserIdAndEnabled(id, true).get();
+			return entity.getId();
+		} catch (Exception ex) {
+			return -1;
+		}
 	}
 
 	@Override

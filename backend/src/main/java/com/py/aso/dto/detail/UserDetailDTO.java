@@ -46,6 +46,9 @@ public class UserDetailDTO {
 	@ApiModelProperty(notes = "Fecha de modificación de recurso en el sistema", example = "2021-04-05T18:51:28.478+00:00")
 	private Date updatedAt;
 
+	@ApiModelProperty(notes = "Id del detalle de usuario,  ya sea u bombero o una brigada", example = "1")
+	private Long detailId;
+
 	@ApiModelProperty(notes = "Lista de roles del Usuario", example = "[{id: 1}]")
 	private List<RoleDTO> roles;
 

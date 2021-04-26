@@ -18,4 +18,9 @@ public interface BrigadeRepository extends JpaRepository<BrigadeEntity, Long> {
 
 	@Query(value = "SELECT * FROM BRIGADE_DETAILS INNER JOIN USERS ON BRIGADE_DETAILS.user_id = USERS.id WHERE BRIGADE_DETAILS.id = ?1 AND USERS.enabled = ?2", nativeQuery = true)
 	public Optional<BrigadeEntity> findByIdAndEnabled(final Long id, final boolean enabled);
+
+	@Query(value = "SELECT * FROM BRIGADE_DETAILS INNER JOIN USERS ON BRIGADE_DETAILS.user_id = USERS.id WHERE BRIGADE_DETAILS.user_id = ?1 AND USERS.enabled = ?2", nativeQuery = true)
+	public Optional<BrigadeEntity> findByUserIdAndEnabled(final Long userId, final boolean enabled);
+
+	public boolean existsByUserId(final Long userId);
 }
