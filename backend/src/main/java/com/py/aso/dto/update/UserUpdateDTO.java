@@ -30,9 +30,8 @@ public class UserUpdateDTO {
 	@ApiModelProperty(notes = "Codigo del Usuario", example = "ABCDE-1234", required = true)
 	private String usercode;
 
-	@NotBlank(message = "El correo electronico es requerido")
 	@Email(message = "El correo electronico debe ser valido")
-	@ApiModelProperty(notes = "Email del Usuario", example = "user@gmail.com", required = true)
+	@ApiModelProperty(notes = "Email del Usuario", example = "user@gmail.com")
 	private String email;
 
 	@NotNull(message = "La lista de roles es requerido")
