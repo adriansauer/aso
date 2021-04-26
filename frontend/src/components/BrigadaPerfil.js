@@ -4,15 +4,20 @@ import M from 'materialize-css'
 import perfil from '../images/default.jpg'
 import PropTypes from 'prop-types'
 import { useLocation, useHistory } from 'react-router-dom'
+import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 const BrigadaPerfil = (props) => {
+  const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   // Instancia del modal para el formulario de usuario
   const [instance, setInstance] = useState(null)
   const location = useLocation()
   const history = useHistory()
+  const [brigada, setBrigada] = useState(null)
   // Creo la instancia al inicio
   useEffect(() => {
     if (location.brigada === undefined) {
       history.goBack()
+    } else {
+      setBrigada(location.brigada)
     }
     const elem1 = document.querySelector('.modal')
     const instance = M.Modal.init(elem1, {
@@ -24,6 +29,13 @@ const BrigadaPerfil = (props) => {
   // Cerrar el modal de agregar usuario
   const closeModal = () => {
     instance.close()
+    getBrigadaByIdExecute(brigada.id)
+      .then(res => {
+        setBrigada(res.data)
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   return (
@@ -38,7 +50,7 @@ const BrigadaPerfil = (props) => {
       </div>
       <div className="row center">
         <h4 style={{ margin: 0 }}>
-          {location.brigada === undefined ? null : location.brigada.name}
+          {brigada === null ? null : brigada.name}
         </h4>
       </div>
       <div className="row center">
@@ -49,11 +61,11 @@ const BrigadaPerfil = (props) => {
             onClick={() => {
               history.push({
                 pathname: '/usuarios',
-                brigada: location.brigada
+                brigada: brigada
               })
             }}
           >
-            {location.brigada === undefined ? null : location.brigada.numberMember} MIEMBROS
+            {brigada === null ? null : brigada.numberMember} MIEMBROS
           </button>
         </div>
         <div className="col s6 left-align">
@@ -140,7 +152,7 @@ const BrigadaPerfil = (props) => {
         </div>
       </div>
 
-      <CreateUserForm close={closeModal} />
+      <CreateUserForm brigada={location.brigada} close={closeModal} />
     </div>
   )
 }
