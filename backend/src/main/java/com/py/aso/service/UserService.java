@@ -38,6 +38,12 @@ public class UserService implements BaseService<UserDTO, UserDetailDTO, UserCrea
 	@Autowired
 	private BCryptPasswordEncoder passwordEncode;
 
+	@Autowired
+	private BrigadeService brigadeService;
+
+	@Autowired
+	private FiremanService firemanService;
+
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<UserDTO> findAll(final Pageable pageable) {
@@ -48,23 +54,41 @@ public class UserService implements BaseService<UserDTO, UserDetailDTO, UserCrea
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public UserDetailDTO findById(final long id) throws Exception {
-		return this.userRepository.findByIdAndEnabled(id, true)//
-				.map(this.userMapper::toDetailDTO)//
+		UserEntity userEntity = this.userRepository.findByIdAndEnabled(id, true)//
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+		UserDetailDTO userDetailDTO = this.userMapper.toDetailDTO(userEntity);
+
+		// Busca id de los detalles
+		final long firemanId = this.firemanService.existsByUserId(id);
+		if (-1 != firemanId) {
+			userDetailDTO.setDetailId(firemanId);
+		} else {
+			final long brigadeId = this.brigadeService.existsByUserId(id);
+			userDetailDTO.setDetailId(brigadeId);
+		}
+		return userDetailDTO;
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public boolean isActive(final long id) throws Exception {
-		boolean b = this.userRepository.existsByIdAndEnabled(id, true);
-		System.out.println(b);
-		return b;
+		return this.userRepository.existsByIdAndEnabled(id, true);
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public UserDetailDTO findByUsercode(final String usercode) throws Exception {
-		return this.userRepository.findByUsercodeAndEnabled(usercode, true)//
-				.map(this.userMapper::toDetailDTO)//
+		UserEntity userEntity = this.userRepository.findByUsercodeAndEnabled(usercode, true)//
 				.orElseThrow(() -> new ResourceNotFoundException("User", "usercode", usercode));
+		UserDetailDTO userDetailDTO = this.userMapper.toDetailDTO(userEntity);
+		final long firemanId = this.firemanService.existsByUserId(userEntity.getId());
+
+		// Busca id de los detalles
+		if (-1 != firemanId) {
+			userDetailDTO.setDetailId(firemanId);
+		} else {
+			final long brigadeId = this.brigadeService.existsByUserId(userEntity.getId());
+			userDetailDTO.setDetailId(brigadeId);
+		}
+		return userDetailDTO;
 	}
 
 	@Override

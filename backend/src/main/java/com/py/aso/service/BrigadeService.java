@@ -81,6 +81,31 @@ public class BrigadeService implements BaseService<BrigadeDTO, BrigadeDetailDTO,
 				.orElseThrow(() -> new ResourceNotFoundException("Brigade", "id", id));
 	}
 
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public BrigadeDetailDTO findByUserId(final long id) throws Exception {
+		return this.brigadeRepository.findByUserIdAndEnabled(id, true)//
+				.map(this.brigadeMapper::toDetailDTO)//
+				.orElseThrow(() -> new ResourceNotFoundException("Brigade", "id", id));
+	}
+
+	/**
+	 * Verifica si existe una brigada con un id de usuario especifico Retorna el id
+	 * si lo encuentra y si no existe retorna -1
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public long existsByUserId(final long id) throws Exception {
+		try {
+			BrigadeEntity entity = this.brigadeRepository.findByUserIdAndEnabled(id, true).get();
+			return entity.getId();
+		} catch (Exception ex) {
+			return -1;
+		}
+	}
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public BrigadeDetailDTO save(final BrigadeCreateDTO dto) throws Exception {
