@@ -27,7 +27,7 @@ const UsuarioList = () => {
     }
   }
   return (
-    <div className="container" style={{ marginTop: '5%' }}>
+    <div className="container" style={{ marginTop: '4%' }}>
       <div className="row">
         <h3>
           Miembros de{' '}
