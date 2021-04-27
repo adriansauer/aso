@@ -15,7 +15,8 @@ const CheckLoggedIn = () => {
           setUserData({
             username: `${res.data.name} ${res.data.lastname}`,
             roles: res.data.roles,
-            id: res.data.id
+            id: res.data.id,
+            perfilId: res.data.detailId
           })
           setIsAutenticate(true)
         })

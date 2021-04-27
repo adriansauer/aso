@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import CreateUserForm from './modals/CreateUserForm'
 import M from 'materialize-css'
 import perfil from '../images/default.jpg'
@@ -7,6 +7,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import EditBrigadaForm from './modals/EditBrigadaForm'
 import PreLoader from './PreLoader'
+import userContext from '../context/userContext'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const [isLoading, setIsLoading] = useState(false)
@@ -16,6 +17,7 @@ const BrigadaPerfil = (props) => {
   /** INSTANCIA DE LOS MODALES */
   const [editarModal, setEditarModal] = useState(null)
   const [agregarModal, setAgregarModal] = useState(null)
+  const { userData } = useContext(userContext)
   useEffect(() => {
     if (brigada !== null) {
       /** INSTANCIA DEL MODAL EDITAR */
@@ -82,18 +84,20 @@ const BrigadaPerfil = (props) => {
         <h5 style={{ margin: 0 }}>
           {brigada === null ? null : brigada.name}
         </h5>
-        <button
-            className="btn-floating btn-small waves-light"
-            onClick={() => editarModal.open()}
-            style={{
-              backgroundColor: '#0C0019',
-              marginTop: '1%'
-            }}
-          >
-            <i className="material-icons">edit</i>
-          </button>
-        </div>
+        {userData.roles[0].authority === 'ROLE_SUPERUSER' || userData.perfilId === location.brigada.id
+          ? <button
+         className="btn-floating btn-small waves-light"
+         onClick={() => editarModal.open()}
+         style={{
+           backgroundColor: '#0C0019',
+           marginTop: '1%'
+         }}
+       >
+         <i className="material-icons">edit</i>
+       </button>
 
+          : null}
+      </div>
       </div>
       <div className="row center">
         <div className="col s6 right-align">
@@ -143,18 +147,20 @@ const BrigadaPerfil = (props) => {
               marginLeft: 50
             }}
           />
+          {userData.roles[0].authority === 'ROLE_SUPERUSER' || userData.perfilId === location.brigada.id
+            ? <button
+          className="btn-floating btn-medium waves-light"
+          onClick={() => agregarModal.open()}
+          style={{
+            backgroundColor: '#0C0019',
+            position: 'absolute',
+            marginLeft: 75
+          }}
+        >
+          <i className="material-icons">add</i>
+        </button>
+            : null}
 
-          <button
-            className="btn-floating btn-medium waves-light"
-            onClick={() => agregarModal.open()}
-            style={{
-              backgroundColor: '#0C0019',
-              position: 'absolute',
-              marginLeft: 75
-            }}
-          >
-            <i className="material-icons">add</i>
-          </button>
         </div>
       </div>
       <div className="row center" style={{ marginTop: '5%' }}>
