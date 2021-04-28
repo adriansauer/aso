@@ -50,6 +50,7 @@ const EditBrigadaForm = (props) => {
         M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     setIsLoading(false)
+    M.updateTextFields()
   }, [])
   /** EDITAR LA BRIGADA */
   const updateBrigada = (e) => {
@@ -226,7 +227,7 @@ const EditBrigadaForm = (props) => {
             style={{ backgroundColor: '#0C0019', marginRight: '5%' }}
             type="submit"
           >
-            Agregar
+           Modificar
           </button>
         </div>
       </form>
