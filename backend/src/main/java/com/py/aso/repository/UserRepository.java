@@ -16,5 +16,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
 	public Optional<UserEntity> findByIdAndEnabled(final Long id, final boolean enabled);
 
+	public boolean existsByIdAndEnabled(final Long id, final boolean enabled);
+
 	public Optional<UserEntity> findByUsercodeAndEnabled(final String usercode, final boolean enabled);
 }

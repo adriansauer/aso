@@ -10,3 +10,17 @@
     top: auto;
     color: white;
 }
+.brigada_button:hover{
+    color: #077BF7;
+background-color: #077BF7;
+
+}
+span {
+    font-size: 30px;
+  }
+  
+  @media (max-width:600px) {
+    span.responsive {
+      font-size: 14px;
+    }
+  }

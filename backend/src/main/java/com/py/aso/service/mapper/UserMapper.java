@@ -10,29 +10,18 @@ import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.UserDTO;
 import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.UserDetailDTO;
+import com.py.aso.dto.update.UserUpdateDTO;
 import com.py.aso.entity.RoleEntity;
 import com.py.aso.entity.UserEntity;
 
 @Component
-public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO, UserCreateDTO> {
+public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO, UserCreateDTO, UserUpdateDTO> {
 
 	@Autowired
 	private RoleMapper roleMapper;
 
 	@Override
-	public UserEntity toEntity(UserCreateDTO dto) {
-		UserEntity entity = new UserEntity();
-		entity.setName(dto.getName());
-		entity.setLastname(dto.getLastname());
-		entity.setEmail(dto.getEmail());
-		entity.setUsercode(dto.getUsercode());
-		List<RoleEntity> roles = dto.getRoles().stream().map(this.roleMapper::toEntity).collect(Collectors.toList());
-		entity.setRoles(roles);
-		return entity;
-	}
-
-	@Override
-	public UserDTO toDTO(UserEntity entity) {
+	public UserDTO toDTO(final UserEntity entity) {
 		UserDTO dto = new UserDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -42,7 +31,7 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 	}
 
 	@Override
-	public UserDetailDTO toDetailDTO(UserEntity entity) {
+	public UserDetailDTO toDetailDTO(final UserEntity entity) {
 		UserDetailDTO dto = new UserDetailDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
@@ -55,6 +44,52 @@ public class UserMapper implements BaseMapper<UserEntity, UserDTO, UserDetailDTO
 				.stream().map(this.roleMapper::toDTO).collect(Collectors.toList());
 		dto.setRoles(roles);
 		return dto;
+	}
+
+	@Override
+	public UserEntity toEntity(final UserDTO dto) {
+		UserEntity entity = new UserEntity();
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setLastname(dto.getLastname());
+		entity.setUsercode(dto.getUsercode());
+		return entity;
+	}
+
+	public UserEntity toEntity(final UserDetailDTO dto) {
+		UserEntity entity = new UserEntity();
+		entity.setId(dto.getId());
+		entity.setName(dto.getName());
+		entity.setLastname(dto.getLastname());
+		entity.setUsercode(dto.getUsercode());
+		entity.setEmail(dto.getEmail());
+		entity.setCreatedAt(dto.getCreatedAt());
+		entity.setUpdatedAt(dto.getUpdatedAt());
+		return entity;
+	}
+
+	@Override
+	public UserEntity toCreateEntity(final UserCreateDTO dto) {
+		UserEntity entity = new UserEntity();
+		entity.setName(dto.getName());
+		entity.setLastname(dto.getLastname());
+		entity.setEmail(dto.getEmail());
+		entity.setUsercode(dto.getUsercode());
+		List<RoleEntity> roles = dto.getRoles().stream().map(this.roleMapper::toEntity).collect(Collectors.toList());
+		entity.setRoles(roles);
+		return entity;
+	}
+
+	@Override
+	public UserEntity toUpdateEntity(final UserUpdateDTO dto) {
+		UserEntity entity = new UserEntity();
+		entity.setName(dto.getName());
+		entity.setLastname(dto.getLastname());
+		entity.setEmail(dto.getEmail());
+		entity.setUsercode(dto.getUsercode());
+		List<RoleEntity> roles = dto.getRoles().stream().map(this.roleMapper::toEntity).collect(Collectors.toList());
+		entity.setRoles(roles);
+		return entity;
 	}
 
 }

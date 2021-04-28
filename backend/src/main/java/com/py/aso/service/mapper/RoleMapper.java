@@ -4,19 +4,31 @@ import org.springframework.stereotype.Component;
 
 import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.create.RoleCreateDTO;
+import com.py.aso.dto.detail.RoleDetailDTO;
+import com.py.aso.dto.update.RoleUpdateDTO;
 import com.py.aso.entity.RoleEntity;
 
 @Component
-public class RoleMapper implements BaseMapper<RoleEntity, RoleDTO, RoleDTO, RoleCreateDTO> {
+public class RoleMapper implements BaseMapper<RoleEntity, RoleDTO, RoleDetailDTO, RoleCreateDTO, RoleUpdateDTO> {
 
 	@Override
-	public RoleEntity toEntity(RoleCreateDTO dto) {
-		RoleEntity entity = new RoleEntity();
-		entity.setAuthority(dto.getAuthority());
-		return entity;
+	public RoleDTO toDTO(final RoleEntity entity) {
+		RoleDTO dto = new RoleDTO();
+		dto.setId(entity.getId());
+		dto.setAuthority(entity.getAuthority());
+		return dto;
 	}
 
-	public RoleEntity toEntity(RoleDTO dto) {
+	@Override
+	public RoleDetailDTO toDetailDTO(final RoleEntity entity) {
+		RoleDetailDTO dto = new RoleDetailDTO();
+		dto.setId(entity.getId());
+		dto.setAuthority(entity.getAuthority());
+		return dto;
+	}
+
+	@Override
+	public RoleEntity toEntity(final RoleDTO dto) {
 		RoleEntity entity = new RoleEntity();
 		entity.setId(dto.getId());
 		entity.setAuthority(dto.getAuthority());
@@ -24,19 +36,17 @@ public class RoleMapper implements BaseMapper<RoleEntity, RoleDTO, RoleDTO, Role
 	}
 
 	@Override
-	public RoleDTO toDTO(RoleEntity entity) {
-		RoleDTO dto = new RoleDTO();
-		dto.setId(entity.getId());
-		dto.setAuthority(entity.getAuthority());
-		return dto;
+	public RoleEntity toCreateEntity(final RoleCreateDTO dto) {
+		RoleEntity entity = new RoleEntity();
+		entity.setAuthority(dto.getAuthority());
+		return entity;
 	}
 
 	@Override
-	public RoleDTO toDetailDTO(RoleEntity entity) {
-		RoleDTO dto = new RoleDTO();
-		dto.setId(entity.getId());
-		dto.setAuthority(entity.getAuthority());
-		return dto;
+	public RoleEntity toUpdateEntity(final RoleUpdateDTO dto) {
+		RoleEntity entity = new RoleEntity();
+		entity.setAuthority(dto.getAuthority());
+		return entity;
 	}
 
 }

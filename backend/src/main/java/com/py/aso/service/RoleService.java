@@ -9,13 +9,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.create.RoleCreateDTO;
+import com.py.aso.dto.detail.RoleDetailDTO;
+import com.py.aso.dto.update.RoleUpdateDTO;
 import com.py.aso.entity.RoleEntity;
 import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.RoleRepository;
 import com.py.aso.service.mapper.RoleMapper;
 
 @Service
-public class RoleService implements BaseService<RoleDTO, RoleDTO, RoleCreateDTO> {
+public class RoleService implements BaseService<RoleDTO, RoleDetailDTO, RoleCreateDTO, RoleUpdateDTO> {
 
 	@Autowired
 	private RoleRepository roleRepository;
@@ -32,7 +34,7 @@ public class RoleService implements BaseService<RoleDTO, RoleDTO, RoleCreateDTO>
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public RoleDTO findById(final long id) throws Exception {
+	public RoleDetailDTO findById(final long id) throws Exception {
 		return this.roleRepository.findById(id)//
 				.map(this.roleMapper::toDetailDTO)//
 				.orElseThrow(() -> new ResourceNotFoundException("Role", "id", id));
@@ -40,20 +42,18 @@ public class RoleService implements BaseService<RoleDTO, RoleDTO, RoleCreateDTO>
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public RoleDTO save(final RoleCreateDTO dto) throws Exception {
-		final RoleEntity entity = this.roleMapper.toEntity(dto);
+	public RoleDetailDTO save(final RoleCreateDTO dto) throws Exception {
+		final RoleEntity entity = this.roleMapper.toCreateEntity(dto);
 		return this.roleMapper.toDetailDTO(this.roleRepository.save(entity));
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public RoleDTO update(final long id, final RoleCreateDTO dto) throws Exception {
-		if (!this.roleRepository.existsById(id)) {
-			throw new ResourceNotFoundException("Role", "id", id);
-		}
-		RoleEntity entity = this.roleRepository.findById(id).get();
+	public RoleDetailDTO update(final long id, final RoleUpdateDTO dto) throws Exception {
+		RoleEntity entity = this.roleRepository.findById(id)//
+				.orElseThrow(() -> new ResourceNotFoundException("Role", "id", id));
 		entity.setAuthority(dto.getAuthority());
-		return this.roleMapper.toDTO(this.roleRepository.save(entity));
+		return this.roleMapper.toDetailDTO(this.roleRepository.save(entity));
 	}
 
 	@Override

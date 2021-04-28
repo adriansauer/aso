@@ -23,7 +23,7 @@ public class JpaUserService implements UserDetailsService {
 	private UserRepository userRepository;
 
 	@Override
-	public UserDetails loadUserByUsername(String usercode) throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(final String usercode) throws UsernameNotFoundException {
 		UserEntity user = this.userRepository.findByUsercodeAndEnabled(usercode, true)//
 				.orElseThrow(() -> new ResourceNotFoundException("User", "usercode", usercode));
 
@@ -35,9 +35,9 @@ public class JpaUserService implements UserDetailsService {
 				user.getUsercode(), //
 				user.getPassword(), //
 				user.isEnabled(), //
-				true, // accountNonExpired
-				true, // credentialsNonExpired
-				true, // accountNonLocked
+				true, // 
+				true, // 
+				true, // 
 				authorities //
 		);
 	}

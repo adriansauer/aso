@@ -18,7 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(value = "Controlador para optener el token")
+@Api(value = "Controlador para funcionalidades de seguridad")
 public class LoginController {
 
 	@Autowired

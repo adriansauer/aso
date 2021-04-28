@@ -22,5 +22,10 @@ var defaultOptions = {
 
 var api = _axios["default"].create(defaultOptions);
 
+api.interceptors.request.use(function (config) {
+  var token = localStorage.getItem('token');
+  config.headers.Authorization = token ? "Bearer ".concat(token.replace(/['"]+/g, '')) : '';
+  return config;
+});
 var _default = api;
 exports["default"] = _default;

@@ -40,7 +40,7 @@
 			<column name="creation" type="DATE">
 				<constraints nullable="false" />
 			</column>
-			<column name="numberMembers" type="INT" defaultValue="0">
+			<column name="number_members" type="INT" defaultValue="0">
 				<constraints nullable="false" />
 			</column>
 			<column name="phone" type="VARCHAR(20)">

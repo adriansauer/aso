@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.create.RoleCreateDTO;
+import com.py.aso.dto.detail.RoleDetailDTO;
+import com.py.aso.dto.update.RoleUpdateDTO;
 import com.py.aso.service.RoleService;
 
 import io.swagger.annotations.Api;
@@ -26,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Controlador de roles")
 @RequestMapping("/api")
-public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCreateDTO> {
+public class RoleController implements BaseController<RoleDTO, RoleDetailDTO, RoleCreateDTO, RoleUpdateDTO> {
 
 	@Autowired
 	private RoleService roleService;
@@ -41,7 +43,7 @@ public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCrea
 	@Override
 	@GetMapping("/roles/{id}")
 	@ApiOperation(value = "Obtener un rol por el id")
-	public RoleDTO find(@PathVariable final long id) throws Exception {
+	public RoleDetailDTO find(@PathVariable final long id) throws Exception {
 		return this.roleService.findById(id);
 	}
 
@@ -49,17 +51,17 @@ public class RoleController implements BaseController<RoleDTO, RoleDTO, RoleCrea
 	@PostMapping("/roles")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Crear un nuevo rol")
-	public RoleDTO create(@Validated @RequestBody final RoleCreateDTO dto) throws Exception {
-		return this.roleService.save(dto);
+	public RoleDetailDTO create(@Validated @RequestBody final RoleCreateDTO roleCreateDTO) throws Exception {
+		return this.roleService.save(roleCreateDTO);
 	}
 
 	@Override
 	@PutMapping("/roles/{id}")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER')")
 	@ApiOperation(value = "Actualizar un rol por el id")
-	public RoleDTO update(@PathVariable final long id, @Validated @RequestBody final RoleCreateDTO dto)
+	public RoleDetailDTO update(@PathVariable final long id, @Validated @RequestBody final RoleUpdateDTO roleUpdateDTO)
 			throws Exception {
-		return this.roleService.update(id, dto);
+		return this.roleService.update(id, roleUpdateDTO);
 	}
 
 	@Override
