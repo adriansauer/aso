@@ -25,7 +25,8 @@ const App = () => {
   const [userData, setUserData] = useState({
     username: '',
     roles: null,
-    id: null
+    id: null,
+    perfilId: null
   })
   const verifyAut = async () => {
     const token = localStorage.getItem('token')

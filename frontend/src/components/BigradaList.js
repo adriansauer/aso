@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import perfil from '../images/default.jpg'
 import './components.css'
 import M from 'materialize-css'
@@ -6,7 +6,7 @@ import CreateBrigadaForm from './modals/CreateBrigadaForm'
 import useGetBrigadas from '../api/brigada/useGetBrigadas'
 import PreLoader from './PreLoader'
 import { useHistory } from 'react-router-dom'
-
+import userContext from '../context/userContext'
 const BrigadaList = () => {
   const [instance, setInstance] = useState(null)
   const { execute: getBrigadasExecute } = useGetBrigadas()
@@ -14,6 +14,7 @@ const BrigadaList = () => {
   const [isLoading, setIsLoading] = useState(true)
   const history = useHistory()
   const [width, setWidth] = useState(window.innerWidth)
+  const { userData } = useContext(userContext)
   function handleWindowSizeChange () {
     setWidth(window.innerWidth)
   }
@@ -60,18 +61,21 @@ const BrigadaList = () => {
         <div className="col m12 s12 center-align">
           <h1>
             Brigadas
-            <button
-              className="btn btn-floating btn-medium waves-light tooltipped"
-              data-position="top"
-              data-tooltip="Agregar nueva brigada"
-              onClick={() => instance.open()}
-              style={{
-                backgroundColor: '#0C0019',
-                marginLeft: '5%'
-              }}
-            >
-              <i className="material-icons">add</i>
-            </button>
+            {userData.roles[0].authority === 'ROLE_SUPERUSER'
+              ? <button
+            className="btn btn-floating btn-medium waves-light tooltipped"
+            data-position="top"
+            data-tooltip="Agregar nueva brigada"
+            onClick={() => instance.open()}
+            style={{
+              backgroundColor: '#0C0019',
+              marginLeft: '5%'
+            }}
+          >
+            <i className="material-icons">add</i>
+          </button>
+              : null}
+
           </h1>
         </div>
       </div>

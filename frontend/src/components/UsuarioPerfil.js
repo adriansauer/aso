@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import perfil from '../images/default.jpg'
 import { useLocation, useHistory } from 'react-router-dom'
 import useGetMemberById from '../api/miembros/useGetMemberById'
 import M from 'materialize-css'
 import EditUserForm from './modals/EditUserForm'
 import PreLoader from './PreLoader'
+import UserContext from '../context/userContext'
 const UsuarioPerfil = (props) => {
   const location = useLocation()
   const history = useHistory()
@@ -13,6 +14,7 @@ const UsuarioPerfil = (props) => {
   const [member, setMember] = useState(null)
   const [editUserModal, setEditUserModal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const { userData } = useContext(UserContext)
   useEffect(() => {
     if (member !== null) {
       /** INSTANCIA DEL MODAL EDITAR */
@@ -186,16 +188,20 @@ const UsuarioPerfil = (props) => {
                     <div className="col s7 m6 left-align">
                       <span style={{ fontSize: 16 }}>{member.email}</span>
                     </div>
-                    <div className="col s3 m5 right-align">
-                      {/** BOTON PARA ABRIR EL MODAL DE EDITAR USUARIO */}
-                      <button
-                        onClick={() => editUserModal.open()}
-                        style={{ backgroundColor: '#0C0019' }}
-                        className="btn-floating btn-medium"
-                      >
-                        <i className="material-icons">edit</i>
-                      </button>
-                    </div>
+                    {userData.roles[0].authority === 'ROLE_SUPERUSER' || userData.id === member.userId || userData.roles[0].authority === 'ROLE_BRIGADE'
+                      ? <div className="col s3 m5 right-align">
+                   {/** BOTON PARA ABRIR EL MODAL DE EDITAR USUARIO */}
+                   <button
+                     onClick={() => editUserModal.open()}
+                     style={{ backgroundColor: '#0C0019' }}
+                     className="btn-floating btn-medium"
+                   >
+                     <i className="material-icons">edit</i>
+                   </button>
+                 </div>
+                      : null
+                    }
+
                   </div>
                 </li>
               </ul>
