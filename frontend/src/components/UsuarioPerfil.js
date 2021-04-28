@@ -148,7 +148,7 @@ const UsuarioPerfil = (props) => {
                         member.birthday
                       ).getDate()}/${new Date(
                         member.birthday
-                      ).getMonth()}/${new Date(
+                      ).getMonth() + 1}/${new Date(
                         member.birthday
                       ).getFullYear()}`}</span>
                     </div>
