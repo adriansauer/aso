@@ -6,6 +6,8 @@ import UseGetDepartaments from '../../api/departamento/useGetDepartament'
 import useGetCity from '../../api/city/useGetCity'
 import useGetRangos from '../../api/rangos/useGetRangos'
 import PreLoader from '../PreLoader'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 const EditUserForm = (props) => {
   const { execute: getDepartamentsExecute } = UseGetDepartaments()
   const { execute: getCityExecute } = useGetCity()
@@ -26,8 +28,8 @@ const EditUserForm = (props) => {
   const [address, setAddress] = useState(props.usuario.address)
   const [email, setEmail] = useState(props.usuario.email)
   // FECHA DE ADMISION Y CUMPLEANHOS
-  const [admission, setAdmission] = useState(props.usuario.admission)
-  const [birthday, setBirthday] = useState(props.usuario.birthday)
+  const [admission, setAdmission] = useState(new Date(props.usuario.admission))
+  const [birthday, setBirthday] = useState(new Date(props.usuario.birthday))
   // DEPARTAMENTO Y CIUDAD
   const [cityId, setCityId] = useState(props.usuario.cityId)
   const [departamentId, setDepartamentId] = useState(
@@ -73,7 +75,9 @@ const EditUserForm = (props) => {
         M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
     setIsLoading(false)
+    M.updateTextFields()
   }, [])
+
   const createUser = (e) => {
     setIsLoading(true)
     e.preventDefault()
@@ -159,23 +163,13 @@ const EditUserForm = (props) => {
           </div>
           {/** FECHA DE NACIMIENTO Y FECHA DE ADMISION */}
           <div className="row">
-            <div className="input-field col m6">
+            <div className="col m6">
               <label>Fecha de nacimiento: </label>
-              <input
-                required
-                type="date"
-                value={birthday}
-                onChange={(e) => setBirthday(e.target.value)}
-              />
+              <DatePicker selected={birthday} onChange={date => setBirthday(date)} />
             </div>
-            <div className="input-field col m6">
+            <div className="col m6">
               <label>Fecha de admision: </label>
-              <input
-                required
-                type="date"
-                value={admission}
-                onChange={(e) => setAdmission(e.target.value)}
-              />
+              <DatePicker selected={admission} onChange={date => setAdmission(date)} />
             </div>
           </div>
           {/** Ciudad y Departamento */}
@@ -319,7 +313,7 @@ const EditUserForm = (props) => {
             style={{ backgroundColor: '#0C0019', marginRight: '5%' }}
             type="submit"
           >
-            Agregar
+            Modificar
           </button>
         </div>
       </form>
