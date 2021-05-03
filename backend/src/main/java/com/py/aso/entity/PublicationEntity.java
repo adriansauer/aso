@@ -44,4 +44,7 @@ public class PublicationEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id")
 	private UserEntity user;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "file")
+	private Set<FileEntity> files;
 }
