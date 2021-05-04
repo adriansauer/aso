@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="16">
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="1" />
+			<column name="name" value="ASO" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="ASO-001" />
+			<column name="email" value="aso@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="2" />
+			<column name="name" value="Nueva Alborada" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="NA-001" />
+			<column name="email" value="nuevaalborada@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="3" />
+			<column name="name" value="Bella Vista" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="BV-001" />
+			<column name="email" value="bellavista@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="4" />
+			<column name="name" value="Cambyreta" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="C-001" />
+			<column name="email" value="cambyreta@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="5" />
+			<column name="name" value="Capitán Meza" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="CM-001" />
+			<column name="email" value="capitanmeza@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="6" />
+			<column name="name" value="Carlos Antonio López" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="CAL-001" />
+			<column name="email" value="carlosantoniolopez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="7" />
+			<column name="name" value="Colonias Unidas" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="CU-001" />
+			<column name="email" value="coloniasunidas@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="8" />
+			<column name="name" value="Coronel Bogado" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="CB-001" />
+			<column name="email" value="coronelbogado@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="9" />
+			<column name="name" value="Encarnación" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="E-001" />
+			<column name="email" value="encarnacion@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="10" />
+			<column name="name" value="Fram" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="F-001" />
+			<column name="email" value="fram@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="11" />
+			<column name="name" value="General Artigas" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="GA-001" />
+			<column name="email" value="generalartigas@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="12" />
+			<column name="name" value="La Paz" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="LP-001" />
+			<column name="email" value="lapaz@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="13" />
+			<column name="name" value="Mayor Ortaño" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="MO-001" />
+			<column name="email" value="mayorotaño@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="14" />
+			<column name="name" value="Capitán Miranda" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="CMI-001" />
+			<column name="email" value="capitanmiranda@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="15" />
+			<column name="name" value="Naranjito" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="N-001" />
+			<column name="email" value="naranjito@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="16" />
+			<column name="name" value="Natalio" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="NAT-001" />
+			<column name="email" value="natalio@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="17" />
+			<column name="name" value="Pirapey" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="P-001" />
+			<column name="email" value="pirapey@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="18" />
+			<column name="name" value="San Juan del Paraná" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="SJP-001" />
+			<column name="email" value="sanjuanparana@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="19" />
+			<column name="name" value="San Pedro del Paraná" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="SPP-001" />
+			<column name="email" value="sanpedroparana@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="20" />
+			<column name="name" value="Tomas Romero Pereira" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="TRP-001" />
+			<column name="email" value="tomasromeropereira@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="21" />
+			<column name="name" value="Trinidad" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="T-001" />
+			<column name="email" value="trinidad@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="22" />
+			<column name="name" value="Yatytay" />
+			<column name="lastname" value="" />
+			<column name="usercode" value="Y-001" />
+			<column name="email" value="yatytay@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="23" />
+			<column name="name" value="Nicolas" />
+			<column name="lastname" value="García" />
+			<column name="usercode" value="NA-002" />
+			<column name="email" value="nicolasgarcia@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="24" />
+			<column name="name" value="Lucas" />
+			<column name="lastname" value="Fernández" />
+			<column name="usercode" value="NA-003" />
+			<column name="email" value="lucasfernandez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="25" />
+			<column name="name" value="Alex" />
+			<column name="lastname" value="González" />
+			<column name="usercode" value="NA-004" />
+			<column name="email" value="alexgonzalez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="26" />
+			<column name="name" value="Juan Luis" />
+			<column name="lastname" value="Rodríguez" />
+			<column name="usercode" value="NA-005" />
+			<column name="email" value="juanluis@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="27" />
+			<column name="name" value="Albert" />
+			<column name="lastname" value="López" />
+			<column name="usercode" value="NA-006" />
+			<column name="email" value="albertlopez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="28" />
+			<column name="name" value="Ines" />
+			<column name="lastname" value="Martínez" />
+			<column name="usercode" value="NA-007" />
+			<column name="email" value="inesmarinez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="29" />
+			<column name="name" value="Emilia" />
+			<column name="lastname" value="Sánchez" />
+			<column name="usercode" value="NA-008" />
+			<column name="email" value="emiliasanchez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="30" />
+			<column name="name" value="Agustin" />
+			<column name="lastname" value="Pérez" />
+			<column name="usercode" value="NA-009" />
+			<column name="email" value="agustinperez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="31" />
+			<column name="name" value="Ismael" />
+			<column name="lastname" value="Martín" />
+			<column name="usercode" value="NA-010" />
+			<column name="email" value="ismaelmartin@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="32" />
+			<column name="name" value="Iker" />
+			<column name="lastname" value="Martín" />
+			<column name="usercode" value="NA-011" />
+			<column name="email" value="ikermatin@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="33" />
+			<column name="name" value="Esther" />
+			<column name="lastname" value="Ruiz" />
+			<column name="usercode" value="NA-012" />
+			<column name="email" value="estherruiz@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="34" />
+			<column name="name" value="Noelia" />
+			<column name="lastname" value="Fernández" />
+			<column name="usercode" value="NA-013" />
+			<column name="email" value="noeliafernandez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="35" />
+			<column name="name" value="Ana Belen" />
+			<column name="lastname" value="Rodríguez" />
+			<column name="usercode" value="NA-014" />
+			<column name="email" value="anarodriguez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="36" />
+			<column name="name" value="Claudia" />
+			<column name="lastname" value="González" />
+			<column name="usercode" value="NA-015" />
+			<column name="email" value="claudiagonzalez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="37" />
+			<column name="name" value="Susana" />
+			<column name="lastname" value="García" />
+			<column name="usercode" value="NA-016" />
+			<column name="email" value="susanagarcia@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="38" />
+			<column name="name" value="Lorena" />
+			<column name="lastname" value="López" />
+			<column name="usercode" value="NA-017" />
+			<column name="email" value="lorenalopez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="39" />
+			<column name="name" value="Jordi" />
+			<column name="lastname" value="Martínez" />
+			<column name="usercode" value="NA-018" />
+			<column name="email" value="jordimartinez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="40" />
+			<column name="name" value="Guillermo" />
+			<column name="lastname" value="Pérez" />
+			<column name="usercode" value="NA-019" />
+			<column name="email" value="guillermoperez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="41" />
+			<column name="name" value="Julian" />
+			<column name="lastname" value="Álvarez" />
+			<column name="usercode" value="NA-020" />
+			<column name="email" value="julianalvarez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="42" />
+			<column name="name" value="Ignacio" />
+			<column name="lastname" value="Gómez" />
+			<column name="usercode" value="NA-021" />
+			<column name="email" value="ignaciogomez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="43" />
+			<column name="name" value="Ricardo" />
+			<column name="lastname" value="Sánchez" />
+			<column name="usercode" value="BV-002" />
+			<column name="email" value="ricardosanchez@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="44" />
+			<column name="name" value="Natalia" />
+			<column name="lastname" value="Smith" />
+			<column name="usercode" value="BV-003" />
+			<column name="email" value="nataliasmith@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="45" />
+			<column name="name" value="Xavier" />
+			<column name="lastname" value="Johnson" />
+			<column name="usercode" value="BV-004" />
+			<column name="email" value="xavirjhonson@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="46" />
+			<column name="name" value="Amparo" />
+			<column name="lastname" value="Williams" />
+			<column name="usercode" value="BV-005" />
+			<column name="email" value="amparowilliams@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="47" />
+			<column name="name" value="Maria" />
+			<column name="lastname" value="Brown" />
+			<column name="usercode" value="BV-006" />
+			<column name="email" value="mariabrown@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="48" />
+			<column name="name" value="Gloria" />
+			<column name="lastname" value="Jones" />
+			<column name="usercode" value="C-002" />
+			<column name="email" value="gloriajones@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="49" />
+			<column name="name" value="Fatima" />
+			<column name="lastname" value="Miller" />
+			<column name="usercode" value="C-003" />
+			<column name="email" value="fatimamiller@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="users">
+			<column name="id" value="50" />
+			<column name="name" value="Miriam" />
+			<column name="lastname" value="Davis" />
+			<column name="usercode" value="C-004" />
+			<column name="email" value="miriandavis@gmail.com" />
+			<column name="password"
+				value="$2a$10$Uj2yunxx6abk4TAjNoF.pOLi9YBWyDR.pUD3jeFhmKtWGk6C.SA7u" />
+			<!-- 12345678 -->
+			<column name="created_at" value="2021-04-08 13:35:35.284" />
+			<column name="enabled" value="TRUE" />
+		</insert>
+
+
+	</changeSet>
+
+</databaseChangeLog>
