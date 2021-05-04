@@ -3,7 +3,7 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 import perfil from '../images/default.jpg'
 import './components.css'
 import userContext from '../context/userContext'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import useGetMemberById from '../api/miembros/useGetMemberById'
 const Header = () => {
@@ -11,6 +11,7 @@ const Header = () => {
   const { isAutenticate, setIsAutenticate, userData } = useContext(userContext)
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: getMemberByIdExecute } = useGetMemberById()
+  const history = useHistory()
   const [profile, setProfile] = useState(null)
   const [brigada, setBrigada] = useState(null)
   /** Obtener el perfil del usuario o brigada */
@@ -117,6 +118,11 @@ const Header = () => {
                       height={55}
                       src={perfil}
                       alt=""
+                      onClick={() => {
+                        history.push({
+                          pathname: '/Home'
+                        })
+                      }}
                     />
                   </li>
                 </ul>
