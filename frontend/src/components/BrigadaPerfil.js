@@ -84,7 +84,7 @@ const BrigadaPerfil = (props) => {
         <h5 style={{ margin: 0 }}>
           {brigada === null ? null : brigada.name}
         </h5>
-        {userData.roles[0].authority === 'ROLE_SUPERUSER' || userData.perfilId === location.brigada.id
+        {(userData.roles[0].authority === 'ROLE_SUPERUSER' && userData.perfilId === location.brigada.id) || (userData.roles[0].authority === 'ROLE_BRIGADE' && userData.perfilId === location.brigada.id)
           ? <button
          className="btn-floating btn-small waves-light"
          onClick={() => editarModal.open()}
@@ -147,7 +147,7 @@ const BrigadaPerfil = (props) => {
               marginLeft: 50
             }}
           />
-          {userData.roles[0].authority === 'ROLE_SUPERUSER' || userData.perfilId === location.brigada.id
+          {(userData.roles[0].authority === 'ROLE_SUPERUSER' && userData.perfilId === location.brigada.id) || (userData.roles[0].authority === 'ROLE_BRIGADE' && userData.perfilId === location.brigada.id)
             ? <button
           className="btn-floating btn-medium waves-light"
           onClick={() => agregarModal.open()}
