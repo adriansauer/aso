@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="12">
+		<createTable tableName="likes">
+			<column autoIncrement="true" name="id" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="publication_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkLikePublication"
+					referencedTableName="publications" referencedColumnNames="id" />
+			</column>
+			<column name="user_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkLikeUser" referencedTableName="users"
+					referencedColumnNames="id" />
+			</column>
+			<column name="date" type="DATE">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<rollback>
+			<dropTable tableName="likes" />
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>

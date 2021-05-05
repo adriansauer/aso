@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="19">
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="1" />
+			<column name="name" value="Nueva Alborada" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="2" />
+			<column name="name" value="Bella Vista" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="3" />
+			<column name="name" value="Cambyreta" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="4" />
+			<column name="name" value="Capitán Meza" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="5" />
+			<column name="name" value="Carlos Antonio López" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="6" />
+			<column name="name" value="Colonias Unidas" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="7" />
+			<column name="name" value="Coronel Bogado" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="8" />
+			<column name="name" value="Encarnación" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="9" />
+			<column name="name" value="Fram" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="10" />
+			<column name="name" value="General Artigas" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="11" />
+			<column name="name" value="La Paz" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="12" />
+			<column name="name" value="Mayor Ortaño" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="13" />
+			<column name="name" value="Capitan Miranda" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="14" />
+			<column name="name" value="Naranjito" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="15" />
+			<column name="name" value="Natalio" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="16" />
+			<column name="name" value="Pirapey" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="17" />
+			<column name="name" value="San Juan del Paraná" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="18" />
+			<column name="name" value="San Pedro del Paraná" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="19" />
+			<column name="name" value="Tomas Romero Pereira" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="20" />
+			<column name="name" value="Trinidad" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="cities">
+			<column name="id" value="21" />
+			<column name="name" value="Yatytay" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>
