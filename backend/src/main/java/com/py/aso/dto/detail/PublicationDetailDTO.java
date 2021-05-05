@@ -1,10 +1,7 @@
 package com.py.aso.dto.detail;
 
 import java.util.Date;
-
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.NotBlank;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
