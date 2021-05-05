@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="21">
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="1" />
+			<column name="image_id" value="1" />
+			<column name="title" value="Bombero Voluntario" />
+			<column name="description" value="Grado para integrantes nuevos" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="2" />
+			<column name="image_id" value="2" />
+			<column name="title" value="Cabo" />
+			<column name="description" value="Segundo rango" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="3" />
+			<column name="image_id" value="3" />
+			<column name="title" value="Sargento" />
+			<column name="description" value="Tercer rango" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="4" />
+			<column name="image_id" value="4" />
+			<column name="title" value="Sargento Mayor" />
+			<column name="description" value="Cuarto rango" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="5" />
+			<column name="image_id" value="5" />
+			<column name="title" value="Sub Oficial" />
+			<column name="description" value="Quiento rango" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="6" />
+			<column name="image_id" value="6" />
+			<column name="title" value="Sub Teniente" />
+			<column name="description" value="" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="7" />
+			<column name="image_id" value="7" />
+			<column name="title" value="Teniente" />
+			<column name="description" value="" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="8" />
+			<column name="image_id" value="8" />
+			<column name="title" value="Capitán" />
+			<column name="description" value="" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="9" />
+			<column name="image_id" value="9" />
+			<column name="title" value="Capitán General" />
+			<column name="description" value="" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="10" />
+			<column name="image_id" value="10" />
+			<column name="title" value="Sub Rigadier" />
+			<column name="description" value="" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="11" />
+			<column name="image_id" value="11" />
+			<column name="title" value="Brigadier" />
+			<column name="description" value="" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="ranges">
+			<column name="id" value="12" />
+			<column name="image_id" value="12" />
+			<column name="title" value="Brigadier General" />
+			<column name="description" value="" />
+			<column name="deleted" value="false" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>

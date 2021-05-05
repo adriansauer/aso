@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="13">
+		<createTable tableName="brigade_details">
+			<column autoIncrement="true" name="id" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="user_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkBrigadeDetailUser" referencedTableName="users"
+					referencedColumnNames="id" />
+			</column>
+			<column name="image_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkBrigadeDetailImage" referencedTableName="images"
+					referencedColumnNames="id" />
+			</column>
+			<column name="departament_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkBrigadeDetailDepartament"
+					referencedTableName="departaments" referencedColumnNames="id" />
+			</column>
+			<column name="city_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkBrigadeDetailCity" referencedTableName="cities"
+					referencedColumnNames="id" />
+			</column>
+			<column name="address" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="creation" type="DATE">
+				<constraints nullable="false" />
+			</column>
+			<column name="number_members" type="INT" defaultValue="0">
+				<constraints nullable="false" />
+			</column>
+			<column name="phone" type="VARCHAR(20)">
+				<constraints nullable="true" />
+			</column>
+		</createTable>
+		<rollback>
+			<dropTable tableName="brigade_details" />
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>
