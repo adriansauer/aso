@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="14">
+		<createTable tableName="user_details">
+			<column autoIncrement="true" name="id" type="INT">
+				<constraints primaryKey="true" />
+			</column>
+			<column name="user_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkUserDetailUser" referencedTableName="users"
+					referencedColumnNames="id" />
+			</column>
+			<column name="brigade_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkUserDetailBrigade"
+					referencedTableName="brigade_details" referencedColumnNames="id" />
+			</column>
+			<column name="image_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkUserDetailImage" referencedTableName="images"
+					referencedColumnNames="id" />
+			</column>
+			<column name="departament_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkUserDetailDepartament"
+					referencedTableName="departaments" referencedColumnNames="id" />
+			</column>
+			<column name="city_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkUserDetailCity" referencedTableName="cities"
+					referencedColumnNames="id" />
+			</column>
+			<column name="range_id" type="INT">
+				<constraints nullable="false"
+					foreignKeyName="fkUserDetailRange" referencedTableName="ranges"
+					referencedColumnNames="id" />
+			</column>
+			<column name="ci" type="VARCHAR(30)">
+				<constraints nullable="false" unique="true"
+					uniqueConstraintName="usersCi" />
+			</column>
+			<column name="address" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="description" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="birthday" type="DATE">
+				<constraints nullable="false" />
+			</column>
+			<column name="admission" type="DATE">
+				<constraints nullable="false" />
+			</column>
+			<column name="phone" type="VARCHAR(20)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+		<rollback>
+			<dropTable tableName="user_details" />
+		</rollback>
+	</changeSet>
+
+</databaseChangeLog>
