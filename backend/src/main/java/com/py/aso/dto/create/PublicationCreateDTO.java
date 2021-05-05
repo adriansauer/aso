@@ -20,8 +20,8 @@ public class PublicationCreateDTO {
 	@ApiModelProperty(notes = "Contenido de la publicación", example = "Contenido extenso", required = true)
 	private String body;
 	
-	@NotBlank(message = "El destino de la publicación es requerido")
-	@Size(min = 0, max = 10, message = "El destiono puede contener como maximo 255 caracteres")
+	@NotBlank(message = "El destinatario de la publicación es requerido")
+	@Size(min = 0, max = 10, message = "El destinatario puede contener como maximo 10 caracteres")
 	@ApiModelProperty(notes = "Destino de la publicación", example = "Destino", required = true)
 	private String destination;
 }
