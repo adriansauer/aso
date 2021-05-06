@@ -1,13 +1,8 @@
 package com.py.aso.dto;
-
-import java.util.Date;
-
 import javax.validation.constraints.Positive;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
 @Data
 @ApiModel(description = "Objeto que representa un archivo")
 public class FileDTO {
