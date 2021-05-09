@@ -37,7 +37,13 @@ public class PublicationMapper implements BaseMapper<PublicationEntity, Publicat
 
 	@Override
 	public PublicationEntity toEntity(PublicationDTO dto) {
-		return null;
+		PublicationEntity entity = new PublicationEntity();
+		entity.setBody(dto.getBody());
+		entity.setCreate_at(dto.getCreateAt());
+		entity.setDestination(dto.getDestination());
+		entity.setId(dto.getId());
+		entity.setUpdate_at(dto.getUpdateAt());
+		return entity;
 	}
 
 	@Override
