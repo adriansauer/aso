@@ -32,7 +32,7 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public PublicationDetailDTO findByUserId(final long id, Pageable pageable) throws Exception {
+	public PublicationDetailDTO findAllByUserId(final long id, Pageable pageable) throws Exception {
 		return (PublicationDetailDTO) this.publicationRepository.findAllByUserIdAndDeleted(id, false, false, pageable)
 				.map(this.publicationMapper::toDetailDTO);
 		//Falta agregar la excepción, cuando se agrega marca un error
@@ -47,6 +47,7 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public PublicationDetailDTO save(PublicationCreateDTO dto) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
