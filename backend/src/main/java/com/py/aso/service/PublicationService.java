@@ -41,7 +41,9 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public PublicationDetailDTO findById(long id) throws Exception {
-		return null;
+		return this.publicationRepository.findById(id)//
+				.map(this.publicationMapper::toDetailDTO)//
+				.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 	}
 
 	@Override
