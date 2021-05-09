@@ -13,13 +13,15 @@ public class FileMapper implements BaseMapper<FileEntity, FileDTO, FileDetailDTO
 
 	@Override
 	public FileDTO toDTO(FileEntity entity) {
-		// TODO Auto-generated method stub
-		return null;
+		FileDTO dto = new FileDTO();
+		dto.setId(entity.getId());
+		dto.setName(entity.getName());
+		dto.setPublicationId(entity.getPublication().getId());
+		return dto;
 	}
 
 	@Override
 	public FileDetailDTO toDetailDTO(FileEntity entity) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
