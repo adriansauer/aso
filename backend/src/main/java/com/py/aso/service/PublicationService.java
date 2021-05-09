@@ -33,7 +33,9 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public PublicationDetailDTO findByUserId(final long id, Pageable pageable) throws Exception {
-		return null;
+		return (PublicationDetailDTO) this.publicationRepository.findAllByUserIdAndDeleted(id, false, false, pageable)
+				.map(this.publicationMapper::toDetailDTO);
+		//Falta agregar la excepción, cuando se agrega marca un error
 	}
 
 	@Override
