@@ -22,7 +22,11 @@ public class FileMapper implements BaseMapper<FileEntity, FileDTO, FileDetailDTO
 
 	@Override
 	public FileDetailDTO toDetailDTO(FileEntity entity) {
-		return null;
+		FileDetailDTO dto = new FileDetailDTO();
+		dto.setId(entity.getId());
+		dto.setName(entity.getName());
+		dto.setPublicationId(entity.getPublication().getId());
+		return dto;
 	}
 
 	@Override
