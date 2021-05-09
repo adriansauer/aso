@@ -1,12 +1,9 @@
 import React from 'react'
-import image from '../images/construccion.png'
+import InputPublicacion from './InputPublicacion'
 const Home = () => {
   return (
   <div>
-        <h1 aria-setsize={36}>
-            Página de inicio
-       </h1>
-        <img src={image} alt="Logo" />
+        <InputPublicacion/>
     </div>)
 }
 export default Home
