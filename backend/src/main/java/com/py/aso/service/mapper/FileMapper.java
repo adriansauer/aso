@@ -39,7 +39,9 @@ public class FileMapper implements BaseMapper<FileEntity, FileDTO, FileDetailDTO
 
 	@Override
 	public FileEntity toCreateEntity(FileCreateDTO dto) {
-		return null;
+		FileEntity entity = new FileEntity();
+		entity.setName(dto.getName());
+		return entity;
 	}
 
 	@Override
