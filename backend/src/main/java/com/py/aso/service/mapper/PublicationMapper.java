@@ -25,7 +25,14 @@ public class PublicationMapper implements BaseMapper<PublicationEntity, Publicat
 
 	@Override
 	public PublicationDetailDTO toDetailDTO(PublicationEntity entity) {
-		return null;
+		PublicationDetailDTO dto = new PublicationDetailDTO();
+		dto.setBody(entity.getBody());
+		dto.setCreateAt(entity.getCreate_at());
+		dto.setDestination(entity.getDestination());
+		dto.setId(entity.getId());
+		dto.setUpdateAt(entity.getUpdate_at());
+		dto.setUserId(entity.getUser().getId());
+		return dto;
 	}
 
 	@Override
