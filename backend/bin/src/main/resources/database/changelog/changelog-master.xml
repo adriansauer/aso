@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<!-- Creaciones de tablas -->
+	<include
+		file="/database/changelog/changes/creations/roles-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/settings-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/departaments-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/cities-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/users-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/user_roles-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/brigade_histories-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/images-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/ranges-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/publications-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/files-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/likes-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/brigade_details-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/user_details-table.xml" />
+
+	<!-- Insercion de datos -->
+	<include
+		file="/database/changelog/changes/inserts/insert-roles-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-users-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-user_roles-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-images-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-cities-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-departaments-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-ranges-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-brigade_details-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-user_details-1.xml" />
+
+</databaseChangeLog>

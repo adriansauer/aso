@@ -2,6 +2,7 @@ package com.py.aso.entity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -60,5 +62,8 @@ public class UserEntity {
 
 	@OneToOne(mappedBy = "user")
 	private FiremanEntity fireman;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<PublicationEntity> publications;
 
 }
