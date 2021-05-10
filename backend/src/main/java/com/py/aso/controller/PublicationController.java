@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.create.PublicationCreateDTO;
@@ -25,8 +26,10 @@ public class PublicationController implements BaseController<PublicationDTO, Pub
 	}
 
 	@Override
-	public PublicationDetailDTO find(long id) throws Exception {
-		return null;
+	@GetMapping("/publication/{id}")
+	@ApiOperation(value="Obtener una publicación por el id")
+	public PublicationDetailDTO find(@PathVariable final long id) throws Exception {
+		return this.publicationService.findById(id);
 	}
 
 	@Override
