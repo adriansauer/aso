@@ -45,8 +45,11 @@ public class PublicationController implements BaseController<PublicationDTO, Pub
 	}
 
 	@Override
-	public PublicationDetailDTO update(long id, PublicationUpdateDTO dto) throws Exception {
-		return null;
+	@PostMapping("/publication/{id}")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE') or hasRole('ROLE_USER')")
+	@ApiOperation(value = "Actualiza una publicación indicado por el id")
+	public PublicationDetailDTO update(@PathVariable final long id, @Validated @RequestBody PublicationUpdateDTO dto) throws Exception {
+		return this.publicationService.update(id, dto);
 	}
 
 	@Override
