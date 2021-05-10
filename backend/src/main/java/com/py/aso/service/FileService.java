@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.py.aso.dto.FileDTO;
@@ -24,9 +26,10 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 	private FileMapper fileMapper;
 
 	@Override
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<FileDTO> findAll(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.fileRepository.findAll(pageable)
+				.map(this.fileMapper::toDTO);
 	}
 	
 	public Page<FileDetailDTO> findByPublicationId(final long id, Pageable pageable) {
