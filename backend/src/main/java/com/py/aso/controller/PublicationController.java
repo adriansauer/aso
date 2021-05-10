@@ -3,8 +3,12 @@ package com.py.aso.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.create.PublicationCreateDTO;
@@ -33,8 +37,11 @@ public class PublicationController implements BaseController<PublicationDTO, Pub
 	}
 
 	@Override
-	public PublicationDetailDTO create(PublicationCreateDTO dto) throws Exception {
-		return null;
+	@PostMapping("/publication")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE') or hasRole('ROLE_USER')")
+	@ApiOperation(value = "Crear una nueva publicación")
+	public PublicationDetailDTO create(@Validated @RequestBody final PublicationCreateDTO dto) throws Exception {
+		return this.publicationService.save(dto);
 	}
 
 	@Override
