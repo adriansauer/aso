@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,6 +21,7 @@ import com.py.aso.dto.create.FileCreateDTO;
 import com.py.aso.dto.detail.FileDetailDTO;
 import com.py.aso.dto.detail.ImageDetailDTO;
 import com.py.aso.dto.update.FileUpdateDTO;
+import com.py.aso.dto.update.ImageUpdateDTO;
 import com.py.aso.service.FileService;
 
 import io.swagger.annotations.ApiOperation;
@@ -66,9 +68,10 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	}
 
 	@Override
-	public FileDetailDTO update(long id, FileUpdateDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@PutMapping("/files/{id}")
+	@ApiOperation(value = "Actualizar los datos del archivo por el id")
+	public FileDetailDTO update(@PathVariable final long id, @Validated @RequestBody final FileUpdateDTO dto) throws Exception {
+		return this.fileService.update(id, dto);
 	}
 
 	@Override
