@@ -32,8 +32,10 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 				.map(this.fileMapper::toDTO);
 	}
 	
-	public Page<FileDetailDTO> findByPublicationId(final long id, Pageable pageable) {
-		return null;
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public Page<FileDTO> findByPublicationId(final long id, Pageable pageable) throws Exception {
+		return this.fileRepository.findAllByPublicationIdAndDeleted(id, false, false, pageable)
+				.map(this.fileMapper::toDTO);
 	}
 	
 	public FileDetailDTO findAllByPublicationId(final long id) {
