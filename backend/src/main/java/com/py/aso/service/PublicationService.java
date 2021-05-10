@@ -11,6 +11,7 @@ import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.detail.PublicationDetailDTO;
 import com.py.aso.dto.create.PublicationCreateDTO;
 import com.py.aso.dto.update.PublicationUpdateDTO;
+import com.py.aso.entity.PublicationEntity;
 import com.py.aso.repository.PublicationRepository;
 import com.py.aso.service.mapper.PublicationMapper;
 
@@ -49,8 +50,9 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public PublicationDetailDTO save(PublicationCreateDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		PublicationEntity entity = this.publicationMapper.toCreateEntity(dto);
+		entity.setDeleted(false);
+		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
 	}
 
 	@Override
