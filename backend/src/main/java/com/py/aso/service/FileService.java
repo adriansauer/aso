@@ -26,6 +26,7 @@ import com.py.aso.dto.update.FileUpdateDTO;
 import com.py.aso.entity.FileEntity;
 import com.py.aso.entity.ImageEntity;
 import com.py.aso.exception.FileProblemsException;
+import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.FileRepository;
 import com.py.aso.service.mapper.FileMapper;
 
@@ -94,12 +95,38 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	//Guarda la imagen en el directorio
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO saveFile(final MultipartFile file, final String name) throws Exception {
-		return null;
+		// Valida que el archivo recibido exista.
+		if (file.getSize() <= 0) {
+			throw new FileProblemsException("Se necesita una imagen");
+		}
+
+		// Crea el path y lo guarda en los archivos
+		final Path newFilePath = Paths.get(this.fileProperties.getRoot(), nameFile(file.getOriginalFilename())).normalize();
+		final File newFile = new File(newFilePath.toUri());
+		final boolean isFileCreated = newFile.createNewFile();
+
+		// Validad si se creo correctamente
+		if (!isFileCreated) {
+			throw new FileProblemsException("La imagen no se pudo crear");
+		}
+
+		// Se escribe el archivo para guardar la imagen
+		try (final FileOutputStream fout = new FileOutputStream(newFile)) {
+			fout.write(file.getBytes());
+		} catch (IOException ex) {
+			throw new FileProblemsException("La imagen no se pudo guardar");
+		}
+
+		// Se registra en la base de datos en la tabla files.
+		FileEntity entity = new FileEntity();
+		entity.setName(name);
+		entity.setPath(newFilePath.toString());
+		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO update(long id, FileUpdateDTO dto) throws Exception {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	
