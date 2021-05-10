@@ -175,9 +175,17 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	}
 
 	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void delete(long id) throws Exception {
-		// TODO Auto-generated method stub
-		
+		FileEntity entity = this.fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("File", "id", id));
+		final Path oldPath = Paths.get(entity.getPath());
+		final File oldFile = new File(oldPath.toUri());
+		if (!(oldFile.getName().equals(this.FILE) || !oldFile.getName().equals(this.FILE_PUBLICATION) || !oldFile.getName().equals(this.FILE_PUBLICATION))) {
+			final boolean isFileDelete = oldFile.delete();
+			if (!isFileDelete)
+				throw new FileProblemsException("El archivo no se cambio");
+		}
+		this.fileRepository.delete(entity);
 	}
 	
 	private String nameFile(final String fileName) {
