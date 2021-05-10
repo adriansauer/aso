@@ -127,7 +127,9 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO update(long id, FileUpdateDTO dto) throws Exception {
-		return null;
+		FileEntity entity = this.fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Image", "id", id));
+		entity.setName(dto.getName());
+		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 	
 	public FileDetailDTO updateFile() {
