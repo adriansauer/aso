@@ -73,6 +73,12 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	public FileDetailDTO update(@PathVariable final long id, @Validated @RequestBody final FileUpdateDTO dto) throws Exception {
 		return this.fileService.update(id, dto);
 	}
+	
+	@PutMapping("/files/files/{id}")
+	@ApiOperation(value = "Actualizar un archivo por el id")
+	public FileDetailDTO updateFile(@RequestParam("file") final MultipartFile file, @PathVariable final long id) throws Exception {
+		return this.fileService.updateFile(file, id);
+	}
 
 	@Override
 	public void deleted(long id) throws Exception {
