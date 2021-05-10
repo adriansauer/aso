@@ -3,6 +3,7 @@ package com.py.aso.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
@@ -45,6 +46,7 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	private fileProperties fileProperties;
 	
 	private final String FILE= "file.png";
+	private final String FILE_PUBLICATION = "publication_file.png";
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -131,9 +133,45 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 		entity.setName(dto.getName());
 		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
-	
-	public FileDetailDTO updateFile() {
-		return null;
+
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public FileDetailDTO updateFile(final MultipartFile file, final long id) throws Exception {
+		// Valida que exista el archivo recibido.
+		if (file.getSize() <= 0) {
+			throw new FileProblemsException("Se necesita un archivo");
+		}
+		// Busca en la base de datos los datos de archivo viejo.
+		FileEntity entity = this.fileRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Archivo", "id", id));
+		// Verifica que el archivo viejo exista.
+		final Path oldPath = Paths.get(entity.getPath());
+		if (!Files.exists(oldPath)) {
+			throw new ResourceNotFoundException("Archivo", "id", id);
+		}
+
+		// Crea el paht y el archivo para la nueva imagen
+		final Path newFilePath = Paths.get(this.fileProperties.getRoot(), nameFile(file.getOriginalFilename())).normalize();
+		final File newFile = new File(newFilePath.toUri());
+		final boolean isFileCreated = newFile.createNewFile();
+		// Verifica si se creo el nuevo archivo
+		if (!isFileCreated)
+			throw new FileProblemsException("El archivo no se pudo crear");
+		// Se escribe el nuevo archivo
+		try (final FileOutputStream fout = new FileOutputStream(newFile)) {
+			fout.write(file.getBytes());
+		} catch (IOException ex) {
+			throw new FileProblemsException("La archivo no se pudo guardar");
+		}
+		// Se elimina el viejo archivo
+		final File oldFile = new File(oldPath.toUri());
+		if (!(oldFile.getName().equals(this.FILE) || oldFile.getName().equals(this.FILE_PUBLICATION) || oldFile.getName().equals(this.FILE_PUBLICATION))) {
+			final boolean isFileDelete = oldFile.delete();
+			if (!isFileDelete) {
+				throw new FileProblemsException("El archivo no se cambio");
+			}
+		}
+		// Se remplaza el path viejo por el nuevo
+		entity.setPath(newFilePath.toString());
+		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 
 	@Override
