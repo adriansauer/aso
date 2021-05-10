@@ -24,6 +24,9 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 	
 	@Autowired
 	private FileMapper fileMapper;
+	
+	@Autowired
+	private PublicationService publicationService;
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -38,8 +41,10 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 				.map(this.fileMapper::toDTO);
 	}
 	
-	public FileDetailDTO findAllByPublicationId(final long id) {
-		return null;
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public FileDetailDTO findAllByPublicationId(final long id, Pageable pageable) {
+		return (FileDetailDTO) this.fileRepository.findAllByPublicationIdAndDeleted(id, false, false, pageable)
+				.map(this.fileMapper::toDTO);
 	}
 
 	@Override
