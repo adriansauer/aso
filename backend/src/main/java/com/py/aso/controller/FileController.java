@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.py.aso.dto.FileDTO;
 import com.py.aso.dto.create.FileCreateDTO;
@@ -26,9 +27,10 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	}
 
 	@Override
-	public FileDetailDTO find(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	@GetMapping("/files/{id}")
+	@ApiOperation(value="Obtener un archivo por el id")
+	public FileDetailDTO find(@PathVariable final long id) throws Exception {
+		return this.fileService.findById(id);
 	}
 
 	@Override
