@@ -1,14 +1,18 @@
 package com.py.aso.service;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Date;
 import java.util.Optional;
 import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -87,8 +91,9 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 	
+	//Guarda la imagen en el directorio
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public FileDetailDTO saveFile(final String file, final String name) throws Exception {
+	public FileDetailDTO saveFile(final MultipartFile file, final String name) throws Exception {
 		return null;
 	}
 
@@ -106,6 +111,18 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	public void delete(long id) throws Exception {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private String nameFile(final String fileName) {
+		Date date = new Date();
+		final String user = SecurityContextHolder.getContext().getAuthentication().getName();
+		StringBuffer sb = new StringBuffer();
+		sb.append(user);
+		sb.append('-');
+		sb.append(date.getTime());
+		sb.append('-');
+		sb.append(fileName);
+		return sb.toString();
 	}
 
 }
