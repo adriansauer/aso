@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.py.aso.dto.ExceptionDTO;
 import com.py.aso.exception.InvalidPasswordException;
 import com.py.aso.exception.ResourceNotFoundException;
+import com.py.aso.exception.FilesMaximumException;
 
 @ControllerAdvice
 public class ExceptionAdvice {
@@ -67,4 +68,13 @@ public class ExceptionAdvice {
 		LOGGER.error("Error interno: " + ex);
 		return new ExceptionDTO("Problemas internos del servidor");
 	}
+	
+	@ResponseBody
+	@ExceptionHandler(FilesMaximumException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	public ExceptionDTO filesMaximun(final FilesMaximumException ex) {
+		LOGGER.warn(ex.getMessage());
+		return new ExceptionDTO(ex.getMessage());
+	}
+
 }
