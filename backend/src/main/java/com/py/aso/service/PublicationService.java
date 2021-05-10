@@ -64,6 +64,8 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 
 	@Override
 	public void delete(long id) throws Exception {
-		return;
+		PublicationEntity entity = this.publicationRepository.findById(id).get();
+		entity.setDeleted(true);
+		this.publicationRepository.save(entity);
 	}
 }
