@@ -28,7 +28,7 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<PublicationDTO> findAll(Pageable pageable) {
-		return this.publicationRepository.findAll(pageable)//
+		return this.publicationRepository.findAll(pageable)
 				.map(this.publicationMapper::toDTO);
 	}
 	
@@ -36,14 +36,13 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	public PublicationDetailDTO findAllByUserId(final long id, Pageable pageable) throws Exception {
 		return (PublicationDetailDTO) this.publicationRepository.findAllByUserIdAndDeleted(id, false, false, pageable)
 				.map(this.publicationMapper::toDetailDTO);
-		//Falta agregar la excepción, cuando se agrega marca un error
 	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public PublicationDetailDTO findById(long id) throws Exception {
-		return this.publicationRepository.findById(id)//
-				.map(this.publicationMapper::toDetailDTO)//
+		return this.publicationRepository.findById(id)
+				.map(this.publicationMapper::toDetailDTO)
 				.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 	}
 
@@ -57,14 +56,14 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 
 	@Override
 	public PublicationDetailDTO update(long id, PublicationUpdateDTO dto) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		PublicationEntity entity = this.publicationRepository.findById(id).get();
+		entity.setBody(dto.getBody());
+		entity.setDestination(dto.getDestination());
+		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
 	}
 
 	@Override
 	public void delete(long id) throws Exception {
-		// TODO Auto-generated method stub
-		
+		return;
 	}
-
 }
