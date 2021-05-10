@@ -23,9 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.py.aso.dto.FileDTO;
 import com.py.aso.dto.create.FileCreateDTO;
 import com.py.aso.dto.detail.FileDetailDTO;
-import com.py.aso.dto.detail.ImageDetailDTO;
 import com.py.aso.dto.update.FileUpdateDTO;
-import com.py.aso.dto.update.ImageUpdateDTO;
 import com.py.aso.service.FileService;
 
 import io.swagger.annotations.ApiOperation;
@@ -33,7 +31,7 @@ import io.swagger.annotations.ApiOperation;
 public class FileController implements BaseController<FileDTO, FileDetailDTO, FileCreateDTO, FileUpdateDTO> {
 
 	@Autowired
-	private FileService fileService;
+	private FileService<?> fileService;
 	
 	@Override
 	@GetMapping("files")
@@ -92,5 +90,4 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	public void deleted(@PathVariable final long id) throws Exception {
 		this.fileService.delete(id);
 	}
-
 }

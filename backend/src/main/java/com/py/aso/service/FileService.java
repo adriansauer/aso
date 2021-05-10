@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,12 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.py.aso.dto.FileDTO;
-import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.create.FileCreateDTO;
 import com.py.aso.dto.detail.FileDetailDTO;
 import com.py.aso.dto.update.FileUpdateDTO;
 import com.py.aso.entity.FileEntity;
-import com.py.aso.entity.ImageEntity;
 import com.py.aso.exception.FileProblemsException;
 import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.FileRepository;
