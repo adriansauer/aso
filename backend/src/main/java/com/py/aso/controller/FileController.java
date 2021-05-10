@@ -1,8 +1,11 @@
 package com.py.aso.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -31,6 +34,15 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	@ApiOperation(value="Obtener un archivo por el id")
 	public FileDetailDTO find(@PathVariable final long id) throws Exception {
 		return this.fileService.findById(id);
+	}
+	
+	@GetMapping("/files/files/{id}")
+	@ApiOperation(value = "Obtener un archivo por el id")
+	public ResponseEntity<Resource> findFileById(@PathVariable final long id) throws Exception {
+		final Resource file = (Resource) this.fileService.findById(id);
+		return ResponseEntity.ok()//
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")//
+				.body(file);
 	}
 
 	@Override
