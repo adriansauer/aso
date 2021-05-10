@@ -3,6 +3,7 @@ package com.py.aso.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import com.py.aso.dto.FileDTO;
 import com.py.aso.dto.create.FileCreateDTO;
@@ -10,15 +11,18 @@ import com.py.aso.dto.detail.FileDetailDTO;
 import com.py.aso.dto.update.FileUpdateDTO;
 import com.py.aso.service.FileService;
 
+import io.swagger.annotations.ApiOperation;
+
 public class FileController implements BaseController<FileDTO, FileDetailDTO, FileCreateDTO, FileUpdateDTO> {
 
 	@Autowired
 	private FileService fileService;
 	
 	@Override
+	@GetMapping("files")
+	@ApiOperation(value="Obtener todas los archivos, permite paginación")
 	public Page<FileDTO> index(Pageable pageable) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.fileService.findAll(pageable);
 	}
 
 	@Override
