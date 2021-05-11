@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.detail.PublicationDetailDTO;
@@ -17,6 +18,7 @@ import com.py.aso.service.mapper.PublicationMapper;
 
 import com.py.aso.exception.ResourceNotFoundException;
 
+@Service
 public class PublicationService implements BaseService<PublicationDTO, PublicationDetailDTO, PublicationCreateDTO, PublicationUpdateDTO> {
 	
 	@Autowired
