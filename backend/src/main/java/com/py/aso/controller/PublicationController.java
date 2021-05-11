@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -54,7 +55,7 @@ public class PublicationController implements BaseController<PublicationDTO, Pub
 	}
 
 	@Override
-	@PostMapping("/publication/{id}")
+	@PutMapping("/publication/{id}")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE') or hasRole('ROLE_USER')")
 	@ApiOperation(value = "Actualiza una publicación indicado por el id")
 	public PublicationDetailDTO update(@PathVariable final long id, @Validated @RequestBody PublicationUpdateDTO dto) throws Exception {
