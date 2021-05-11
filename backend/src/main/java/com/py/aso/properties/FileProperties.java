@@ -8,6 +8,6 @@ import lombok.Data;
 @Component
 @Data
 @ConfigurationProperties(prefix = "publications.files.images")
-public class fileProperties {
+public class FileProperties {
 	private String root;
 }
