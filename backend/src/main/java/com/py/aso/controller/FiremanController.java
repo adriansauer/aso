@@ -26,7 +26,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@Api(value = "Controlador de bomberos")
+@Api(value = "Controlador de publicaciones")
 @RequestMapping("/api")
 public class FiremanController
 		implements BaseController<FiremanDTO, FiremanDetailDTO, FiremanCreateDTO, FiremanUpdateDTO> {

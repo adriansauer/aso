@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.create.PublicationCreateDTO;
@@ -19,14 +21,18 @@ import com.py.aso.dto.detail.PublicationDetailDTO;
 import com.py.aso.dto.update.PublicationUpdateDTO;
 import com.py.aso.service.PublicationService;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
+@RestController
+@Api(value = "Controlador de publicaciones")
+@RequestMapping("/api")
 public class PublicationController implements BaseController<PublicationDTO, PublicationDetailDTO, PublicationCreateDTO, PublicationUpdateDTO>{
 	@Autowired
 	private PublicationService publicationService;
 	
 	@Override
-	@GetMapping("publication")
+	@GetMapping("/publication")
 	@ApiOperation(value="Obtener todas las publicaciones, permite paginación")
 	public Page<PublicationDTO> index(Pageable pageable) {
 		return this.publicationService.findAll(pageable);
