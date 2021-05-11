@@ -26,11 +26,11 @@ public class PublicationEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "create_at")
-	private Date create_at;
+	@Column(name = "created_at")
+	private Date created_at;
 	
-	@Column(name = "update_at")
-	private Date update_at;
+	@Column(name = "updated_at")
+	private Date updated_at;
 	
 	@Column(name = "body")
 	private String body;
