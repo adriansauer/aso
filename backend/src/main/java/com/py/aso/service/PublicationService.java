@@ -3,6 +3,8 @@ package com.py.aso.service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -30,7 +32,7 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<PublicationDTO> findAll(Pageable pageable) {
-		return this.publicationRepository.findAll(pageable)
+		return this.publicationRepository.findAllByDeletedAndEnabled(false, true, pageable)
 				.map(this.publicationMapper::toDTO);
 	}
 	
@@ -53,6 +55,7 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	public PublicationDetailDTO save(PublicationCreateDTO dto) throws Exception {
 		PublicationEntity entity = this.publicationMapper.toCreateEntity(dto);
 		entity.setDeleted(false);
+		entity.setCreated_at(new Date());
 		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
 	}
 
@@ -61,6 +64,7 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 		PublicationEntity entity = this.publicationRepository.findById(id).get();
 		entity.setBody(dto.getBody());
 		entity.setDestination(dto.getDestination());
+		entity.setUpdated_at(new Date());
 		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
 	}
 
