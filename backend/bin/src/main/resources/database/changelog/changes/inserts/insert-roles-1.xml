@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="15">
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="roles">
+			<column name="id" value="1" />
+			<column name="authority" value="ROLE_USER" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="roles">
+			<column name="id" value="2" />
+			<column name="authority" value="ROLE_BRIGADE" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="roles">
+			<column name="id" value="3" />
+			<column name="authority" value="ROLE_SUPERUSER" />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="roles">
+			<column name="id" value="4" />
+			<column name="authority" value="ROLE_VISITOR" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>

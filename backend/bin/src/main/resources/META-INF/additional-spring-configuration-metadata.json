@@ -1,0 +1,47 @@
+{"properties": [
+  {
+    "name": "jwt.key",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.key'"
+  },
+  {
+    "name": "jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.expiration'"
+  },
+  {
+    "name": "image.files.upload.root",
+    "type": "java.lang.String",
+    "description": "A description for 'image.files.upload.root'"
+  },
+  {
+    "name": "image.files.images.brigades",
+    "type": "java.lang.String",
+    "description": "A description for 'image.files.images.brigades'"
+  },
+  {
+    "name": "image.files.images.fireman",
+    "type": "java.lang.String",
+    "description": "A description for 'image.files.images.fireman'"
+  },
+  {
+    "name": "image.files.images.ranges",
+    "type": "java.lang.String",
+    "description": "A description for 'image.files.images.ranges'"
+  },
+  {
+    "name": "image.files.images.default",
+    "type": "java.lang.String",
+    "description": "A description for 'image.files.images.default'"
+  },
+  {
+    "name": "image.files.images.automatic",
+    "type": "java.lang.String",
+    "description": "A description for 'image.files.images.automatic'"
+  },
+  {
+    "name": "image.files.images.root",
+    "type": "java.lang.String",
+    "description": "A description for 'image.files.images.root'"
+  }
+]}
