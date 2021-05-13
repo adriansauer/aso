@@ -15,13 +15,14 @@ const Home = () => {
                 par={'Buenos dias a todos... Esta es la primera publicacion de esta red social. Es un orgullo'}
                 imagen={imagenes}
                 likes={83} />
+
+            <div>
+                <InputPublicacion/>
+            </div>
             <h1 aria-setsize={36}>
                 Página de inicio
-       </h1>
+            </h1>
             <img src={image} alt="Logo" />
-        </div>)
-  <div>
-        <InputPublicacion/>
-    </div>)
+            </div>)
 }
 export default Home
