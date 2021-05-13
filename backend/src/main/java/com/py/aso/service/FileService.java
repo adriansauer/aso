@@ -27,7 +27,7 @@ import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.FileRepository;
 import com.py.aso.service.mapper.FileMapper;
 
-import com.py.aso.properties.fileProperties;
+import com.py.aso.properties.FileProperties;
 
 @Service
 public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileCreateDTO, FileUpdateDTO>{
@@ -39,7 +39,7 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	private FileMapper fileMapper;
 	
 	@Autowired
-	private fileProperties fileProperties;
+	private FileProperties fileProperties;
 	
 	private final String FILE= "file.png";
 	private final String FILE_PUBLICATION = "publication_file.png";

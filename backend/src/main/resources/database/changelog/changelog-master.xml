@@ -55,5 +55,9 @@
 		file="/database/changelog/changes/inserts/insert-brigade_details-1.xml" />
 	<include
 		file="/database/changelog/changes/inserts/insert-user_details-1.xml" />
-
+	<include
+		file="/database/changelog/changes/inserts/insert-publications-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-files-1.xml" />
+	
 </databaseChangeLog>
