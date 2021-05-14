@@ -20,6 +20,7 @@ import com.py.aso.entity.UserEntity;
 import com.py.aso.repository.PublicationRepository;
 import com.py.aso.service.mapper.PublicationMapper;
 import com.py.aso.service.mapper.UserMapper;
+import com.py.aso.exception.InvalidAmountException;
 import com.py.aso.exception.ResourceNotFoundException;
 
 @Service
@@ -61,6 +62,11 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public PublicationDetailDTO save(PublicationCreateDTO dto) throws Exception {
+		
+		//Validación del atributo destination
+		if (!dto.getDestination().contentEquals("Todos") && !dto.getDestination().contentEquals("Publico") && !dto.getDestination().contentEquals("MiBrigada"))
+			throw new InvalidAmountException("Destino inválido,");
+		
 		//Validación de usuario
 		final UserEntity userEntity = this.userMapper.toEntity(this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials()));
 
