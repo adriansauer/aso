@@ -65,7 +65,7 @@ public class PublicationController implements BaseController<PublicationDTO, Pub
 	@Override
 	@DeleteMapping("/publications/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
+	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE') or hasRole('ROLE_USER')")
 	@ApiOperation(value = "Eliminar una publicación idicada el id")
 	public void deleted(@PathVariable final long id) throws Exception {
 		this.publicationService.delete(id);
