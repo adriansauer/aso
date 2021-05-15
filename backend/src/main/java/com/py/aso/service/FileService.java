@@ -66,10 +66,9 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public FileDetailDTO findById(long id) throws Exception {
-		/*
-		 * return this.fileRepository.findById(id) .map(this.fileMapper::toDetailDTO);
-		 */
-		return null;
+		return this.fileRepository.findById(id)
+				.map(this.fileMapper::toDetailDTO)
+				.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 	}
 
 	@Override
