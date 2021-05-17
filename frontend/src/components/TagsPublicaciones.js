@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes, { object } from 'prop-types'
 import './components.css'
 import M from 'materialize-css'
 import perfil from '../images/default.jpg'
+import useGetUserById from '../api/user/useGetUserById'
 const TagsPublicaciones = (props) => {
+  const { execute: getUserByIdExecute } = useGetUserById(null)
+  const [users, setUsers] = useState(null)
   const elemtsBtn = document.querySelectorAll('.fixed-action-btn')
   const floatingBtn = M.FloatingActionButton.init(elemtsBtn, {
     direction: 'left',
@@ -13,12 +16,26 @@ const TagsPublicaciones = (props) => {
   const instances = M.Dropdown.init(elems, {
     coverTrigger: false
   })
-  console.log(instances)
-  console.log(floatingBtn)
-  const imgs = props.imagen
+  useEffect(() => {
+    if (instances !== null && floatingBtn !== null) {
+      user()
+    }
+  })
+  const user = () => {
+    if (props.userId !== null) {
+      getUserByIdExecute(props.userId)
+        .then((res) => {
+          setUsers(res.data)
+        })
+        .catch((err) => {
+          M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
+        })
+    }
+  }
   return (
     <div className="container " style={{ marginTop: '8%' }}>
-      <div className="card" >
+      {users !== null
+        ? <div className="card" >
         <div className="divider"/>
         <div className="row">
           <div className="col s3 m2" style={{ textAlign: 'left' }}>
@@ -30,7 +47,7 @@ const TagsPublicaciones = (props) => {
             />
           </div>
           <div className="card-content col s6 m9" style={{ textAlign: 'left' }}>
-            <h6>{props.name}</h6>
+            <h6>{users.name} {users.lastname}</h6>
           </div>
           <div className=" card-content col s1 m1 l1">
             <a className='dropdown-trigger' href='#' data-target='dropdown1'>
@@ -47,14 +64,14 @@ const TagsPublicaciones = (props) => {
         <div>
           <p align="left" style={{ marginLeft: '5%', marginRight: '5%' }}>{props.par}</p>
           <div className="galeria" >
-            {imgs.map((imagen) =>
+            {/* imgs.map((imagen) =>
               <img
                 key={imagen.id}
                 src={imagen.ima}
                 alt=""
                 className="materialboxed"
               />
-            )}
+            ) */}
           </div>
         </div>
         <div className="divider"/>
@@ -63,11 +80,12 @@ const TagsPublicaciones = (props) => {
          <i className="material-icons">thumb_up</i>
         </div>
       </div>
+        : null}
     </div>
   )
 }
 TagsPublicaciones.propTypes = {
-  name: PropTypes.string,
+  userId: PropTypes.number,
   par: PropTypes.string,
   imagen: PropTypes.arrayOf(object),
   likes: PropTypes.number
