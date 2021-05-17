@@ -3,12 +3,15 @@ package com.py.aso.service;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -66,10 +69,36 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public FileDetailDTO findById(long id) throws Exception {
-		/*
-		 * return this.fileRepository.findById(id) .map(this.fileMapper::toDetailDTO);
-		 */
-		return null;
+		return this.fileRepository.findById(id)
+				.map(this.fileMapper::toDetailDTO)
+				.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
+	}
+	
+	/**
+	 * Metodo findFileById Busca una imagen por el id de la tabla images, esta tabla
+	 * contiene el path de la imagen.
+	 * 
+	 * @param id Id de la imagen
+	 * @return UrlResource
+	 * @throws Exception
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public Resource findFileById(final long id) throws ResourceNotFoundException {
+		// Valida que exista la imagen en la tabla images.
+//		ImageEntity entity = this.imageRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Image", "id", id));
+		FileEntity entity = this.fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Image", "id", id));
+
+		// Comprueba que el path sea correcto.
+		final Path path = Paths.get(entity.getPath());
+		if (!Files.exists(path)) {
+			throw new ResourceNotFoundException("Image", "id", id);
+		}
+		try {
+			// Retorna el path de donde esta la imagen.
+			return new UrlResource(path.toUri());
+		} catch (MalformedURLException ex) {
+			throw new ResourceNotFoundException("Image", "id", id);
+		}
 	}
 
 	@Override

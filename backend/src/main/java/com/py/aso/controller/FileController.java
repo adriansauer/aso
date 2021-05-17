@@ -52,14 +52,13 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	public FileDetailDTO find(@PathVariable final long id) throws Exception {
 		return this.fileService.findById(id);
 	}
-	
+
 	@GetMapping("/files/files/{id}")
 	@ApiOperation(value = "Obtener un archivo por el id")
 	public ResponseEntity<Resource> findFileById(@PathVariable final long id) throws Exception {
-		final Resource file = (Resource) this.fileService.findById(id);
-		return ResponseEntity.ok()//
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"")//
-				.body(file);
+		final Resource file = this.fileService.findFileById(id);
+		System.out.println("controlador");
+		return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getFilename() + "\"").body(file);
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.py.aso.dto.PublicationDTO;
@@ -15,9 +16,11 @@ import com.py.aso.dto.detail.PublicationDetailDTO;
 import com.py.aso.dto.create.PublicationCreateDTO;
 import com.py.aso.dto.update.PublicationUpdateDTO;
 import com.py.aso.entity.PublicationEntity;
+import com.py.aso.entity.UserEntity;
 import com.py.aso.repository.PublicationRepository;
 import com.py.aso.service.mapper.PublicationMapper;
-
+import com.py.aso.service.mapper.UserMapper;
+import com.py.aso.exception.InvalidAmountException;
 import com.py.aso.exception.ResourceNotFoundException;
 
 @Service
@@ -28,6 +31,12 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	
 	@Autowired
 	private PublicationMapper publicationMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
+	
+	@Autowired
+	private UserService userService;
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -53,7 +62,17 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public PublicationDetailDTO save(PublicationCreateDTO dto) throws Exception {
+		
+		//Validación del atributo destination
+		if (!dto.getDestination().contentEquals("Todos") && !dto.getDestination().contentEquals("Publico") && !dto.getDestination().contentEquals("MiBrigada"))
+			throw new InvalidAmountException("Destino inválido,");
+		
+		//Validación de usuario
+		final UserEntity userEntity = this.userMapper.toEntity(this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials()));
+
+		//Creación de la publicación
 		PublicationEntity entity = this.publicationMapper.toCreateEntity(dto);
+		entity.setUser(userEntity);
 		entity.setDeleted(false);
 		entity.setCreated_at(new Date());
 		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
