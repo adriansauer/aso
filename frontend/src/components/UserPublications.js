@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import M from 'materialize-css'
 import useGetPublications from '../api/publicaciones/useGetPublications'
 import TagsPublicaciones from './TagsPublicaciones'
 
-const PublicationsList = () => {
+const UserPublications = (props) => {
   const { execute: getPublicationsExecute } = useGetPublications()
   const [publicaciones, setPublicaciones] = useState(null)
   useEffect(() => {
@@ -18,12 +19,15 @@ const PublicationsList = () => {
   return (
       <div className="container">
           <div className="row">
+            Publicaciones
             <div className="collection">
                 {publicaciones !== null
                   ? publicaciones.map((p) => (
-                        <div key={p.id}>
-                          <TagsPublicaciones par={p.body} userId={p.userId} likes={83}/>
-                        </div>
+                    <div key={p.id}>
+                    {p.userId === props.userId
+                      ? <TagsPublicaciones par={p.body} userId={p.userId} likes={83}/>
+                      : null}
+                    </div>
                   ))
                   : null}
             </div>
@@ -31,5 +35,7 @@ const PublicationsList = () => {
       </div>
   )
 }
-
-export default PublicationsList
+UserPublications.propTypes = {
+  userId: PropTypes.number
+}
+export default UserPublications
