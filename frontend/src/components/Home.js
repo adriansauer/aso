@@ -1,28 +1,19 @@
 import React from 'react'
 import image from '../images/construccion.png'
-import TagPublicacion from './TagsPublicaciones'
-import imagen1 from '../images/imagen1.jpg'
-import imagen2 from '../images/imagen2.jpg'
-import imagen3 from '../images/imagen3.jpg'
-import imagen4 from '../images/imagen4.jpg'
-import InputPublicacion from './InputPublicacion'
+import useGetUserById from '../api/user/useGetUserById'
+import Publications from './Publications'
 const Home = () => {
-  const imagenes = [{ id: 1, ima: imagen1 }, { id: 2, ima: imagen2 }, { id: 3, ima: imagen3 }, { id: 4, ima: imagen4 }]
+  const user = useGetUserById(1)
+  console.log(user)
   return (
         <div style={{ width: '100%' }}>
-            <TagPublicacion
-                name={'Nicolas Garcia'}
-                par={'Buenos dias a todos... Esta es la primera publicacion de esta red social. Es un orgullo'}
-                imagen={imagenes}
-                likes={83} />
-
-            <div>
-                <InputPublicacion/>
-            </div>
+                <div>
+                    <Publications/>
+                </div>
             <h1 aria-setsize={36}>
                 Página de inicio
             </h1>
             <img src={image} alt="Logo" />
-            </div>)
+          </div>)
 }
 export default Home
