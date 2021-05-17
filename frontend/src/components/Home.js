@@ -14,6 +14,6 @@ const Home = () => {
                 Página de inicio
             </h1>
             <img src={image} alt="Logo" />
-        </div>)
+          </div>)
 }
 export default Home
