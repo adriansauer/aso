@@ -49,7 +49,7 @@ const TagsPublicaciones = (props) => {
           <div className="card-content col s6 m9" style={{ textAlign: 'left' }}>
             <h6>{users.name} {users.lastname}</h6>
           </div>
-          <div className=" card-content col s1 m1 l1">
+          {/* <div className=" card-content col s1 m1 l1">
             <a className='dropdown-trigger' href='#' data-target='dropdown1'>
               <i className="material-icons" style={{ marginRight: '5%', textAlign: 'right' }}>more_vert</i>
             </a>
@@ -58,7 +58,7 @@ const TagsPublicaciones = (props) => {
               <li className="divider" tabIndex="-1"/>
               <li><i className="material-icons" href="#!" style={{ marginTop: 15, marginLeft: 10 }}>delete</i> Eliminar</li>
             </ul>
-          </div>
+          </div> */}
         </div>
         <div className="divider"/>
         <div>

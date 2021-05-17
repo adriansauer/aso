@@ -8,6 +8,7 @@ import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import EditBrigadaForm from './modals/EditBrigadaForm'
 import PreLoader from './PreLoader'
 import userContext from '../context/userContext'
+import UserPublications from './UserPublications'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const [isLoading, setIsLoading] = useState(false)
@@ -199,7 +200,7 @@ const BrigadaPerfil = (props) => {
           </div>
         </div>
       </div>
-
+        <UserPublications userId={brigada === null ? null : brigada.userId}/>\
       <CreateUserForm brigada={location.brigada} close={closeModal} />
       {brigada !== null
         ? (

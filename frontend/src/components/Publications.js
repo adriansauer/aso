@@ -18,7 +18,6 @@ const PublicationsList = () => {
   return (
       <div className="container">
           <div className="row">
-            Publicaciones
             <div className="collection">
                 {publicaciones !== null
                   ? publicaciones.map((p) => (
