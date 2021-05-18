@@ -1,7 +1,12 @@
 package com.py.aso.dto.detail;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.validation.constraints.Positive;
+
+import com.py.aso.dto.FileDTO;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -28,6 +33,9 @@ public class PublicationDetailDTO {
 	@ApiModelProperty(notes = "Contenido de la publicación", example = "Contenido extenso")
 	private String body;
 	
-	@ApiModelProperty(notes = "Destino de la publicación", example = "Destino")
+	@ApiModelProperty(notes = "Destino de la publicación", example = "Publico")
 	private String destination;
+	
+	@ApiModelProperty(notes = "Lista de imágenes", example = "[{id: 1}]")
+	private List<FileDTO> files;
 }
