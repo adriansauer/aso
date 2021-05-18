@@ -7,6 +7,7 @@ import EditUserForm from './modals/EditUserForm'
 import PreLoader from './PreLoader'
 import UserContext from '../context/userContext'
 import UserPublications from './UserPublications'
+import InputPublicacion from './InputPublicacion'
 const UsuarioPerfil = (props) => {
   const location = useLocation()
   const history = useHistory()
@@ -217,6 +218,7 @@ const UsuarioPerfil = (props) => {
 
               : null}
           </div>
+          <InputPublicacion/>
           <UserPublications userId={member.userId}/>
         </>
         : <PreLoader visible={isLoading} />

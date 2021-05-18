@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import M from 'materialize-css'
+import userContext from '../context/userContext'
 import useCreatePublication from '../api/publicaciones/useCreatePublication'
 import PreLoader from './PreLoader'
 const InputPublicacion = () => {
   const [width, setWidth] = useState(window.innerWidth)
   const { execute: createPublicationExecute } = useCreatePublication()
+  const { userData } = useContext(userContext)
   const [body, setBody] = useState('')
   const [userId, setUserId] = useState('')
   const [destination, setDestination] = useState('null')
@@ -59,25 +61,24 @@ const InputPublicacion = () => {
                 className="materialize-textarea"
                 onChange={(e) => {
                   setBody(e.target.value)
-                  setUserId(1)
-                  setDestination('MiBrigada')
+                  setUserId(userData.userId)
                 }}
               ></textarea>
               <label htmlFor="textarea1">Escribe algo...</label>
             </div>
           </div>
-        <div className="col m2 s2">
-          <button
-            className="btn btn-medium waves-light"
-            type="submit"
-            style={{
-              backgroundColor: '#0C0019',
-              marginTop: '30%'
-            }}
-          >
-            Publicar
-          </button>
-        </div>
+          <div className="col m2 s2">
+            <button
+              className="btn btn-medium waves-light"
+              type="submit"
+              style={{
+                backgroundColor: '#0C0019',
+                marginTop: '30%'
+              }}
+            >
+              Publicar
+            </button>
+          </div>
         </form>
 
         <div className="col m2 s2">
@@ -105,17 +106,16 @@ const InputPublicacion = () => {
           <ul
             id="dropdown1"
             className="dropdown-content"
-            onChange={(e) => { setDestination(e.target.value) }}
           >
               <a style={{ color: '#0C0019' }} href="#!">Enviar a</a>
               <li className="divider" tabIndex="-1"/>
-            <li value="Todos">
+            <li onClick={(e) => setDestination('Todos')}>
               <a style={{ color: '#0C0019' }} href="#!">Todos</a>
             </li>
-            <li value="MiBrigada">
+            <li onClick={(e) => setDestination('MiBrigada')}>
               <a style={{ color: '#0C0019' }} href="#!">Mi brigada</a>
             </li>
-            <li value="Publico">
+            <li onClick={(e) => setDestination('Publico')}>
               <a style={{ color: '#0C0019' }} href="#!">Público</a>
             </li>
           </ul>

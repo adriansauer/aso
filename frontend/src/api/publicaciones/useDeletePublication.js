@@ -17,7 +17,7 @@ const useDeletePublication = () => {
       })
       .catch(_error => {
         setData(null)
-        setError('Ha ocurrido un error al intentar eliminar el usuario')
+        setError('Ha ocurrido un error al intentar eliminar la publicación')
         setLoading(false)
       })
   }
