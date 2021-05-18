@@ -31,9 +31,10 @@ import com.py.aso.repository.FileRepository;
 import com.py.aso.service.mapper.FileMapper;
 
 import com.py.aso.properties.FileProperties;
-
+import java.util.List;
+import java.util.stream.Collectors;
 @Service
-public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileCreateDTO, FileUpdateDTO>{
+public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCreateDTO, FileUpdateDTO>{
 
 	@Autowired
 	private FileRepository fileRepository;
@@ -56,13 +57,19 @@ public class FileService<X> implements BaseService<FileDTO, FileDetailDTO, FileC
 	
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<FileDTO> findByPublicationId(final long id, Pageable pageable) throws Exception {
-		return this.fileRepository.findAllByPublicationIdAndDeleted(id, false, false, pageable)
+		return this.fileRepository.findAllByPublicationIdAndDeleted(id, false, pageable)
 				.map(this.fileMapper::toDTO);
 	}
 	
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<FileDTO> findByPublicationId(final long id) throws Exception {
+		return this.fileRepository.findAllByPublicationIdAndDeleted(id, false)
+				.stream().map(this.fileMapper::toDTO).collect(Collectors.toList());
+	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public FileDetailDTO findAllByPublicationId(final long id, Pageable pageable) {
-		return (FileDetailDTO) this.fileRepository.findAllByPublicationIdAndDeleted(id, false, false, pageable)
+		return (FileDetailDTO) this.fileRepository.findAllByPublicationIdAndDeleted(id, false, pageable)
 				.map(this.fileMapper::toDTO);
 	}
 

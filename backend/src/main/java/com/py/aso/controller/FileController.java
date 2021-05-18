@@ -37,7 +37,7 @@ import io.swagger.annotations.ApiOperation;
 public class FileController implements BaseController<FileDTO, FileDetailDTO, FileCreateDTO, FileUpdateDTO> {
 
 	@Autowired
-	private FileService<?> fileService;
+	private FileService fileService;
 	
 	@Override
 	@GetMapping("files")
