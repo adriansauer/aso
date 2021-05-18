@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes, { object } from 'prop-types'
 import './components.css'
 import M from 'materialize-css'
+import userContext from '../context/userContext'
 import perfil from '../images/default.jpg'
 import useGetUserById from '../api/user/useGetUserById'
+/* import useDeletePublication from '../api/publicaciones/useDeletePublication' */
 const TagsPublicaciones = (props) => {
   const { execute: getUserByIdExecute } = useGetUserById(null)
+  /* const { execute: deletePublicationExecute } = useDeletePublication(null) */
+  const { userData } = useContext(userContext)
   const [users, setUsers] = useState(null)
   const elemtsBtn = document.querySelectorAll('.fixed-action-btn')
   const floatingBtn = M.FloatingActionButton.init(elemtsBtn, {
@@ -20,7 +24,7 @@ const TagsPublicaciones = (props) => {
     if (instances !== null && floatingBtn !== null) {
       user()
     }
-  })
+  }, [])
   const user = () => {
     if (props.userId !== null) {
       getUserByIdExecute(props.userId)
@@ -49,16 +53,28 @@ const TagsPublicaciones = (props) => {
           <div className="card-content col s6 m9" style={{ textAlign: 'left' }}>
             <h6>{users.name} {users.lastname}</h6>
           </div>
-          {/* <div className=" card-content col s1 m1 l1">
-            <a className='dropdown-trigger' href='#' data-target='dropdown1'>
-              <i className="material-icons" style={{ marginRight: '5%', textAlign: 'right' }}>more_vert</i>
-            </a>
-            <ul id='dropdown1' className='dropdown-content'>
-              <li><i className="material-icons" href="#!" style={{ marginTop: 15, marginLeft: 10 }}>edit</i> Editar</li>
-              <li className="divider" tabIndex="-1"/>
-              <li><i className="material-icons" href="#!" style={{ marginTop: 15, marginLeft: 10 }}>delete</i> Eliminar</li>
-            </ul>
-          </div> */}
+          {userData.roles[0].authority === 'ROLE_SUPERUSER' || userData.id === users.id || userData.roles[0].authority === 'ROLE_BRIGADE'
+            ? <button
+            className="dropdown-trigger btn btn-floating btn-medium waves-light"
+            data-target="dropdown2"
+            style={{
+              backgroundColor: 'white',
+              marginTop: '4%'
+            }}>
+          <i className="medium material-icons" style={{
+            color: '#0C0019'
+          }}>expand_more</i>
+          </button>
+            : null}
+          <ul id="dropdown2"
+          className="dropdown-content">
+            <li>
+              <a style={{ color: '#0C0019' }} >Eliminar</a>
+            </li>
+            <li>
+              <a style={{ color: '#0C0019' }}>Editar</a>
+            </li>
+          </ul>
         </div>
         <div className="divider"/>
         <div>
@@ -88,6 +104,7 @@ TagsPublicaciones.propTypes = {
   userId: PropTypes.number,
   par: PropTypes.string,
   imagen: PropTypes.arrayOf(object),
-  likes: PropTypes.number
+  likes: PropTypes.number,
+  publicationId: PropTypes.number
 }
 export default TagsPublicaciones

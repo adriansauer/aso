@@ -15,10 +15,9 @@ const UserPublications = (props) => {
       .catch((err) => {
         M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
-  })
+  }, [])
   return (
-      <div className="container">
-          <div className="row">
+      <div className="row">
             Publicaciones
             <div className="collection">
                 {publicaciones !== null
@@ -32,7 +31,6 @@ const UserPublications = (props) => {
                   : null}
             </div>
           </div>
-      </div>
   )
 }
 UserPublications.propTypes = {

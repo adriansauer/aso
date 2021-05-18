@@ -200,7 +200,7 @@ const BrigadaPerfil = (props) => {
           </div>
         </div>
       </div>
-        <UserPublications userId={brigada === null ? null : brigada.userId}/>\
+        <UserPublications userId={brigada === null ? null : brigada.userId}/>
       <CreateUserForm brigada={location.brigada} close={closeModal} />
       {brigada !== null
         ? (

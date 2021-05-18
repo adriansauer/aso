@@ -14,7 +14,7 @@ const PublicationsList = () => {
       .catch((err) => {
         M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
-  })
+  }, [])
   return (
       <div className="container">
           <div className="row">
@@ -22,7 +22,7 @@ const PublicationsList = () => {
                 {publicaciones !== null
                   ? publicaciones.map((p) => (
                         <div key={p.id}>
-                          <TagsPublicaciones par={p.body} userId={p.userId} likes={83}/>
+                          <TagsPublicaciones par={p.body} userId={p.userId} likes={83} publicationId={p.id}/>
                         </div>
                   ))
                   : null}
