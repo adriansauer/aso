@@ -132,7 +132,6 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 			throw new FileProblemsException("No es propietario de la publicación");
 		
 		final PublicationEntity publicationEntity = this.publicationMapper.toEntity(publicationDTO);
-		
 		final Path newFilePath = Paths.get(this.fileProperties.getRoot(), FILE).normalize();
 
 		// Se registra el archivo en la base de datos
@@ -143,10 +142,44 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 	
-	//Guarda el archivo en el directorio
+	//Guarda el archivo en el directorio y registra en la base de datos
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO save(final MultipartFile file, final String name, long publicationId) throws Exception {
-		return null;
+		//Validación de usuario
+		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
+						
+		//Validación de la publicacion
+		final PublicationDTO publicationDTO = publicationService.findById(publicationId, false);
+		if ( publicationDTO.getUserId() != userDTO.getId() )
+			throw new FileProblemsException("No es propietario de la publicación");
+
+		// Valida que el archivo recibido exista.
+		if ( file.getSize() <= 0 )
+			throw new FileProblemsException("Se necesita un archivo");
+
+		// Crea el path y guarda archivos
+		final Path newFilePath	= Paths.get(this.fileProperties.getRoot(), nameFile(file.getOriginalFilename())).normalize();
+		final File newFile		= new File(newFilePath.toUri());
+		final boolean isFileCreated = newFile.createNewFile();
+
+		// Validad si se creo correctamente
+		if ( !isFileCreated )
+			throw new FileProblemsException("El archivo no se guardo");
+
+		// Se escribe el archivo para guardar la imagen
+		try (final FileOutputStream fout = new FileOutputStream(newFile)) {
+			fout.write(file.getBytes());
+		} catch (IOException ex) {
+			throw new FileProblemsException("El archivo no se guardo");
+		}
+
+		// Se registra el archivo en la base de datos
+		final PublicationEntity publicationEntity = this.publicationMapper.toEntity(publicationDTO);
+		FileEntity entity = new FileEntity();
+		entity.setName(name);
+		entity.setPath(newFilePath.toString());
+		entity.setPublication(publicationEntity);
+		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 
 	@Override
