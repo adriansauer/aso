@@ -64,8 +64,8 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	@Override
 	@PostMapping("/files")
 	@ApiOperation(value = "Crear un archivo por defecto")
-	public FileDetailDTO create(@Validated @RequestBody final FileCreateDTO dto) throws Exception {
-		return this.fileService.save(dto);
+	public FileDetailDTO create(@Validated @RequestBody final FileCreateDTO fileCreateDTO) throws Exception {
+		return this.fileService.save(fileCreateDTO);
 	}
 	
 	@PostMapping(path = "/files/files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -77,8 +77,8 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	@Override
 	@PutMapping("/files/{id}")
 	@ApiOperation(value = "Actualizar los datos del archivo por el id")
-	public FileDetailDTO update(@PathVariable final long id, @Validated @RequestBody final FileUpdateDTO dto) throws Exception {
-		return this.fileService.update(id, dto);
+	public FileDetailDTO update(@PathVariable final long id, @Validated @RequestBody final FileUpdateDTO fileUpdateDTO) throws Exception {
+		return this.fileService.update(id, fileUpdateDTO);
 	}
 	
 	@PutMapping("/files/files/{id}")
