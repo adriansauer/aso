@@ -63,22 +63,22 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 
 	@Override
 	@PostMapping("/files")
-	@ApiOperation(value = "Crear un archivo por defecto")
-	public FileDetailDTO create(@Validated @RequestBody final FileCreateDTO dto) throws Exception {
-		return this.fileService.save(dto);
+	@ApiOperation(value = "Registra un archivo en la base de datos, no hace copia del archivo")
+	public FileDetailDTO create(@Validated @RequestBody final FileCreateDTO fileCreateDTO) throws Exception {
+		return this.fileService.save(fileCreateDTO);
 	}
 	
 	@PostMapping(path = "/files/files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Crear un nuevo archivo")
-	public FileDetailDTO createFile(@RequestParam("file") final MultipartFile file,	@RequestParam("name") final String name) throws Exception {
-		return this.fileService.saveFile(file, name);
+	public FileDetailDTO createFile(@RequestParam("file") final MultipartFile file,	@RequestParam("name") final String name, @RequestParam("name") final long publicationId) throws Exception {
+		return this.fileService.save(file, name, publicationId);
 	}
 
 	@Override
 	@PutMapping("/files/{id}")
 	@ApiOperation(value = "Actualizar los datos del archivo por el id")
-	public FileDetailDTO update(@PathVariable final long id, @Validated @RequestBody final FileUpdateDTO dto) throws Exception {
-		return this.fileService.update(id, dto);
+	public FileDetailDTO update(@PathVariable final long id, @Validated @RequestBody final FileUpdateDTO fileUpdateDTO) throws Exception {
+		return this.fileService.update(id, fileUpdateDTO);
 	}
 	
 	@PutMapping("/files/files/{id}")

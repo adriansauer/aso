@@ -21,15 +21,18 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.py.aso.dto.FileDTO;
+import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.create.FileCreateDTO;
 import com.py.aso.dto.detail.FileDetailDTO;
+import com.py.aso.dto.detail.UserDetailDTO;
 import com.py.aso.dto.update.FileUpdateDTO;
 import com.py.aso.entity.FileEntity;
+import com.py.aso.entity.PublicationEntity;
 import com.py.aso.exception.FileProblemsException;
 import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.repository.FileRepository;
 import com.py.aso.service.mapper.FileMapper;
-
+import com.py.aso.service.mapper.PublicationMapper;
 import com.py.aso.properties.FileProperties;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,6 +47,14 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 	
 	@Autowired
 	private FileProperties fileProperties;
+	
+	@Autowired
+	private PublicationMapper publicationMapper;
+	@Autowired
+	private PublicationService publicationService;
+
+	@Autowired
+	private UserService userService;
 	
 	private final String FILE= "file.png";
 	private final String FILE_PUBLICATION = "publication_file.png";
@@ -108,53 +119,66 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 		}
 	}
 
+	//Solo registra el archivo en la base de datos, no hace copia del archivo
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO save(FileCreateDTO dto) throws Exception {
-		final Path newFilePath = Paths.get(this.fileProperties.getRoot(), FILE).normalize();
-		final File newFile = new File(newFilePath.toUri());
+		//Validación de usuario
+		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
+				
+		//Validación de la publicacion
+		final PublicationDTO publicationDTO = publicationService.findById(dto.getPublicationId(), false);
+		if ( publicationDTO.getUserId() != userDTO.getId() )
+			throw new FileProblemsException("No es propietario de la publicación");
 		
-		// Valida que la imagen exista.
-		final boolean isFileExists = newFile.exists();
-		if (!isFileExists) {
-			throw new FileProblemsException("El archivo no se pudo crear");
-		}
-		// Se registra en la tabla images la imagen.
+		final PublicationEntity publicationEntity = this.publicationMapper.toEntity(publicationDTO);
+		final Path newFilePath = Paths.get(this.fileProperties.getRoot(), FILE).normalize();
+
+		// Se registra el archivo en la base de datos
 		FileEntity entity = new FileEntity();
 		entity.setName(dto.getName());
 		entity.setPath(newFilePath.toString());
+		entity.setPublication(publicationEntity);
 		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 	
-	//Guarda la imagen en el directorio
+	//Guarda el archivo en el directorio y registra en la base de datos
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public FileDetailDTO saveFile(final MultipartFile file, final String name) throws Exception {
-		// Valida que el archivo recibido exista.
-		if (file.getSize() <= 0) {
-			throw new FileProblemsException("Se necesita una imagen");
-		}
+	public FileDetailDTO save(final MultipartFile file, final String name, long publicationId) throws Exception {
+		//Validación de usuario
+		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
+						
+		//Validación de la publicacion
+		final PublicationDTO publicationDTO = publicationService.findById(publicationId, false);
+		if ( publicationDTO.getUserId() != userDTO.getId() )
+			throw new FileProblemsException("No es propietario de la publicación");
 
-		// Crea el path y lo guarda en los archivos
-		final Path newFilePath = Paths.get(this.fileProperties.getRoot(), nameFile(file.getOriginalFilename())).normalize();
-		final File newFile = new File(newFilePath.toUri());
+		// Valida que el archivo recibido exista.
+		if ( file.getSize() <= 0 )
+			throw new FileProblemsException("Se necesita un archivo");
+
+		// Crea el path y guarda archivos
+		final Path newFilePath	= Paths.get(this.fileProperties.getRoot(), nameFile(file.getOriginalFilename())).normalize();
+		final File newFile		= new File(newFilePath.toUri());
 		final boolean isFileCreated = newFile.createNewFile();
 
 		// Validad si se creo correctamente
-		if (!isFileCreated) {
-			throw new FileProblemsException("La imagen no se pudo crear");
-		}
+		if ( !isFileCreated )
+			throw new FileProblemsException("El archivo no se guardo");
 
 		// Se escribe el archivo para guardar la imagen
 		try (final FileOutputStream fout = new FileOutputStream(newFile)) {
 			fout.write(file.getBytes());
 		} catch (IOException ex) {
-			throw new FileProblemsException("La imagen no se pudo guardar");
+			throw new FileProblemsException("El archivo no se guardo");
 		}
 
-		// Se registra en la base de datos en la tabla files.
+		// Se registra el archivo en la base de datos
+		final PublicationEntity publicationEntity = this.publicationMapper.toEntity(publicationDTO);
 		FileEntity entity = new FileEntity();
 		entity.setName(name);
 		entity.setPath(newFilePath.toString());
+		entity.setPublication(publicationEntity);
 		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 
@@ -231,5 +255,4 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 		sb.append(fileName);
 		return sb.toString();
 	}
-
 }
