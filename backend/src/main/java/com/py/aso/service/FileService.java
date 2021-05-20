@@ -240,6 +240,10 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void delete(long id) throws Exception {
 		FileEntity entity = this.fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("File", "id", id));
+		//Validación de usuario
+		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
+		if ( entity.getPublication().getUser().getId() != userDTO.getId() )
+			throw new AccessDeniedException("No es propietario de la publicación");
 		final Path oldPath = Paths.get(entity.getPath());
 		final File oldFile = new File(oldPath.toUri());
 		if (!(oldFile.getName().equals(this.FILE) || !oldFile.getName().equals(this.FILE_PUBLICATION) || !oldFile.getName().equals(this.FILE_PUBLICATION))) {
