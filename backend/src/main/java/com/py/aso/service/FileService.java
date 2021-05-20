@@ -181,19 +181,29 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO update(long id, FileUpdateDTO dto) throws Exception {
 		FileEntity entity = this.fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Image", "id", id));
-		
+
+		//Validación de usuario
+		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
+		if ( entity.getPublication().getUser().getId() != userDTO.getId() )
+			throw new AccessDeniedException("No es propietario de la publicación");
+
 		entity.setName(dto.getName());
 		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO updateFile(final MultipartFile file, final long id) throws Exception {
-		// Valida que exista el archivo recibido.
-		if (file.getSize() <= 0) {
-			throw new FileProblemsException("Se necesita un archivo");
-		}
-		// Busca en la base de datos los datos de archivo viejo.
 		FileEntity entity = this.fileRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Archivo", "id", id));
+				
+		//Validación de usuario
+		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
+		if ( entity.getPublication().getUser().getId() != userDTO.getId() )
+			throw new AccessDeniedException("No es propietario de la publicación");
+						
+		// Valida que exista el archivo recibido.
+		if (file.getSize() <= 0)
+			throw new FileProblemsException("Se necesita un archivo");
+
 		// Verifica que el archivo viejo exista.
 		final Path oldPath = Paths.get(entity.getPath());
 		if (!Files.exists(oldPath)) {
