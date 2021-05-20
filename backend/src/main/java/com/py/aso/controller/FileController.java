@@ -70,7 +70,7 @@ public class FileController implements BaseController<FileDTO, FileDetailDTO, Fi
 	
 	@PostMapping(path = "/files/files", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@ApiOperation(value = "Crear un nuevo archivo")
-	public FileDetailDTO createFile(@RequestParam("file") final MultipartFile file,	@RequestParam("name") final String name, @RequestParam("name") final long publicationId) throws Exception {
+	public FileDetailDTO createFile(@RequestParam("file") final MultipartFile file,	@RequestParam("name") final String name, @RequestParam("publicationId") final long publicationId) throws Exception {
 		return this.fileService.save(file, name, publicationId);
 	}
 

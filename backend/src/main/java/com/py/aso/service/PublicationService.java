@@ -3,6 +3,7 @@ package com.py.aso.service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.detail.PublicationDetailDTO;
+import com.py.aso.dto.detail.UserDetailDTO;
 import com.py.aso.dto.create.PublicationCreateDTO;
 import com.py.aso.dto.update.PublicationUpdateDTO;
 import com.py.aso.entity.PublicationEntity;
@@ -81,7 +83,7 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 		if (!dto.getDestination().contentEquals("Todos") && !dto.getDestination().contentEquals("Publico") && !dto.getDestination().contentEquals("MiBrigada"))
 			throw new InvalidAmountException("Destino inválido,");
 		
-		//Validación de usuario
+		//Obtiene datos del usuario logueado
 		final UserEntity userEntity = this.userMapper.toEntity(this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials()));
 
 		//Creación de la publicación
@@ -95,6 +97,11 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	@Override
 	public PublicationDetailDTO update(long id, PublicationUpdateDTO dto) throws Exception {
 		PublicationEntity entity = this.publicationRepository.findById(id).get();
+		//Validación de usuario
+		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
+		if ( entity.getUser().getId() != userDTO.getId() )
+			throw new AccessDeniedException("No es propietario de la publicación");
+		
 		entity.setBody(dto.getBody());
 		entity.setDestination(dto.getDestination());
 		entity.setUpdated_at(new Date());
