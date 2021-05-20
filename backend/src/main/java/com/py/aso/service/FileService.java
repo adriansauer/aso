@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.AccessDeniedException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -21,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.py.aso.dto.FileDTO;
-import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.create.FileCreateDTO;
 import com.py.aso.dto.detail.FileDetailDTO;
 import com.py.aso.dto.detail.UserDetailDTO;
@@ -123,18 +123,15 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO save(FileCreateDTO dto) throws Exception {
+		final PublicationEntity publicationEntity = this.publicationMapper.toEntity(publicationService.findById(dto.getPublicationId(), false));
+
 		//Validación de usuario
 		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
-				
-		//Validación de la publicacion
-		final PublicationDTO publicationDTO = publicationService.findById(dto.getPublicationId(), false);
-		if ( publicationDTO.getUserId() != userDTO.getId() )
-			throw new FileProblemsException("No es propietario de la publicación");
-		
-		final PublicationEntity publicationEntity = this.publicationMapper.toEntity(publicationDTO);
-		final Path newFilePath = Paths.get(this.fileProperties.getRoot(), FILE).normalize();
+		if ( publicationEntity.getUser().getId() != userDTO.getId() )
+			throw new AccessDeniedException("No es propietario de la publicación");
 
 		// Se registra el archivo en la base de datos
+		final Path newFilePath = Paths.get(this.fileProperties.getRoot(), FILE).normalize();
 		FileEntity entity = new FileEntity();
 		entity.setName(dto.getName());
 		entity.setPath(newFilePath.toString());
@@ -145,13 +142,12 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 	//Guarda el archivo en el directorio y registra en la base de datos
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO save(final MultipartFile file, final String name, long publicationId) throws Exception {
+		final PublicationEntity publicationEntity = this.publicationMapper.toEntity(publicationService.findById(publicationId, false));
+
 		//Validación de usuario
 		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
-						
-		//Validación de la publicacion
-		final PublicationDTO publicationDTO = publicationService.findById(publicationId, false);
-		if ( publicationDTO.getUserId() != userDTO.getId() )
-			throw new FileProblemsException("No es propietario de la publicación");
+		if ( publicationEntity.getUser().getId() != userDTO.getId() )
+			throw new AccessDeniedException("No es propietario de la publicación");
 
 		// Valida que el archivo recibido exista.
 		if ( file.getSize() <= 0 )
@@ -174,7 +170,6 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 		}
 
 		// Se registra el archivo en la base de datos
-		final PublicationEntity publicationEntity = this.publicationMapper.toEntity(publicationDTO);
 		FileEntity entity = new FileEntity();
 		entity.setName(name);
 		entity.setPath(newFilePath.toString());
@@ -186,6 +181,7 @@ public class FileService implements BaseService<FileDTO, FileDetailDTO, FileCrea
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public FileDetailDTO update(long id, FileUpdateDTO dto) throws Exception {
 		FileEntity entity = this.fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Image", "id", id));
+		
 		entity.setName(dto.getName());
 		return this.fileMapper.toDetailDTO(this.fileRepository.save(entity));
 	}
