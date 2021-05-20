@@ -111,6 +111,10 @@ public class PublicationService implements BaseService<PublicationDTO, Publicati
 	@Override
 	public void delete(long id) throws Exception {
 		PublicationEntity entity = this.publicationRepository.findById(id).get();
+		//Validación de usuario
+		final UserDetailDTO userDTO = this.userService.findById((int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
+		if ( entity.getUser().getId() != userDTO.getId() )
+			throw new AccessDeniedException("No es propietario de la publicación");
 		entity.setDeleted(true);
 		this.publicationRepository.save(entity);
 	}
