@@ -13,13 +13,13 @@ import com.py.aso.entity.PublicationEntity;
 @Repository
 public interface PublicationRepository extends JpaRepository<PublicationEntity, Long> {
 
-	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.deleted = ?1 AND USERS.enabled = ?2", nativeQuery = true)
+	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.deleted = ?1 AND USERS.enabled = ?2 ORDER BY PUBLICATIONS.created_at DESC", nativeQuery = true)
 	public Page<PublicationEntity> findAllByDeletedAndEnabled(final boolean deleted, final boolean enabled, final Pageable pageable);
 
-	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.user_id = ?1 AND PUBLICATIONS.deleted = ?2 AND USERS.enabled = ?3", nativeQuery = true)
+	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.user_id = ?1 AND PUBLICATIONS.deleted = ?2 AND USERS.enabled = ?3 ORDER BY PUBLICATIONS.created_at DESC", nativeQuery = true)
 	public Page<PublicationEntity> findAllByUserIdAndDeleted (final Long userId, final boolean deleted, final boolean enabled, final Pageable pageable);
 	
-	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.deleted = ?2 AND USERS.enabled = ?3", nativeQuery = true)
+	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.deleted = ?2 AND USERS.enabled = ?3 ORDER BY PUBLICATIONS.created_at DESC", nativeQuery = true)
 	public Optional<PublicationEntity> findByIdAndDeleted  (final Long id, final boolean deleted, final boolean enabled);
 
 	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.deleted = ?2 AND USERS.enabled = ?3", nativeQuery = true)
