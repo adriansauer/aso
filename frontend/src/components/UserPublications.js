@@ -18,7 +18,6 @@ const UserPublications = (props) => {
   }, [])
   return (
       <div className="row">
-            Publicaciones
             <div className="collection">
                 {publicaciones !== null
                   ? publicaciones.map((p) => (

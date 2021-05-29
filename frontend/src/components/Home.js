@@ -7,9 +7,6 @@ const Home = () => {
   console.log(user)
   return (
         <div style={{ width: '100%' }}>
-            <h1 aria-setsize={36}>
-                Publicaciones
-            </h1>
             <div>
                 <InputPublicacion/>
             </div>
