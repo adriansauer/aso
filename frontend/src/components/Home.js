@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Publications from './Publications'
 import InputPublicacion from './InputPublicacion'
 import useGetPublications from '../api/publicaciones/useGetPublications'
+import userContext from '../context/userContext'
 import Loader from './PreLoader'
 import M from 'materialize-css'
 const Home = () => {
   const { execute: getPublicationsExecute } = useGetPublications()
   const [publicaciones, setPublicaciones] = useState(null)
   const [loading, setLoading] = useState(false)
+  const { userData } = useContext(userContext)
 
   useEffect(() => {
     handleLoadPublications()
@@ -31,11 +33,12 @@ const Home = () => {
         })
       })
   }
+  console.log(userData)
   return (
     <div style={{ width: '100%' }}>
       <Loader visible={loading} />
       <div>
-        {!loading
+        {!loading && userData.roles[0].authority !== 'ROLE_SUPERUSER'
           ? (
           <InputPublicacion reloadPublications={handleLoadPublications} />
             )

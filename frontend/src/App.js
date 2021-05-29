@@ -37,6 +37,7 @@ const App = () => {
 
   useEffect(() => {
     verifyAut()
+    console.log(userData)
   }, [])
   return (
     <div className="App">
