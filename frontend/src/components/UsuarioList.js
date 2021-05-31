@@ -11,27 +11,65 @@ const UsuarioList = () => {
   const [members, setMembers] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const { execute: getMembersExecute } = useGetMembers()
+  const [brigadaId, setBrigadaId] = useState(null)
+  const [totalPages, setTotalPages] = useState([])
+  const [pagActual, setPagActual] = useState(1)
   useEffect(() => {
-    if (location.brigada === undefined) {
-      history.goBack()
-    }
-    fetchMembers()
-  }, [])
-
-  const fetchMembers = () => {
-    setIsLoading(true)
-    if (location.brigada !== undefined) {
-      getMembersExecute(location.brigada.id)
+    handleLoadMembers()
+  }, [pagActual])
+  // Reacargar miembros
+  const handleLoadMembers = () => {
+    if (brigadaId !== null) {
+      setMembers(null)
+      setIsLoading(true)
+      console.log(brigadaId)
+      getMembersExecute(brigadaId, pagActual)
         .then((res) => {
+          setTotalPages(
+            Array.apply(null, { length: res.data.totalPages }).map(
+              Number.call,
+              Number
+            )
+          )
           setMembers(res.data.content)
           setIsLoading(false)
         })
         .catch((err) => {
-          M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
           setIsLoading(false)
+          M.toast({
+            html:
+            err.response === undefined
+              ? 'Hubo un error con la conexión'
+              : err.response.data.description
+          })
         })
     }
   }
+  const handleIncrementPage = () => {
+    if (pagActual < totalPages.length) {
+      setPagActual(pagActual + 1)
+    }
+  }
+  const handleDecrementPage = () => {
+    if (pagActual > 1) {
+      setPagActual(pagActual - 1)
+    }
+  }
+  useEffect(() => {
+    if (location.brigada === undefined) {
+      history.goBack()
+    }
+  }, [])
+  useEffect(() => {
+    if (location.brigada !== undefined) {
+      setBrigadaId(location.brigada.id)
+    }
+  }, [location.brigada])
+  useEffect(() => {
+    if (brigadaId !== null) {
+      handleLoadMembers()
+    }
+  }, [brigadaId])
   return (
     <div className="container" style={{ marginTop: '4%' }}>
       <PreLoader visible={isLoading} />
@@ -89,6 +127,30 @@ const UsuarioList = () => {
           </div>
         </div>
         : null}
+         <div>
+        <ul className="pagination">
+          <li>
+            <a href="#!" onClick={handleDecrementPage}>
+              <i className="material-icons">chevron_left</i>
+            </a>
+          </li>
+          {totalPages.length !== 0
+            ? totalPages.map((t) => (
+                <li
+                key={t} onClick={() => setPagActual(t + 1)}
+                className={pagActual === (t + 1) ? 'active' : ''}>
+                  <a href="#!">{t + 1}</a>
+                </li>
+            ))
+            : null}
+
+          <li>
+            <a href="#!" onClick={handleIncrementPage}>
+              <i className="material-icons">chevron_right</i>
+            </a>
+          </li>
+        </ul>
+      </div>
     </div>
   )
 }
