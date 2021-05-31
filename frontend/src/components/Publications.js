@@ -7,6 +7,7 @@ const PublicationsList = () => {
   const { execute: getPublicationsExecute } = useGetPublications()
   const [publicaciones, setPublicaciones] = useState(null)
 
+  // Reacargar publicaciones
   const handleLoadPublications = () => {
     getPublicationsExecute()
       .then((res) => {
