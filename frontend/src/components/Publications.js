@@ -1,43 +1,21 @@
-import React, { useEffect, useState } from 'react'
-import M from 'materialize-css'
-import useGetPublications from '../api/publicaciones/useGetPublications'
+import React from 'react'
+import PropTypes from 'prop-types'
 import TagsPublicaciones from './TagsPublicaciones'
 
-const PublicationsList = () => {
-  const { execute: getPublicationsExecute } = useGetPublications()
-  const [publicaciones, setPublicaciones] = useState(null)
-
-  // Reacargar publicaciones
-  const handleLoadPublications = () => {
-    getPublicationsExecute()
-      .then((res) => {
-        setPublicaciones(res.data.content)
-      })
-      .catch((err) => {
-        M.toast({
-          html:
-            err.response === undefined
-              ? 'Hubo un error con la conexión'
-              : err.response.data.description
-        })
-      })
-  }
-  useEffect(() => {
-    handleLoadPublications()
-  }, [])
+const PublicationsList = (props) => {
   return (
     <div className="container">
       <div className="row">
         <div className="collection">
-          {publicaciones !== null
-            ? publicaciones.map((p) => (
+          {props.publicaciones !== null
+            ? props.publicaciones.map((p) => (
                 <div key={p.id}>
                   <TagsPublicaciones
                     par={p.body}
                     userId={p.userId}
                     likes={83}
                     publicationId={p.id}
-                    reloadPublications={handleLoadPublications}
+                    reloadPublications={props.reloadPublications}
                   />
                 </div>
             ))
@@ -47,5 +25,8 @@ const PublicationsList = () => {
     </div>
   )
 }
-
+PublicationsList.propTypes = {
+  publicaciones: PropTypes.array,
+  reloadPublications: PropTypes.func
+}
 export default PublicationsList
