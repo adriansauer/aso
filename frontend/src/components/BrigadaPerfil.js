@@ -31,12 +31,7 @@ const BrigadaPerfil = (props) => {
   }, [brigada])
   useEffect(() => {
     /** OBTENGO LA BRIGADA DE LAS PROPIEDADES */
-    if (location.brigada === undefined) {
-      history.goBack()
-    } else {
-      fertchBrigadaById()
-    }
-
+    fertchBrigadaById()
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
     const elem2 = document.getElementById('modal2')
     const agregarModalInstance = M.Modal.init(elem2, {
@@ -48,6 +43,7 @@ const BrigadaPerfil = (props) => {
   /** OBTENER LA BRIGADA */
   const fertchBrigadaById = () => {
     setIsLoading(true)
+
     getBrigadaByIdExecute(location.brigada.id)
       .then((res) => {
         setBrigada(res.data)
@@ -85,8 +81,11 @@ const BrigadaPerfil = (props) => {
         <h5 style={{ margin: 0 }}>
           {brigada === null ? null : brigada.name}
         </h5>
-        {(userData.roles[0].authority === 'ROLE_SUPERUSER' && userData.perfilId === location.brigada.id) || (userData.roles[0].authority === 'ROLE_BRIGADE' && userData.perfilId === location.brigada.id)
-          ? <button
+        {location.brigada === undefined
+          ? null
+
+          : (userData.roles[0].authority === 'ROLE_SUPERUSER' && userData.perfilId === location.brigada.id) || (userData.roles[0].authority === 'ROLE_BRIGADE' && userData.perfilId === location.brigada.id)
+              ? <button
          className="btn-floating btn-small waves-light"
          onClick={() => editarModal.open()}
          style={{
@@ -97,7 +96,8 @@ const BrigadaPerfil = (props) => {
          <i className="material-icons">edit</i>
        </button>
 
-          : null}
+              : null
+        }
       </div>
       </div>
       <div className="row center">
@@ -148,8 +148,9 @@ const BrigadaPerfil = (props) => {
               marginLeft: 50
             }}
           />
-          {(userData.roles[0].authority === 'ROLE_SUPERUSER' && userData.perfilId === location.brigada.id) || (userData.roles[0].authority === 'ROLE_BRIGADE' && userData.perfilId === location.brigada.id)
-            ? <button
+          {location.brigada !== undefined
+            ? (userData.roles[0].authority === 'ROLE_SUPERUSER' && userData.perfilId === location.brigada.id) || (userData.roles[0].authority === 'ROLE_BRIGADE' && userData.perfilId === location.brigada.id)
+                ? <button
           className="btn-floating btn-medium waves-light"
           onClick={() => agregarModal.open()}
           style={{
@@ -160,9 +161,11 @@ const BrigadaPerfil = (props) => {
         >
           <i className="material-icons">add</i>
         </button>
+                : null
             : null}
 
         </div>
+
       </div>
       <div className="row center" style={{ marginTop: '5%' }}>
         <div className="row">
@@ -207,6 +210,7 @@ const BrigadaPerfil = (props) => {
         <EditBrigadaForm brigada={brigada} close={closeModal} />
           )
         : null}
+
     </div>
   )
 }
