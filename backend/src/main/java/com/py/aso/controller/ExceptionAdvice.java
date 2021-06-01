@@ -15,6 +15,7 @@ import com.py.aso.dto.ExceptionDTO;
 import com.py.aso.exception.InvalidPasswordException;
 import com.py.aso.exception.ResourceNotFoundException;
 import com.py.aso.exception.FilesMaximumException;
+import com.py.aso.exception.InvalidArgumentException;
 
 @ControllerAdvice
 public class ExceptionAdvice {
@@ -46,6 +47,14 @@ public class ExceptionAdvice {
 	}
 
 	@ResponseBody
+	@ExceptionHandler(InvalidArgumentException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ExceptionDTO invalidArgument(final InvalidArgumentException ex) {
+		LOGGER.warn(ex.getMessage());
+		return new ExceptionDTO(ex.getMessage());
+	}
+
+	@ResponseBody
 	@ExceptionHandler(DataIntegrityViolationException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ExceptionDTO resourceNotValid(final DataIntegrityViolationException ex) {
@@ -62,19 +71,19 @@ public class ExceptionAdvice {
 	}
 
 	@ResponseBody
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ExceptionDTO exceptionExceptions(final Exception ex) {
-		LOGGER.error("Error interno: " + ex);
-		return new ExceptionDTO("Problemas internos del servidor");
-	}
-	
-	@ResponseBody
 	@ExceptionHandler(FilesMaximumException.class)
 	@ResponseStatus(HttpStatus.FORBIDDEN)
 	public ExceptionDTO filesMaximun(final FilesMaximumException ex) {
 		LOGGER.warn(ex.getMessage());
 		return new ExceptionDTO(ex.getMessage());
+	}
+
+	@ResponseBody
+	@ExceptionHandler(Exception.class)
+	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+	public ExceptionDTO exceptionExceptions(final Exception ex) {
+		LOGGER.error("Error interno: " + ex);
+		return new ExceptionDTO("Problemas internos del servidor");
 	}
 
 }

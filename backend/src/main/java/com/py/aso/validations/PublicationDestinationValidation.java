@@ -12,17 +12,17 @@ import javax.validation.ConstraintValidatorContext;
  */
 public class PublicationDestinationValidation implements ConstraintValidator<PublicationDestination, String> {
 
-	public final String DESTINATION_MY_BRIGADE = "Mi Brigada";
-	public final String DESTINATION_ALL = "Todos";
-	public final String DESTINATION_PUBLIC = "Publico";
+	public static final String DESTINATION_MY_BRIGADE = "Mi Brigada";
+	public static final String DESTINATION_ALL = "Todos";
+	public static final String DESTINATION_PUBLIC = "Publico";
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
-		if (value.equals(this.DESTINATION_ALL)) {
+		if (value.equals(DESTINATION_ALL)) {
 			return true;
-		} else if (value.equals(this.DESTINATION_MY_BRIGADE)) {
+		} else if (value.equals(DESTINATION_MY_BRIGADE)) {
 			return true;
-		} else if (value.equals(this.DESTINATION_PUBLIC)) {
+		} else if (value.equals(DESTINATION_PUBLIC)) {
 			return true;
 		} else {
 			return false;

@@ -35,7 +35,7 @@ public class PublicationEntity {
 	private String body;
 
 	@Column(name = "destination", length = 10)
-	private String destination;
+	private Long destination;
 	
 	@Column(name = "deleted")
 	private boolean deleted;
