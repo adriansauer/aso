@@ -1,8 +1,8 @@
 import api from '../api'
 
 const useGetCity = () => {
-  const execute = () => {
-    return api.get('api/cities')
+  const execute = (pag) => {
+    return api.get(`api/cities?size=6&page=${pag - 1}`)
   }
 
   return { execute }

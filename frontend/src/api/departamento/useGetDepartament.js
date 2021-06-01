@@ -1,8 +1,8 @@
 import api from '../api'
 
 const UseGetDepartament = () => {
-  const execute = () => {
-    return api.get('api/departaments')
+  const execute = (pag) => {
+    return api.get(`api/departaments?size=6&page=${pag - 1}`)
   }
 
   return { execute }

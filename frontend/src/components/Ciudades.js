@@ -17,6 +17,86 @@ const Ciudades = () => {
   const [departamentModal, setDepartamentModal] = useState(null)
   const [cityModal, setCityModal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [totalPagesCiudades, setTotalPagesCiudades] = useState([])
+  const [pagActualCiudades, setPagActualCiudades] = useState(1)
+  const [totalPagesDepartamentos, setTotalPagesDepartamentos] = useState([])
+  const [pagActualDepartamentos, setPagActualDepartamentos] = useState(1)
+  const handleIncrementPageCiudades = () => {
+    if (pagActualCiudades < totalPagesCiudades.length) {
+      setPagActualCiudades(pagActualCiudades + 1)
+    }
+  }
+  const handleDecrementPageCiudades = () => {
+    if (pagActualCiudades > 1) {
+      setPagActualCiudades(pagActualCiudades - 1)
+    }
+  }
+  const handleIncrementPageDepartamentos = () => {
+    if (pagActualDepartamentos < totalPagesDepartamentos.length) {
+      setPagActualDepartamentos(pagActualDepartamentos + 1)
+    }
+  }
+  const handleDecrementPageDepartamentos = () => {
+    if (pagActualDepartamentos > 1) {
+      setPagActualDepartamentos(pagActualDepartamentos - 1)
+    }
+  }
+  useEffect(() => {
+    handleLoadCiudades()
+  }, [pagActualCiudades])
+  useEffect(() => {
+    handleLoadDepartamentos()
+  }, [pagActualDepartamentos])
+  // Reacargar ciudades
+  const handleLoadCiudades = () => {
+    setCities(null)
+    setIsLoading(true)
+    getCitiesExecute(pagActualCiudades)
+      .then((res) => {
+        setTotalPagesCiudades(
+          Array.apply(null, { length: res.data.totalPages }).map(
+            Number.call,
+            Number
+          )
+        )
+        setCities(res.data.content)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        setIsLoading(false)
+        M.toast({
+          html:
+            err.response === undefined
+              ? 'Hubo un error con la conexión'
+              : err.response.data.description
+        })
+      })
+  }
+  // Reacargar departamentos
+  const handleLoadDepartamentos = () => {
+    setDepartaments(null)
+    setIsLoading(true)
+    getDepartamentsExecute(pagActualDepartamentos)
+      .then((res) => {
+        setTotalPagesDepartamentos(
+          Array.apply(null, { length: res.data.totalPages }).map(
+            Number.call,
+            Number
+          )
+        )
+        setDepartaments(res.data.content)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        setIsLoading(false)
+        M.toast({
+          html:
+            err.response === undefined
+              ? 'Hubo un error con la conexión'
+              : err.response.data.description
+        })
+      })
+  }
   useEffect(() => {
     const elem1 = document.getElementById('modal1')
     const departamentModal = M.Modal.init(elem1, {
@@ -34,42 +114,19 @@ const Ciudades = () => {
   const closeModal = () => {
     cityModal.close()
     departamentModal.close()
-    fetchCities()
-    fetchDepartaments()
+    handleLoadCiudades()
+    handleLoadDepartamentos()
   }
   useEffect(() => {
-    fetchCities()
-    fetchDepartaments()
+    handleLoadCiudades()
+    handleLoadDepartamentos()
   }, [])
-  const fetchDepartaments = () => {
-    setIsLoading(true)
-    getDepartamentsExecute()
-      .then((res) => {
-        setDepartaments(res.data.content)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
-        setIsLoading(false)
-      })
-  }
-  const fetchCities = () => {
-    setIsLoading(true)
-    getCitiesExecute()
-      .then((res) => {
-        setCities(res.data.content)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
-        setIsLoading(false)
-      })
-  }
+
   const deleteDepartament = (id) => {
     setIsLoading(true)
     deleteDepartamentsExecute(id)
       .then((res) => {
-        fetchDepartaments()
+        handleLoadDepartamentos()
         setIsLoading(false)
       })
       .catch((err) => {
@@ -81,7 +138,7 @@ const Ciudades = () => {
     setIsLoading(true)
     deleteCityExecute(id)
       .then((res) => {
-        fetchCities()
+        handleLoadCiudades()
         setIsLoading(false)
       })
       .catch((err) => {
@@ -133,6 +190,30 @@ const Ciudades = () => {
                 })
                 : null}
             </tbody>
+            <div>
+        <ul className="pagination">
+          <li>
+            <a href="#!" onClick={handleDecrementPageCiudades}>
+              <i className="material-icons">chevron_left</i>
+            </a>
+          </li>
+          {totalPagesCiudades.length !== 0
+            ? totalPagesCiudades.map((t) => (
+                <li
+                key={t} onClick={() => setPagActualCiudades(t + 1)}
+                className={pagActualCiudades === (t + 1) ? 'active' : ''}>
+                  <a href="#!">{t + 1}</a>
+                </li>
+            ))
+            : null}
+
+          <li>
+            <a href="#!" onClick={handleIncrementPageCiudades}>
+              <i className="material-icons">chevron_right</i>
+            </a>
+          </li>
+        </ul>
+      </div>
           </table>
         </div>
         <div className="col s6 m6">
@@ -174,6 +255,30 @@ const Ciudades = () => {
                 })
                 : null}
             </tbody>
+            <div>
+        <ul className="pagination">
+          <li>
+            <a href="#!" onClick={handleDecrementPageDepartamentos}>
+              <i className="material-icons">chevron_left</i>
+            </a>
+          </li>
+          {totalPagesDepartamentos.length !== 0
+            ? totalPagesDepartamentos.map((t) => (
+                <li
+                key={t} onClick={() => setPagActualDepartamentos(t + 1)}
+                className={pagActualDepartamentos === (t + 1) ? 'active' : ''}>
+                  <a href="#!">{t + 1}</a>
+                </li>
+            ))
+            : null}
+
+          <li>
+            <a href="#!" onClick={handleIncrementPageDepartamentos}>
+              <i className="material-icons">chevron_right</i>
+            </a>
+          </li>
+        </ul>
+      </div>
           </table>
         </div>
       </div>
