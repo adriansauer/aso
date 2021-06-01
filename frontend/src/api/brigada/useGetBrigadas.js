@@ -1,8 +1,8 @@
 import api from '../api'
 
 const useGetBrigadas = () => {
-  const execute = () => {
-    return api.get('api/brigades')
+  const execute = (pag) => {
+    return api.get(`api/brigades?size=10&page=${pag - 1}`)
   }
 
   return { execute }

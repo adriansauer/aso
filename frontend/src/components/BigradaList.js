@@ -12,11 +12,51 @@ const BrigadaList = () => {
   const { execute: getBrigadasExecute } = useGetBrigadas()
   const [brigadas, setBrigadas] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [totalPages, setTotalPages] = useState([])
+  const [pagActual, setPagActual] = useState(1)
   const history = useHistory()
   const [width, setWidth] = useState(window.innerWidth)
   const { userData } = useContext(userContext)
   function handleWindowSizeChange () {
     setWidth(window.innerWidth)
+  }
+  useEffect(() => {
+    handleLoadBrigades()
+  }, [pagActual])
+  // Reacargar brigadas
+  const handleLoadBrigades = () => {
+    setBrigadas(null)
+    setIsLoading(true)
+    getBrigadasExecute(pagActual)
+      .then((res) => {
+        setTotalPages(
+          Array.apply(null, { length: res.data.totalPages }).map(
+            Number.call,
+            Number
+          )
+        )
+        setBrigadas(res.data.content)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        setIsLoading(false)
+        M.toast({
+          html:
+            err.response === undefined
+              ? 'Hubo un error con la conexión'
+              : err.response.data.description
+        })
+      })
+  }
+  const handleIncrementPage = () => {
+    if (pagActual < totalPages.length) {
+      setPagActual(pagActual + 1)
+    }
+  }
+  const handleDecrementPage = () => {
+    if (pagActual > 1) {
+      setPagActual(pagActual - 1)
+    }
   }
   useEffect(() => {
     window.addEventListener('resize', handleWindowSizeChange)
@@ -25,7 +65,7 @@ const BrigadaList = () => {
     }
   }, [])
   useEffect(() => {
-    fetchBrigadas()
+    handleLoadBrigades()
 
     const elem1 = document.querySelector('.modal')
     const instance = M.Modal.init(elem1, {
@@ -37,20 +77,7 @@ const BrigadaList = () => {
   // Cerrar el modal de agregar usuario
   const closeModal = () => {
     instance.close()
-    fetchBrigadas()
-  }
-
-  const fetchBrigadas = () => {
-    setIsLoading(true)
-    getBrigadasExecute()
-      .then((res) => {
-        setBrigadas(res.data.content)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
-        setIsLoading(false)
-      })
+    handleLoadBrigades()
   }
 
   return (
@@ -164,6 +191,30 @@ const BrigadaList = () => {
             ))
             : null}
         </div>
+      </div>
+      <div>
+        <ul className="pagination">
+          <li>
+            <a href="#!" onClick={handleDecrementPage}>
+              <i className="material-icons">chevron_left</i>
+            </a>
+          </li>
+          {totalPages.length !== 0
+            ? totalPages.map((t) => (
+                <li
+                key={t} onClick={() => setPagActual(t + 1)}
+                className={pagActual === (t + 1) ? 'active' : ''}>
+                  <a href="#!">{t + 1}</a>
+                </li>
+            ))
+            : null}
+
+          <li>
+            <a href="#!" onClick={handleIncrementPage}>
+              <i className="material-icons">chevron_right</i>
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   )
