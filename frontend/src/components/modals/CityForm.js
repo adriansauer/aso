@@ -25,7 +25,7 @@ const CityForm = (props) => {
       })
   }
   return (
-    <div id="modal2" className="modal" style={{ width: '20%' }}>
+    <div id="modal2" className="modal">
     <PreLoader visible={isLoading} />
       <form onSubmit={createCity}>
         <div className="modal-content">
