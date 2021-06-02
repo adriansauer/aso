@@ -45,55 +45,104 @@ public class PublicationService
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<PublicationDTO> findAll(Pageable pageable) {
 		try {
+			// Obtiene los roles del usuario logueado del contexto.
 			String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0]
 					.toString();
+			// Si es un Bombero puede ver las publicaciones que son para Todos, Publico y Mi
+			// Brigada.
+			// Filtra que sea solo de la brigada del Bombero logueado.
 			if (role.equals("ROLE_USER")) {
+				// Se obtiene el id del usuario logueado.
 				final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication()
 						.getCredentials();
+				// Se busca al Bombero para obtener el id de la brigada en la que esta.
 				final FiremanDetailDTO firemanDetailDTO = firemanService.findByUserId(userId);
+				// Se realiza la peticion a la BD, <La publicacion no debe estar eliminada> <El
+				// usuario debe estar activo> <Id de la brirgada del usuario> <Paginacion>.
 				return this.publicationRepository.findAllByDeletedAndEnabledAndDestination(false, true,
 						firemanDetailDTO.getBrigadeId(), pageable).map(this.publicationMapper::toDTO);
-			} else if (role.equals("ROLE_BRIGADE")) {
+			}
+			// Si es una Brigada puede ver las publicaciones que son para Todos, Publico y
+			// Mi Brigada.
+			// Filtra que sea solo de la brigada de la Brigada logueada.
+			else if (role.equals("ROLE_BRIGADE")) {
+				// Se obtiene el id del usuario logueado.
 				final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication()
 						.getCredentials();
+				// Utilizando el id del usuario se busca a la brigada del usuario.
 				final BrigadeDetailDTO brigadeDetailDTO = brigadeService.findByUserId(userId);
+				// Se realiza la peticion a la BD, <La publicacion no debe estar eliminada> <El
+				// usuario debe estar activo> <Id de la brirgada del usuario> <Paginacion>.
 				return this.publicationRepository
 						.findAllByDeletedAndEnabledAndDestination(false, true, brigadeDetailDTO.getId(), pageable)
 						.map(this.publicationMapper::toDTO);
-			} else if (role.equals("ROLE_SUPERUSER")) {
+			}
+			// Si es Admin puede ver todas las publicaciones.
+			else if (role.equals("ROLE_SUPERUSER")) {
+				// Se realiza la peticion a la BD, <La publicacion no debe estar eliminada> <El
+				// usuario debe estar activo> <Paginacion>.
 				return this.publicationRepository.findAllByDeletedAndEnabled(false, true, pageable)
 						.map(this.publicationMapper::toDTO);
 			}
 		} catch (Exception ex) {
+			// Si se produjo un fallo no retorna nada.
 			return null;
 		}
+		// Si no tiene ningun rol no retorna nada.
 		return null;
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<PublicationDTO> findAllByUserId(final long id, Pageable pageable) throws Exception {
 		try {
+			// Obtiene los roles del usuario logueado del contexto.
 			String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0]
 					.toString();
+			// Si es un Bombero puede ver las publicaciones que son para Todos, Publico y Mi
+			// Brigada.
+			// Filtra que sea solo de la brigada del Bombero logueado.
 			if (role.equals("ROLE_USER")) {
+				// Se obtiene el id del usuario logueado.
 				final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication()
 						.getCredentials();
+				// Se busca al Bombero para obtener el id de la brigada en la que esta.
 				final FiremanDetailDTO firemanDetailDTO = firemanService.findByUserId(userId);
+				// Se realiza la peticion a la BD, <Id del usuario del que se quiere obtener las
+				// publicaciones><La publicacion no debe estar eliminada> <El
+				// usuario debe estar activo> <Id de la brirgada del usuario logueado>
+				// <Paginacion>.
 				return this.publicationRepository.findAllByUserIdAndDeletedAndEnabledAndDestination(id, false, true,
 						firemanDetailDTO.getBrigadeId(), pageable).map(this.publicationMapper::toDTO);
-			} else if (role.equals("ROLE_BRIGADE")) {
+			}
+			// Si es una Brigada puede ver las publicaciones que son para Todos, Publico y
+			// Mi Brigada.
+			// Filtra que sea solo de la brigada de la Brigada logueada.
+			else if (role.equals("ROLE_BRIGADE")) {
+				// Se obtiene el id del usuario logueado.
 				final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication()
 						.getCredentials();
+				// Utilizando el id del usuario se busca a la brigada del usuario.
 				final BrigadeDetailDTO brigadeDetailDTO = brigadeService.findByUserId(userId);
+				// Se realiza la peticion a la BD, <Id del usuario del que se quiere obtener las
+				// publicaciones><La publicacion no debe estar eliminada> <El
+				// usuario debe estar activo> <Id de la brirgada del usuario logueado>
+				// <Paginacion>.
 				return this.publicationRepository.findAllByUserIdAndDeletedAndEnabledAndDestination(id, false, true,
 						brigadeDetailDTO.getId(), pageable).map(this.publicationMapper::toDTO);
-			} else if (role.equals("ROLE_SUPERUSER")) {
+			}
+			// Si es Admin puede ver todas las publicaciones.
+			else if (role.equals("ROLE_SUPERUSER")) {
+				// Se realiza la peticion a la BD, <Id del usuario del que se quiere obtener las
+				// publicaciones><La publicacion no debe estar eliminada> <El
+				// usuario debe estar activo> <Paginacion>.
 				return this.publicationRepository.findAllByUserIdAndDeletedAndEnabled(id, false, true, pageable)
 						.map(this.publicationMapper::toDTO);
 			}
 		} catch (Exception ex) {
+			// Si se produjo un fallo no retorna nada.
 			return null;
 		}
+		// Si no tiene ningun rol no retorna nada.
 		return null;
 	}
 
@@ -101,32 +150,56 @@ public class PublicationService
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public PublicationDetailDTO findById(long id) throws Exception {
 		try {
+			// Obtiene los roles del usuario logueado del contexto.
 			String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0]
 					.toString();
+			// Si es un Bombero puede ver las publicaciones que son para Todos, Publico y Mi
+			// Brigada.
+			// Filtra que sea solo de la brigada del Bombero logueado.
 			if (role.equals("ROLE_USER")) {
+				// Se obtiene el id del usuario logueado.
 				final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication()
 						.getCredentials();
+				// Se busca al Bombero para obtener el id de la brigada en la que esta.
 				final FiremanDetailDTO firemanDetailDTO = firemanService.findByUserId(userId);
+				// Se realiza la peticion a la BD, <Id de la publicacion> <La publicacion no
+				// debe estar eliminada> <El usuario debe estar activo> <Id de la brirgada del
+				// usuario logueado>.
 				return this.publicationRepository
 						.findByIdAndDeletedAndEnabledAndDestination(id, false, true, firemanDetailDTO.getBrigadeId())
 						.map(this.publicationMapper::toDetailDTO)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
-			} else if (role.equals("ROLE_BRIGADE")) {
+			}
+			// Si es una Brigada puede ver las publicaciones que son para Todos, Publico y
+			// Mi Brigada.
+			// Filtra que sea solo de la brigada de la Brigada logueada.
+			else if (role.equals("ROLE_BRIGADE")) {
+				// Se obtiene el id del usuario logueado.
 				final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication()
 						.getCredentials();
+				// Utilizando el id del usuario se busca a la brigada del usuario.
 				final BrigadeDetailDTO brigadeDetailDTO = brigadeService.findByUserId(userId);
+				// Se realiza la peticion a la BD, <Id de la publicacion> <La publicacion no
+				// debe estar eliminada> <El usuario debe estar activo> <Id de la brirgada del
+				// usuario logueado>.
 				return this.publicationRepository
 						.findByIdAndDeletedAndEnabledAndDestination(id, false, true, brigadeDetailDTO.getId())
 						.map(this.publicationMapper::toDetailDTO)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
-			} else if (role.equals("ROLE_SUPERUSER")) {
+			}
+			// Si es Admin puede ver todas las publicaciones.
+			else if (role.equals("ROLE_SUPERUSER")) {
+				// Se realiza la peticion a la BD, <Id de la publicacion> <La publicacion no
+				// debe estar eliminada> <El usuario debe estar activo>.
 				return this.publicationRepository.findByIdAndDeletedAndEnabled(id, false, true)
 						.map(this.publicationMapper::toDetailDTO)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 			}
 		} catch (Exception ex) {
+			// Si se produjo un fallo no retorna nada.
 			return null;
 		}
+		// Si no tiene ningun rol no retorna nada.
 		return null;
 	}
 
@@ -139,51 +212,37 @@ public class PublicationService
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public PublicationDetailDTO save(PublicationCreateDTO dto) throws Exception {
 
-		// Obtiene datos del usuario logueado
+		// Obtiene datos del usuario logueado.
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId((long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
 
-		// Creación de la publicación
+		// Creación de la publicación.
 		PublicationEntity entity = this.publicationMapper.toCreateEntity(dto);
 		entity.setUser(userEntity);
 		entity.setDeleted(false);
 		entity.setCreated_at(new Date());
 
-		// definicion de destino
+		// definicion de destino.
 		entity.setDestination(destination(dto.getDestination(), userEntity.getId(), dto.getBrigadeId()));
 
-		// Guardando la publicacion
+		// Guardando la publicacion.
 		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
 	}
 
 	@Override
 	public PublicationDetailDTO update(long id, PublicationUpdateDTO dto) throws Exception {
-		PublicationEntity entity = null;
-		String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString();
-		if (role.equals("ROLE_USER")) {
-			final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-			final FiremanDetailDTO firemanDetailDTO = firemanService.findByUserId(userId);
-			entity = this.publicationRepository
-					.findByIdAndDeletedAndEnabledAndDestination(id, false, true, firemanDetailDTO.getBrigadeId())
-					.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
-		} else if (role.equals("ROLE_BRIGADE")) {
-			final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-			final BrigadeDetailDTO brigadeDetailDTO = brigadeService.findByUserId(userId);
-			entity = this.publicationRepository
-					.findByIdAndDeletedAndEnabledAndDestination(id, false, true, brigadeDetailDTO.getId())
-					.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
-		} else if (role.equals("ROLE_SUPERUSER")) {
-			entity = this.publicationRepository.findByIdAndDeletedAndEnabled(id, false, true)
-					.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
-		}
-
-		// Obtiene datos del usuario logueado
-		UserEntity userEntity = new UserEntity();
-		userEntity.setId((long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
-
+		// Se obtiene el id del usuario logueado.
+		final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		// Se busca en la base de datos.
+		// Solo puede editar el usuario su propia publicaciones.
+		PublicationEntity entity = this.publicationRepository
+				.findByIdAndUserIdAndDeletedAndEnabled(id, userId, false, true)
+				.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
+		// Se setean los datos
 		entity.setBody(dto.getBody());
-		entity.setDestination(destination(dto.getDestination(), userEntity.getId(), dto.getBrigadeId()));
+		entity.setDestination(destination(dto.getDestination(), userId, dto.getBrigadeId()));
 		entity.setUpdated_at(new Date());
+		// Se guardan los cambios
 		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
 	}
 
@@ -191,22 +250,27 @@ public class PublicationService
 	public void delete(long id) throws Exception {
 		PublicationEntity entity = null;
 		String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString();
+		// Los Bomberos solo pueden eliminar sus publicaciones.
 		if (role.equals("ROLE_USER")) {
 			final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-			final FiremanDetailDTO firemanDetailDTO = firemanService.findByUserId(userId);
-			entity = this.publicationRepository
-					.findByIdAndDeletedAndEnabledAndDestination(id, false, true, firemanDetailDTO.getBrigadeId())
+			entity = this.publicationRepository.findByIdAndUserIdAndDeletedAndEnabled(id, userId, false, true)
 					.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
-		} else if (role.equals("ROLE_BRIGADE")) {
+		}
+		// Las Brigadas pueden eliminar sus publicaciones y las de los bomberos de su
+		// brigada.
+		else if (role.equals("ROLE_BRIGADE")) {
 			final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
 			final BrigadeDetailDTO brigadeDetailDTO = brigadeService.findByUserId(userId);
-			entity = this.publicationRepository
-					.findByIdAndDeletedAndEnabledAndDestination(id, false, true, brigadeDetailDTO.getId())
+			entity = this.publicationRepository.findByIdAndUserIdAndDeletedAndEnabledAndDestination(id, userId,
+					brigadeDetailDTO.getId(), false, true)
 					.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
-		} else if (role.equals("ROLE_SUPERUSER")) {
+		}
+		// El Admin puede eliminar cualquier publicacion.
+		else if (role.equals("ROLE_SUPERUSER")) {
 			entity = this.publicationRepository.findByIdAndDeletedAndEnabled(id, false, true)
 					.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 		}
+		// Se setea y se guarda.
 		entity.setDeleted(true);
 		this.publicationRepository.save(entity);
 	}

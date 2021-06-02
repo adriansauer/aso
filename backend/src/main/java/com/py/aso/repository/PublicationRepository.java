@@ -32,10 +32,18 @@ public interface PublicationRepository extends JpaRepository<PublicationEntity, 
 	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.deleted = ?2 AND USERS.enabled = ?3", nativeQuery = true)
 	public Optional<PublicationEntity> findByIdAndDeletedAndEnabled(final Long id, final boolean deleted,
 			final boolean enabled);
-
+	
+	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.user_id = ?2 AND PUBLICATIONS.deleted = ?3 AND USERS.enabled = ?4", nativeQuery = true)
+	public Optional<PublicationEntity> findByIdAndUserIdAndDeletedAndEnabled(final Long id, final Long userId, final boolean deleted,
+			final boolean enabled);
+	
 	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.deleted = ?2 AND USERS.enabled = ?3 AND (PUBLICATIONS.destination = -1 OR PUBLICATIONS.destination = 0 OR PUBLICATIONS.destination =?3)", nativeQuery = true)
 	public Optional<PublicationEntity> findByIdAndDeletedAndEnabledAndDestination(final Long id, final boolean deleted,
 			final boolean enabled, final Long destination);
+	
+	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.id = ?1 AND (PUBLICATIONS.user_id = ?2 OR PUBLICATIONS.destination = ?3) AND PUBLICATIONS.deleted = ?4 AND USERS.enabled = ?5", nativeQuery = true)
+	public Optional<PublicationEntity> findByIdAndUserIdAndDeletedAndEnabledAndDestination(final Long id, final Long userId,  final Long destination, final boolean deleted,
+			final boolean enabled);
 
 	@Query(value = "SELECT * FROM PUBLICATIONS INNER JOIN USERS ON PUBLICATIONS.user_id = USERS.id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.deleted = ?2 AND USERS.enabled = ?3", nativeQuery = true)
 	public boolean existsByIdAndDeletedAndEnabled(final Long id, final boolean deleted, final boolean enabled);
