@@ -9,7 +9,8 @@ import com.py.aso.dto.create.PublicationCreateDTO;
 import com.py.aso.dto.update.PublicationUpdateDTO;
 
 @Component
-public class PublicationMapper implements BaseMapper<PublicationEntity, PublicationDTO, PublicationDetailDTO, PublicationCreateDTO, PublicationUpdateDTO> {
+public class PublicationMapper implements
+		BaseMapper<PublicationEntity, PublicationDTO, PublicationDetailDTO, PublicationCreateDTO, PublicationUpdateDTO> {
 
 	@Override
 	public PublicationDTO toDTO(PublicationEntity entity) {
@@ -19,6 +20,7 @@ public class PublicationMapper implements BaseMapper<PublicationEntity, Publicat
 		dto.setUpdateAt(entity.getUpdated_at());
 		dto.setBody(entity.getBody());
 		dto.setUserId(entity.getUser().getId());
+		dto.setDestination(entity.getDestination().toString());
 		return dto;
 	}
 
@@ -30,6 +32,7 @@ public class PublicationMapper implements BaseMapper<PublicationEntity, Publicat
 		dto.setId(entity.getId());
 		dto.setUpdateAt(entity.getUpdated_at());
 		dto.setUserId(entity.getUser().getId());
+		dto.setDestination(entity.getDestination().toString());
 		return dto;
 	}
 
@@ -56,4 +59,5 @@ public class PublicationMapper implements BaseMapper<PublicationEntity, Publicat
 		entity.setBody(dto.getBody());
 		return entity;
 	}
+
 }

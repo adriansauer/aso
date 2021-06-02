@@ -28,29 +28,37 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Controlador de publicaciones")
 @RequestMapping("/api")
-public class PublicationController implements BaseController<PublicationDTO, PublicationDetailDTO, PublicationCreateDTO, PublicationUpdateDTO>{
+public class PublicationController
+		implements BaseController<PublicationDTO, PublicationDetailDTO, PublicationCreateDTO, PublicationUpdateDTO> {
 	@Autowired
 	private PublicationService publicationService;
-	
+
 	@Override
 	@GetMapping("/publications")
-	@ApiOperation(value="Obtener todas las publicaciones, permite paginación")
-	public Page<PublicationDTO> index(Pageable pageable) {
+	@ApiOperation(value = "Obtener todas las publicaciones, permite paginación")
+	public Page<PublicationDTO> index(final Pageable pageable) {
 		return this.publicationService.findAll(pageable);
 	}
 
 	@Override
 	@GetMapping("/publications/{id}")
-	@ApiOperation(value="Obtener una publicación por el id")
+	@ApiOperation(value = "Obtener una publicación por el id")
 	public PublicationDetailDTO find(@PathVariable final long id) throws Exception {
 		return this.publicationService.findById(id);
+	}
+
+	@GetMapping("/publications/byuser/{userid}")
+	@ApiOperation(value = "Obtener todas las publicaciones de un usuario")
+	public Page<PublicationDTO> findByUser(@PathVariable final long userid, final Pageable pageable) throws Exception {
+		return this.publicationService.findAllByUserId(userid, pageable);
 	}
 
 	@Override
 	@PostMapping("/publications")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE') or hasRole('ROLE_USER')")
 	@ApiOperation(value = "Crear una nueva publicación")
-	public PublicationDetailDTO create(@Validated @RequestBody final PublicationCreateDTO publicationCreateDTO) throws Exception {
+	public PublicationDetailDTO create(@Validated @RequestBody final PublicationCreateDTO publicationCreateDTO)
+			throws Exception {
 		return this.publicationService.save(publicationCreateDTO);
 	}
 
@@ -58,7 +66,8 @@ public class PublicationController implements BaseController<PublicationDTO, Pub
 	@PutMapping("/publications/{id}")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE') or hasRole('ROLE_USER')")
 	@ApiOperation(value = "Actualiza una publicación indicado por el id")
-	public PublicationDetailDTO update(@PathVariable final long id, @Validated @RequestBody PublicationUpdateDTO publicationUpdateDTO) throws Exception {
+	public PublicationDetailDTO update(@PathVariable final long id,
+			@Validated @RequestBody PublicationUpdateDTO publicationUpdateDTO) throws Exception {
 		return this.publicationService.update(id, publicationUpdateDTO);
 	}
 
