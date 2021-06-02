@@ -1,12 +1,10 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import M from 'materialize-css'
-import userContext from '../context/userContext'
 import useCreatePublication from '../api/publicaciones/useCreatePublication'
 import PropTypes from 'prop-types'
 const InputPublicacion = (props) => {
   const [width, setWidth] = useState(window.innerWidth)
   const { execute: createPublicationExecute } = useCreatePublication()
-  const { userData } = useContext(userContext)
   const [body, setBody] = useState('')
   function handleWindowSizeChange () {
     setWidth(window.innerWidth)
@@ -25,8 +23,7 @@ const InputPublicacion = (props) => {
   const createPublication = (e) => {
     createPublicationExecute({
       body,
-      destination: document.getElementById('dropdown_destination').value,
-      userId: userData.id
+      destination: document.getElementById('dropdown_destination').value
     })
       .then((res) => {
         M.toast({ html: 'Publicacion realizada ' })

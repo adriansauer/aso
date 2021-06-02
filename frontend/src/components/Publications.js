@@ -11,11 +11,12 @@ const PublicationsList = (props) => {
             ? props.publicaciones.map((p) => (
                 <div key={p.id}>
                   <TagsPublicaciones
-                    par={p.body}
+                    description={p.body}
                     userId={p.userId}
                     likes={83}
                     publicationId={p.id}
                     reloadPublications={props.reloadPublications}
+                    destination={p.destination}
                   />
                 </div>
             ))
