@@ -19,7 +19,7 @@
 			<column name="body" type="VARCHAR(255)">
 				<constraints nullable="false" />
 			</column>
-			<column name="destination" type="VARCHAR(10)">
+			<column name="destination" type="INT">
 				<constraints nullable="false" />
 			</column>
 			<column name="created_at" type="TIMESTAMP">
