@@ -6,9 +6,9 @@ const EditarPublicacionModal = (props) => {
   const [description, setDescription] = useState(props.body)
   const { execute: updatePublicationExecute } = useUpdatePublication()
   const handleEditPublication = (e) => {
-    updatePublicationExecute(props.id, description, props.destination)
+    updatePublicationExecute(props.publicationId, description, props.destination === 0 ? 'Todos' : (props.destination > 0 ? 'Mi Brigada' : 'Publico'))
       .then((res) => {
-        M.toast({ html: 'Publicacion realizada ' })
+        M.toast({ html: 'Publicacion modificada ' })
         props.close()
         props.reloadPublications()
       })
@@ -24,8 +24,8 @@ const EditarPublicacionModal = (props) => {
     e.preventDefault()
   }
   return (
-    <div id="modal_edit_pubication" className="modal">
-
+    props.publicationId !== undefined && props.publicationId !== null
+      ? <div id={`modal_edit_pubication${props.publicationId}`} className="modal">
       <form onSubmit={handleEditPublication}>
         <div className="modal-content">
           <h4>Editar publicación</h4>
@@ -65,11 +65,12 @@ const EditarPublicacionModal = (props) => {
         </div>
       </form>
     </div>
+      : null
   )
 }
 EditarPublicacionModal.propTypes = {
   close: PropTypes.func,
-  id: PropTypes.number,
+  publicationId: PropTypes.number,
   destination: PropTypes.string,
   body: PropTypes.string,
   reloadPublications: PropTypes.func

@@ -4,7 +4,7 @@ import TagsPublicaciones from './TagsPublicaciones'
 
 const PublicationsList = (props) => {
   return (
-    <div className="container">
+    <div className="container" style={{ width: '100%' }}>
       <div className="row">
         <div className="collection">
           {props.publicaciones !== null
@@ -17,7 +17,6 @@ const PublicationsList = (props) => {
                     publicationId={p.id}
                     reloadPublications={props.reloadPublications}
                     destination={p.destination}
-                    id={p.id}
                   />
                 </div>
             ))
