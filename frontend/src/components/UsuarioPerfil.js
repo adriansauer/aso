@@ -6,8 +6,7 @@ import M from 'materialize-css'
 import EditUserForm from './modals/EditUserForm'
 import PreLoader from './PreLoader'
 import UserContext from '../context/userContext'
-import UserPublications from './UserPublications'
-import InputPublicacion from './InputPublicacion'
+import BrigadaPublications from './BrigadaPublications'
 const UsuarioPerfil = (props) => {
   const location = useLocation()
   const history = useHistory()
@@ -218,8 +217,10 @@ const UsuarioPerfil = (props) => {
 
               : null}
           </div>
-          <InputPublicacion/>
-          <UserPublications userId={member.userId}/>
+          {member !== null
+            ? <BrigadaPublications userId={member.userId}/>
+            : null}
+
         </>
         : <PreLoader visible={isLoading} />
       }
