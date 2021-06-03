@@ -24,7 +24,7 @@ const TagsPublicaciones = (props) => {
   const handleDeletePublication = () => {
     Swal.fire({
       title: 'Publicación',
-      text: '¿Eliminar publlicación?',
+      text: '¿Eliminar publicación?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Sí, eliminar',
@@ -32,15 +32,16 @@ const TagsPublicaciones = (props) => {
     }).then((resultado) => {
       if (resultado.value) {
         deletePublicationExecute(props.publicationId)
-          .then(res => {
+          .then((res) => {
             props.reloadPublications()
             M.toast({ html: 'Su publicación ha sido eliminada' })
-          }).catch((err) => {
+          })
+          .catch((err) => {
             M.toast({
               html:
-          err.response === undefined
-            ? 'Hubo un error con la conexión'
-            : err.response.data.description
+                err.response === undefined
+                  ? 'Hubo un error con la conexión'
+                  : err.response.data.description
             })
           })
       }
@@ -67,6 +68,8 @@ const TagsPublicaciones = (props) => {
         })
     }
   }
+  console.log(userData)
+  console.log(props.userId)
   return (
     <div className="container " style={{ marginTop: '8%' }}>
       {users !== null
@@ -96,8 +99,7 @@ const TagsPublicaciones = (props) => {
               </h6>
             </div>
             {userData.roles[0].authority === 'ROLE_SUPERUSER' ||
-            userData.id === users.id ||
-            userData.roles[0].authority === 'ROLE_BRIGADE'
+            userData.id === props.userId
               ? <button
                 className="dropdown-trigger btn btn-floating btn-medium waves-light"
                 data-target="dropdown2"
@@ -117,19 +119,28 @@ const TagsPublicaciones = (props) => {
               </button>
 
               : null}
-            <ul id="dropdown2" className="dropdown-content">
+            {userData.id === props.userId
+              ? <ul id="dropdown2" className="dropdown-content">
+                <li onClick={handleDeletePublication}>
+                  <a style={{ color: '#0C0019' }}>Eliminar</a>
+                </li>
+
+                <li>
+                  <a style={{ color: '#0C0019' }}>Editar</a>
+                </li>
+              </ul>
+
+              : <ul id="dropdown2" className="dropdown-content">
               <li onClick={handleDeletePublication}>
                 <a style={{ color: '#0C0019' }}>Eliminar</a>
               </li>
-              <li>
-                <a style={{ color: '#0C0019' }}>Editar</a>
-              </li>
             </ul>
+              }
           </div>
           <div className="divider" />
           <div>
             <p align="left" style={{ marginLeft: '5%', marginRight: '5%' }}>
-              {props.par}
+              {props.description}
             </p>
             <div className="galeria">
               {/* imgs.map((imagen) =>
@@ -156,10 +167,11 @@ const TagsPublicaciones = (props) => {
 }
 TagsPublicaciones.propTypes = {
   userId: PropTypes.number,
-  par: PropTypes.string,
+  description: PropTypes.string,
   imagen: PropTypes.arrayOf(object),
   likes: PropTypes.number,
   publicationId: PropTypes.number,
-  reloadPublications: PropTypes.func
+  reloadPublications: PropTypes.func,
+  destination: PropTypes.string
 }
 export default TagsPublicaciones
