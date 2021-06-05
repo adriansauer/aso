@@ -22,7 +22,7 @@
 					referencedTableName="brigade_details" referencedColumnNames="id" />
 			</column>
 			<column name="image_id" type="INT">
-				<constraints nullable="false"
+				<constraints nullable="true"
 					foreignKeyName="fkUserDetailImage" referencedTableName="images"
 					referencedColumnNames="id" />
 			</column>

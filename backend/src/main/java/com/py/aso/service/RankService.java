@@ -8,9 +8,11 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.py.aso.dto.RankDTO;
+import com.py.aso.dto.create.ImageCreateDTO;
 import com.py.aso.dto.create.RankCreateDTO;
 import com.py.aso.dto.detail.ImageDetailDTO;
 import com.py.aso.dto.detail.RankDetailDTO;
+import com.py.aso.dto.update.ImageUpdateDTO;
 import com.py.aso.dto.update.RankUpdateDTO;
 import com.py.aso.entity.ImageEntity;
 import com.py.aso.entity.RankEntity;
@@ -29,8 +31,6 @@ public class RankService implements BaseService<RankDTO, RankDetailDTO, RankCrea
 
 	@Autowired
 	private ImageService imageService;
-
-	private final String IMAGE = "image.png";
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -51,8 +51,11 @@ public class RankService implements BaseService<RankDTO, RankDetailDTO, RankCrea
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public RankDetailDTO save(final RankCreateDTO dto) throws Exception {
 
-		// Crea una imagen por defecto
-		ImageDetailDTO imageDTO = this.imageService.saveFile(this.IMAGE, dto.getTitle());
+		// Crea una imagen
+		ImageCreateDTO imageCreateDTO = new ImageCreateDTO();
+		imageCreateDTO.setName(dto.getTitle());
+		imageCreateDTO.setFile(dto.getImage());
+		ImageDetailDTO imageDTO = this.imageService.save(imageCreateDTO);
 
 		// Genera la entidad para relacionar con el rango
 		ImageEntity imageEntity = new ImageEntity();
@@ -70,6 +73,12 @@ public class RankService implements BaseService<RankDTO, RankDetailDTO, RankCrea
 	public RankDetailDTO update(final long id, final RankUpdateDTO dto) throws Exception {
 		RankEntity entity = this.rankRepository.findByIdAndDeleted(id, false)//
 				.orElseThrow(() -> new ResourceNotFoundException("Rank", "id", id));
+
+		// Actualiza la imagen 
+		ImageUpdateDTO imageUpdateDTO = new ImageUpdateDTO();
+		imageUpdateDTO.setName(dto.getTitle());
+		imageUpdateDTO.setFile(dto.getImage());
+		this.imageService.update(entity.getImage().getId(), imageUpdateDTO);
 
 		entity.setTitle(dto.getTitle());
 		entity.setDescription(dto.getDescription());
