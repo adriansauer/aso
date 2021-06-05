@@ -17,6 +17,7 @@ const PublicationsList = (props) => {
                     publicationId={p.id}
                     reloadPublications={props.reloadPublications}
                     destination={p.destination}
+                    id={p.id}
                   />
                 </div>
             ))

@@ -7,6 +7,7 @@ import perfil from '../images/default.jpg'
 import useGetUserById from '../api/user/useGetUserById'
 import useDeletePublication from '../api/publicaciones/useDeletePublication'
 import Swal from 'sweetalert2'
+import EditModal from './modals/EditarPublicacionModal'
 const TagsPublicaciones = (props) => {
   const { execute: getUserByIdExecute } = useGetUserById(null)
   const { execute: deletePublicationExecute } = useDeletePublication(null)
@@ -20,6 +21,10 @@ const TagsPublicaciones = (props) => {
   const elems = document.querySelectorAll('.dropdown-trigger')
   const instances = M.Dropdown.init(elems, {
     coverTrigger: false
+  })
+  const elem1 = document.querySelector('#modal_edit_pubication')
+  const instance = M.Modal.init(elem1, {
+    inDuration: 300
   })
   const handleDeletePublication = () => {
     Swal.fire({
@@ -68,10 +73,13 @@ const TagsPublicaciones = (props) => {
         })
     }
   }
-  console.log(userData)
-  console.log(props.userId)
+
+  const closeModal = () => {
+    instance.close()
+  }
   return (
     <div className="container " style={{ marginTop: '8%' }}>
+      <EditModal close={closeModal} reloadPublications={props.reloadPublications} body={props.description} id={props.id} destination={props.destination}/>
       {users !== null
         ? <div className="card">
           <div className="divider" />
@@ -125,7 +133,7 @@ const TagsPublicaciones = (props) => {
                   <a style={{ color: '#0C0019' }}>Eliminar</a>
                 </li>
 
-                <li>
+                <li onClick={() => instance.open()}>
                   <a style={{ color: '#0C0019' }}>Editar</a>
                 </li>
               </ul>
@@ -167,6 +175,7 @@ const TagsPublicaciones = (props) => {
 }
 TagsPublicaciones.propTypes = {
   userId: PropTypes.number,
+  id: PropTypes.number,
   description: PropTypes.string,
   imagen: PropTypes.arrayOf(object),
   likes: PropTypes.number,
