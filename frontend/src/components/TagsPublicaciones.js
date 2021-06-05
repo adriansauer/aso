@@ -13,19 +13,7 @@ const TagsPublicaciones = (props) => {
   const { execute: deletePublicationExecute } = useDeletePublication(null)
   const { userData } = useContext(userContext)
   const [users, setUsers] = useState(null)
-  const elemtsBtn = document.querySelectorAll('.fixed-action-btn')
-  const floatingBtn = M.FloatingActionButton.init(elemtsBtn, {
-    direction: 'left',
-    hoverEnabled: false
-  })
-  const elems = document.querySelectorAll('.dropdown-trigger')
-  const instances = M.Dropdown.init(elems, {
-    coverTrigger: false
-  })
-  const elem1 = document.querySelector('#modal_edit_pubication')
-  const instance = M.Modal.init(elem1, {
-    inDuration: 300
-  })
+  const [instance, setInstance] = useState(null)
   const handleDeletePublication = () => {
     Swal.fire({
       title: 'Publicación',
@@ -53,10 +41,17 @@ const TagsPublicaciones = (props) => {
     })
   }
   useEffect(() => {
-    if (instances !== null && floatingBtn !== null) {
-      user()
-    }
+    user()
   }, [])
+  useEffect(() => {
+    if (props.publicationId !== undefined && props.publicationId !== null) {
+      const elem1 = document.querySelector(`#modal_edit_pubication${props.publicationId}`)
+      const instance = M.Modal.init(elem1, {
+        inDuration: 300
+      })
+      setInstance(instance)
+    }
+  }, [props])
   const user = () => {
     if (props.userId !== null) {
       getUserByIdExecute(props.userId)
@@ -78,8 +73,9 @@ const TagsPublicaciones = (props) => {
     instance.close()
   }
   return (
-    <div className="container " style={{ marginTop: '8%' }}>
-      <EditModal close={closeModal} reloadPublications={props.reloadPublications} body={props.description} id={props.id} destination={props.destination}/>
+    props.publicationId !== undefined && props.publicationId !== null
+      ? <div className="container " style={{ marginTop: '8%' }}>
+      <EditModal close={closeModal} reloadPublications={props.reloadPublications} body={props.description} publicationId={props.publicationId} destination={props.destination}/>
       {users !== null
         ? <div className="card">
           <div className="divider" />
@@ -99,7 +95,7 @@ const TagsPublicaciones = (props) => {
               />
             </div>
             <div
-              className="card-content col s6 m9"
+              className="card-content col s5 m8"
               style={{ textAlign: 'left' }}
             >
               <h6>
@@ -108,42 +104,21 @@ const TagsPublicaciones = (props) => {
             </div>
             {userData.roles[0].authority === 'ROLE_SUPERUSER' ||
             userData.id === props.userId
-              ? <button
-                className="dropdown-trigger btn btn-floating btn-medium waves-light"
-                data-target="dropdown2"
-                style={{
-                  backgroundColor: 'white',
-                  marginTop: '4%'
-                }}
-              >
-                <i
-                  className="medium material-icons"
-                  style={{
-                    color: '#0C0019'
-                  }}
-                >
-                  expand_more
-                </i>
-              </button>
-
+              ? <a
+              style={{ marginRight: '1%', marginTop: '1%' }}
+              onClick={() => handleDeletePublication()}
+              className="btn-floating btn-small red">
+                <i className="material-icons">delete</i>
+                </a>
               : null}
-            {userData.id === props.userId
-              ? <ul id="dropdown2" className="dropdown-content">
-                <li onClick={handleDeletePublication}>
-                  <a style={{ color: '#0C0019' }}>Eliminar</a>
-                </li>
-
-                <li onClick={() => instance.open()}>
-                  <a style={{ color: '#0C0019' }}>Editar</a>
-                </li>
-              </ul>
-
-              : <ul id="dropdown2" className="dropdown-content">
-              <li onClick={handleDeletePublication}>
-                <a style={{ color: '#0C0019' }}>Eliminar</a>
-              </li>
-            </ul>
-              }
+             {userData.id === props.userId
+               ? <a
+               style={{ marginRight: '1%', marginTop: '1%' }}
+              onClick={() => instance.open()}
+              className="btn-floating btn-small blue lighten-2">
+                <i className="material-icons">edit</i>
+                </a>
+               : null}
           </div>
           <div className="divider" />
           <div>
@@ -171,11 +146,11 @@ const TagsPublicaciones = (props) => {
         </div>
         : null}
     </div>
+      : null
   )
 }
 TagsPublicaciones.propTypes = {
   userId: PropTypes.number,
-  id: PropTypes.number,
   description: PropTypes.string,
   imagen: PropTypes.arrayOf(object),
   likes: PropTypes.number,

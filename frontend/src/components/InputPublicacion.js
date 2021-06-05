@@ -71,7 +71,7 @@ const InputPublicacion = (props) => {
               <select id="dropdown_destination">
                 <option value="Todos">Todos</option>
                 <option value="Publico">Publico</option>
-                <option value="MiBrigada">Mi brigada</option>
+                <option value="Mi Brigada">Mi brigada</option>
               </select>
             </div>
           </div>

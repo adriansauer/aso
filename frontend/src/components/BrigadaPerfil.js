@@ -8,7 +8,7 @@ import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import EditBrigadaForm from './modals/EditBrigadaForm'
 import PreLoader from './PreLoader'
 import userContext from '../context/userContext'
-import UserPublications from './UserPublications'
+import BrigadaPublications from './BrigadaPublications'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const [isLoading, setIsLoading] = useState(false)
@@ -47,6 +47,7 @@ const BrigadaPerfil = (props) => {
     getBrigadaByIdExecute(location.brigada.id)
       .then((res) => {
         setBrigada(res.data)
+        console.log(res.data)
         setIsLoading(false)
       })
       .catch((err) => {
@@ -66,7 +67,7 @@ const BrigadaPerfil = (props) => {
   }
 
   return (
-    <div className="container" style={{ marginTop: '4%' }}>
+    <div className="container" style={{ marginTop: '4%', width: '100%' }}>
       <PreLoader visible={isLoading}/>
       <div style={{ margin: 0 }} className="row center">
         <img
@@ -185,8 +186,10 @@ const BrigadaPerfil = (props) => {
             </ul>
           </div>
           <div id="test1" className="col s12">
-            Publicaciones de la brigada
-            <br />
+            {brigada !== null
+              ? <BrigadaPublications userId={brigada.userId}/>
+              : null}
+
           </div>
           <div id="test2" className="col s12">
             Dashboard
@@ -203,7 +206,6 @@ const BrigadaPerfil = (props) => {
           </div>
         </div>
       </div>
-        <UserPublications userId={brigada === null ? null : brigada.userId}/>
       <CreateUserForm brigada={location.brigada} close={closeModal} />
       {brigada !== null
         ? (
