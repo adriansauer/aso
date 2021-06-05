@@ -24,6 +24,7 @@ public class ImageMapper implements BaseMapper<ImageEntity, ImageDTO, ImageDetai
 		ImageDetailDTO dto = new ImageDetailDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
+		dto.setFile(entity.getFile());
 		return dto;
 	}
 
@@ -39,6 +40,7 @@ public class ImageMapper implements BaseMapper<ImageEntity, ImageDTO, ImageDetai
 	public ImageEntity toCreateEntity(final ImageCreateDTO dto) {
 		ImageEntity entity = new ImageEntity();
 		entity.setName(dto.getName());
+		entity.setFile(dto.getFile());
 		return entity;
 	}
 
@@ -46,6 +48,7 @@ public class ImageMapper implements BaseMapper<ImageEntity, ImageDTO, ImageDetai
 	public ImageEntity toUpdateEntity(final ImageUpdateDTO dto) {
 		ImageEntity entity = new ImageEntity();
 		entity.setName(dto.getName());
+		entity.setFile(dto.getFile());
 		return entity;
 	}
 

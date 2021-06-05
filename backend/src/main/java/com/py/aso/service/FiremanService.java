@@ -14,11 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.py.aso.dto.FiremanDTO;
 import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.create.FiremanCreateDTO;
+import com.py.aso.dto.create.ImageCreateDTO;
 import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.FiremanDetailDTO;
 import com.py.aso.dto.detail.ImageDetailDTO;
 import com.py.aso.dto.detail.UserDetailDTO;
 import com.py.aso.dto.update.FiremanUpdateDTO;
+import com.py.aso.dto.update.ImageUpdateDTO;
 import com.py.aso.dto.update.UserUpdateDTO;
 import com.py.aso.entity.BrigadeEntity;
 import com.py.aso.entity.CityEntity;
@@ -83,7 +85,6 @@ public class FiremanService implements BaseService<FiremanDTO, FiremanDetailDTO,
 	private RoleMapper roleMapper;
 
 	private final long ROLE_FIREMAN = 1L;
-	private final String IMAGE_FIREMAN = "perfil.png";
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -152,8 +153,11 @@ public class FiremanService implements BaseService<FiremanDTO, FiremanDetailDTO,
 		userCreateDTO.setRoles(listRoles);
 		UserDetailDTO userDetailDTO = this.userService.save(userCreateDTO);
 
-		// Creando una imagen
-		ImageDetailDTO imageDetailDTO = this.imageService.saveFile(this.IMAGE_FIREMAN, dto.getName());
+		// Crea una imagen
+		ImageCreateDTO imageCreateDTO = new ImageCreateDTO();
+		imageCreateDTO.setName(dto.getName());
+		imageCreateDTO.setFile(dto.getImage());
+		ImageDetailDTO imageDetailDTO = this.imageService.save(imageCreateDTO);
 
 		// Creando usuario para relacionar
 		UserEntity userEntity = this.userMapper.toEntity(userDetailDTO);
@@ -198,6 +202,12 @@ public class FiremanService implements BaseService<FiremanDTO, FiremanDetailDTO,
 		userUpdateDTO.setRoles(
 				entity.getUser().getRoles().stream().map(this.roleMapper::toDTO).collect(Collectors.toList()));
 		this.userService.update(entity.getUser().getId(), userUpdateDTO);
+
+		// Actualiza la imagen
+		ImageUpdateDTO imageUpdateDTO = new ImageUpdateDTO();
+		imageUpdateDTO.setName(dto.getName());
+		imageUpdateDTO.setFile(dto.getImage());
+		this.imageService.update(entity.getImage().getId(), imageUpdateDTO);
 
 		// Actualizando el bombero
 		entity.setAddress(dto.getAddress());

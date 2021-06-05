@@ -44,7 +44,7 @@ public class BrigadeMapper
 		dto.setCreation(entity.getCreation());
 		dto.setCreatedAt(entity.getUser().getCreatedAt());
 		dto.setUpdatedAt(entity.getUser().getUpdatedAt());
-		dto.setImageId(entity.getImage().getId());
+		dto.setImage(entity.getImage().getFile());
 		dto.setDepartamentId(entity.getDepartament().getId());
 		dto.setDepartament(entity.getDepartament().getName());
 		dto.setCityId(entity.getCity().getId());

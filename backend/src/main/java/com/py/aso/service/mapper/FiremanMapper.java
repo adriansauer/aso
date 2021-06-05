@@ -56,7 +56,7 @@ public class FiremanMapper
 		dto.setRankId(entity.getRank().getId());
 		dto.setRankTitle(entity.getRank().getTitle());
 		dto.setBrigadeId(entity.getBrigade().getId());
-		dto.setImageId(entity.getImage().getId());
+		dto.setImage(entity.getImage().getFile());
 		dto.setUserId(entity.getUser().getId());
 		return dto;
 	}

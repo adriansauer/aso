@@ -14,11 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.py.aso.dto.BrigadeDTO;
 import com.py.aso.dto.RoleDTO;
 import com.py.aso.dto.create.BrigadeCreateDTO;
+import com.py.aso.dto.create.ImageCreateDTO;
 import com.py.aso.dto.create.UserCreateDTO;
 import com.py.aso.dto.detail.BrigadeDetailDTO;
 import com.py.aso.dto.detail.ImageDetailDTO;
 import com.py.aso.dto.detail.UserDetailDTO;
 import com.py.aso.dto.update.BrigadeUpdateDTO;
+import com.py.aso.dto.update.ImageUpdateDTO;
 import com.py.aso.dto.update.UserUpdateDTO;
 import com.py.aso.entity.BrigadeEntity;
 import com.py.aso.entity.CityEntity;
@@ -64,7 +66,6 @@ public class BrigadeService implements BaseService<BrigadeDTO, BrigadeDetailDTO,
 	private DepartamentMapper departamentMapper;
 
 	private final long ROLE_BRIGADE = 2L;
-	private final String IMAGE_BRIGADE = "perfil_brigade.png";
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -124,8 +125,11 @@ public class BrigadeService implements BaseService<BrigadeDTO, BrigadeDetailDTO,
 		userCreateDTO.setRoles(listRoles);
 		UserDetailDTO userDetailDTO = this.userService.save(userCreateDTO);
 
-		// Creando una imagen
-		ImageDetailDTO imageDetailDTO = this.imageService.saveFile(this.IMAGE_BRIGADE, dto.getName());
+		// Crea una imagen
+		ImageCreateDTO imageCreateDTO = new ImageCreateDTO();
+		imageCreateDTO.setName(dto.getName());
+		imageCreateDTO.setFile(dto.getImage());
+		ImageDetailDTO imageDetailDTO = this.imageService.save(imageCreateDTO);
 
 		// Creando usuario para relacionar
 		UserEntity userEntity = new UserEntity();
@@ -173,6 +177,12 @@ public class BrigadeService implements BaseService<BrigadeDTO, BrigadeDetailDTO,
 				brigadeEntity.getUser().getRoles().stream().map(this.roleMapper::toDTO).collect(Collectors.toList()));
 		UserDetailDTO userDetailDTO = this.userService.update(brigadeEntity.getUser().getId(), userUpdateDTO);
 
+		// Actualiza la imagen
+		ImageUpdateDTO imageUpdateDTO = new ImageUpdateDTO();
+		imageUpdateDTO.setName(dto.getName());
+		imageUpdateDTO.setFile(dto.getImage());
+		this.imageService.update(brigadeEntity.getImage().getId(), imageUpdateDTO);
+
 		// Actualizando la brigada
 		brigadeEntity.setAddress(dto.getAddress());
 		brigadeEntity.setCreation(dto.getCreation());
@@ -199,7 +209,7 @@ public class BrigadeService implements BaseService<BrigadeDTO, BrigadeDetailDTO,
 		final BrigadeEntity brigadeEntity = this.brigadeRepository.findByIdAndEnabled(id, true)//
 				.orElseThrow(() -> new ResourceNotFoundException("Brigade", "id", id));
 		this.userService.delete(brigadeEntity.getUser().getId());
-
+		this.imageService.delete(brigadeEntity.getImage().getId());
 	}
 
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)

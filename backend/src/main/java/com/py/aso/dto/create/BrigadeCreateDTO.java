@@ -60,4 +60,8 @@ public class BrigadeCreateDTO {
 	@Positive(message = "El id de la ciudad debe ser mayor a 0")
 	@ApiModelProperty(notes = "Id de la ciudad donde se encuentra la Brigada", example = "5", required = true)
 	private long cityId;
+	
+	@NotBlank(message = "La imagen de perfil en base64 es requerida")
+	@ApiModelProperty(notes = "Imagen de perfil en Base 64", required = true)
+	private String image;
 }
