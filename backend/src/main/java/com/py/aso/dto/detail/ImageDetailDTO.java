@@ -19,4 +19,7 @@ public class ImageDetailDTO {
 	@ApiModelProperty(notes = "Nombre de la Imagen", example = "Perfil de Juan", required = true)
 	private String name;
 
+	@ApiModelProperty(notes = "Imagen en base 64")
+	private String file;
+
 }

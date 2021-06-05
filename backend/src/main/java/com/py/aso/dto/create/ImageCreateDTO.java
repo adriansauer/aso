@@ -14,4 +14,8 @@ public class ImageCreateDTO {
 	@ApiModelProperty(notes = "Nombre de la Imagen", example = "Perfil de Juan", required = true)
 	private String name;
 
+	@NotBlank(message = "La imagen en base64 es requerida")
+	@ApiModelProperty(notes = "Imagen en Base 64", required = true)
+	private String file;
+	
 }

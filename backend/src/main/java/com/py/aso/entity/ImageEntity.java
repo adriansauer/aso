@@ -25,6 +25,9 @@ public class ImageEntity {
 
 	@Column(name = "path")
 	private String path;
+	
+	@Column(name = "file")
+	private String file;
 
 	@OneToOne(mappedBy = "image")
 	private RankEntity rank;

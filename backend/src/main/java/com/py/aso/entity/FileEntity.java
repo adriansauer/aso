@@ -27,6 +27,9 @@ public class FileEntity {
 
 	@Column(name = "path")
 	private String path;
+	
+	@Column(name = "file")
+	private String file;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "publication_id")
