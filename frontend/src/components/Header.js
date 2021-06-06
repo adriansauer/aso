@@ -57,7 +57,6 @@ const Header = () => {
         })
     }
   }
-  console.log(profile)
   useEffect(() => {
     if (userData.perfilId !== null) {
       fetchProfile()
@@ -113,11 +112,24 @@ const Header = () => {
                     </i>
                   </li>
                   <li>
-                    <img
+                    {profile !== null
+                      ? <img
+                    className="circle"
+                    width={55}
+                    height={55}
+                    src={profile.image || perfil}
+                    alt=""
+                    onClick={() => {
+                      history.push({
+                        pathname: '/Home'
+                      })
+                    }}
+                  />
+                      : <img
                       className="circle"
                       width={55}
                       height={55}
-                      src={profile.image || perfil}
+                      src={perfil}
                       alt=""
                       onClick={() => {
                         history.push({
@@ -125,6 +137,8 @@ const Header = () => {
                         })
                       }}
                     />
+                    }
+
                   </li>
                 </ul>
               </a>

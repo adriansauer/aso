@@ -38,7 +38,6 @@ const Home = () => {
             Number
           )
         )
-        console.log(totalPages)
         setPublicaciones(res.data.content)
         setLoading(false)
       })
