@@ -10,7 +10,6 @@ import BrigadaPublications from './BrigadaPublications'
 const UsuarioPerfil = (props) => {
   const location = useLocation()
   const history = useHistory()
-  const [image, setImage] = useState(null)
   const { execute: getMemberByIdExecute } = useGetMemberById()
   const [member, setMember] = useState(null)
   const [editUserModal, setEditUserModal] = useState(null)
@@ -30,7 +29,6 @@ const UsuarioPerfil = (props) => {
     if (event.target.files && event.target.files[0]) {
       const reader = new FileReader()
       reader.onload = (e) => {
-        setImage(e.target.result)
       }
       reader.readAsDataURL(event.target.files[0])
     }
@@ -75,7 +73,7 @@ const UsuarioPerfil = (props) => {
               className="btn-floating btn-large waves-effect waves-light"
             >
               <img
-                src={image === null ? perfil : image}
+                src={member.image || perfil}
                 className="circle"
                 style={{ width: '100%' }}
               />
