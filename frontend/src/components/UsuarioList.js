@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import perfil from '../images/default.jpg'
 import useGetMembers from '../api/miembros/useGetMembers'
 import PreLoader from './PreLoader'
 import { useLocation, useHistory } from 'react-router-dom'
+import Image from './Image'
 import M from 'materialize-css'
 import './components.css'
 const UsuarioList = () => {
@@ -107,12 +107,7 @@ const UsuarioList = () => {
                 {/** Foto de perfil */}
                 <div className="row">
                   <div className="col s4 m2">
-                    <img
-                      src={perfil}
-                      alt=""
-                      className="circle"
-                      style={{ height: 75, width: 75, marginBottom: '5%' }}
-                    />
+                    <Image imageId={member.imageId}/>
                   </div>
                   <div className="col s8 m6" style={{ textAlign: 'left' }}>
                     <span className="title responsive">
