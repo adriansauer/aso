@@ -83,8 +83,7 @@ public class FiremanCreateDTO {
 	@ApiModelProperty(notes = "Id de la brigada del Bombero", example = "1", required = true)
 	private long brigadeId;
 	
-	@NotBlank(message = "La imagen de perfil en base64 es requerida")
-	@ApiModelProperty(notes = "Imagen de perfil en Base 64", required = true)
+	@ApiModelProperty(notes = "Imagen de perfil en Base 64")
 	private String image;
 
 }

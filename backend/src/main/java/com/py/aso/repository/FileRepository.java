@@ -25,7 +25,7 @@ public interface FileRepository extends JpaRepository<FileEntity, Long> {
 	
 	
 	@Query(value = "SELECT * FROM FILES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = FILES.publication_id WHERE FILES.id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)
-	public Optional<FileEntity> findByIdAndDeleted(final Long fileId, final boolean deleted);
+	public Optional<FileEntity> findByIdAndDeleted(final Long id, final boolean deleted);
 
 	@Query(value = "SELECT * FROM FILES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = FILES.publication_id WHERE FILES.id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)
 	public boolean existsByIdAndDeleted(final Long fileId, final boolean deleted);

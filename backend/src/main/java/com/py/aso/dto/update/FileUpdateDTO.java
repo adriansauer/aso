@@ -12,4 +12,7 @@ public class FileUpdateDTO {
 	@Size(min = 0, max = 255, message = "El nombre puede contener como maximo 255 caracteres")
 	@ApiModelProperty(notes = "Nombre del archivo", example = "nombreArchito.extension", required = true)
 	private String name;
+	
+	@ApiModelProperty(notes = "Archivo en Base 64", required = true )
+	private String file;
 }

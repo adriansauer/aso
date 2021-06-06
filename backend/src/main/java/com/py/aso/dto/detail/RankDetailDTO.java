@@ -22,8 +22,7 @@ public class RankDetailDTO {
 	@ApiModelProperty(notes = "Descripción del Rango", example = "Es el rango mas alto")
 	private String description;
 	
-	@NotBlank(message = "La imagen en base64 es requerida")
-	@ApiModelProperty(notes = "Imagen en Base 64", required = true)
+	@ApiModelProperty(notes = "Imagen en Base 64")
 	private String image;
 
 }

@@ -16,7 +16,6 @@ public class FileMapper implements BaseMapper<FileEntity, FileDTO, FileDetailDTO
 		FileDTO dto = new FileDTO();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
-		dto.setPublicationId(entity.getPublication().getId());
 		return dto;
 	}
 
@@ -26,6 +25,7 @@ public class FileMapper implements BaseMapper<FileEntity, FileDTO, FileDetailDTO
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setPublicationId(entity.getPublication().getId());
+		dto.setFile(entity.getFile());
 		return dto;
 	}
 
@@ -41,6 +41,7 @@ public class FileMapper implements BaseMapper<FileEntity, FileDTO, FileDetailDTO
 	public FileEntity toCreateEntity(FileCreateDTO dto) {
 		FileEntity entity = new FileEntity();
 		entity.setName(dto.getName());
+		entity.setFile(dto.getFile());
 		return entity;
 	}
 
@@ -48,6 +49,7 @@ public class FileMapper implements BaseMapper<FileEntity, FileDTO, FileDetailDTO
 	public FileEntity toUpdateEntity(FileUpdateDTO dto) {
 		FileEntity entity = new FileEntity();
 		entity.setName(dto.getName());
+		entity.setFile(dto.getFile());
 		return entity;
 	}
 }
