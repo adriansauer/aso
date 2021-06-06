@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import PropTypes, { object } from 'prop-types'
+import PropTypes from 'prop-types'
 import './components.css'
 import M from 'materialize-css'
 import userContext from '../context/userContext'
@@ -10,13 +10,17 @@ import EditModal from './modals/EditarPublicacionModal'
 import useGetMemberById from '../api/miembros/useGetMemberById'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import PublicationPerfilImage from './PublicationPerfilImage'
+import useGetPulicationById from '../api/publicaciones/GetPublicationById'
+import PublicationImage from './PublicationImage'
 const TagsPublicaciones = (props) => {
   const { execute: getUserByIdExecute } = useGetUserById(null)
   const { execute: deletePublicationExecute } = useDeletePublication(null)
   const { execute: getMemberByIdExecute } = useGetMemberById()
+  const { execute: getPublicationByIdExecute } = useGetPulicationById()
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { userData } = useContext(userContext)
   const [users, setUsers] = useState(null)
+  const [publication, setPublication] = useState(null)
   const [instance, setInstance] = useState(null)
   const handleDeletePublication = () => {
     Swal.fire({
@@ -46,6 +50,7 @@ const TagsPublicaciones = (props) => {
   }
   useEffect(() => {
     user()
+    handleGetPublication()
   }, [])
   useEffect(() => {
     if (props.publicationId !== undefined && props.publicationId !== null) {
@@ -56,15 +61,24 @@ const TagsPublicaciones = (props) => {
       setInstance(instance)
     }
   }, [props])
+  const handleGetPublication = () => {
+    if (props.publicationId !== null) {
+      getPublicationByIdExecute(props.publicationId)
+        .then((res) => {
+          setPublication(res.data)
+        }).catch(() => {})
+    }
+  }
   const user = () => {
     if (props.userId !== null) {
       getUserByIdExecute(props.userId)
+
         .then((res) => {
           if (res.data.roles[0].authority === 'ROLE_USER') {
             getMemberByIdExecute(res.data.detailId).then((r) => {
               setUsers(r.data)
             })
-          } else {
+          } else if (res.data.roles[0].authority === 'ROLE_BRIGADE') {
             getBrigadaByIdExecute(res.data.detailId).then((r) => {
               setUsers(r.data)
             })
@@ -126,15 +140,18 @@ const TagsPublicaciones = (props) => {
             <p align="left" style={{ marginLeft: '5%', marginRight: '5%' }}>
               {props.description}
             </p>
-            <div className="galeria">
-              {/* imgs.map((imagen) =>
-              <img
-                key={imagen.id}
-                src={imagen.ima}
-                alt=""
-                className="materialboxed"
-              />
-            ) */}
+            <div align='left' style={{ display: 'inline-flex' }}>
+              {publication !== null
+                ? publication.files !== undefined
+                  ? publication.files.length > 0
+                    ? publication.files.map(f => (
+                    <PublicationImage key={f.id} fileId={f.id}/>
+                    ))
+                    : null
+                  : null
+                : null
+            }
+
             </div>
           </div>
           <div className="divider" />
@@ -153,7 +170,6 @@ const TagsPublicaciones = (props) => {
 TagsPublicaciones.propTypes = {
   userId: PropTypes.number,
   description: PropTypes.string,
-  imagen: PropTypes.arrayOf(object),
   likes: PropTypes.number,
   publicationId: PropTypes.number,
   reloadPublications: PropTypes.func,
