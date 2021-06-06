@@ -7,6 +7,7 @@ import useGetBrigadas from '../api/brigada/useGetBrigadas'
 import PreLoader from './PreLoader'
 import { useHistory } from 'react-router-dom'
 import userContext from '../context/userContext'
+import Image from './Image'
 const BrigadaList = () => {
   const [instance, setInstance] = useState(null)
   const { execute: getBrigadasExecute } = useGetBrigadas()
@@ -23,6 +24,7 @@ const BrigadaList = () => {
   useEffect(() => {
     handleLoadBrigades()
   }, [pagActual])
+
   // Reacargar brigadas
   const handleLoadBrigades = () => {
     setBrigadas(null)
@@ -38,14 +40,8 @@ const BrigadaList = () => {
         setBrigadas(res.data.content)
         setIsLoading(false)
       })
-      .catch((err) => {
+      .catch(() => {
         setIsLoading(false)
-        M.toast({
-          html:
-            err.response === undefined
-              ? 'Hubo un error con la conexión'
-              : err.response.data.description
-        })
       })
   }
   const handleIncrementPage = () => {
@@ -131,12 +127,7 @@ const BrigadaList = () => {
                 >
                   <div className="row">
                     <div className="col s4 m2">
-                      <img
-                        src={perfil}
-                        alt=""
-                        className="circle"
-                        style={{ height: 70, width: 70, marginBottom: '5%' }}
-                      />
+                      <Image imageId={b.imageId}/>
                     </div>
                     <div className="col s8 m6" style={{ textAlign: 'left' }}>
                       <span className="title responsive">

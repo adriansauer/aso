@@ -74,7 +74,7 @@ const BrigadaPerfil = (props) => {
           alt=""
           className="circle"
           style={{ width: '15%' }}
-          src={perfil}
+          src={brigada === null ? perfil : brigada.image !== null ? brigada.image : perfil}
         ></img>
       </div>
       <div className="row">
