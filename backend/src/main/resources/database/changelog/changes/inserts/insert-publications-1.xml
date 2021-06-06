@@ -7,184 +7,232 @@
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 	<changeSet author="Wilson Barrios" id="24">
-		<!-- Brigadas -->
+		<!-- Admin -->
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="1" />
-			<column name="user_id"		value="2" />
-			<column name="created_at"	value="2015-08-18 13:35:35.284" />
-			<column name="body"			value="Damos la Bienvenida al Cuerpo de Bomberos Voluntarios de Itaugua, fundada el 07 de agosto del 2014 y  realizada su elección de Autoridades el 06 de octubre del 2014, acompañaron en ambas actividades." />
-			<column name="destination"	value="0" />
+			<column name="user_id"		value="1" />
+			<column name="created_at"	value="2020-08-18 13:35:35.284" />
+			<column name="body"			value="Prueba [ADMIN - ASO-001 - Publico] Se a apertura oficial de la página ASO para todos los integrantes de los cuerpos de Bomberos Voluntarios." />
+			<column name="destination"	value="-1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="2" />
-			<column name="user_id"		value="2" />
-			<column name="created_at"	value="2015-07-06 11:13:37.284" />
-			<column name="body"			value="El 07 de octubre, día de la Virgen del Rosario, patrona de dicha Ciudad y Aniversario Fundacional, se llevó a cabo el juramento de nuevos Bomberos Voluntarios, luego de una misa y procesión." />
-			<column name="destination"	value="2" />
+			<column name="user_id"		value="1" />
+			<column name="created_at"	value="2020-08-22 11:13:37.284" />
+			<column name="body"			value="Prueba [ADMIN - ASO-001 - Todos] Se da la bienvenida al cuerpo de Bomberos Voluntarios de Coronel Bogado" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="3" />
-			<column name="user_id"		value="3" />
-			<column name="created_at"	value="2015-05-20 15:37:39.284" />
-			<column name="body"			value="Nuevas Autoridades de la Junta Nacional de Cuerpos de Bomberos Voluntarios del Paraguay. Presidente BVA Lic Desiderio Ramirez , Secretario BVA Oscar Villarruel , Comandante Nacional Cap. Francisco." />
-			<column name="destination"	value="0" />
+			<column name="user_id"		value="1" />
+			<column name="created_at"	value="2020-09-05 15:37:39.284" />
+			<column name="body"			value="Prueba [ADMIN - ASO-001 - Nueva Alborada] Me dirijo al cuerpo de Nueva Alborada para felicitarle por la participación en el festival del domingo" />
+			<column name="destination"	value="1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="4" />
-			<column name="user_id"		value="4" />
-			<column name="created_at"	value="2015-05-20 14:36:31.284" />
-			<column name="body"			value="En fecha 9 de mayo , se llevo a cavo la Asamblea General Ordinaria de la Junta Nacional de CBVP , en el complejo de la Academia Nacional de Formación de Bomberos , resultando electas  las siguientes personas para el Consejo Directivo periodo 2015/2017." />
-			<column name="destination"	value="4" />
+			<column name="user_id"		value="1" />
+			<column name="created_at"	value="2020-09-25 14:36:31.284" />
+			<column name="body"			value="Prueba [ADMIN - ASO-001 - Bella Vista] Me complace anunciar que para su cuerpo de Bella Vista se le asigno los recursos para el camion nuevo." />
+			<column name="destination"	value="2" />
 		</insert>
 		
-		<!-- Bomberos de Brigadas 2 -->
+		<!-- Brigadas -->
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="5" />
-			<column name="user_id"		value="23" />
-			<column name="created_at"	value="2021-04-08 03:05:53.284" />
-			<column name="body"			value="La mañana del sábado 8 de mayo se realizó el acto protocolar de juramento y asunción de mando de los miembros del Directorio Nacional, del Tribunal de Justicia y de la Junta Electoral del CBVP." />
-			<column name="destination"	value="0" />
+			<column name="user_id"		value="2" />
+			<column name="created_at"	value="2020-04-08 03:05:53.284" />
+			<column name="body"			value="Prueba[BRIGADA - NA-001 - Publico] El cuartel de Nueva Alborada cuenta con nuevos integrantes." />
+			<column name="destination"	value="-1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="6" />
-			<column name="user_id"		value="23" />
-			<column name="created_at"	value="2021-05-01 01:13:37.284" />
-			<column name="body"			value="Se llevó a cabo el acto de entrega de llaves de vehículos en donación por la Asociación de Bomberos del Japón, en la sede del Ministerio de Relaciones Exteriores, presidida por Su Excelencia Euclides Acevedo, Canciller Nac acompañado de Yoshie Nakatani" />
-			<column name="destination"	value="6" />
+			<column name="user_id"		value="2" />
+			<column name="created_at"	value="2020-05-01 01:13:37.284" />
+			<column name="body"			value="Prueba[BRIGADA - NA-001 - Todos] Se llevó a cabo el acto de entrega de llaves de vehículos en donación por la Asociación de Bomberos del Japón, en la sede del Ministerio de Relaciones Exteriores." />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="7" />
-			<column name="user_id"		value="24" />
+			<column name="user_id"		value="2" />
 			<column name="created_at"	value="2021-05-10 05:37:39.284" />
-			<column name="body"			value="El día viernes 30 de abril de 2021 se realizó el acto protocolar de entrega de distinciones por años de antigüedad a bomberos voluntarios y también el ascenso a la categoría de Bombero Voluntario Activo de 15 personas." />
-			<column name="destination"	value="0" />
+			<column name="body"			value="Prueba[BRIGADA - NA-001 - Nueva Alborada] La reunion de hoy se realiza en nuestro cuartel" />
+			<column name="destination"	value="1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="8" />
-			<column name="user_id"		value="24" />
+			<column name="user_id"		value="3" />
 			<column name="created_at"	value="2021-05-10 10:17:09.284" />
-			<column name="body"			value="El domingo 25/04/2021 se llevó a cabo la Asamblea Ordinaria en la cual se puso a disposición el Balance 2018, 2019, 2020, la Memoria 2020, y los bomberos voluntarios empadronados eligieron a las autoridades de la institución para el sig periodo." />
-			<column name="destination"	value="0" />
+			<column name="body"			value="Prueba[BRIGADA - BV-001 - Publico] El cuartel de Bella Vista cuenta con nuevos integrantes." />
+			<column name="destination"	value="-1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="9" />
-			<column name="user_id"		value="25" />
+			<column name="user_id"		value="3" />
 			<column name="created_at"	value="2021-04-30 17:36:31.284" />
-			<column name="body"			value="Este es un histórico logro del CBVP. Por primera vez en toda nuestra vida institucional recibimos 6 móviles 0 km., y este es solo el primer lote. De los 6 móviles recibidos 4 irán al interior." />
-			<column name="destination"	value="9" />
+			<column name="body"			value="Prueba[BRIGADA - BV-001 - Todos] Este es un histórico logro del CBVP. Por primera vez en toda nuestra vida institucional recibimos 6 móviles 0 km., y este es solo el primer lote. De los 6 móviles recibidos 4 irán al interior." />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="10" />
-			<column name="user_id"		value="24" />
+			<column name="user_id"		value="3" />
 			<column name="created_at"	value="2021-05-08 15:37:39.284" />
-			<column name="body"			value="La mañana del sábado 17/04, seis voluntarios del Cuerpo de Bomberos Voluntarios del Paraguay recibieron sus certificados en el acto protocolar de entrega de certificados de curso de actividades subacuáticas, convirtiéndose así en los 1ros buzos del CBVP." />
-			<column name="destination"	value="0" />
+			<column name="body"			value="Prueba[BRIGADA - BV-001 - Bella Vista] Se informa al cuartel que no se realizara la reunion del domingo" />
+			<column name="destination"	value="2" />
 		</insert>
 		
-		<!-- Bomberos de Brigadas 3 -->
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="11" />
-			<column name="user_id"		value="43" />
+			<column name="user_id"		value="4" />
 			<column name="created_at"	value="2021-04-08 23:55:50.284" />
-			<column name="body"			value="El jueves 15 de abril a las 20:00 horas se realizó el acto protocolar de juramento de nuevos bomberos voluntarios del Cuerpo de Bomberos Voluntarios del Paraguay, en este caso la segunda promoción de la Unidad de Soporte Aéreo Táctico USAT." />
-			<column name="destination"	value="0" />
+			<column name="body"			value="Prueba[BRIGADA - C-001 - Publico] El cuartel de Cambyreta cuenta con nuevos integrantes." />
+			<column name="destination"	value="-1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="12" />
-			<column name="user_id"		value="43" />
+			<column name="user_id"		value="4" />
 			<column name="created_at"	value="2021-05-01 09:31:37.284" />
-			<column name="body"			value="La mañana de este sábado 10 de abril se activó la alarma de emergencia para un Incendio en una aceitera en la ciudad de Ypané. En el siniestro trabajaron en conjunto K1 Bomba Asunción, K9 Villa Elisa, K13 San Antonio, K15 Ñemby y K17 Guarambaré." />
-			<column name="destination"	value="12" />
+			<column name="body"			value="Prueba[BRIGADA - C-001 - Todos] La mañana de este sábado 10 de abril se activó la alarma de emergencia para un Incendio en una aceitera en la ciudad de Ypané. En el siniestro trabajaron en conjunto K1 Bomba Asunción." />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="13" />
-			<column name="user_id"		value="43" />
+			<column name="user_id"		value="4" />
 			<column name="created_at"	value="2021-05-11 00:04:39.284" />
-			<column name="body"			value="Alrededor de las 23:40 del viernes 27 de marzo se produjo un accidente en la escalinata ubicada sobre la calle Tacuary y Manuel Domínguez de la ciudad de Asunción. El accidente vehicular no dejó víctimas." />
-			<column name="destination"	value="0" />
+			<column name="body"			value="Prueba[BRIGADA - C-001 - Bella Vista] Alrededor de las 23:40 del viernes 27 de marzo se produjo un accidente en la escalinata ubicada sobre la calle Tacuary y Manuel Domínguez de la ciudad de Asunción." />
+			<column name="destination"	value="3" />
 		</insert>
 		
+		<!-- Bomberos-->
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="14" />
-			<column name="user_id"		value="44" />
+			<column name="user_id"		value="23" />
 			<column name="created_at"	value="2021-05-10 12:51:29.284" />
-			<column name="body"			value="Con mucha emoción y satisfacción el personal bombero de K145 Villa Hayes inaugura oficialmente su cuartel ubicado sobre la calle Amancio González, entre América y Campo Vía, a unos 300 metros de la ruta Transchaco." />
-			<column name="destination"	value="0" />
+			<column name="body"			value="Prueba[BOMBERO - NA-002 - Publico] Con mucha emoción y satisfacción el personal bombero de K145 Villa Hayes inaugura oficialmente su cuartel ubicado sobre la calle Amancio González, entre América y Campo Vía." />
+			<column name="destination"	value="-1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="15" />
-			<column name="user_id"		value="44" />
+			<column name="user_id"		value="23" />
 			<column name="created_at"	value="2021-04-13 19:41:13.284" />
-			<column name="body"			value="Esta mañana se llevó adelante el día mundial de la limpieza en una actividad que reunió a varías fuerzas de la comunidad e instituciones como son la Municipalidad de Asunción, la Unión Europea y el Cuerpo de Bomberos Voluntarios del Paraguay." />
-			<column name="destination"	value="-1" />
-		</insert>
-		
-		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
-			<column name="id"			value="16" />
-			<column name="user_id"		value="44" />
-			<column name="created_at"	value="2021-04-27 07:37:39.284" />
-			<column name="body"			value="Ayer se sumaron a la flota de vehículos de emergencias de nuestra Institución dos ambulancias donadas por el Gobierno de Taiwan a través de su Embajador en nuestro país Diego L. Chou, con estos dos nuevos integrantes podemos destinar más atención." />
-			<column name="destination"	value="-1" />
-		</insert>
-		
-		<!-- Bomberos de Brigadas 4 -->
-		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
-			<column name="id"			value="17" />
-			<column name="user_id"		value="48" />
-			<column name="created_at"	value="2021-04-18 20:33:15.284" />
-			<column name="body"			value="Se realizo en la ciudad de Tebicuary, la fundación de la 5ta. Compañía Departamental, y el juramento de la 1ra. Remesa de Voluntarios.En el acto estuvo presente el Presidente Nacional del CBVP. Cap. Gral. BVC Rafael Valdez." />
+			<column name="body"			value="Prueba[BOMBERO - NA-002 - Todos] Esta mañana se llevó adelante el día mundial de la limpieza en una actividad que reunió a varías fuerzas de la comunidad e instituciones como son la Municipalidad de Asunción, la Unión Europea." />
 			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
+			<column name="id"			value="16" />
+			<column name="user_id"		value="23" />
+			<column name="created_at"	value="2021-04-27 07:37:39.284" />
+			<column name="body"			value="Prueba[BOMBERO - NA-002 - Nueva Alborada] Ayer se sumaron a la flota de vehículos de emergencias de nuestra Institución dos ambulancias donadas por el Gobierno de Taiwan a través de su Embajador en nuestro país Diego L. Chous." />
+			<column name="destination"	value="1" />
+		</insert>
+
+		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
+			<column name="id"			value="17" />
+			<column name="user_id"		value="24" />
+			<column name="created_at"	value="2021-04-18 20:33:15.284" />
+			<column name="body"			value="Prueba[BOMBERO - NA-003 - Publico] Se realizo en la ciudad de Tebicuary, la fundación de la 5ta. Compañía Departamental, y el juramento de la 1ra. Remesa de Voluntarios.En el acto estuvo presente el Presidente Nacional del CBVP." />
+			<column name="destination"	value="-1" />
+		</insert>
+		
+		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="18" />
-			<column name="user_id"		value="48" />
+			<column name="user_id"		value="24" />
 			<column name="created_at"	value="2021-05-01 23:13:13.284" />
-			<column name="body"			value="Se realizó en el Cuartel General del Cuerpo de Bomberos Voluntarios del Paraguay, con la presencia del Sr. Intendente de la Ciudad de Asunción, Don Mario Ferreiro, y del Presidente Nacional del CBVP. Cap. Gral. Rafael Valdez, y Miembros del Directorio." />
+			<column name="body"			value="Prueba[BOMBERO - NA-003 - Todos] Se realizó en el Cuartel General del Cuerpo de Bomberos Voluntarios del Paraguay, con la presencia del Sr. Intendente de la Ciudad de Asunción, Don Mario Ferreiro, y del Presidente Nacional del CBVP." />
 			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="19" />
-			<column name="user_id"		value="48" />
+			<column name="user_id"		value="24" />
 			<column name="created_at"	value="2021-05-07 08:08:38.284" />
-			<column name="body"			value="e realizo en la ciudad de Ypacarai, el acto de Toma de Posecion de cargos de los Oficiales electos en las Asambleas de Compañías, realizado recientemente. Los oficiales que asumieron sus cargos son miembros de los Consejos Directivos." />
-			<column name="destination"	value="0" />
+			<column name="body"			value="Prueba[BOMBERO - NA-003 - Nueva Alborada] Se realizo en la ciudad de Ypacarai, el acto de Toma de Posecion de cargos de los Oficiales electos en las Asambleas de Compañías, realizado recientemente. Los oficiales que asumieron sus cargos." />
+			<column name="destination"	value="1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="20" />
-			<column name="user_id"		value="44" />
+			<column name="user_id"		value="43" />
 			<column name="created_at"	value="2021-05-22 15:15:22.284" />
-			<column name="body"			value="La Japan Firefigter Association, ha donado al Cuerpo de Bomberos Voluntarios del Paraguay, 5 (cinco) móviles de emergencias, que prestaran servicios en las ciudades de Aregua, J. A. Saldivar, J. E. Estigarribia (Campo 9), Gral. Aquino y Yaguaron." />
+			<column name="body"			value="Prueba[BOMBERO - BV-002 - Publico] La Japan Firefigter Association, ha donado al Cuerpo de Bomberos Voluntarios del Paraguay, 5 (cinco) móviles de emergencias y uno formara parte de nuestra brigada, Bella Vista." />
 			<column name="destination"	value="-1" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="21" />
-			<column name="user_id"		value="44" />
+			<column name="user_id"		value="43" />
 			<column name="created_at"	value="2021-04-13 19:04:31.284" />
-			<column name="body"			value="El dia martes 9 de febrero, miembros del Directorio Nacional del CBVP, encabezado por el Presidente Nacional Cap. Gral. BVC Rafael Valdez, el Secretario Nacional Cap. Ppal. BVC Luciano Florenciañez, el Tesorero Nacional Cap. Ppal. BVC Mario Gini." />
-			<column name="destination"	value="-1" />
+			<column name="body"			value="Prueba[BOMBERO - BV-002 - Todos] El dia martes 9 de febrero, miembros del Directorio Nacional del CBVP, encabezado por el Presidente Nacional Cap. Gral. BVC Rafael Valdez, el Secretario Nacional Cap. Ppal. BVC Luciano Florenciañez" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
 			<column name="id"			value="22" />
+			<column name="user_id"		value="43" />
+			<column name="created_at"	value="2021-04-25 17:03:39.284" />
+			<column name="body"			value="Prueba[BOMBERO - BV-002 - Bella Vista] Se realizo en la zona este del pais, el Curso de Sistema de Comando de Incidentes, organizado por el Directorio Nacional. El mismo fue dictado por los Capitanes BVC Daniel Aquino, Oscar Acuña." />
+			<column name="destination"	value="2" />
+		</insert>
+		
+		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
+			<column name="id"			value="23" />
 			<column name="user_id"		value="44" />
 			<column name="created_at"	value="2021-04-25 17:03:39.284" />
-			<column name="body"			value="Se realizo en la zona este del pais, el Curso de Sistema de Comando de Incidentes, organizado por el Directorio Nacional. El mismo fue dictado por los Capitanes BVC Daniel Aquino, Oscar Acuña y Elias Ramirez, con participacion de Oficiales y Voluntarios." />
+			<column name="body"			value="Prueba[BOMBERO - BV-003 - Publico] La mañana del sábado 17/04, seis voluntarios del Cuerpo de Bomberos Voluntarios del Paraguay recibieron sus certificados en el acto protocolar de entrega de certificados de curso de actividades." />
 			<column name="destination"	value="-1" />
 		</insert>
+		
+		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
+			<column name="id"			value="24" />
+			<column name="user_id"		value="44" />
+			<column name="created_at"	value="2021-04-25 17:03:39.284" />
+			<column name="body"			value="Prueba[BOMBERO - BV-003 - Todos] Pude terminar el curso y ahora puedo bridar mis conocimiento a todas las brigadas que lo necesiten." />
+			<column name="destination"	value="0" />
+		</insert>
+		
+		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
+			<column name="id"			value="25" />
+			<column name="user_id"		value="44" />
+			<column name="created_at"	value="2021-04-25 17:03:39.284" />
+			<column name="body"			value="Prueba[BOMBERO - BV-003 - Bella Vista] Gracias por su apollo en todo lo que duro el curso." />
+			<column name="destination"	value="2" />
+		</insert>
+		
+		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
+			<column name="id"			value="26" />
+			<column name="user_id"		value="48" />
+			<column name="created_at"	value="2021-05-01 17:03:39.284" />
+			<column name="body"			value="Prueba[BOMBERO - C-002 - Publico] Este domingo se reralizara una comilona en mi Barrio, estan todos invitados" />
+			<column name="destination"	value="-1" />
+		</insert>
+		
+		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
+			<column name="id"			value="27" />
+			<column name="user_id"		value="48" />
+			<column name="created_at"	value="2021-05-14 17:03:39.284" />
+			<column name="body"			value="Prueba[BOMBERO - C-002 - Todos] Este domingo le pediria a todos mis colegas si pudieran asistir a la comilona de mi barrio, gracias!!" />
+			<column name="destination"	value="0" />
+		</insert>
+		
+		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
+			<column name="id"			value="28" />
+			<column name="user_id"		value="48" />
+			<column name="created_at"	value="2021-05-28 17:03:39.284" />
+			<column name="body"			value="Prueba[BOMBERO - C-002 - Bella Vista] Con mucho aprecio agradezco a todos por haber participado el domingo, es mucha alegría la que siento." />
+			<column name="destination"	value="3" />
+		</insert>
+
 	</changeSet>
 </databaseChangeLog>

@@ -41,6 +41,9 @@ public class PublicationService
 	@Autowired
 	private BrigadeService brigadeService;
 
+	@Autowired
+	private FileService fileService;
+
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<PublicationDTO> findAll(Pageable pageable) {
@@ -150,6 +153,7 @@ public class PublicationService
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public PublicationDetailDTO findById(long id) throws Exception {
 		try {
+			PublicationDetailDTO dto = new PublicationDetailDTO();
 			// Obtiene los roles del usuario logueado del contexto.
 			String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0]
 					.toString();
@@ -165,7 +169,7 @@ public class PublicationService
 				// Se realiza la peticion a la BD, <Id de la publicacion> <La publicacion no
 				// debe estar eliminada> <El usuario debe estar activo> <Id de la brirgada del
 				// usuario logueado>.
-				return this.publicationRepository
+				dto = this.publicationRepository
 						.findByIdAndDeletedAndEnabledAndDestination(id, false, true, firemanDetailDTO.getBrigadeId())
 						.map(this.publicationMapper::toDetailDTO)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
@@ -182,7 +186,7 @@ public class PublicationService
 				// Se realiza la peticion a la BD, <Id de la publicacion> <La publicacion no
 				// debe estar eliminada> <El usuario debe estar activo> <Id de la brirgada del
 				// usuario logueado>.
-				return this.publicationRepository
+				dto = this.publicationRepository
 						.findByIdAndDeletedAndEnabledAndDestination(id, false, true, brigadeDetailDTO.getId())
 						.map(this.publicationMapper::toDetailDTO)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
@@ -191,21 +195,28 @@ public class PublicationService
 			else if (role.equals("ROLE_SUPERUSER")) {
 				// Se realiza la peticion a la BD, <Id de la publicacion> <La publicacion no
 				// debe estar eliminada> <El usuario debe estar activo>.
-				return this.publicationRepository.findByIdAndDeletedAndEnabled(id, false, true)
+				dto = this.publicationRepository.findByIdAndDeletedAndEnabled(id, false, true)
 						.map(this.publicationMapper::toDetailDTO)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
+			} else {
+				return null;
 			}
+			// Carga la lista de id de los archivos de la publicacion.
+			dto.setFiles(this.fileService.findByPublicationId(dto.getId()));
+			return dto;
 		} catch (Exception ex) {
 			// Si se produjo un fallo no retorna nada.
 			return null;
 		}
-		// Si no tiene ningun rol no retorna nada.
-		return null;
 	}
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
-	public PublicationDTO findById(long id, boolean var) throws Exception {
-		return null;
+	public PublicationDetailDTO findMyPublicationById(long id) throws Exception {
+		// Se obtiene el id del usuario logueado.
+		final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+		return this.publicationRepository.findByIdAndUserIdAndDeletedAndEnabled(id, userId, false, true)
+				.map(this.publicationMapper::toDetailDTO)
+				.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 	}
 
 	@Override

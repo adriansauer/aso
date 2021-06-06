@@ -57,8 +57,7 @@ public class BrigadeDetailDTO {
 	@ApiModelProperty(notes = "Fecha de modificación de recurso en el sistema", example = "2021-04-05T18:51:28.478+00:00")
 	private Date updatedAt;
 
-	@NotBlank(message = "La imagen de perfil en base64 es requerida")
-	@ApiModelProperty(notes = "Imagen de perfil en Base 64", required = true)
+	@ApiModelProperty(notes = "Imagen de perfil en Base 64")
 	private String image;
 
 	@Positive(message = "El id del departamento debe ser mayor a 0")

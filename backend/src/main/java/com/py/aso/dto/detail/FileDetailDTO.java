@@ -17,4 +17,7 @@ public class FileDetailDTO {
 
 	@ApiModelProperty(notes = "Nombre del archivo", example = "nombreArchito.extension")
 	private String name;
+	
+	@ApiModelProperty(notes = "Archivo en Base 64", required = true )
+	private String file;
 }
