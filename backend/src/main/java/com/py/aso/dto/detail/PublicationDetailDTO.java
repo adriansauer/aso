@@ -36,6 +36,12 @@ public class PublicationDetailDTO {
 	@ApiModelProperty(notes = "Destino de la publicación", example = "Publico")
 	private String destination;
 	
+	@ApiModelProperty(notes = "Cantidad de like de la publicación", example = "1")
+	private long likeQuantity;
+	
+	@ApiModelProperty(notes = "Si tiene el like del usuario", example = "true")
+	private boolean iLike;
+	
 	@ApiModelProperty(notes = "Lista de imágenes", example = "[{id: 1}]")
 	private List<FileDTO> files;
 }

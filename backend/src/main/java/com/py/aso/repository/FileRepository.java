@@ -14,15 +14,14 @@ import com.py.aso.entity.FileEntity;
 @Repository
 public interface FileRepository extends JpaRepository<FileEntity, Long> {
 
-	@Query(value = "SELECT * FROM FILES INNER JOIN PUBLICATIONS ON PUBLICATIONS.file_id = FILES.id WHERE PUBLICATIONS.deleted = ?1", nativeQuery = true)
+	@Query(value = "SELECT * FROM FILES f INNER JOIN PUBLICATIONS p ON p.file_id = f.id WHERE p.deleted = ?1", nativeQuery = true)
 	public Page<FileEntity> findAllByDeleted(final boolean deleted, final Pageable pageable);
 
-	@Query(value = "SELECT * FROM FILES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = FILES.publication_id WHERE FILES.publication_id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)
+	@Query(value = "SELECT * FROM FILES f INNER JOIN PUBLICATIONS p ON p.id = f.publication_id WHERE f.publication_id = ?1 AND p.deleted = ?2", nativeQuery = true)
 	public Page<FileEntity> findAllByPublicationIdAndDeleted(final Long publicatioId, final boolean deleted, final Pageable pageable);
 	
 	@Query(value = "SELECT * FROM FILES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = FILES.publication_id WHERE FILES.publication_id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)
 	public List<FileEntity> findAllByPublicationIdAndDeleted(final Long publicatioId, final boolean deleted);
-	
 	
 	@Query(value = "SELECT * FROM FILES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = FILES.publication_id WHERE FILES.id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)
 	public Optional<FileEntity> findByIdAndDeleted(final Long id, final boolean deleted);

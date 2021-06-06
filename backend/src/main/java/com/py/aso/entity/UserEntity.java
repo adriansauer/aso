@@ -65,5 +65,8 @@ public class UserEntity {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
 	private Set<PublicationEntity> publications;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+	private Set<LikeEntity> likes;
 
 }
