@@ -62,7 +62,9 @@ public class LikeService implements BaseService<LikeDTO, LikeDetailDTO, LikeCrea
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public boolean existsLikeByPublicationIdAndUserId(final long publicationId) throws Exception {
 		try {
-			this.likeRepository.findByIdAndDeleted(publicationId, false)
+			// Se obtiene el id del usuario logueado.
+			final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
+			this.likeRepository.findByIdAndUserIdAndDeleted(publicationId, userId, false)
 					.orElseThrow(() -> new ResourceNotFoundException("Like", "publication id", publicationId));
 			return true;
 		} catch (Exception ex) {

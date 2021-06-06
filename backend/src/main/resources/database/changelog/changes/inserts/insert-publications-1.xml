@@ -230,7 +230,7 @@
 			<column name="id"			value="28" />
 			<column name="user_id"		value="48" />
 			<column name="created_at"	value="2021-05-28 17:03:39.284" />
-			<column name="body"			value="Prueba[BOMBERO - C-002 - Bella Vista] Con mucho aprecio agradezco a todos por haber participado el domingo, es mucha alegría la que siento." />
+			<column name="body"			value="Prueba[BOMBERO - C-002 - Cambyreta] Con mucho aprecio agradezco a todos por haber participado el domingo, es mucha alegría la que siento." />
 			<column name="destination"	value="3" />
 		</insert>
 

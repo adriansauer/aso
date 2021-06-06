@@ -27,10 +27,10 @@ public interface LikeRepository extends JpaRepository<LikeEntity, Long> {
 	@Query(value = "SELECT * FROM LIKES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = LIKES.publication_id WHERE LIKES.id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)
 	public Optional<LikeEntity> findByIdAndDeleted(final Long id, final boolean deleted);
 	
-	@Query(value = "SELECT * FROM LIKES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = LIKES.publication_id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.user_id = ?2  AND PUBLICATIONS.deleted = ?3", nativeQuery = true)
+	@Query(value = "SELECT * FROM LIKES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = LIKES.publication_id WHERE LIKES.publication_id = ?1 AND LIKES.user_id = ?2  AND PUBLICATIONS.deleted = ?3", nativeQuery = true)
 	public Optional<LikeEntity> findByIdAndUserIdAndDeleted(final Long id, final Long userId, final boolean deleted);
 	
-	@Query(value = "SELECT COUNT(LIKES.id) FROM LIKES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = LIKES.publication_id WHERE PUBLICATIONS.id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)
+	@Query(value = "SELECT COUNT(LIKES.id) FROM LIKES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = LIKES.publication_id WHERE LIKES.publication_id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)
 	public long findByPublicationIdAndDeleted(final Long publicationId, final boolean deleted);
 
 	@Query(value = "SELECT * FROM LIKES INNER JOIN PUBLICATIONS ON PUBLICATIONS.id = LIKES.publication_id WHERE LIKES.id = ?1 AND PUBLICATIONS.deleted = ?2", nativeQuery = true)

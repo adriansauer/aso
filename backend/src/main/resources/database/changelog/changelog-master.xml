@@ -59,5 +59,7 @@
 		file="/database/changelog/changes/inserts/insert-publications-1.xml" />
 	<include
 		file="/database/changelog/changes/inserts/insert-files-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-likes-1.xml" />
 	
 </databaseChangeLog>
