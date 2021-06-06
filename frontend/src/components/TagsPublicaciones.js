@@ -3,14 +3,18 @@ import PropTypes, { object } from 'prop-types'
 import './components.css'
 import M from 'materialize-css'
 import userContext from '../context/userContext'
-import perfil from '../images/default.jpg'
 import useGetUserById from '../api/user/useGetUserById'
 import useDeletePublication from '../api/publicaciones/useDeletePublication'
 import Swal from 'sweetalert2'
 import EditModal from './modals/EditarPublicacionModal'
+import useGetMemberById from '../api/miembros/useGetMemberById'
+import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
+import PublicationPerfilImage from './PublicationPerfilImage'
 const TagsPublicaciones = (props) => {
   const { execute: getUserByIdExecute } = useGetUserById(null)
   const { execute: deletePublicationExecute } = useDeletePublication(null)
+  const { execute: getMemberByIdExecute } = useGetMemberById()
+  const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { userData } = useContext(userContext)
   const [users, setUsers] = useState(null)
   const [instance, setInstance] = useState(null)
@@ -56,7 +60,16 @@ const TagsPublicaciones = (props) => {
     if (props.userId !== null) {
       getUserByIdExecute(props.userId)
         .then((res) => {
-          setUsers(res.data)
+          if (res.data.roles[0].authority === 'ROLE_USER') {
+            getMemberByIdExecute(res.data.detailId).then((r) => {
+              console.log(r)
+              setUsers(r.data)
+            })
+          } else {
+            getBrigadaByIdExecute(res.data.detailId).then((r) => {
+              setUsers(r.data)
+            })
+          }
         })
         .catch((err) => {
           M.toast({
@@ -81,18 +94,7 @@ const TagsPublicaciones = (props) => {
           <div className="divider" />
           <div className="row">
             <div className="col s3 m2" style={{ textAlign: 'left' }}>
-              <img
-                src={perfil}
-                alt=""
-                className="materialboxed"
-                style={{
-                  height: 70,
-                  width: 70,
-                  marginBottom: '5%',
-                  marginTop: 5,
-                  marginLeft: '5%'
-                }}
-              />
+             {users !== null ? <PublicationPerfilImage image={users.image}/> : <PublicationPerfilImage image={null}/>}
             </div>
             <div
               className="card-content col s5 m8"
