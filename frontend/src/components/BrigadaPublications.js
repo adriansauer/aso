@@ -30,7 +30,6 @@ const BrigadaPublications = (props) => {
     setLoading(true)
     getPublicationsExecute(pagActual, props.userId)
       .then((res) => {
-        console.log(res.data)
         setTotalPages(
           Array.apply(null, { length: res.data.totalPages }).map(
             Number.call,
@@ -44,7 +43,6 @@ const BrigadaPublications = (props) => {
         setLoading(false)
       })
   }
-  console.log(publicaciones)
   return (
     <div style={{ width: '100%' }}>
       <Loader visible={loading} />

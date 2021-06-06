@@ -108,7 +108,7 @@ const UsuarioPerfil = (props) => {
                       <img
                         alt=""
                         className="circle"
-                        src={perfil}
+                        src={location.brigada.image || perfil}
                         style={{ width: 50, height: 50 }}
                       ></img>
                     </div>
