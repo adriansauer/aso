@@ -57,6 +57,7 @@ const Header = () => {
         })
     }
   }
+  console.log(profile)
   useEffect(() => {
     if (userData.perfilId !== null) {
       fetchProfile()
@@ -116,7 +117,7 @@ const Header = () => {
                       className="circle"
                       width={55}
                       height={55}
-                      src={perfil}
+                      src={profile.image || perfil}
                       alt=""
                       onClick={() => {
                         history.push({
