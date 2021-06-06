@@ -62,7 +62,6 @@ const TagsPublicaciones = (props) => {
         .then((res) => {
           if (res.data.roles[0].authority === 'ROLE_USER') {
             getMemberByIdExecute(res.data.detailId).then((r) => {
-              console.log(r)
               setUsers(r.data)
             })
           } else {
