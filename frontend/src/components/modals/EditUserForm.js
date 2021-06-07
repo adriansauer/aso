@@ -96,7 +96,8 @@ const EditUserForm = (props) => {
       name,
       phone,
       rankId,
-      usercode
+      usercode,
+      image: props.usuario.image
     })
       .then((res) => {
         M.toast({ html: 'Miembro modificado exitosamente' })
@@ -110,7 +111,7 @@ const EditUserForm = (props) => {
   }
 
   return (
-    <div id="modal" className="modal modal-fixed-footer">
+    <div id="modal_edit" className="modal modal-fixed-footer">
       <PreLoader visible={isLoading}/>
       <form onSubmit={createUser}>
         <div className="modal-content">

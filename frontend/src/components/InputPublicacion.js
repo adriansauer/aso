@@ -151,7 +151,6 @@ const InputPublicacion = (props) => {
               <input
                 type="file"
                 multiple
-                max={6}
                 accept="image/png, image/jpeg, image/jpg, application/pdf"
                 onChange={handleChangeFile}
               />

@@ -4,6 +4,7 @@ import { useLocation, useHistory } from 'react-router-dom'
 import useGetMemberById from '../api/miembros/useGetMemberById'
 import M from 'materialize-css'
 import EditUserForm from './modals/EditUserForm'
+import useUpdateMember from '../api/miembros/useUpdateMember'
 import PreLoader from './PreLoader'
 import UserContext from '../context/userContext'
 import BrigadaPublications from './BrigadaPublications'
@@ -11,27 +12,75 @@ const UsuarioPerfil = (props) => {
   const location = useLocation()
   const history = useHistory()
   const { execute: getMemberByIdExecute } = useGetMemberById()
+  const { execute: updateMemberExecute } = useUpdateMember()
   const [member, setMember] = useState(null)
   const [editUserModal, setEditUserModal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const { userData } = useContext(UserContext)
+  const getBase64 = (file) => {
+    return new Promise((resolve) => {
+      let baseURL = ''
+      // Make new FileReader
+      const reader = new FileReader()
+      // Convert the file to base64 text
+      reader.readAsDataURL(file)
+      // on reader load somthing...
+      reader.onload = () => {
+        // Make a fileInfo Object
+        baseURL = reader.result
+        resolve(baseURL)
+      }
+    })
+  }
   useEffect(() => {
     if (member !== null) {
       /** INSTANCIA DEL MODAL EDITAR */
-      const elem1 = document.getElementById('modal')
-      const editarModalInstance = M.Modal.init(elem1, {
-        inDuration: 300
-      })
+      const elem1 = document.getElementById('modal_edit')
+      const editarModalInstance = M.Modal.init(elem1)
       setEditUserModal(editarModalInstance)
     }
   }, [member])
   const onImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-      }
-      reader.readAsDataURL(event.target.files[0])
-    }
+    getBase64(event.target.files[0])
+      .then((result) => {
+        setIsLoading(true)
+        updateMemberExecute({
+          id: member.id,
+          address: member.address,
+          admission: member.admission,
+          birthday: member.birthday,
+          brigadeId: member.brigadeId,
+          ci: member.ci,
+          cityId: member.cityId,
+          departamentId: member.departamentId,
+          description: member.description,
+          email: member.email,
+          lastname: member.lastname,
+          name: member.name,
+          phone: member.phone,
+          rankId: member.rankId,
+          usercode: member.usercode,
+          image: result
+        })
+          .then((res) => {
+            setMember(res.data)
+            window.location.reload(false)
+            setIsLoading(false)
+          })
+          .catch(() => {
+            setIsLoading(false)
+          })
+      })
+      .catch((err) => {
+        M.toast({
+          html:
+            err.response === undefined
+              ? 'Hubo un error con la conexión'
+              : err.response.data.description
+        })
+
+        setIsLoading(false)
+      })
   }
   useEffect(() => {
     if (location.member === undefined) {
@@ -41,16 +90,21 @@ const UsuarioPerfil = (props) => {
     }
   }, [])
 
-  const fetchMember = () => {
-    setIsLoading(true)
+  const fetchMember = async () => {
     if (location.member !== undefined) {
-      getMemberByIdExecute(location.member.id)
+      setIsLoading(true)
+      await getMemberByIdExecute(location.member.id)
         .then((res) => {
           setMember(res.data)
           setIsLoading(false)
         })
         .catch((err) => {
-          M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
+          M.toast({
+            html:
+              err.response === undefined
+                ? 'Hubo un error con la conexión'
+                : err.response.data.description
+          })
           setIsLoading(false)
         })
     }
@@ -72,17 +126,14 @@ const UsuarioPerfil = (props) => {
               htmlFor="file-input"
               className="btn-floating btn-large waves-effect waves-light"
             >
-              <img
-                src={member.image || perfil}
-                className="circle"
-                style={{ width: '100%' }}
-              />
+              <img src={member.image || perfil} style={{ width: '100%' }} />
             </label>
 
             <input
               hidden
               id="file-input"
-              onChange={onImageChange}
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={(ev) => onImageChange(ev)}
               type="file"
             />
           </div>
@@ -145,11 +196,9 @@ const UsuarioPerfil = (props) => {
                     <div className="col s7 m6 left-align">
                       <span style={{ fontSize: 16 }}>{`${new Date(
                         member.birthday
-                      ).getDate()}/${new Date(
-                        member.birthday
-                      ).getMonth() + 1}/${new Date(
-                        member.birthday
-                      ).getFullYear()}`}</span>
+                      ).getDate()}/${
+                        new Date(member.birthday).getMonth() + 1
+                      }/${new Date(member.birthday).getFullYear()}`}</span>
                     </div>
                   </div>
                 </li>
@@ -187,20 +236,20 @@ const UsuarioPerfil = (props) => {
                     <div className="col s7 m6 left-align">
                       <span style={{ fontSize: 16 }}>{member.email}</span>
                     </div>
-                    {userData.roles[0].authority === 'ROLE_SUPERUSER' || userData.id === member.userId || userData.roles[0].authority === 'ROLE_BRIGADE'
+                    {userData.roles[0].authority === 'ROLE_SUPERUSER' ||
+                    userData.id === member.userId ||
+                    userData.roles[0].authority === 'ROLE_BRIGADE' & !isLoading
                       ? <div className="col s3 m5 right-align">
-                   {/** BOTON PARA ABRIR EL MODAL DE EDITAR USUARIO */}
-                   <button
-                     onClick={() => editUserModal.open()}
-                     style={{ backgroundColor: '#0C0019' }}
-                     className="btn-floating btn-medium"
-                   >
-                     <i className="material-icons">edit</i>
-                   </button>
-                 </div>
-                      : null
-                    }
-
+                        {/** BOTON PARA ABRIR EL MODAL DE EDITAR USUARIO */}
+                        <button
+                          onClick={() => editUserModal.open()}
+                          style={{ backgroundColor: '#0C0019' }}
+                          className="btn-floating btn-medium"
+                        >
+                          <i className="material-icons">edit</i>
+                        </button>
+                      </div>
+                      : null}
                   </div>
                 </li>
               </ul>
@@ -210,15 +259,16 @@ const UsuarioPerfil = (props) => {
               ? <EditUserForm
                 usuario={member}
                 brigada={location.brigada.name}
-                close={closeModal}
+                close={() => closeModal()}
               />
 
               : null}
           </div>
           {member !== null
-            ? <BrigadaPublications userId={member.userId}/>
+            ? (
+            <BrigadaPublications userId={member.userId} />
+              )
             : null}
-
         </>
         : <PreLoader visible={isLoading} />
       }

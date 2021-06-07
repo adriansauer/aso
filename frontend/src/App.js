@@ -22,6 +22,7 @@ import Ciudades from './components/Ciudades'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
   const { execute: checkLoggedIn } = useCheckLoggedIn()
+  const [reload, setReload] = useState(false)
   const [userData, setUserData] = useState({
     username: '',
     roles: null,
@@ -34,14 +35,16 @@ const App = () => {
       await checkLoggedIn(setIsAutenticate, setUserData)
     }
   }
-
+  const handleReload = () => {
+    setReload(!reload)
+  }
   useEffect(() => {
     verifyAut()
   }, [])
   return (
     <div className="App">
       <UserContext.Provider
-        value={{ isAutenticate, setIsAutenticate, userData, setUserData }}
+        value={{ isAutenticate, setIsAutenticate, userData, setUserData, handleReload, reload }}
       >
         <Router>
           <Header />
