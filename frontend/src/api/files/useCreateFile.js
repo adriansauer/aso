@@ -4,11 +4,13 @@ const useCreateFile = () => {
   const execute = (f) => {
     const {
       file,
-      name
+      name,
+      publicationId
     } = f
     return api.post('api/files/', {
       file,
-      name
+      name,
+      publicationId
     })
   }
 
