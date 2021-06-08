@@ -3,15 +3,14 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 import perfil from '../images/default.jpg'
 import './components.css'
 import userContext from '../context/userContext'
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import useGetMemberById from '../api/miembros/useGetMemberById'
-const Header = () => {
+const Header = (props) => {
   const [instance, setInstance] = useState(null)
-  const { isAutenticate, setIsAutenticate, userData } = useContext(userContext)
+  const { isAutenticate, setIsAutenticate, userData, reload } = useContext(userContext)
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: getMemberByIdExecute } = useGetMemberById()
-  const history = useHistory()
   const [profile, setProfile] = useState(null)
   const [brigada, setBrigada] = useState(null)
   /** Obtener el perfil del usuario o brigada */
@@ -61,7 +60,7 @@ const Header = () => {
     if (userData.perfilId !== null) {
       fetchProfile()
     }
-  }, [userData])
+  }, [userData, reload])
   /** Cuando se levanta el componente se instancia el Sidebar para almacenarlo en el estado y manipularlo desde ahi */
   useEffect(() => {
     const elem = document.querySelector('.sidenav')
@@ -113,29 +112,22 @@ const Header = () => {
                   </li>
                   <li>
                     {profile !== null
-                      ? <img
-                    className="circle"
-                    width={55}
-                    height={55}
-                    src={profile.image || perfil}
-                    alt=""
-                    onClick={() => {
-                      history.push({
-                        pathname: '/Home'
-                      })
-                    }}
-                  />
+                      ? <label
+                      style={{ marginTop: '3%', width: 50, height: 50 }}
+                      htmlFor="file-input"
+                      className="btn-floating btn-large"
+                    >
+                      <img
+                        src={profile.image || perfil}
+                        style={{ width: '100%' }}
+                      />
+                    </label>
                       : <img
                       className="circle"
                       width={55}
                       height={55}
                       src={perfil}
                       alt=""
-                      onClick={() => {
-                        history.push({
-                          pathname: '/Home'
-                        })
-                      }}
                     />
                     }
 
@@ -245,4 +237,5 @@ const Header = () => {
     </>
   )
 }
+
 export default Header

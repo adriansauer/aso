@@ -17,7 +17,8 @@ const useUpdateMember = () => {
       name,
       phone,
       rankId,
-      usercode
+      usercode,
+      image
     } = member
     return api.put('api/fireman/' + id, {
       address,
@@ -33,7 +34,8 @@ const useUpdateMember = () => {
       name,
       phone,
       rankId,
-      usercode
+      usercode,
+      image
     })
   }
 
