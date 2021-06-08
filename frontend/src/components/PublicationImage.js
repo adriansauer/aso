@@ -28,8 +28,9 @@ const PublicationImage = (props) => {
       handleGetImage()
     }
   }, [props.fileId])
-  console.log(file)
-
+  const handleConvertToPdf = () => {
+    window.open(file)
+  }
   return (
 
       <img
@@ -39,7 +40,7 @@ const PublicationImage = (props) => {
         width={150}
         height={150}
         className={file !== null ? file.charAt(5) === 'a' ? '' : 'materialboxed' : ''}
-        onClick={file !== null ? file.charAt(5) === 'a' ? null : null : null}
+        onClick={file !== null ? file.charAt(5) === 'a' ? handleConvertToPdf : null : null}
         style={{ height: 140, width: 140 }}
       />
 
