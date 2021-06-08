@@ -44,6 +44,9 @@ public class PublicationService
 	@Autowired
 	private FileService fileService;
 
+	@Autowired
+	private LikeService likeService;
+
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public Page<PublicationDTO> findAll(Pageable pageable) {
@@ -63,7 +66,7 @@ public class PublicationService
 				// Se realiza la peticion a la BD, <La publicacion no debe estar eliminada> <El
 				// usuario debe estar activo> <Id de la brirgada del usuario> <Paginacion>.
 				return this.publicationRepository.findAllByDeletedAndEnabledAndDestination(false, true,
-						firemanDetailDTO.getBrigadeId(), pageable).map(this.publicationMapper::toDTO);
+						firemanDetailDTO.getBrigadeId(), pageable).map(this::addedLike);
 			}
 			// Si es una Brigada puede ver las publicaciones que son para Todos, Publico y
 			// Mi Brigada.
@@ -78,14 +81,14 @@ public class PublicationService
 				// usuario debe estar activo> <Id de la brirgada del usuario> <Paginacion>.
 				return this.publicationRepository
 						.findAllByDeletedAndEnabledAndDestination(false, true, brigadeDetailDTO.getId(), pageable)
-						.map(this.publicationMapper::toDTO);
+						.map(this::addedLike);
 			}
 			// Si es Admin puede ver todas las publicaciones.
 			else if (role.equals("ROLE_SUPERUSER")) {
 				// Se realiza la peticion a la BD, <La publicacion no debe estar eliminada> <El
 				// usuario debe estar activo> <Paginacion>.
 				return this.publicationRepository.findAllByDeletedAndEnabled(false, true, pageable)
-						.map(this.publicationMapper::toDTO);
+						.map(this::addedLike);
 			}
 		} catch (Exception ex) {
 			// Si se produjo un fallo no retorna nada.
@@ -115,7 +118,7 @@ public class PublicationService
 				// usuario debe estar activo> <Id de la brirgada del usuario logueado>
 				// <Paginacion>.
 				return this.publicationRepository.findAllByUserIdAndDeletedAndEnabledAndDestination(id, false, true,
-						firemanDetailDTO.getBrigadeId(), pageable).map(this.publicationMapper::toDTO);
+						firemanDetailDTO.getBrigadeId(), pageable).map(this::addedLike);
 			}
 			// Si es una Brigada puede ver las publicaciones que son para Todos, Publico y
 			// Mi Brigada.
@@ -131,7 +134,7 @@ public class PublicationService
 				// usuario debe estar activo> <Id de la brirgada del usuario logueado>
 				// <Paginacion>.
 				return this.publicationRepository.findAllByUserIdAndDeletedAndEnabledAndDestination(id, false, true,
-						brigadeDetailDTO.getId(), pageable).map(this.publicationMapper::toDTO);
+						brigadeDetailDTO.getId(), pageable).map(this::addedLike);
 			}
 			// Si es Admin puede ver todas las publicaciones.
 			else if (role.equals("ROLE_SUPERUSER")) {
@@ -139,7 +142,7 @@ public class PublicationService
 				// publicaciones><La publicacion no debe estar eliminada> <El
 				// usuario debe estar activo> <Paginacion>.
 				return this.publicationRepository.findAllByUserIdAndDeletedAndEnabled(id, false, true, pageable)
-						.map(this.publicationMapper::toDTO);
+						.map(this::addedLike);
 			}
 		} catch (Exception ex) {
 			// Si se produjo un fallo no retorna nada.
@@ -171,7 +174,7 @@ public class PublicationService
 				// usuario logueado>.
 				dto = this.publicationRepository
 						.findByIdAndDeletedAndEnabledAndDestination(id, false, true, firemanDetailDTO.getBrigadeId())
-						.map(this.publicationMapper::toDetailDTO)
+						.map(this::addedLikeDetail)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 			}
 			// Si es una Brigada puede ver las publicaciones que son para Todos, Publico y
@@ -188,7 +191,7 @@ public class PublicationService
 				// usuario logueado>.
 				dto = this.publicationRepository
 						.findByIdAndDeletedAndEnabledAndDestination(id, false, true, brigadeDetailDTO.getId())
-						.map(this.publicationMapper::toDetailDTO)
+						.map(this::addedLikeDetail)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 			}
 			// Si es Admin puede ver todas las publicaciones.
@@ -196,7 +199,7 @@ public class PublicationService
 				// Se realiza la peticion a la BD, <Id de la publicacion> <La publicacion no
 				// debe estar eliminada> <El usuario debe estar activo>.
 				dto = this.publicationRepository.findByIdAndDeletedAndEnabled(id, false, true)
-						.map(this.publicationMapper::toDetailDTO)
+						.map(this::addedLikeDetail)
 						.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 			} else {
 				return null;
@@ -215,8 +218,7 @@ public class PublicationService
 		// Se obtiene el id del usuario logueado.
 		final long userId = (long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials();
 		return this.publicationRepository.findByIdAndUserIdAndDeletedAndEnabled(id, userId, false, true)
-				.map(this.publicationMapper::toDetailDTO)
-				.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
+				.map(this::addedLikeDetail).orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
 	}
 
 	@Override
@@ -322,7 +324,30 @@ public class PublicationService
 			return -1;
 		}
 		throw new InvalidArgumentException("destino", "[Publico, Todos, Mi Brigada]");
+	}
 
+	private PublicationDTO addedLike(final PublicationEntity entity) throws ResourceNotFoundException {
+		try {
+			PublicationDTO dto = this.publicationMapper.toDTO(entity);
+			dto.setLikeQuantity(this.likeService.countLikeByPublicationIdAndUserId(dto.getId()).getQuantity());
+			dto.setILike(this.likeService.existsLikeByPublicationIdAndUserId(dto.getId()));
+			return dto;
+		} catch (Exception e) {
+			new ResourceNotFoundException("likes", "publication id", entity.getId());
+		}
+		return null;
+	}
+
+	private PublicationDetailDTO addedLikeDetail(final PublicationEntity entity) throws ResourceNotFoundException {
+		try {
+			PublicationDetailDTO dto = this.publicationMapper.toDetailDTO(entity);
+			dto.setLikeQuantity(this.likeService.countLikeByPublicationIdAndUserId(dto.getId()).getQuantity());
+			dto.setILike(this.likeService.existsLikeByPublicationIdAndUserId(dto.getId()));
+			return dto;
+		} catch (Exception e) {
+			new ResourceNotFoundException("likes", "publication id", entity.getId());
+		}
+		return null;
 	}
 
 }

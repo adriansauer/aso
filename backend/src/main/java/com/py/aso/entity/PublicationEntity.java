@@ -46,4 +46,8 @@ public class PublicationEntity {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "publication")
 	private Set<FileEntity> file;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "publication")
+	private Set<LikeEntity> likes;
+
 }

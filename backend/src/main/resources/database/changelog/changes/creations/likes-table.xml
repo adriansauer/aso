@@ -21,7 +21,7 @@
 					foreignKeyName="fkLikeUser" referencedTableName="users"
 					referencedColumnNames="id" />
 			</column>
-			<column name="date" type="DATE">
+			<column name="date" type="TIMESTAMP">
 				<constraints nullable="false" />
 			</column>
 		</createTable>

@@ -31,4 +31,10 @@ public class PublicationDTO {
 	
 	@ApiModelProperty(notes = "Destino de la publicación", example = "Destino")
 	private String destination;
+	
+	@ApiModelProperty(notes = "Cantidad de like de la publicación", example = "1")
+	private long likeQuantity;
+	
+	@ApiModelProperty(notes = "Si tiene el like del usuario", example = "true")
+	private boolean iLike;
 }
