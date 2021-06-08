@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import perfil from '../images/default.jpg'
+import empty from '../images/image_empty.png'
 import PropTypes from 'prop-types'
 import useGetFileById from '../api/files/useGetFileById'
 import M from 'materialize-css'
@@ -34,8 +34,8 @@ const PublicationImage = (props) => {
   return (
 
       <img
-        id={file === null ? perfil : file.charAt(5) === 'a' ? '' : props.fileId}
-        src={file === null ? perfil : file.charAt(5) === 'a' ? pdfImage : file}
+        id={file === null ? empty : file.charAt(5) === 'a' ? '' : props.fileId}
+        src={file === null ? empty : file.charAt(5) === 'a' ? pdfImage : file}
         alt=""
         width={150}
         height={150}
