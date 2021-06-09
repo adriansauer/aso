@@ -37,11 +37,11 @@ const PublicationImage = (props) => {
         id={file === null ? empty : file.charAt(5) === 'a' ? '' : props.fileId}
         src={file === null ? empty : file.charAt(5) === 'a' ? pdfImage : file}
         alt=""
-        width={150}
-        height={150}
+        width={120}
+        height={120}
         className={file !== null ? file.charAt(5) === 'a' ? '' : 'materialboxed' : ''}
         onClick={file !== null ? file.charAt(5) === 'a' ? handleConvertToPdf : null : null}
-        style={{ height: 140, width: 140 }}
+        style={{ height: 120, width: 120 }}
       />
 
   )
