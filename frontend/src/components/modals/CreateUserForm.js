@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import M from 'materialize-css'
+import defaultImage from '../defaultImageBase64'
 import useCreateMember from '../../api/miembros/useCreateMember'
 import UseGetDepartaments from '../../api/departamento/useGetDepartament'
 import useGetCity from '../../api/city/useGetCity'
@@ -43,6 +44,7 @@ const CreateUserForm = (props) => {
   // CONTRASENHA Y CONFIRMACION DE CONTRASENHA
   const [password, setPassword] = useState('')
   const [repeatPassword, setRepeatPassword] = useState('')
+
   useEffect(() => {
     setIsLoading(true)
     // OBTENGO TODOS LOS DEPARTAMENTOS
@@ -99,7 +101,8 @@ const CreateUserForm = (props) => {
       phone,
       rankId,
       repeatPassword,
-      usercode
+      usercode,
+      image: defaultImage
     })
       .then((res) => {
         M.toast({ html: 'Miembro agregado exitosamente' })

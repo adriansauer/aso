@@ -9,9 +9,9 @@ var _api = _interopRequireDefault(require("../api"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var useGetCity = function useGetCity() {
-  var execute = function execute(pag) {
-    return _api["default"].get("api/cities?size=6&page=".concat(pag - 1, "&sort=id,desc"));
+var useGetPublicationsByUserId = function useGetPublicationsByUserId() {
+  var execute = function execute(pag, id) {
+    return _api["default"].get("api/publications/byuser/".concat(id, "?page=").concat(pag - 1, "&size=5&sort=created_at,desc"));
   };
 
   return {
@@ -19,5 +19,5 @@ var useGetCity = function useGetCity() {
   };
 };
 
-var _default = useGetCity;
+var _default = useGetPublicationsByUserId;
 exports["default"] = _default;

@@ -201,7 +201,7 @@ const TagsPublicaciones = (props) => {
             <div
               className="row"
               align="left"
-              style={{ margin: 0, overflowX: 'scroll' }}
+              style={{ margin: 0 }}
             >
               {publication !== null
                 ? publication.files !== undefined
