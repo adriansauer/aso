@@ -13,7 +13,8 @@ const PublicationsList = (props) => {
                   <TagsPublicaciones
                     description={p.body}
                     userId={p.userId}
-                    likes={83}
+                    likes={p.likeQuantity}
+                    ilike={p.ilike}
                     publicationId={p.id}
                     reloadPublications={props.reloadPublications}
                     destination={p.destination}
