@@ -71,7 +71,8 @@ const EditBrigadaForm = (props) => {
         cityId,
         description,
         email,
-        usercode
+        usercode,
+        image: props.brigada.image
       })
         .then((res) => {
           M.toast({ html: 'Se ha modificado la brigada' })

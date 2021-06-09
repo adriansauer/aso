@@ -99,7 +99,7 @@ const Header = (props) => {
               <a href="#" className="brand-logo right">
                 <ul>
                   <li>
-                    <h6 style={{ marginRight: '2%' }}>{userData.username}</h6>
+                    <h6 style={{ marginRight: '2%' }}>{userData.username.replace('null', '')}</h6>
                   </li>
                   <li>
                     <i
