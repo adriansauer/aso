@@ -89,6 +89,13 @@ const UsuarioPerfil = (props) => {
       fetchMember()
     }
   }, [])
+  useEffect(() => {
+    if (location.member === undefined) {
+      history.goBack()
+    } else {
+      fetchMember()
+    }
+  }, [location])
 
   const fetchMember = async () => {
     if (location.member !== undefined) {

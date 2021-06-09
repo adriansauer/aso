@@ -42,6 +42,9 @@ const BrigadaPerfil = (props) => {
     setAgregarModal(agregarModalInstance)
     M.AutoInit()
   }, [])
+  useEffect(() => {
+    fertchBrigadaById()
+  }, [location])
   /** OBTENER LA BRIGADA */
   const fertchBrigadaById = () => {
     setIsLoading(true)
@@ -49,7 +52,6 @@ const BrigadaPerfil = (props) => {
     getBrigadaByIdExecute(location.brigada.id)
       .then((res) => {
         setBrigada(res.data)
-        console.log(res.data)
         setIsLoading(false)
       })
       .catch((err) => {
