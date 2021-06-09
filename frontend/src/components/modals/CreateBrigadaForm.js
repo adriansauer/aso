@@ -5,6 +5,7 @@ import UseGetDepartaments from '../../api/departamento/useGetDepartament'
 import useGetCity from '../../api/city/useGetCity'
 import useCreateBrigada from '../../api/brigada/useCreateBrigada'
 import PreLoader from '../PreLoader'
+import defaultImage from '../defaultImageBase64'
 const CreateBrigadaForm = (props) => {
   const { execute: getDepartamentsExecute } = UseGetDepartaments()
   const { execute: getCityExecute } = useGetCity()
@@ -62,7 +63,8 @@ const CreateBrigadaForm = (props) => {
         cityId,
         description,
         email,
-        usercode
+        usercode,
+        image: defaultImage
       })
         .then((res) => {
           M.toast({ html: 'Se ha agregado una nueva brigada' })
