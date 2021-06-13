@@ -255,6 +255,6 @@ TagsPublicaciones.propTypes = {
   publicationId: PropTypes.number,
   reloadPublications: PropTypes.func,
   destination: PropTypes.string,
-  ilike: PropTypes.number
+  ilike: PropTypes.bool
 }
 export default TagsPublicaciones

@@ -3,19 +3,42 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 import perfil from '../images/default.jpg'
 import './components.css'
 import userContext from '../context/userContext'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import useGetMemberById from '../api/miembros/useGetMemberById'
 const Header = (props) => {
   const [instance, setInstance] = useState(null)
-  const { isAutenticate, setIsAutenticate, userData, reload } = useContext(userContext)
+  const {
+    isAutenticate,
+    setIsAutenticate,
+    userData,
+    setSelectData,
+    selectData
+  } = useContext(userContext)
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: getMemberByIdExecute } = useGetMemberById()
+  const history = useHistory()
   const [profile, setProfile] = useState(null)
-  const [brigada, setBrigada] = useState(null)
+  const handleSelectMyProfile = () => {
+    if (userData.roles[0].authority === 'ROLE_BRIGADE') {
+      setSelectData({
+        userId: selectData.userId,
+        brigadaId: userData.perfilId
+      })
+    } else if (userData.roles[0].authority === 'ROLE_USER') {
+      setSelectData({
+        userId: userData.perfilId,
+        brigadaId: selectData.brigadaId
+      })
+    }
+  }
   /** Obtener el perfil del usuario o brigada */
   const fetchProfile = () => {
     if (userData.roles[0].authority === 'ROLE_BRIGADE') {
+      setSelectData({
+        userId: selectData.userId,
+        brigadaId: userData.perfilId
+      })
       getBrigadaByIdExecute(userData.perfilId)
         .then((res) => {
           setProfile(res.data)
@@ -30,28 +53,21 @@ const Header = (props) => {
         })
     }
     if (userData.roles[0].authority === 'ROLE_USER') {
+      setSelectData({
+        userId: userData.perfilId,
+        brigadaId: selectData.brigadaId
+      })
       getMemberByIdExecute(userData.perfilId)
         .then((res) => {
           setProfile(res.data)
-          getBrigadaByIdExecute(res.data.brigadeId)
-            .then(res => {
-              setBrigada(res.data)
-            })
         })
-        .catch(err => {
-          M.toast({
-            html:
-            err.response === undefined
-              ? 'Hubo un error con la conexión'
-              : err.response.data.description
-          })
-        })
+
         .catch((err) => {
           M.toast({
             html:
-            err.response === undefined
-              ? 'Hubo un error con la conexión'
-              : err.response.data.description
+              err.response === undefined
+                ? 'Hubo un error con la conexión'
+                : err.response.data.description
           })
         })
     }
@@ -60,7 +76,7 @@ const Header = (props) => {
     if (userData.perfilId !== null) {
       fetchProfile()
     }
-  }, [userData, reload])
+  }, [userData])
   /** Cuando se levanta el componente se instancia el Sidebar para almacenarlo en el estado y manipularlo desde ahi */
   useEffect(() => {
     const elem = document.querySelector('.sidenav')
@@ -99,7 +115,9 @@ const Header = (props) => {
               <a href="#" className="brand-logo right">
                 <ul>
                   <li>
-                    <h6 style={{ marginRight: '2%' }}>{userData.username.replace('null', '')}</h6>
+                    <h6 style={{ marginRight: '2%' }}>
+                      {userData.username.replace('null', '')}
+                    </h6>
                   </li>
                   <li>
                     <i
@@ -112,25 +130,27 @@ const Header = (props) => {
                   </li>
                   <li>
                     {profile !== null
-                      ? <label
-                      style={{ marginTop: '3%', width: 50, height: 50 }}
-                      htmlFor="file-input"
-                      className="btn-floating btn-large"
-                    >
+                      ? (
+                      <label
+                        style={{ marginTop: '3%', width: 50, height: 50 }}
+                        htmlFor="file-input"
+                        className="btn-floating btn-large"
+                      >
+                        <img
+                          src={profile.image || perfil}
+                          style={{ width: '100%' }}
+                        />
+                      </label>
+                        )
+                      : (
                       <img
-                        src={profile.image || perfil}
-                        style={{ width: '100%' }}
+                        className="circle"
+                        width={55}
+                        height={55}
+                        src={perfil}
+                        alt=""
                       />
-                    </label>
-                      : <img
-                      className="circle"
-                      width={55}
-                      height={55}
-                      src={perfil}
-                      alt=""
-                    />
-                    }
-
+                        )}
                   </li>
                 </ul>
               </a>
@@ -154,23 +174,19 @@ const Header = (props) => {
       {/** Vista del Sidebar */}
       <div>
         <ul id="slide-out" className="sidenav ulSidenav">
-        <li>
-                    <Link
-                      to={{
-                        pathname: '/',
-                        member: profile,
-                        brigada: brigada
-                      }}
-                      onClick={() => {
-                        instance.close()
-                      }}
-                    >
-                      <i className="medium material-icons white-text">home</i>
-                      <span style={{ color: 'white', fontSize: 16 }}>
-                        Home
-                      </span>
-                    </Link>
-                  </li>
+          <li>
+            <Link
+              to={{
+                pathname: '/'
+              }}
+              onClick={() => {
+                instance.close()
+              }}
+            >
+              <i className="medium material-icons white-text">home</i>
+              <span style={{ color: 'white', fontSize: 16 }}>Home</span>
+            </Link>
+          </li>
           {/** Link del perfil del usuario */}
           {/** Si el usuario es SUPERUSER no tiene perfil */}
           {userData.roles !== null
@@ -179,12 +195,10 @@ const Header = (props) => {
               ? userData.roles[0].authority === 'ROLE_USER'
                 ? <li>
                   <Link
-                    to={{
-                      pathname: '/perfil',
-                      member: profile,
-                      brigada: brigada
-                    }}
+                    to={{}}
                     onClick={() => {
+                      handleSelectMyProfile()
+                      history.push('/perfil')
                       instance.close()
                     }}
                   >
@@ -196,13 +210,13 @@ const Header = (props) => {
                 </li>
               /** Si es BRIGADA le mando a perfil de BRIGADA */
                 : userData.roles[0].authority === 'ROLE_BRIGADE'
-                  ? <li>
+                  ? (
+                <li>
                   <Link
-                    to={{
-                      pathname: '/brigada',
-                      brigada: profile
-                    }}
+                    to={{}}
                     onClick={() => {
+                      handleSelectMyProfile()
+                      history.push('/brigada')
                       instance.close()
                     }}
                   >
@@ -212,7 +226,7 @@ const Header = (props) => {
                     </span>
                   </Link>
                 </li>
-
+                    )
                   : null
               : null
             : null}
@@ -227,18 +241,21 @@ const Header = (props) => {
 
           {/** Ciudades y departamentos */}
           {userData.roles !== null
-            ? userData.roles[0].authority === 'ROLE_SUPERUSER'
-              ? <li>
-      <Link to="/cities" onClick={() => instance.close()}>
-        <i className="medium material-icons white-text">group</i>
-        <span style={{ color: 'white', fontSize: 14 }}>
-          Ciudades y Departamentos
-        </span>
-      </Link>
-          </li>
-              : null
-            : null
-          }
+            ? (
+                userData.roles[0].authority === 'ROLE_SUPERUSER'
+                  ? (
+              <li>
+                <Link to="/cities" onClick={() => instance.close()}>
+                  <i className="medium material-icons white-text">group</i>
+                  <span style={{ color: 'white', fontSize: 14 }}>
+                    Ciudades y Departamentos
+                  </span>
+                </Link>
+              </li>
+                    )
+                  : null
+              )
+            : null}
 
           {/** Link de configuraciones */}
           <li>
