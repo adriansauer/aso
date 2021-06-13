@@ -1,2 +1,2 @@
-const URL = 'http://181.40.72.134:57001/aso-1.0/'
+const URL = 'http://localhost:8091/'
 export default URL
