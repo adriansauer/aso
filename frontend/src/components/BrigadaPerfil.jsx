@@ -10,6 +10,7 @@ import EditBrigadaForm from './modals/EditBrigadaForm'
 import PreLoader from './PreLoader'
 import userContext from '../context/userContext'
 import BrigadaPublications from './BrigadaPublications'
+import Graphic from './Graphic'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: updateBrigadaExecute } = useUpdateBrigada()
@@ -291,7 +292,12 @@ const BrigadaPerfil = (props) => {
               : null}
           </div>
           <div id="test2" className="col s12">
-            Dashboard
+           <Graphic/>
+           <Graphic/>
+           <Graphic/>
+           <Graphic/>
+           <Graphic/>
+           <Graphic/>
           </div>
           <div id="test4" className="col s12">
             El C.B.V.P fue fundado el 4 de octubre de 1978. Sus principales
