@@ -11,7 +11,8 @@ const useUpdateBrigada = () => {
       cityId,
       description,
       email,
-      usercode
+      usercode,
+      image
     } = brigada
     return api.put('api/brigades/' + id, {
       name,
@@ -20,6 +21,7 @@ const useUpdateBrigada = () => {
       departamentId,
       cityId,
       description,
+      image,
       email,
       usercode,
       creation: new Date()

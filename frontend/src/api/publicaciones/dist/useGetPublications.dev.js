@@ -11,7 +11,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var useGetPublications = function useGetPublications() {
   var execute = function execute(pag) {
-    return _api["default"].get("api/publications?size=5&sort=desc&page=".concat(pag - 1));
+    return _api["default"].get("api/publications?page=".concat(pag - 1, "&size=5&sort=created_at,desc"));
   };
 
   return {

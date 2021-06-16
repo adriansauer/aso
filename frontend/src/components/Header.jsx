@@ -99,7 +99,7 @@ const Header = (props) => {
               <a href="#" className="brand-logo right">
                 <ul>
                   <li>
-                    <h6 style={{ marginRight: '2%' }}>{userData.username}</h6>
+                    <h6 style={{ marginRight: '2%' }}>{userData.username.replace('null', '')}</h6>
                   </li>
                   <li>
                     <i
@@ -154,6 +154,23 @@ const Header = (props) => {
       {/** Vista del Sidebar */}
       <div>
         <ul id="slide-out" className="sidenav ulSidenav">
+        <li>
+                    <Link
+                      to={{
+                        pathname: '/',
+                        member: profile,
+                        brigada: brigada
+                      }}
+                      onClick={() => {
+                        instance.close()
+                      }}
+                    >
+                      <i className="medium material-icons white-text">home</i>
+                      <span style={{ color: 'white', fontSize: 16 }}>
+                        Home
+                      </span>
+                    </Link>
+                  </li>
           {/** Link del perfil del usuario */}
           {/** Si el usuario es SUPERUSER no tiene perfil */}
           {userData.roles !== null

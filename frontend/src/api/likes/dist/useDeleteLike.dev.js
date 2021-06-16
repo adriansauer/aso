@@ -9,9 +9,9 @@ var _api = _interopRequireDefault(require("../api"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var useGetCity = function useGetCity() {
-  var execute = function execute(pag) {
-    return _api["default"].get("api/cities?size=6&page=".concat(pag - 1, "&sort=id,desc"));
+var useDeleteLike = function useDeleteLike() {
+  var execute = function execute(publicationId) {
+    return _api["default"]["delete"]("api/likes/".concat(publicationId));
   };
 
   return {
@@ -19,5 +19,5 @@ var useGetCity = function useGetCity() {
   };
 };
 
-var _default = useGetCity;
+var _default = useDeleteLike;
 exports["default"] = _default;

@@ -3,35 +3,27 @@ import PropTypes from 'prop-types'
 import M from 'materialize-css'
 import UseGetDepartaments from '../../api/departamento/useGetDepartament'
 import useGetCity from '../../api/city/useGetCity'
-import useUpdateBrigada from '../../api/brigada/useUpdateBrigada'
+import useCreateBrigada from '../../api/brigada/useCreateBrigada'
 import PreLoader from '../PreLoader'
-const EditBrigadaForm = (props) => {
+import defaultImage from '../defaultImageBase64'
+const CreateBrigadaForm = (props) => {
   const { execute: getDepartamentsExecute } = UseGetDepartaments()
   const { execute: getCityExecute } = useGetCity()
-  const { execute: updateBrigadaExecute } = useUpdateBrigada()
-  /** SI ESTA CARGANDO */
-  const [isLoading, setIsLoading] = useState(false)
-  /** LISTA DE CIUDADES Y DEPARTAMENTOS DISPONIBLES */
+  const { execute: createBrigadaExecute } = useCreateBrigada()
   const [departaments, setDepartaments] = useState(null)
+  const [name, setName] = useState('')
+  const [usercode, setUsercode] = useState('')
   const [cities, setCities] = useState(null)
-  /** NOBRE Y USERCODE DE LA BRIGADA */
-  const [name, setName] = useState(props.brigada.name)
-  const [usercode, setUsercode] = useState(props.brigada.usercode)
-  /** DIRECCION Y EMAIL DE LA BRIGADA */
-  const [address, setAddress] = useState(props.brigada.address)
-  const [email, setEmail] = useState(props.brigada.email)
-  /** DEPARTAMENTO Y CIUDAD DE LA BRIGADA */
-  const [cityId, setCityId] = useState(props.brigada.cityId)
-  const [departamentId, setDepartamentId] = useState(
-    props.brigada.departamentId
-  )
-  /** NRO TELEFONICO Y DESCRIPCION DE LA BRIGADA */
-  const [description, setDescription] = useState(props.brigada.description)
-  const [phone, setPhone] = useState(props.brigada.phone)
-
+  const [address, setAddress] = useState('')
+  const [description, setDescription] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [password, setPassword] = useState('')
+  const [departamentId, setDepartamentId] = useState('null')
+  const [cityId, setCityId] = useState('null')
+  const [repeatPassword, setRepeatPassord] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   useEffect(() => {
-    setIsLoading(true)
-    /** OBTENGO LA LISTA DE DEPARTAMENTOS DISPONIBLES */
     getDepartamentsExecute()
       .then((res) => {
         setDepartaments(res.data.content)
@@ -40,7 +32,6 @@ const EditBrigadaForm = (props) => {
       .catch((err) => {
         M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
-    /** OBTENGO LA LISTA DE CIUDADES DISPONIBLES */
     getCityExecute()
       .then((res) => {
         setCities(res.data.content)
@@ -49,11 +40,8 @@ const EditBrigadaForm = (props) => {
       .catch((err) => {
         M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
       })
-    setIsLoading(false)
-    M.updateTextFields()
   }, [])
-  /** EDITAR LA BRIGADA */
-  const updateBrigada = (e) => {
+  const createBrigada = (e) => {
     setIsLoading(true)
     if (departamentId === 'null') {
       M.toast({ html: 'Seleccione un departamento' })
@@ -61,20 +49,25 @@ const EditBrigadaForm = (props) => {
     } else if (cityId === 'null') {
       M.toast({ html: 'Seleccione una ciudad' })
       setIsLoading(false)
+    } else if (repeatPassword !== password) {
+      M.toast({ html: 'Las contraseñas no coinciden' })
+      setIsLoading(false)
     } else {
-      updateBrigadaExecute({
-        id: props.brigada.id,
+      createBrigadaExecute({
         name,
         address,
         phone,
+        password,
+        repeatPassword,
         departamentId,
         cityId,
         description,
         email,
-        usercode
+        usercode,
+        image: defaultImage
       })
         .then((res) => {
-          M.toast({ html: 'Se ha modificado la brigada' })
+          M.toast({ html: 'Se ha agregado una nueva brigada' })
           setIsLoading(false)
           props.close()
         })
@@ -89,9 +82,9 @@ const EditBrigadaForm = (props) => {
   return (
     <div id="modal1" className="modal modal-fixed-footer">
       <PreLoader visible={isLoading}/>
-      <form onSubmit={updateBrigada}>
+      <form onSubmit={createBrigada}>
         <div className="modal-content">
-          <h4>Editar brigada</h4>
+          <h4>Agregue una nueva brigada</h4>
           {/** Usercode y Nombre */}
           <div className="row">
             <div className="input-field col m6">
@@ -167,8 +160,11 @@ const EditBrigadaForm = (props) => {
               ? (
               <div className="input-field col s6">
                 <select
-                  defaultValue={cityId}
+                  defaultValue={'null'}
                   onChange={(e) => {
+                    console.log(
+                      e.target.options[e.target.options.selectedIndex].value
+                    )
                     setCityId(
                       e.target.options[e.target.options.selectedIndex].value
                     )
@@ -191,8 +187,11 @@ const EditBrigadaForm = (props) => {
               ? (
               <div className="input-field col s6">
                 <select
-                  defaultValue={departamentId}
+                  defaultValue={'null'}
                   onChange={(e) => {
+                    console.log(
+                      e.target.options[e.target.options.selectedIndex].value
+                    )
                     setDepartamentId(
                       e.target.options[e.target.options.selectedIndex].value
                     )
@@ -211,14 +210,36 @@ const EditBrigadaForm = (props) => {
                 )
               : null}
           </div>
+          {/** Password y confirmacion de password del usaurio */}
+          <div className="row">
+            <div className="input-field col m6">
+              <label>Password: </label>
+              <input
+                required
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            <div className="input-field col m6">
+              <input
+                required
+                type="password"
+                placeholder="Confirm password"
+                value={repeatPassword}
+                onChange={(e) => setRepeatPassord(e.target.value)}
+              />
+            </div>
+          </div>
         </div>
         {/** Footer del modal */}
         <div className="modal-footer">
           <button
             className="btn-small waves-effect red darken-4"
+            type='button'
             style={{ marginRight: '5%' }}
             onClick={() => props.close()}
-            type='button'
           >
             Cancelar
           </button>
@@ -227,15 +248,14 @@ const EditBrigadaForm = (props) => {
             style={{ backgroundColor: '#0C0019', marginRight: '5%' }}
             type="submit"
           >
-           Modificar
+            Agregar
           </button>
         </div>
       </form>
     </div>
   )
 }
-EditBrigadaForm.propTypes = {
-  close: PropTypes.func,
-  brigada: PropTypes.object
+CreateBrigadaForm.propTypes = {
+  close: PropTypes.func
 }
-export default EditBrigadaForm
+export default CreateBrigadaForm

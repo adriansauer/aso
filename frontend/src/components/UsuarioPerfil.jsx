@@ -89,6 +89,13 @@ const UsuarioPerfil = (props) => {
       fetchMember()
     }
   }, [])
+  useEffect(() => {
+    if (location.member === undefined) {
+      history.goBack()
+    } else {
+      fetchMember()
+    }
+  }, [location])
 
   const fetchMember = async () => {
     if (location.member !== undefined) {
@@ -118,25 +125,39 @@ const UsuarioPerfil = (props) => {
   }
   return (
     <div className="container" style={{ marginTop: '4%' }}>
-      {member !== null
-        ? <>
-          <div style={{ marginBottom: 0 }} className="row">
-            <label
-              style={{ marginTop: '3%', width: 100, height: 100 }}
-              htmlFor="file-input"
-              className="btn-floating btn-large waves-effect waves-light"
-            >
-              <img src={member.image || perfil} style={{ width: '100%' }} />
-            </label>
+  {member !== null
+    ? <>
+          {member.id === userData.perfilId
+            ? (
+            <div style={{ marginBottom: 0 }} className="row">
+              <label
+                style={{ marginTop: '3%', width: 100, height: 100 }}
+                htmlFor="file-input"
+                className="btn-floating btn-large waves-effect waves-light"
+              >
+                <img src={member.image || perfil} style={{ width: '100%' }} />
+              </label>
 
-            <input
-              hidden
-              id="file-input"
-              accept="image/png, image/jpeg, image/jpg"
-              onChange={(ev) => onImageChange(ev)}
-              type="file"
-            />
-          </div>
+              <input
+                hidden
+                id="file-input"
+                accept="image/png, image/jpeg, image/jpg"
+                onChange={(ev) => onImageChange(ev)}
+                type="file"
+              />
+            </div>
+              )
+            : (
+            <div style={{ marginBottom: 0 }} className="row">
+              <label
+                style={{ marginTop: '3%', width: 100, height: 100 }}
+                className="btn-floating btn-large waves-effect waves-light"
+              >
+                <img src={member.image || perfil} style={{ width: '100%' }} />
+              </label>
+            </div>
+              )
+              }
 
           <div className="row center-align">
             <h6 style={{ margin: 0 }}>
@@ -236,9 +257,7 @@ const UsuarioPerfil = (props) => {
                     <div className="col s7 m6 left-align">
                       <span style={{ fontSize: 16 }}>{member.email}</span>
                     </div>
-                    {userData.roles[0].authority === 'ROLE_SUPERUSER' ||
-                    userData.id === member.userId ||
-                    userData.roles[0].authority === 'ROLE_BRIGADE' & !isLoading
+                    {member.id === userData.perfilId
                       ? <div className="col s3 m5 right-align">
                         {/** BOTON PARA ABRIR EL MODAL DE EDITAR USUARIO */}
                         <button
@@ -256,12 +275,13 @@ const UsuarioPerfil = (props) => {
             </div>
             {/** RENDERIZAR EL MODAL DE EDITAR EL USUARIO SOLO SI YA SE OBTUVO EL MIEMBRO */}
             {member !== null || location.brigada !== undefined
-              ? <EditUserForm
+              ? (
+              <EditUserForm
                 usuario={member}
                 brigada={location.brigada.name}
                 close={() => closeModal()}
               />
-
+                )
               : null}
           </div>
           {member !== null
@@ -270,7 +290,7 @@ const UsuarioPerfil = (props) => {
               )
             : null}
         </>
-        : <PreLoader visible={isLoading} />
+    : <PreLoader visible={isLoading} />
       }
     </div>
   )

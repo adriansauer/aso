@@ -5,12 +5,15 @@ import perfil from '../images/default.jpg'
 import PropTypes from 'prop-types'
 import { useLocation, useHistory } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
+import useUpdateBrigada from '../api/brigada/useUpdateBrigada'
 import EditBrigadaForm from './modals/EditBrigadaForm'
 import PreLoader from './PreLoader'
 import userContext from '../context/userContext'
 import BrigadaPublications from './BrigadaPublications'
+import Graphic from './Graphic'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
+  const { execute: updateBrigadaExecute } = useUpdateBrigada()
   const [isLoading, setIsLoading] = useState(false)
   const location = useLocation()
   const history = useHistory()
@@ -40,6 +43,9 @@ const BrigadaPerfil = (props) => {
     setAgregarModal(agregarModalInstance)
     M.AutoInit()
   }, [])
+  useEffect(() => {
+    fertchBrigadaById()
+  }, [location])
   /** OBTENER LA BRIGADA */
   const fertchBrigadaById = () => {
     setIsLoading(true)
@@ -47,11 +53,15 @@ const BrigadaPerfil = (props) => {
     getBrigadaByIdExecute(location.brigada.id)
       .then((res) => {
         setBrigada(res.data)
-        console.log(res.data)
         setIsLoading(false)
       })
       .catch((err) => {
-        M.toast({ html: err.response === undefined ? 'Hubo un error con la conexión' : err.response.data.description })
+        M.toast({
+          html:
+            err.response === undefined
+              ? 'Hubo un error con la conexión'
+              : err.response.data.description
+        })
         setIsLoading(false)
       })
   }
@@ -65,41 +75,125 @@ const BrigadaPerfil = (props) => {
     }
     fertchBrigadaById()
   }
+  const getBase64 = (file) => {
+    return new Promise((resolve) => {
+      let baseURL = ''
+      // Make new FileReader
+      const reader = new FileReader()
+      // Convert the file to base64 text
+      reader.readAsDataURL(file)
+      // on reader load somthing...
+      reader.onload = () => {
+        // Make a fileInfo Object
+        baseURL = reader.result
+        resolve(baseURL)
+      }
+    })
+  }
+  const onImageChange = (event) => {
+    getBase64(event.target.files[0])
+      .then((result) => {
+        setIsLoading(true)
+        updateBrigadaExecute({
+          id: brigada.id,
+          name: brigada.name,
+          address: brigada.address,
+          phone: brigada.phone,
+          departamentId: brigada.departamentId,
+          cityId: brigada.cityId,
+          description: brigada.description,
+          email: brigada.email,
+          usercode: brigada.usercode,
+          image: result
+        })
+          .then((res) => {
+            setBrigada(res.data)
+            window.location.reload(false)
+            setIsLoading(false)
+          })
+          .catch(() => {
+            setIsLoading(false)
+          })
+      })
+      .catch((err) => {
+        M.toast({
+          html:
+            err.response === undefined
+              ? 'Hubo un error con la conexión'
+              : err.response.data.description
+        })
 
+        setIsLoading(false)
+      })
+  }
   return (
     <div className="container" style={{ marginTop: '4%', width: '100%' }}>
-      <PreLoader visible={isLoading}/>
+      <PreLoader visible={isLoading} />
       <div style={{ margin: 0 }} className="row center">
-        <img
-          alt=""
-          className="circle"
-          style={{ width: '15%' }}
-          src={brigada === null ? perfil : brigada.image !== null ? brigada.image : perfil}
-        ></img>
+      {location.brigada === undefined
+        ? null
+        : (location.brigada.id === userData.perfilId)
+            ? (
+                brigada != null
+                  ? (
+                    <div style={{ marginBottom: 0 }} className="row">
+                      <label
+                        style={{ marginTop: '3%', width: 100, height: 100 }}
+                        htmlFor="file-input"
+                        className="btn-floating btn-large waves-effect waves-light"
+                      >
+                        <img src={brigada.image || perfil} style={{ width: '100%' }} />
+                      </label>
+
+                      <input
+                        hidden
+                        id="file-input"
+                        accept="image/png, image/jpeg, image/jpg"
+                        onChange={(ev) => onImageChange(ev)}
+                        type="file"
+                      />
+                    </div>
+                    )
+                  : null
+              )
+            : brigada != null
+              ? (
+                    <div style={{ marginBottom: 0 }} className="row">
+                      <label
+                        style={{ marginTop: '3%', width: 100, height: 100 }}
+                        className="btn-floating btn-large waves-effect waves-light"
+                      >
+                        <img src={brigada.image || perfil} style={{ width: '100%' }} />
+                      </label>
+
+                    </div>
+                )
+              : null
+                }
+
       </div>
       <div className="row">
-        <div className='col s12 m12 center-align'>
-        <h5 style={{ margin: 0 }}>
-          {brigada === null ? null : brigada.name}
-        </h5>
-        {location.brigada === undefined
-          ? null
-
-          : (userData.roles[0].authority === 'ROLE_SUPERUSER' && userData.perfilId === location.brigada.id) || (userData.roles[0].authority === 'ROLE_BRIGADE' && userData.perfilId === location.brigada.id)
-              ? <button
-         className="btn-floating btn-small waves-light"
-         onClick={() => editarModal.open()}
-         style={{
-           backgroundColor: '#0C0019',
-           marginTop: '1%'
-         }}
-       >
-         <i className="material-icons">edit</i>
-       </button>
-
-              : null
-        }
-      </div>
+        <div className="col s12 m12 center-align">
+          <h5 style={{ margin: 0 }}>
+            {brigada === null ? null : brigada.name}
+          </h5>
+          {location.brigada === undefined
+            ? null
+            : (location.brigada.id === userData.perfilId)
+                ? (
+            <button
+              className="btn-floating btn-small waves-light"
+              onClick={() => editarModal.open()}
+              style={{
+                backgroundColor: '#0C0019',
+                marginTop: '1%'
+              }}
+            >
+              <i className="material-icons">edit</i>
+            </button>
+                  )
+                : null}
+        </div>
       </div>
       <div className="row center">
         <div className="col s6 right-align">
@@ -150,23 +244,28 @@ const BrigadaPerfil = (props) => {
             }}
           />
           {location.brigada !== undefined
-            ? (userData.roles[0].authority === 'ROLE_SUPERUSER' && userData.perfilId === location.brigada.id) || (userData.roles[0].authority === 'ROLE_BRIGADE' && userData.perfilId === location.brigada.id)
-                ? <button
-          className="btn-floating btn-medium waves-light"
-          onClick={() => agregarModal.open()}
-          style={{
-            backgroundColor: '#0C0019',
-            position: 'absolute',
-            marginLeft: 75
-          }}
-        >
-          <i className="material-icons">add</i>
-        </button>
-                : null
+            ? (
+                (userData.roles[0].authority === 'ROLE_SUPERUSER' &&
+              userData.perfilId === location.brigada.id) ||
+            (userData.roles[0].authority === 'ROLE_BRIGADE' &&
+              userData.perfilId === location.brigada.id)
+                  ? (
+              <button
+                className="btn-floating btn-medium waves-light"
+                onClick={() => agregarModal.open()}
+                style={{
+                  backgroundColor: '#0C0019',
+                  position: 'absolute',
+                  marginLeft: 75
+                }}
+              >
+                <i className="material-icons">add</i>
+              </button>
+                    )
+                  : null
+              )
             : null}
-
         </div>
-
       </div>
       <div className="row center" style={{ marginTop: '5%' }}>
         <div className="row">
@@ -187,12 +286,18 @@ const BrigadaPerfil = (props) => {
           </div>
           <div id="test1" className="col s12">
             {brigada !== null
-              ? <BrigadaPublications userId={brigada.userId}/>
+              ? (
+              <BrigadaPublications userId={brigada.userId} />
+                )
               : null}
-
           </div>
           <div id="test2" className="col s12">
-            Dashboard
+           <Graphic/>
+           <Graphic/>
+           <Graphic/>
+           <Graphic/>
+           <Graphic/>
+           <Graphic/>
           </div>
           <div id="test4" className="col s12">
             El C.B.V.P fue fundado el 4 de octubre de 1978. Sus principales
@@ -212,7 +317,6 @@ const BrigadaPerfil = (props) => {
         <EditBrigadaForm brigada={brigada} close={closeModal} />
           )
         : null}
-
     </div>
   )
 }

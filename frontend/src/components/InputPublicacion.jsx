@@ -120,7 +120,6 @@ const InputPublicacion = (props) => {
             <div className="input-field col m12 s12">
               <select id="dropdown_destination">
                 <option value="Todos">Todos</option>
-                <option value="Publico">Publico</option>
                 <option value="Mi Brigada">Mi brigada</option>
               </select>
             </div>
