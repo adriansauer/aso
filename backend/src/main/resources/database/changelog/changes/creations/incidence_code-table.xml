@@ -6,39 +6,23 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-	<changeSet author="Victor Ciceia" id="10">
-		<createTable tableName="publications">
+	<changeSet author="Victor Ciceia" id="27">
+		<createTable tableName="incidence_codes">
 			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="user_id" type="INT">
-				<constraints nullable="false"
-					foreignKeyName="fkPublicationUser" referencedTableName="users"
-					referencedColumnNames="id" />
-			</column>
-			<column name="incidence_code_id" type="INT">
-				<constraints nullable="true"
-					foreignKeyName="fkIncidenceCode" referencedTableName="incidence_codes"
-					referencedColumnNames="id" />
-			</column>
-			<column name="body" type="VARCHAR(255)">
+			<column name="code" type="VARCHAR(50)">
 				<constraints nullable="false" />
 			</column>
-			<column name="destination" type="INT">
+			<column name="description" type="VARCHAR(255)">
 				<constraints nullable="false" />
-			</column>
-			<column name="created_at" type="TIMESTAMP">
-				<constraints nullable="false" />
-			</column>
-			<column name="updated_at" type="TIMESTAMP">
-				<constraints nullable="true" />
 			</column>
 			<column name="deleted" type="BOOL" defaultValue="false">
 				<constraints nullable="false" />
 			</column>
 		</createTable>
 		<rollback>
-			<dropTable tableName="publications" />
+			<dropTable tableName="incidence_codes" />
 		</rollback>
 	</changeSet>
 
