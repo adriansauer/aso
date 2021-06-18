@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="28">
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="1" />
+			<column name="code" value="10.40" />
+			<column name="description" value="Incendio" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="2" />
+			<column name="code" value="10.41" />
+			<column name="description" value="Accidente" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="3" />
+			<column name="code" value="10.42" />
+			<column name="description" value="Persona atrapada" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="4" />
+			<column name="code" value="10.43" />
+			<column name="description" value="Persona atrapada" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="5" />
+			<column name="code" value="10.44" />
+			<column name="description" value="Herido, accidentado" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="6" />
+			<column name="code" value="10.45" />
+			<column name="description" value="Cadáver" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="7" />
+			<column name="code" value="10.46" />
+			<column name="description" value="Pre-informe" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="8" />
+			<column name="code" value="10.47" />
+			<column name="description" value="Ampliación del informe" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="9" />
+			<column name="code" value="10.48" />
+			<column name="description" value="Ampliación del informe" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="11" />
+			<column name="code" value="10.49" />
+			<column name="description" value="Traslado de herido, accidentado, enfermo" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="12" />
+			<column name="code" value="10.50" />
+			<column name="description" value="10.49 con responsable" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="13" />
+			<column name="code" value="10.51" />
+			<column name="description" value="Asistencia a herido, accidentado, enfermo" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="14" />
+			<column name="code" value="10.52" />
+			<column name="description" value="Verificación. Búsqueda de 10.44" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="15" />
+			<column name="code" value="10.53" />
+			<column name="description" value="Intento de suicidio" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="16" />
+			<column name="code" value="10.54" />
+			<column name="description" value="Pelea o disturbio en el lugar" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="17" />
+			<column name="code" value="10.55" />
+			<column name="description" value="Fuga de gas" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="18" />
+			<column name="code" value="10.56" />
+			<column name="description" value="Derrame de productos químicos y/o combustible" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="19" />
+			<column name="code" value="10.57" />
+			<column name="description" value="Derrumbe" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="20" />
+			<column name="code" value="10.58" />
+			<column name="description" value="Amenaza de bomba" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="21" />
+			<column name="code" value="10.60" />
+			<column name="description" value="Evacuación aero-médica MEDAVAC" />
+			<column name="deleted" value="false" />
+		</insert>
+		
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="incidence_codes">
+			<column name="id" value="22" />
+			<column name="code" value="10.61" />
+			<column name="description" value="Socorro aeronáutico" />
+			<column name="deleted" value="false" />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>
