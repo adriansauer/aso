@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 @ApiModel(description = "Objeto que representa a un codigo de incidencia, se utiliza para crear")
-public class IncidenceCodeCreationDTO {
+public class IncidenceCodeCreateDTO {
 	
 	@NotBlank(message = "El codigo de incidencia")
 	@Size(min = 1, max = 50, message = "El codigo de incidencia puede contener como maximo 50 caracteres")
