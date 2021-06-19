@@ -23,12 +23,15 @@ import Incidencias from './components/ListIncidencias'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
   const { execute: checkLoggedIn } = useCheckLoggedIn()
-  const [reload, setReload] = useState(false)
   const [userData, setUserData] = useState({
     username: '',
     roles: null,
     id: null,
     perfilId: null
+  })
+  const [selectData, setSelectData] = useState({
+    brigadaId: null,
+    userId: null
   })
   const verifyAut = async () => {
     const token = localStorage.getItem('token')
@@ -36,16 +39,14 @@ const App = () => {
       await checkLoggedIn(setIsAutenticate, setUserData)
     }
   }
-  const handleReload = () => {
-    setReload(!reload)
-  }
+
   useEffect(() => {
     verifyAut()
   }, [])
   return (
     <div className="App">
       <UserContext.Provider
-        value={{ isAutenticate, setIsAutenticate, userData, setUserData, handleReload, reload }}
+        value={{ isAutenticate, setIsAutenticate, userData, setUserData, selectData, setSelectData }}
       >
         <Router>
           <Header />

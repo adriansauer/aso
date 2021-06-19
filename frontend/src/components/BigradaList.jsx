@@ -18,7 +18,7 @@ const BrigadaList = () => {
   const [pagActual, setPagActual] = useState(1)
   const history = useHistory()
   const [width, setWidth] = useState(window.innerWidth)
-  const { userData } = useContext(userContext)
+  const { userData, setSelectData, selectData } = useContext(userContext)
   function handleWindowSizeChange () {
     setWidth(window.innerWidth)
   }
@@ -76,7 +76,15 @@ const BrigadaList = () => {
     instance.close()
     handleLoadBrigades()
   }
-
+  const handleGoToBrigadeProfile = (brigadaId) => {
+    setSelectData({
+      brigadaId,
+      userId: selectData.userId
+    })
+    history.push({
+      pathname: '/brigada'
+    })
+  }
   return (
     <div className="container">
       <CreateBrigadaForm close={closeModal} />
@@ -110,12 +118,7 @@ const BrigadaList = () => {
                 <div
                   key={b.id}
                   className="btn btn-large collection-item avatar brigada_button"
-                  onClick={() => {
-                    history.push({
-                      pathname: '/brigada',
-                      brigada: b
-                    })
-                  }}
+                  onClick={() => handleGoToBrigadeProfile(b.id)}
                   style={{
                     margin: '4%',
                     color: 'black',
