@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
 import perfil from '../images/default.jpg'
-import { useLocation, useHistory } from 'react-router-dom'
 import useGetMemberById from '../api/miembros/useGetMemberById'
+import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import M from 'materialize-css'
 import EditUserForm from './modals/EditUserForm'
 import useUpdateMember from '../api/miembros/useUpdateMember'
@@ -9,14 +9,14 @@ import PreLoader from './PreLoader'
 import UserContext from '../context/userContext'
 import BrigadaPublications from './BrigadaPublications'
 const UsuarioPerfil = (props) => {
-  const location = useLocation()
-  const history = useHistory()
   const { execute: getMemberByIdExecute } = useGetMemberById()
+  const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: updateMemberExecute } = useUpdateMember()
   const [member, setMember] = useState(null)
+  const [brigada, setBrigada] = useState(null)
   const [editUserModal, setEditUserModal] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
-  const { userData } = useContext(UserContext)
+  const { userData, selectData } = useContext(UserContext)
   const getBase64 = (file) => {
     return new Promise((resolve) => {
       let baseURL = ''
@@ -82,39 +82,31 @@ const UsuarioPerfil = (props) => {
         setIsLoading(false)
       })
   }
-  useEffect(() => {
-    if (location.member === undefined) {
-      history.goBack()
-    } else {
-      fetchMember()
-    }
-  }, [])
-  useEffect(() => {
-    if (location.member === undefined) {
-      history.goBack()
-    } else {
-      fetchMember()
-    }
-  }, [location])
 
-  const fetchMember = async () => {
-    if (location.member !== undefined) {
-      setIsLoading(true)
-      await getMemberByIdExecute(location.member.id)
-        .then((res) => {
-          setMember(res.data)
-          setIsLoading(false)
-        })
-        .catch((err) => {
-          M.toast({
-            html:
+  useEffect(() => {
+    fetchMember()
+  }, [selectData.userId])
+
+  const fetchMember = () => {
+    setIsLoading(true)
+    getMemberByIdExecute(selectData.userId)
+      .then((res) => {
+        setMember(res.data)
+        getBrigadaByIdExecute(res.data.brigadeId)
+          .then(result => {
+            setBrigada(result.data)
+            setIsLoading(false)
+          })
+      })
+      .catch((err) => {
+        M.toast({
+          html:
               err.response === undefined
                 ? 'Hubo un error con la conexión'
                 : err.response.data.description
-          })
-          setIsLoading(false)
         })
-    }
+        setIsLoading(false)
+      })
   }
   /** CERRAR MODAL DE EDITAR USUARIO */
   const closeModal = () => {
@@ -125,7 +117,7 @@ const UsuarioPerfil = (props) => {
   }
   return (
     <div className="container" style={{ marginTop: '4%' }}>
-  {member !== null
+  {member !== null & brigada !== null
     ? <>
           {member.id === userData.perfilId
             ? (
@@ -180,15 +172,13 @@ const UsuarioPerfil = (props) => {
                       <img
                         alt=""
                         className="circle"
-                        src={location.brigada.image || perfil}
+                        src={brigada.image || perfil}
                         style={{ width: 50, height: 50 }}
                       ></img>
                     </div>
                     <div className="col s7 m6 left-align">
                       <span style={{ fontSize: 16 }}>
-                        {location.brigada !== undefined
-                          ? `${location.brigada.name}`
-                          : null}
+                          { `${brigada.name}`}
                       </span>
                     </div>
                   </div>
@@ -274,11 +264,11 @@ const UsuarioPerfil = (props) => {
               </ul>
             </div>
             {/** RENDERIZAR EL MODAL DE EDITAR EL USUARIO SOLO SI YA SE OBTUVO EL MIEMBRO */}
-            {member !== null || location.brigada !== undefined
+            {member !== null
               ? (
               <EditUserForm
                 usuario={member}
-                brigada={location.brigada.name}
+                brigada={brigada.name}
                 close={() => closeModal()}
               />
                 )

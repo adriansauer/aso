@@ -1,13 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import useGetMembers from '../api/miembros/useGetMembers'
 import PreLoader from './PreLoader'
 import { useLocation, useHistory } from 'react-router-dom'
 import Image from './Image'
 import M from 'materialize-css'
+import UserContext from '../context/userContext'
 import './components.css'
 const UsuarioList = () => {
   const location = useLocation()
   const history = useHistory()
+  const { selectData, setSelectData } = useContext(UserContext)
   const [members, setMembers] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const { execute: getMembersExecute } = useGetMembers()
@@ -87,10 +89,12 @@ const UsuarioList = () => {
               <div
                 key={member.id}
                 onClick={() => {
+                  setSelectData({
+                    brigadaId: selectData.brigadaId,
+                    userId: member.id
+                  })
                   history.push({
-                    pathname: '/perfil',
-                    member: member,
-                    brigada: location.brigada
+                    pathname: '/perfil'
                   })
                 }}
                 className="btn btn-large collection-item avatar brigada_button"

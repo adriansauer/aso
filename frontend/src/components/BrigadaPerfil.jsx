@@ -2,8 +2,8 @@ import React, { useEffect, useState, useContext } from 'react'
 import CreateUserForm from './modals/CreateUserForm'
 import M from 'materialize-css'
 import perfil from '../images/default.jpg'
+import { useHistory } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import { useLocation, useHistory } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import useUpdateBrigada from '../api/brigada/useUpdateBrigada'
 import EditBrigadaForm from './modals/EditBrigadaForm'
@@ -15,23 +15,20 @@ const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: updateBrigadaExecute } = useUpdateBrigada()
   const [isLoading, setIsLoading] = useState(false)
-  const location = useLocation()
-  const history = useHistory()
   const [brigada, setBrigada] = useState(null)
+  const history = useHistory()
   /** INSTANCIA DE LOS MODALES */
   const [editarModal, setEditarModal] = useState(null)
   const [agregarModal, setAgregarModal] = useState(null)
-  const { userData } = useContext(userContext)
+  const { userData, selectData } = useContext(userContext)
   useEffect(() => {
-    if (brigada !== null) {
-      /** INSTANCIA DEL MODAL EDITAR */
-      const elem1 = document.getElementById('modal1')
-      const editarModalInstance = M.Modal.init(elem1, {
-        inDuration: 300
-      })
-      setEditarModal(editarModalInstance)
-    }
-  }, [brigada])
+    /** INSTANCIA DEL MODAL EDITAR */
+    const elem1 = document.getElementById('modal1')
+    const editarModalInstance = M.Modal.init(elem1, {
+      inDuration: 300
+    })
+    setEditarModal(editarModalInstance)
+  }, [selectData.brigadaId])
   useEffect(() => {
     /** OBTENGO LA BRIGADA DE LAS PROPIEDADES */
     fertchBrigadaById()
@@ -45,12 +42,12 @@ const BrigadaPerfil = (props) => {
   }, [])
   useEffect(() => {
     fertchBrigadaById()
-  }, [location])
+  }, [selectData.brigadaId])
   /** OBTENER LA BRIGADA */
   const fertchBrigadaById = () => {
     setIsLoading(true)
 
-    getBrigadaByIdExecute(location.brigada.id)
+    getBrigadaByIdExecute(selectData.brigadaId)
       .then((res) => {
         setBrigada(res.data)
         setIsLoading(false)
@@ -127,60 +124,48 @@ const BrigadaPerfil = (props) => {
       })
   }
   return (
-    <div className="container" style={{ marginTop: '4%', width: '100%' }}>
-      <PreLoader visible={isLoading} />
+    brigada !== null
+      ? <div className="container" style={{ marginTop: '4%', width: '100%' }}>
       <div style={{ margin: 0 }} className="row center">
-      {location.brigada === undefined
-        ? null
-        : (location.brigada.id === userData.perfilId)
-            ? (
-                brigada != null
-                  ? (
-                    <div style={{ marginBottom: 0 }} className="row">
-                      <label
-                        style={{ marginTop: '3%', width: 100, height: 100 }}
-                        htmlFor="file-input"
-                        className="btn-floating btn-large waves-effect waves-light"
-                      >
-                        <img src={brigada.image || perfil} style={{ width: '100%' }} />
-                      </label>
+      { (selectData.brigadaId === userData.perfilId)
+        ? (
 
-                      <input
-                        hidden
-                        id="file-input"
-                        accept="image/png, image/jpeg, image/jpg"
-                        onChange={(ev) => onImageChange(ev)}
-                        type="file"
-                      />
-                    </div>
-                    )
-                  : null
-              )
-            : brigada != null
-              ? (
-                    <div style={{ marginBottom: 0 }} className="row">
-                      <label
-                        style={{ marginTop: '3%', width: 100, height: 100 }}
-                        className="btn-floating btn-large waves-effect waves-light"
-                      >
-                        <img src={brigada.image || perfil} style={{ width: '100%' }} />
-                      </label>
+            <div style={{ marginBottom: 0 }} className="row">
+              <label
+                style={{ marginTop: '3%', width: 100, height: 100 }}
+                htmlFor="file-input"
+                className="btn-floating btn-large waves-effect waves-light"
+              >
+                <img src={brigada.image || perfil} style={{ width: '100%' }} />
+              </label>
 
-                    </div>
-                )
-              : null
-                }
-
+              <input
+                hidden
+                id="file-input"
+                accept="image/png, image/jpeg, image/jpg"
+                onChange={(ev) => onImageChange(ev)}
+                type="file"
+              />
+            </div>
+          )
+        : <div style={{ marginBottom: 0 }} className="row">
+            <label
+              style={{ marginTop: '3%', width: 100, height: 100 }}
+              className="btn-floating btn-large waves-effect waves-light"
+            >
+              <img src={brigada.image || perfil} style={{ width: '100%' }} />
+            </label>
+          </div>
+        }
       </div>
       <div className="row">
         <div className="col s12 m12 center-align">
           <h5 style={{ margin: 0 }}>
-            {brigada === null ? null : brigada.name}
+            {brigada.name}
           </h5>
-          {location.brigada === undefined
-            ? null
-            : (location.brigada.id === userData.perfilId)
-                ? (
+
+          {selectData.brigadaId === userData.perfilId
+            ? (
             <button
               className="btn-floating btn-small waves-light"
               onClick={() => editarModal.open()}
@@ -191,8 +176,8 @@ const BrigadaPerfil = (props) => {
             >
               <i className="material-icons">edit</i>
             </button>
-                  )
-                : null}
+              )
+            : null}
         </div>
       </div>
       <div className="row center">
@@ -207,7 +192,7 @@ const BrigadaPerfil = (props) => {
               })
             }}
           >
-            {brigada === null ? null : brigada.numberMember} MIEMBROS
+            {brigada.numberMember} MIEMBROS
           </button>
         </div>
         <div className="col s6 left-align">
@@ -221,48 +206,23 @@ const BrigadaPerfil = (props) => {
               position: 'absolute'
             }}
           />
-          <img
-            src={perfil}
-            alt=""
-            className="circle"
-            style={{
-              height: 40,
-              width: 40,
-              position: 'absolute',
-              marginLeft: 25
-            }}
-          />
-          <img
-            src={perfil}
-            alt=""
-            className="circle"
-            style={{
-              height: 40,
-              width: 40,
-              position: 'absolute',
-              marginLeft: 50
-            }}
-          />
-          {location.brigada !== undefined
+
+          {(userData.roles[0].authority === 'ROLE_SUPERUSER' &&
+            userData.perfilId === selectData.brigadaId) ||
+          (userData.roles[0].authority === 'ROLE_BRIGADE' &&
+            userData.perfilId === selectData.brigadaId)
             ? (
-                (userData.roles[0].authority === 'ROLE_SUPERUSER' &&
-              userData.perfilId === location.brigada.id) ||
-            (userData.roles[0].authority === 'ROLE_BRIGADE' &&
-              userData.perfilId === location.brigada.id)
-                  ? (
-              <button
-                className="btn-floating btn-medium waves-light"
-                onClick={() => agregarModal.open()}
-                style={{
-                  backgroundColor: '#0C0019',
-                  position: 'absolute',
-                  marginLeft: 75
-                }}
-              >
-                <i className="material-icons">add</i>
-              </button>
-                    )
-                  : null
+            <button
+              className="btn-floating btn-medium waves-light"
+              onClick={() => agregarModal.open()}
+              style={{
+                backgroundColor: '#0C0019',
+                position: 'absolute',
+                marginLeft: 75
+              }}
+            >
+              <i className="material-icons">add</i>
+            </button>
               )
             : null}
         </div>
@@ -285,39 +245,20 @@ const BrigadaPerfil = (props) => {
             </ul>
           </div>
           <div id="test1" className="col s12">
-            {brigada !== null
-              ? (
-              <BrigadaPublications userId={brigada.userId} />
-                )
-              : null}
+            <BrigadaPublications userId={brigada.userId} />
           </div>
           <div id="test2" className="col s12">
-           <Graphic/>
-           <Graphic/>
-           <Graphic/>
-           <Graphic/>
-           <Graphic/>
-           <Graphic/>
+            <Graphic />
           </div>
           <div id="test4" className="col s12">
-            El C.B.V.P fue fundado el 4 de octubre de 1978. Sus principales
-            precursores fueron, el Sr. Miguel Ángel Estigarribia, en aquel
-            entonces Presidente del Club de Leones del Barrio La Encarnación, de
-            la ciudad de Asunción, el Dr. Gonzalo Figueroa Yáñez, quien fuera el
-            Superintendente del Cuerpo de Bomberos Voluntarios de Santiago
-            (Chile), el cual recomendaría, en una visita al país, que fuera
-            fundado un cuerpo en el territorio nacional, y recibiendo el apoyo
-            de muchos otros que concordaron con esta idea.
+            {/** Historia del BRIGADA */}
           </div>
         </div>
       </div>
-      <CreateUserForm brigada={location.brigada} close={closeModal} />
-      {brigada !== null
-        ? (
-        <EditBrigadaForm brigada={brigada} close={closeModal} />
-          )
-        : null}
+      <CreateUserForm brigada={brigada} close={closeModal} />
+      <EditBrigadaForm brigada={brigada} close={closeModal} />
     </div>
+      : <PreLoader visible={isLoading} />
   )
 }
 BrigadaPerfil.propTypes = {
