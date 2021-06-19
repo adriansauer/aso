@@ -37,4 +37,7 @@ public class PublicationDTO {
 	
 	@ApiModelProperty(notes = "Si tiene el like del usuario", example = "true")
 	private boolean iLike;
+	
+	@ApiModelProperty(notes = "Codigo de incidencia")
+	private IncidenceCodeDTO incidenceCode;
 }

@@ -23,4 +23,8 @@ public class PublicationUpdateDTO {
 
 	@ApiModelProperty(notes = "Id de la brigada a la que esta dirigida la publicación", example = "5")
 	private long brigadeId;
+
+	@ApiModelProperty(notes = "Identificador del codigo de insidente", example = "1")
+	private Long incidenceCodeId;
+
 }
