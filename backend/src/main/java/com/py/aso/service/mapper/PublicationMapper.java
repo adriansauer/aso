@@ -3,6 +3,7 @@ package com.py.aso.service.mapper;
 import org.springframework.stereotype.Component;
 
 import com.py.aso.entity.PublicationEntity;
+import com.py.aso.dto.IncidenceCodeDTO;
 import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.detail.PublicationDetailDTO;
 import com.py.aso.dto.create.PublicationCreateDTO;
@@ -21,6 +22,13 @@ public class PublicationMapper implements
 		dto.setBody(entity.getBody());
 		dto.setUserId(entity.getUser().getId());
 		dto.setDestination(entity.getDestination().toString());
+		if(null != entity.getIncidence()) {
+			IncidenceCodeDTO incidenceCode = new IncidenceCodeDTO();
+			incidenceCode.setId(entity.getIncidence().getId());
+			incidenceCode.setCode(entity.getIncidence().getCode());
+			incidenceCode.setDescription(entity.getIncidence().getDescription());
+			dto.setIncidenceCode(incidenceCode);
+		}		
 		return dto;
 	}
 
@@ -33,6 +41,13 @@ public class PublicationMapper implements
 		dto.setUpdateAt(entity.getUpdated_at());
 		dto.setUserId(entity.getUser().getId());
 		dto.setDestination(entity.getDestination().toString());
+		if(null != entity.getIncidence()) {
+			IncidenceCodeDTO incidenceCode = new IncidenceCodeDTO();
+			incidenceCode.setId(entity.getIncidence().getId());
+			incidenceCode.setCode(entity.getIncidence().getCode());
+			incidenceCode.setDescription(entity.getIncidence().getDescription());
+			dto.setIncidenceCode(incidenceCode);
+		}		
 		return dto;
 	}
 

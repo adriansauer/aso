@@ -14,15 +14,12 @@ public class PublicationDestinationValidation implements ConstraintValidator<Pub
 
 	public static final String DESTINATION_MY_BRIGADE = "Mi Brigada";
 	public static final String DESTINATION_ALL = "Todos";
-	public static final String DESTINATION_PUBLIC = "Publico";
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext context) {
 		if (value.equals(DESTINATION_ALL)) {
 			return true;
 		} else if (value.equals(DESTINATION_MY_BRIGADE)) {
-			return true;
-		} else if (value.equals(DESTINATION_PUBLIC)) {
 			return true;
 		} else {
 			return false;

@@ -14,9 +14,11 @@ import org.springframework.stereotype.Service;
 import com.py.aso.dto.PublicationDTO;
 import com.py.aso.dto.detail.BrigadeDetailDTO;
 import com.py.aso.dto.detail.FiremanDetailDTO;
+import com.py.aso.dto.detail.IncidenceCodeDetailDTO;
 import com.py.aso.dto.detail.PublicationDetailDTO;
 import com.py.aso.dto.create.PublicationCreateDTO;
 import com.py.aso.dto.update.PublicationUpdateDTO;
+import com.py.aso.entity.IncidenceCodeEntity;
 import com.py.aso.entity.PublicationEntity;
 import com.py.aso.entity.UserEntity;
 import com.py.aso.repository.PublicationRepository;
@@ -46,6 +48,9 @@ public class PublicationService
 
 	@Autowired
 	private LikeService likeService;
+
+	@Autowired
+	private IncidenceCodeService incidenceCodeService;
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
@@ -229,11 +234,22 @@ public class PublicationService
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId((long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
 
+		// Verifica si el codigo de incidencia existe
+		IncidenceCodeEntity incidenceCodeEntity = new IncidenceCodeEntity();
+		if (null != dto.getIncidenceCodeId()) {
+			final IncidenceCodeDetailDTO incidenceCodeDetailDTO = this.incidenceCodeService
+					.findById(dto.getIncidenceCodeId());
+			incidenceCodeEntity.setId(incidenceCodeDetailDTO.getId());
+			incidenceCodeEntity.setCode(incidenceCodeDetailDTO.getCode());
+			incidenceCodeEntity.setDescription(incidenceCodeDetailDTO.getDescription());
+		}
+
 		// Creación de la publicación.
 		PublicationEntity entity = this.publicationMapper.toCreateEntity(dto);
 		entity.setUser(userEntity);
 		entity.setDeleted(false);
 		entity.setCreated_at(new Date());
+		entity.setIncidence(incidenceCodeEntity);
 
 		// definicion de destino.
 		entity.setDestination(destination(dto.getDestination(), userEntity.getId(), dto.getBrigadeId()));
@@ -251,10 +267,22 @@ public class PublicationService
 		PublicationEntity entity = this.publicationRepository
 				.findByIdAndUserIdAndDeletedAndEnabled(id, userId, false, true)
 				.orElseThrow(() -> new ResourceNotFoundException("Publication", "id", id));
+
+		// Verifica si el codigo de incidencia existe
+		IncidenceCodeEntity incidenceCodeEntity = new IncidenceCodeEntity();
+		if (null != dto.getIncidenceCodeId()) {
+			final IncidenceCodeDetailDTO incidenceCodeDetailDTO = this.incidenceCodeService
+					.findById(dto.getIncidenceCodeId());
+			incidenceCodeEntity.setId(incidenceCodeDetailDTO.getId());
+			incidenceCodeEntity.setCode(incidenceCodeDetailDTO.getCode());
+			incidenceCodeEntity.setDescription(incidenceCodeDetailDTO.getDescription());
+		}
+
 		// Se setean los datos
 		entity.setBody(dto.getBody());
 		entity.setDestination(destination(dto.getDestination(), userId, dto.getBrigadeId()));
 		entity.setUpdated_at(new Date());
+		entity.setIncidence(incidenceCodeEntity);
 		// Se guardan los cambios
 		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
 	}
@@ -320,10 +348,8 @@ public class PublicationService
 			}
 		} else if (PublicationDestinationValidation.DESTINATION_ALL.equals(destination)) {
 			return 0;
-		} else if (PublicationDestinationValidation.DESTINATION_PUBLIC.equals(destination)) {
-			return -1;
 		}
-		throw new InvalidArgumentException("destino", "[Publico, Todos, Mi Brigada]");
+		throw new InvalidArgumentException("destino", "[Publico, Todos]");
 	}
 
 	private PublicationDTO addedLike(final PublicationEntity entity) throws ResourceNotFoundException {
