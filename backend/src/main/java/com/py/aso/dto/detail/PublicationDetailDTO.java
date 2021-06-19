@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.constraints.Positive;
 
 import com.py.aso.dto.FileDTO;
+import com.py.aso.dto.IncidenceCodeDTO;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -44,4 +45,7 @@ public class PublicationDetailDTO {
 	
 	@ApiModelProperty(notes = "Lista de imágenes", example = "[{id: 1}]")
 	private List<FileDTO> files;
+	
+	@ApiModelProperty(notes = "Codigo de incidencia")
+	private IncidenceCodeDTO incidenceCode;
 }

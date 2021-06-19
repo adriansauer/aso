@@ -16,6 +16,11 @@
 					foreignKeyName="fkPublicationUser" referencedTableName="users"
 					referencedColumnNames="id" />
 			</column>
+			<column name="incidence_code_id" type="INT">
+				<constraints nullable="true"
+					foreignKeyName="fkIncidenceCode" referencedTableName="incidence_codes"
+					referencedColumnNames="id" />
+			</column>
 			<column name="body" type="VARCHAR(255)">
 				<constraints nullable="false" />
 			</column>

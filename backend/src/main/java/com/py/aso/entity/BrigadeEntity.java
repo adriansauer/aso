@@ -57,6 +57,9 @@ public class BrigadeEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "city_id")
 	private CityEntity city;
+	
+	@OneToOne(mappedBy = "brigade")
+	private BrigadeHistoryEntity history;
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "brigade")
 	private Set<FiremanEntity> firemen;

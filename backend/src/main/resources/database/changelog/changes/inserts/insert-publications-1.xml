@@ -13,7 +13,7 @@
 			<column name="user_id"		value="1" />
 			<column name="created_at"	value="2020-08-18 13:35:35.284" />
 			<column name="body"			value="Prueba [ADMIN - ASO-001 - Publico] Se a apertura oficial de la página ASO para todos los integrantes de los cuerpos de Bomberos Voluntarios." />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
@@ -46,7 +46,7 @@
 			<column name="user_id"		value="2" />
 			<column name="created_at"	value="2020-04-08 03:05:53.284" />
 			<column name="body"			value="Prueba[BRIGADA - NA-001 - Publico] El cuartel de Nueva Alborada cuenta con nuevos integrantes." />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
@@ -70,7 +70,7 @@
 			<column name="user_id"		value="3" />
 			<column name="created_at"	value="2021-05-10 10:17:09.284" />
 			<column name="body"			value="Prueba[BRIGADA - BV-001 - Publico] El cuartel de Bella Vista cuenta con nuevos integrantes." />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
@@ -94,7 +94,7 @@
 			<column name="user_id"		value="4" />
 			<column name="created_at"	value="2021-04-08 23:55:50.284" />
 			<column name="body"			value="Prueba[BRIGADA - C-001 - Publico] El cuartel de Cambyreta cuenta con nuevos integrantes." />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
@@ -119,7 +119,7 @@
 			<column name="user_id"		value="23" />
 			<column name="created_at"	value="2021-05-10 12:51:29.284" />
 			<column name="body"			value="Prueba[BOMBERO - NA-002 - Publico] Con mucha emoción y satisfacción el personal bombero de K145 Villa Hayes inaugura oficialmente su cuartel ubicado sobre la calle Amancio González, entre América y Campo Vía." />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
@@ -143,7 +143,7 @@
 			<column name="user_id"		value="24" />
 			<column name="created_at"	value="2021-04-18 20:33:15.284" />
 			<column name="body"			value="Prueba[BOMBERO - NA-003 - Publico] Se realizo en la ciudad de Tebicuary, la fundación de la 5ta. Compañía Departamental, y el juramento de la 1ra. Remesa de Voluntarios.En el acto estuvo presente el Presidente Nacional del CBVP." />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
@@ -167,7 +167,7 @@
 			<column name="user_id"		value="43" />
 			<column name="created_at"	value="2021-05-22 15:15:22.284" />
 			<column name="body"			value="Prueba[BOMBERO - BV-002 - Publico] La Japan Firefigter Association, ha donado al Cuerpo de Bomberos Voluntarios del Paraguay, 5 (cinco) móviles de emergencias y uno formara parte de nuestra brigada, Bella Vista." />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
@@ -191,7 +191,7 @@
 			<column name="user_id"		value="44" />
 			<column name="created_at"	value="2021-04-25 17:03:39.284" />
 			<column name="body"			value="Prueba[BOMBERO - BV-003 - Publico] La mañana del sábado 17/04, seis voluntarios del Cuerpo de Bomberos Voluntarios del Paraguay recibieron sus certificados en el acto protocolar de entrega de certificados de curso de actividades." />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
@@ -215,7 +215,7 @@
 			<column name="user_id"		value="48" />
 			<column name="created_at"	value="2021-05-01 17:03:39.284" />
 			<column name="body"			value="Prueba[BOMBERO - C-002 - Publico] Este domingo se reralizara una comilona en mi Barrio, estan todos invitados" />
-			<column name="destination"	value="-1" />
+			<column name="destination"	value="0" />
 		</insert>
 		
 		<insert tableName="publications" catalogName="aso" dbms="h2, postgresql" schemaName="public">
