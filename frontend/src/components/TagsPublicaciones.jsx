@@ -169,6 +169,7 @@ const TagsPublicaciones = (props) => {
                 {users.name} {users.lastname}
               </h6>
             </div>
+
             {userData.roles[0].authority === 'ROLE_SUPERUSER' ||
             userData.id === props.userId
               ? (
@@ -198,16 +199,12 @@ const TagsPublicaciones = (props) => {
             <p align="left" style={{ marginLeft: '5%', marginRight: '5%' }}>
               {props.description}
             </p>
-            <div
-              className="row"
-              align="left"
-              style={{ margin: 0 }}
-            >
+            <div className="row" align="left" style={{ margin: 0 }}>
               {publication !== null
                 ? publication.files !== undefined
                   ? publication.files.length > 0
                     ? publication.files.map((f) => (
-                        <div className='col s6 m2' key={f.id}>
+                        <div className="col s6 m2" key={f.id}>
                           <PublicationImage fileId={f.id} />
                         </div>
                     ))
@@ -217,6 +214,16 @@ const TagsPublicaciones = (props) => {
             </div>
           </div>
           <div className="divider" />
+          <div
+                style={{ textAlign: 'left', marginLeft: '1%' }}
+              >
+                <h6 style={{ float: 'left', opacity: 0.8 }}>
+                  {new Date(publication.createAt).getDate()}/
+                  {new Date(publication.createAt).getMonth()}/
+                  {new Date(publication.createAt).getFullYear()}
+
+                </h6>
+              </div>
           <div style={{ marginTop: 5, textAlign: 'right', marginRight: '5%' }}>
             <h6 style={{ float: 'right', marginTop: '2%', marginLeft: 10 }}>
               {likeNumber}
@@ -255,6 +262,8 @@ TagsPublicaciones.propTypes = {
   publicationId: PropTypes.number,
   reloadPublications: PropTypes.func,
   destination: PropTypes.string,
+  date: PropTypes.string
   ilike: PropTypes.bool
+
 }
 export default TagsPublicaciones
