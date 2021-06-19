@@ -8,6 +8,7 @@ import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import useGetMemberById from '../api/miembros/useGetMemberById'
 const Header = (props) => {
   const [instance, setInstance] = useState(null)
+
   const {
     isAutenticate,
     setIsAutenticate,
@@ -15,6 +16,7 @@ const Header = (props) => {
     setSelectData,
     selectData
   } = useContext(userContext)
+
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: getMemberByIdExecute } = useGetMemberById()
   const history = useHistory()
@@ -60,6 +62,19 @@ const Header = (props) => {
       getMemberByIdExecute(userData.perfilId)
         .then((res) => {
           setProfile(res.data)
+
+          getBrigadaByIdExecute(res.data.brigadeId).then((res) => {
+            setBrigada(res.data)
+          })
+        })
+        .catch((err) => {
+          M.toast({
+            html:
+              err.response === undefined
+                ? 'Hubo un error con la conexión'
+                : err.response.data.description
+          })
+
         })
 
         .catch((err) => {
@@ -177,7 +192,9 @@ const Header = (props) => {
           <li>
             <Link
               to={{
-                pathname: '/'
+                pathname: '/',
+                member: profile,
+                brigada: brigada
               }}
               onClick={() => {
                 instance.close()
@@ -238,7 +255,23 @@ const Header = (props) => {
               <span style={{ color: 'white', fontSize: 16 }}>Brigadas</span>
             </Link>
           </li>
-
+          {/** Lista de incidencias */}
+          {userData.roles !== null
+            ? (
+                userData.roles[0].authority === 'ROLE_SUPERUSER'
+                  ? (
+              <li>
+                <Link to="/incidencias" onClick={() => instance.close()}>
+                  <i className="medium material-icons white-text">whatshot</i>
+                  <span style={{ color: 'white', fontSize: 14 }}>
+                    Incidencias
+                  </span>
+                </Link>
+              </li>
+                    )
+                  : null
+              )
+            : null}
           {/** Ciudades y departamentos */}
           {userData.roles !== null
             ? (
