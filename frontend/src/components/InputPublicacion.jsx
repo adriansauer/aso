@@ -1,20 +1,61 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import M from 'materialize-css'
+import userContext from '../context/userContext'
 import useCreatePublication from '../api/publicaciones/useCreatePublication'
 import useCreateFile from '../api/files/useCreateFile'
+import useGetIncidencia from '../api/incidencias/useGetIncidencias'
 import PropTypes from 'prop-types'
 import PreviewImage from './PreviewImage'
 const InputPublicacion = (props) => {
   const [width, setWidth] = useState(window.innerWidth)
   const { execute: createPublicationExecute } = useCreatePublication()
+  const { execute: getIncidenciasExecute } = useGetIncidencia()
   const { execute: createFileExecute } = useCreateFile()
   const [body, setBody] = useState('')
   const [files, setFiles] = useState([])
+  const [incidencias, setIncidencias] = useState(null)
+  const [incidenciaId, setIncidenciaId] = useState(null)
+  const [totalPages, setTotalPages] = useState([])
+  const [pagActual, setPagActual] = useState(1)
+  const { userData } = useContext(userContext)
   function handleWindowSizeChange () {
     setWidth(window.innerWidth)
   }
 
+  const handleIncrementPage = () => {
+    if (pagActual < totalPages.length) {
+      setPagActual(pagActual + 1)
+    }
+  }
+  const handleDecrementPage = () => {
+    if (pagActual > 1) {
+      setPagActual(pagActual - 1)
+    }
+  }
+  const handleLoadIncidencia = () => {
+    setIncidencias(null)
+    getIncidenciasExecute(pagActual)
+      .then((res) => {
+        setTotalPages(
+          Array.apply(null, { length: res.data.totalPages }).map(
+            Number.call,
+            Number
+          )
+        )
+        setIncidencias(res.data.content)
+        M.AutoInit()
+      })
+      .catch((err) => {
+        M.toast({
+          html:
+            err.response === undefined
+              ? 'Hubo un error con la conexión'
+              : err.response.data.description
+        })
+      })
+  }
   useEffect(() => {
+    handleLoadIncidencia()
     const elem = document.getElementById('dropdown_destination')
     M.FormSelect.init(elem, {})
     window.addEventListener('resize', handleWindowSizeChange)
@@ -23,12 +64,25 @@ const InputPublicacion = (props) => {
       window.removeEventListener('resize', handleWindowSizeChange)
     }
   }, [])
+  useEffect(() => {
+    console.log(incidenciaId)
+  }, [incidenciaId])
 
   const createPublication = (e) => {
-    createPublicationExecute({
-      body,
-      destination: document.getElementById('dropdown_destination').value
-    })
+    let publication = {}
+    if (incidenciaId === null) {
+      publication = {
+        body,
+        destination: document.getElementById('dropdown_destination').value
+      }
+    } else {
+      publication = {
+        body,
+        destination: document.getElementById('dropdown_destination').value,
+        incidenceCodeId: incidenciaId
+      }
+    }
+    createPublicationExecute(publication)
       .then((res) => {
         // publicar archivos
         if (files.length > 0) {
@@ -40,18 +94,24 @@ const InputPublicacion = (props) => {
                   name: files[i].name,
                   file: result
                 })
-                  .then(() => {})
+                  .then(() => {
+                    if (i === files.length - 1) {
+                      M.toast({ html: 'Gracias por publicar ' })
+                      setBody('')
+                      props.reloadPublications()
+                    }
+                  })
                   .catch((err) => {
                     console.log(err)
                   })
               })
               .catch((err) => console.log(err))
           }
+        } else {
+          M.toast({ html: 'Gracias por publicar ' })
+          setBody('')
+          props.reloadPublications()
         }
-
-        M.toast({ html: 'Gracias por publicar ' })
-        setBody('')
-        props.reloadPublications()
       })
       .catch((err) => {
         console.log(err)
@@ -90,9 +150,6 @@ const InputPublicacion = (props) => {
       setFiles([...event.target.files])
     }
   }
-  useEffect(() => {
-    console.log(files)
-  }, [files])
   return (
     <div
       className="container"
@@ -101,9 +158,10 @@ const InputPublicacion = (props) => {
         marginTop: '0'
       }}
     >
+      <br />
       <form onSubmit={createPublication}>
         <div className="row">
-          <div className="input-field col m6 s6">
+          <div className="input-field col m4 s2">
             <textarea
               id="textarea1"
               required
@@ -138,6 +196,61 @@ const InputPublicacion = (props) => {
           </div>
         </div>
         <div className="row">
+          {userData.roles[0].authority === 'ROLE_BRIGADE'
+            ? (
+            <div className="col m4 s4">
+              {incidencias !== null
+                ? (
+                <div className="input-field col s12">
+                  <select
+                    defaultValue={null}
+                    onChange={(e) => {
+                      setIncidenciaId(
+                        e.target.options[e.target.options.selectedIndex].value
+                      )
+                    }}
+                  >
+                    <option value={null}>Incidencia</option>
+                    {incidencias.map((incidencia) => (
+                      <option key={incidencia.id} value={incidencia.id}>
+                        {incidencia.code}-{incidencia.description}
+                      </option>
+                    ))}
+
+                    <ul className="pagination">
+                      <li>
+                        <a href="#!" onClick={handleDecrementPage}>
+                          <i className="material-icons">chevron_left</i>
+                        </a>
+                      </li>
+                      {totalPages.length !== 0
+                        ? totalPages.map((t) => (
+                            <li
+                              key={t}
+                              onClick={() => setPagActual(t + 1)}
+                              className={pagActual === t + 1 ? 'active' : ''}
+                            >
+                              <a href="#!">{t + 1}</a>
+                            </li>
+                        ))
+                        : null}
+
+                      <li>
+                        <a href="#!" onClick={handleIncrementPage}>
+                          <i className="material-icons">chevron_right</i>
+                        </a>
+                      </li>
+                    </ul>
+                  </select>
+
+                  <label>Incidencia</label>
+                </div>
+                  )
+                : null}
+            </div>
+              )
+            : null}
+
           <div className="file-field input-field col m6 s6">
             <div
               className="btn btn-medium"

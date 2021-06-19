@@ -229,7 +229,7 @@ const TagsPublicaciones = (props) => {
               {likeNumber}
             </h6>
             <button
-              className="btn-floating btn-large waves-light"
+              className="btn-floating btn-medium waves-light"
               onClick={() => handleLike()}
               style={{
                 backgroundColor: 'white'
