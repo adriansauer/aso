@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+	<changeSet author="Victor Ciceia" id="29">
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="1" />
+			<column name="brigade_id" value="1" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="2" />
+			<column name="brigade_id" value="2" />
+			<column name="text"
+				value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="3" />
+			<column name="brigade_id" value="3" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="4" />
+			<column name="brigade_id" value="4" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="5" />
+			<column name="brigade_id" value="5" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="6" />
+			<column name="brigade_id" value="6" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="7" />
+			<column name="brigade_id" value="7" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="8" />
+			<column name="brigade_id" value="8" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="9" />
+			<column name="brigade_id" value="9" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+		<insert catalogName="aso" dbms="h2, postgresql"
+			schemaName="public" tableName="brigade_histories">
+			<column name="id" value="10" />
+			<column name="brigade_id" value="10" />
+			<column name="text" value="En el año 1.978, la feliz iniciativa del Club Leones del Barrio la Encarnación de la ciudad de Asunción, siendo su Presidente Don Miguel Ángel Estigarribia invita a un ilustre ciudadano chileno: Dr. Gonzalo Figueroa Yañez, en la época Superintendente del Cuerpo de Bomberos de Santiago (Chile), quienes inspiraron la creación de un Cuerpo de Bomberos Voluntarios del Paraguay.
+
+Al primer llamado para integrar la unidad combativa, acudieron más de 70 jóvenes aspirantes con quienes se iniciaron las prácticas, y entrenamientos bajo la tutela de los Bomberos de la Policía de la Capital. En el mismo año estos jóvenes fueron becados y viajaron a la ciudad de Santiago de Chile para recibir instrucciones Técnicas y de perfeccionamiento de los Bomberos Voluntarios de dicho País.
+
+Fueron los Primeros Integrantes del Directorio, su Primer Presidente y precursor Don Miguel Ángel Estigarribia y Miembros los Señores Dr. Rodolfo Gill Paleari, Don. Humberto Ayala, Dr. Lorenzo Mendieta, Don Nelson Brítez, Don Agustín Lezcano, Dr. Carlos Vallovera, como Representante del Club de Leones del Barrio «La Encarnación» y el Cnel. (S.R.) Arnulfo Bécker, en representación de la Municipalidad de Asunción.
+
+Siendo una de las primeras actividades oficiales el desfile en el corzo de las flores por la primavera en el Parque Caballero, una exhibición acuática en el local de la Asociación Cristiana de Jóvenes y una exhibición de destreza Bomberil en el predio del Parque Caballero dando inicio a la fundación de la Primera Compañía.
+
+El móvil principal para que esta entidad sin fines de lucro y de servicio público fuese creada, se debió a la necesidad perentoria de contar con una organización especializada en la protección de vidas y bienes de la ciudadanía, ante incendios y otros siniestros.
+
+En todos estos años de funcionamiento, los integrantes del C.B.V.P . han demostrado una innegable vocación de servicio y alto espíritu profesional, consagrando la totalidad de sus esfuerzos en beneficio directo de la comunidad con el lema de «ABNEGACIÓN, VALOR y DISCIPLINA», al servicio del semejante." />
+		</insert>
+
+	</changeSet>
+
+</databaseChangeLog>
