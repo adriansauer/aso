@@ -3,20 +3,44 @@ import M from 'materialize-css/dist/js/materialize.min.js'
 import perfil from '../images/default.jpg'
 import './components.css'
 import userContext from '../context/userContext'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import useGetMemberById from '../api/miembros/useGetMemberById'
 const Header = (props) => {
   const [instance, setInstance] = useState(null)
-  const { isAutenticate, setIsAutenticate, userData, reload } =
-    useContext(userContext)
+
+  const {
+    isAutenticate,
+    setIsAutenticate,
+    userData,
+    setSelectData,
+    selectData
+  } = useContext(userContext)
+
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: getMemberByIdExecute } = useGetMemberById()
+  const history = useHistory()
   const [profile, setProfile] = useState(null)
-  const [brigada, setBrigada] = useState(null)
+  const handleSelectMyProfile = () => {
+    if (userData.roles[0].authority === 'ROLE_BRIGADE') {
+      setSelectData({
+        userId: selectData.userId,
+        brigadaId: userData.perfilId
+      })
+    } else if (userData.roles[0].authority === 'ROLE_USER') {
+      setSelectData({
+        userId: userData.perfilId,
+        brigadaId: selectData.brigadaId
+      })
+    }
+  }
   /** Obtener el perfil del usuario o brigada */
   const fetchProfile = () => {
     if (userData.roles[0].authority === 'ROLE_BRIGADE') {
+      setSelectData({
+        userId: selectData.userId,
+        brigadaId: userData.perfilId
+      })
       getBrigadaByIdExecute(userData.perfilId)
         .then((res) => {
           setProfile(res.data)
@@ -31,9 +55,14 @@ const Header = (props) => {
         })
     }
     if (userData.roles[0].authority === 'ROLE_USER') {
+      setSelectData({
+        userId: userData.perfilId,
+        brigadaId: selectData.brigadaId
+      })
       getMemberByIdExecute(userData.perfilId)
         .then((res) => {
           setProfile(res.data)
+
           getBrigadaByIdExecute(res.data.brigadeId).then((res) => {
             setBrigada(res.data)
           })
@@ -45,7 +74,9 @@ const Header = (props) => {
                 ? 'Hubo un error con la conexión'
                 : err.response.data.description
           })
+
         })
+
         .catch((err) => {
           M.toast({
             html:
@@ -60,7 +91,7 @@ const Header = (props) => {
     if (userData.perfilId !== null) {
       fetchProfile()
     }
-  }, [userData, reload])
+  }, [userData])
   /** Cuando se levanta el componente se instancia el Sidebar para almacenarlo en el estado y manipularlo desde ahi */
   useEffect(() => {
     const elem = document.querySelector('.sidenav')
@@ -181,12 +212,10 @@ const Header = (props) => {
               ? userData.roles[0].authority === 'ROLE_USER'
                 ? <li>
                   <Link
-                    to={{
-                      pathname: '/perfil',
-                      member: profile,
-                      brigada: brigada
-                    }}
+                    to={{}}
                     onClick={() => {
+                      handleSelectMyProfile()
+                      history.push('/perfil')
                       instance.close()
                     }}
                   >
@@ -198,13 +227,13 @@ const Header = (props) => {
                 </li>
               /** Si es BRIGADA le mando a perfil de BRIGADA */
                 : userData.roles[0].authority === 'ROLE_BRIGADE'
-                  ? <li>
+                  ? (
+                <li>
                   <Link
-                    to={{
-                      pathname: '/brigada',
-                      brigada: profile
-                    }}
+                    to={{}}
                     onClick={() => {
+                      handleSelectMyProfile()
+                      history.push('/brigada')
                       instance.close()
                     }}
                   >
@@ -214,7 +243,7 @@ const Header = (props) => {
                     </span>
                   </Link>
                 </li>
-
+                    )
                   : null
               : null
             : null}
