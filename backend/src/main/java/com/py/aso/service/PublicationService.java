@@ -234,6 +234,9 @@ public class PublicationService
 		UserEntity userEntity = new UserEntity();
 		userEntity.setId((long) (int) SecurityContextHolder.getContext().getAuthentication().getCredentials());
 
+		// Creación de la publicación.
+		PublicationEntity entity = this.publicationMapper.toCreateEntity(dto);
+
 		// Verifica si el codigo de incidencia existe
 		IncidenceCodeEntity incidenceCodeEntity = new IncidenceCodeEntity();
 		if (null != dto.getIncidenceCodeId()) {
@@ -242,14 +245,12 @@ public class PublicationService
 			incidenceCodeEntity.setId(incidenceCodeDetailDTO.getId());
 			incidenceCodeEntity.setCode(incidenceCodeDetailDTO.getCode());
 			incidenceCodeEntity.setDescription(incidenceCodeDetailDTO.getDescription());
+			entity.setIncidence(incidenceCodeEntity);
 		}
 
-		// Creación de la publicación.
-		PublicationEntity entity = this.publicationMapper.toCreateEntity(dto);
 		entity.setUser(userEntity);
 		entity.setDeleted(false);
 		entity.setCreated_at(new Date());
-		entity.setIncidence(incidenceCodeEntity);
 
 		// definicion de destino.
 		entity.setDestination(destination(dto.getDestination(), userEntity.getId(), dto.getBrigadeId()));
