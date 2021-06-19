@@ -11,9 +11,9 @@
 			<column autoIncrement="true" name="id" type="INT">
 				<constraints primaryKey="true" />
 			</column>
-			<column name="user_id" type="INT">
+			<column name="brigade_id" type="INT">
 				<constraints nullable="false"
-					foreignKeyName="fkHistoryUser" referencedTableName="users"
+					foreignKeyName="fkHistoryBrigade" referencedTableName="brigade_details"
 					referencedColumnNames="id" />
 			</column>
 			<column name="text" type="TEXT">

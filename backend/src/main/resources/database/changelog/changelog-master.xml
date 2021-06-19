@@ -18,9 +18,7 @@
 	<include
 		file="/database/changelog/changes/creations/users-table.xml" />
 	<include
-		file="/database/changelog/changes/creations/user_roles-table.xml" />
-	<include
-		file="/database/changelog/changes/creations/brigade_histories-table.xml" />
+		file="/database/changelog/changes/creations/user_roles-table.xml" />	
 	<include
 		file="/database/changelog/changes/creations/images-table.xml" />
 	<include
@@ -37,6 +35,8 @@
 		file="/database/changelog/changes/creations/brigade_details-table.xml" />
 	<include
 		file="/database/changelog/changes/creations/user_details-table.xml" />
+	<include
+		file="/database/changelog/changes/creations/brigade_histories-table.xml" />
 	
 	<!-- Insercion de datos -->
 	<include
