@@ -21,30 +21,27 @@ const BrigadaPerfil = (props) => {
   const [editarModal, setEditarModal] = useState(null)
   const [agregarModal, setAgregarModal] = useState(null)
   const { userData, selectData } = useContext(userContext)
-  useEffect(() => {
-    /** INSTANCIA DEL MODAL EDITAR */
-    const elem1 = document.getElementById('modal1')
-    const editarModalInstance = M.Modal.init(elem1, {
-      inDuration: 300
-    })
-    setEditarModal(editarModalInstance)
-  }, [selectData.brigadaId])
+
   useEffect(() => {
     /** OBTENGO LA BRIGADA DE LAS PROPIEDADES */
-    fertchBrigadaById()
+    fetchBrigadaById()
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
     const elem2 = document.getElementById('modal2')
     const agregarModalInstance = M.Modal.init(elem2, {
       inDuration: 300
     })
     setAgregarModal(agregarModalInstance)
+    /** INSTANCIA DEL MODAL EDITAR */
+    const elem1 = document.getElementById('modal1')
+    const editarModalInstance = M.Modal.init(elem1, {
+      inDuration: 300
+    })
+    setEditarModal(editarModalInstance)
     M.AutoInit()
-  }, [])
-  useEffect(() => {
-    fertchBrigadaById()
-  }, [selectData.brigadaId])
+  }, [brigada])
+
   /** OBTENER LA BRIGADA */
-  const fertchBrigadaById = () => {
+  const fetchBrigadaById = () => {
     setIsLoading(true)
 
     getBrigadaByIdExecute(selectData.brigadaId)
@@ -70,7 +67,7 @@ const BrigadaPerfil = (props) => {
     if (agregarModal.isOpen) {
       agregarModal.close()
     }
-    fertchBrigadaById()
+    fetchBrigadaById()
   }
   const getBase64 = (file) => {
     return new Promise((resolve) => {
@@ -123,32 +120,29 @@ const BrigadaPerfil = (props) => {
         setIsLoading(false)
       })
   }
-  return (
-    brigada !== null
-      ? <div className="container" style={{ marginTop: '4%', width: '100%' }}>
+  return brigada !== null
+    ? <div className="container" style={{ marginTop: '4%', width: '100%' }}>
       <div style={{ margin: 0 }} className="row center">
-      { (selectData.brigadaId === userData.perfilId)
-        ? (
+        {selectData.brigadaId === userData.perfilId
+          ? <div style={{ marginBottom: 0 }} className="row">
+            <label
+              style={{ marginTop: '3%', width: 100, height: 100 }}
+              htmlFor="file-input"
+              className="btn-floating btn-large waves-effect waves-light"
+            >
+              <img src={brigada.image || perfil} style={{ width: '100%' }} />
+            </label>
 
-            <div style={{ marginBottom: 0 }} className="row">
-              <label
-                style={{ marginTop: '3%', width: 100, height: 100 }}
-                htmlFor="file-input"
-                className="btn-floating btn-large waves-effect waves-light"
-              >
-                <img src={brigada.image || perfil} style={{ width: '100%' }} />
-              </label>
+            <input
+              hidden
+              id="file-input"
+              accept="image/png, image/jpeg, image/jpg"
+              onChange={(ev) => onImageChange(ev)}
+              type="file"
+            />
+          </div>
 
-              <input
-                hidden
-                id="file-input"
-                accept="image/png, image/jpeg, image/jpg"
-                onChange={(ev) => onImageChange(ev)}
-                type="file"
-              />
-            </div>
-          )
-        : <div style={{ marginBottom: 0 }} className="row">
+          : <div style={{ marginBottom: 0 }} className="row">
             <label
               style={{ marginTop: '3%', width: 100, height: 100 }}
               className="btn-floating btn-large waves-effect waves-light"
@@ -156,33 +150,30 @@ const BrigadaPerfil = (props) => {
               <img src={brigada.image || perfil} style={{ width: '100%' }} />
             </label>
           </div>
-        }
+            }
       </div>
       <div className="row">
         <div className="col s12 m12 center-align">
-          <h5 style={{ margin: 0 }}>
-            {brigada.name}
-          </h5>
+          <h5 style={{ margin: 0 }}>{brigada.name}</h5>
+        </div>
+      </div>
+      <div className="row center">
+        <div className="col m12 s12 center-align">
 
           {selectData.brigadaId === userData.perfilId
-            ? (
-            <button
-              className="btn-floating btn-small waves-light"
+            ? <button
+              className="btn-floating btn-medium waves-light"
               onClick={() => editarModal.open()}
               style={{
                 backgroundColor: '#0C0019',
-                marginTop: '1%'
+                marginRight: '2%'
               }}
             >
               <i className="material-icons">edit</i>
             </button>
-              )
+
             : null}
-        </div>
-      </div>
-      <div className="row center">
-        <div className="col s6 right-align">
-          <button
+                      <button
             className="btn btn-small waves-light"
             style={{ backgroundColor: '#0C0019', color: 'white' }}
             onClick={() => {
@@ -194,38 +185,24 @@ const BrigadaPerfil = (props) => {
           >
             {brigada.numberMember} MIEMBROS
           </button>
-        </div>
-        <div className="col s6 left-align">
-          <img
-            src={perfil}
-            alt=""
-            className="circle"
-            style={{
-              height: 40,
-              width: 40,
-              position: 'absolute'
-            }}
-          />
-
           {(userData.roles[0].authority === 'ROLE_SUPERUSER' &&
             userData.perfilId === selectData.brigadaId) ||
           (userData.roles[0].authority === 'ROLE_BRIGADE' &&
             userData.perfilId === selectData.brigadaId)
-            ? (
-            <button
+            ? <button
               className="btn-floating btn-medium waves-light"
               onClick={() => agregarModal.open()}
               style={{
                 backgroundColor: '#0C0019',
-                position: 'absolute',
-                marginLeft: 75
+                marginLeft: '2%'
               }}
             >
               <i className="material-icons">add</i>
             </button>
-              )
+
             : null}
         </div>
+
       </div>
       <div className="row center" style={{ marginTop: '5%' }}>
         <div className="row">
@@ -258,8 +235,7 @@ const BrigadaPerfil = (props) => {
       <CreateUserForm brigada={brigada} close={closeModal} />
       <EditBrigadaForm brigada={brigada} close={closeModal} />
     </div>
-      : <PreLoader visible={isLoading} />
-  )
+    : <PreLoader visible={isLoading} />
 }
 BrigadaPerfil.propTypes = {
   brigada: PropTypes.object

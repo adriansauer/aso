@@ -33,13 +33,11 @@ const UsuarioPerfil = (props) => {
     })
   }
   useEffect(() => {
-    if (member !== null) {
-      /** INSTANCIA DEL MODAL EDITAR */
-      const elem1 = document.getElementById('modal_edit')
-      const editarModalInstance = M.Modal.init(elem1)
-      setEditUserModal(editarModalInstance)
-    }
-  }, [member])
+    /** INSTANCIA DEL MODAL EDITAR */
+    const elem1 = document.getElementById('modal_edit')
+    const editarModalInstance = M.Modal.init(elem1)
+    setEditUserModal(editarModalInstance)
+  }, [member, brigada])
   const onImageChange = (event) => {
     getBase64(event.target.files[0])
       .then((result) => {
