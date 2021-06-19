@@ -8,7 +8,7 @@ import useGetBrigadaById from '../api/brigada/useGetBrigadaById'
 import useGetMemberById from '../api/miembros/useGetMemberById'
 const Header = (props) => {
   const [instance, setInstance] = useState(null)
-
+  const [brigada, setBrigada] = useState(null)
   const {
     isAutenticate,
     setIsAutenticate,
@@ -74,7 +74,6 @@ const Header = (props) => {
                 ? 'Hubo un error con la conexión'
                 : err.response.data.description
           })
-
         })
 
         .catch((err) => {
