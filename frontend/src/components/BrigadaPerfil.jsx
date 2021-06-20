@@ -10,12 +10,15 @@ import EditBrigadaForm from './modals/EditBrigadaForm'
 import PreLoader from './PreLoader'
 import userContext from '../context/userContext'
 import BrigadaPublications from './BrigadaPublications'
+import useGetHistoryByBrigadeId from '../api/historias/useGetHistoryByBrigadeId'
 import Graphic from './Graphic'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
+  const { execute: getHistoryByBrigadeIdExecute } = useGetHistoryByBrigadeId()
   const { execute: updateBrigadaExecute } = useUpdateBrigada()
   const [isLoading, setIsLoading] = useState(false)
   const [brigada, setBrigada] = useState(null)
+  const [historia, setHistoria] = useState('')
   const history = useHistory()
   /** INSTANCIA DE LOS MODALES */
   const [editarModal, setEditarModal] = useState(null)
@@ -23,8 +26,13 @@ const BrigadaPerfil = (props) => {
   const { userData, selectData } = useContext(userContext)
 
   useEffect(() => {
-    /** OBTENGO LA BRIGADA DE LAS PROPIEDADES */
-    fetchBrigadaById()
+    if (brigada !== null) {
+      getHistoryByBrigadeIdExecute(brigada.id)
+        .then(res => {
+          setHistoria(res.data.text)
+        })
+        .catch()
+    }
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
     const elem2 = document.getElementById('modal2')
     const agregarModalInstance = M.Modal.init(elem2, {
@@ -39,6 +47,10 @@ const BrigadaPerfil = (props) => {
     setEditarModal(editarModalInstance)
     M.AutoInit()
   }, [brigada])
+  useEffect(() => {
+    /** OBTENGO LA BRIGADA DE LAS PROPIEDADES */
+    fetchBrigadaById()
+  }, [])
 
   /** OBTENER LA BRIGADA */
   const fetchBrigadaById = () => {
@@ -228,7 +240,9 @@ const BrigadaPerfil = (props) => {
             <Graphic />
           </div>
           <div id="test4" className="col s12">
-            {/** Historia del BRIGADA */}
+            <div style={{ textAlign: 'justify', fontSize: 24, marginLeft: '15%', marginRight: '10%' }}>
+              <b>{historia}</b>
+            </div>
           </div>
         </div>
       </div>

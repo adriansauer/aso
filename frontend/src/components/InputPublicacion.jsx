@@ -210,7 +210,7 @@ const InputPublicacion = (props) => {
                       )
                     }}
                   >
-                    <option value={null}>Incidencia</option>
+                    <option value={null}>Incidentes</option>
                     {incidencias.map((incidencia) => (
                       <option key={incidencia.id} value={incidencia.id}>
                         {incidencia.code}-{incidencia.description}

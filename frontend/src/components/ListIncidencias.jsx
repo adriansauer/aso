@@ -96,7 +96,7 @@ const ListIncidencias = () => {
       <PreLoader visible={isLoading} />
       <div className="row">
         <blockquote style={{ borderColor: '#0C0019' }}>
-          Códigos de Incidencia
+          Códigos de Incidentes
           <button
             className="btn-floating waves-effect"
             style={{ marginLeft: '20px', backgroundColor: '#0C0019' }}
