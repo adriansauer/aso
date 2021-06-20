@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import CreateUserForm from './modals/CreateUserForm'
+import HistoryModal from './modals/HistoryModal'
 import M from 'materialize-css'
 import perfil from '../images/default.jpg'
 import { useHistory } from 'react-router-dom'
@@ -18,21 +19,25 @@ const BrigadaPerfil = (props) => {
   const { execute: updateBrigadaExecute } = useUpdateBrigada()
   const [isLoading, setIsLoading] = useState(false)
   const [brigada, setBrigada] = useState(null)
-  const [historia, setHistoria] = useState('')
+  const [historia, setHistoria] = useState(null)
   const history = useHistory()
   /** INSTANCIA DE LOS MODALES */
   const [editarModal, setEditarModal] = useState(null)
   const [agregarModal, setAgregarModal] = useState(null)
+  const [historyModal, setHistoryModal] = useState(null)
   const { userData, selectData } = useContext(userContext)
 
-  useEffect(() => {
+  const fetchHistory = () => {
     if (brigada !== null) {
       getHistoryByBrigadeIdExecute(brigada.id)
-        .then(res => {
+        .then((res) => {
           setHistoria(res.data.text)
         })
         .catch()
     }
+  }
+  useEffect(() => {
+    fetchHistory()
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
     const elem2 = document.getElementById('modal2')
     const agregarModalInstance = M.Modal.init(elem2, {
@@ -47,6 +52,15 @@ const BrigadaPerfil = (props) => {
     setEditarModal(editarModalInstance)
     M.AutoInit()
   }, [brigada])
+  useEffect(() => {
+    /** INSTANCIA DEL MODAL AGREGAR HISTORIA */
+    const elem3 = document.getElementById('history_modal')
+    const historyModalInstance = M.Modal.init(elem3, {
+      inDuration: 300
+    })
+    setHistoryModal(historyModalInstance)
+    M.AutoInit()
+  }, [historia])
   useEffect(() => {
     /** OBTENGO LA BRIGADA DE LAS PROPIEDADES */
     fetchBrigadaById()
@@ -75,11 +89,16 @@ const BrigadaPerfil = (props) => {
   const closeModal = () => {
     if (editarModal.isOpen) {
       editarModal.close()
+      fetchBrigadaById()
     }
     if (agregarModal.isOpen) {
       agregarModal.close()
+      fetchBrigadaById()
     }
-    fetchBrigadaById()
+    if (historyModal.isOpen) {
+      historyModal.close()
+      fetchHistory()
+    }
   }
   const getBase64 = (file) => {
     return new Promise((resolve) => {
@@ -133,10 +152,12 @@ const BrigadaPerfil = (props) => {
       })
   }
   return brigada !== null
-    ? <div className="container" style={{ marginTop: '4%', width: '100%' }}>
+    ? (
+    <div className="container" style={{ marginTop: '4%', width: '100%' }}>
       <div style={{ margin: 0 }} className="row center">
         {selectData.brigadaId === userData.perfilId
-          ? <div style={{ marginBottom: 0 }} className="row">
+          ? (
+          <div style={{ marginBottom: 0 }} className="row">
             <label
               style={{ marginTop: '3%', width: 100, height: 100 }}
               htmlFor="file-input"
@@ -153,8 +174,9 @@ const BrigadaPerfil = (props) => {
               type="file"
             />
           </div>
-
-          : <div style={{ marginBottom: 0 }} className="row">
+            )
+          : (
+          <div style={{ marginBottom: 0 }} className="row">
             <label
               style={{ marginTop: '3%', width: 100, height: 100 }}
               className="btn-floating btn-large waves-effect waves-light"
@@ -162,7 +184,7 @@ const BrigadaPerfil = (props) => {
               <img src={brigada.image || perfil} style={{ width: '100%' }} />
             </label>
           </div>
-            }
+            )}
       </div>
       <div className="row">
         <div className="col s12 m12 center-align">
@@ -171,9 +193,9 @@ const BrigadaPerfil = (props) => {
       </div>
       <div className="row center">
         <div className="col m12 s12 center-align">
-
           {selectData.brigadaId === userData.perfilId
-            ? <button
+            ? (
+            <button
               className="btn-floating btn-medium waves-light"
               onClick={() => editarModal.open()}
               style={{
@@ -183,9 +205,9 @@ const BrigadaPerfil = (props) => {
             >
               <i className="material-icons">edit</i>
             </button>
-
+              )
             : null}
-                      <button
+          <button
             className="btn btn-small waves-light"
             style={{ backgroundColor: '#0C0019', color: 'white' }}
             onClick={() => {
@@ -201,7 +223,8 @@ const BrigadaPerfil = (props) => {
             userData.perfilId === selectData.brigadaId) ||
           (userData.roles[0].authority === 'ROLE_BRIGADE' &&
             userData.perfilId === selectData.brigadaId)
-            ? <button
+            ? (
+            <button
               className="btn-floating btn-medium waves-light"
               onClick={() => agregarModal.open()}
               style={{
@@ -211,10 +234,23 @@ const BrigadaPerfil = (props) => {
             >
               <i className="material-icons">add</i>
             </button>
-
+              )
+            : null}
+          {selectData.brigadaId === userData.perfilId
+            ? (
+            <button
+              className="btn-floating btn-medium waves-light"
+              onClick={() => historyModal.open()}
+              style={{
+                backgroundColor: '#0C0019',
+                marginLeft: '2%'
+              }}
+            >
+              <i className="material-icons">library_books</i>
+            </button>
+              )
             : null}
         </div>
-
       </div>
       <div className="row center" style={{ marginTop: '5%' }}>
         <div className="row">
@@ -240,16 +276,39 @@ const BrigadaPerfil = (props) => {
             <Graphic />
           </div>
           <div id="test4" className="col s12">
-            <div style={{ textAlign: 'justify', fontSize: 24, marginLeft: '15%', marginRight: '10%' }}>
-              <b>{historia}</b>
-            </div>
+            {historia !== null
+              ? (
+              <div
+                style={{
+                  textAlign: 'justify',
+                  fontSize: 24,
+                  marginLeft: '15%',
+                  marginRight: '10%'
+                }}
+              >
+                <b>{historia}</b>
+              </div>
+                )
+              : null}
           </div>
         </div>
       </div>
       <CreateUserForm brigada={brigada} close={closeModal} />
       <EditBrigadaForm brigada={brigada} close={closeModal} />
+      {historia !== null
+        ? (
+        <HistoryModal
+          brigadeId={brigada.id}
+          text={historia}
+          close={closeModal}
+        />
+          )
+        : null}
     </div>
-    : <PreLoader visible={isLoading} />
+      )
+    : (
+    <PreLoader visible={isLoading} />
+      )
 }
 BrigadaPerfil.propTypes = {
   brigada: PropTypes.object
