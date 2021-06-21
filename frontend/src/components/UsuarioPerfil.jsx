@@ -151,7 +151,7 @@ const UsuarioPerfil = (props) => {
 
           <div className="row center-align">
             <h6 style={{ margin: 0 }}>
-              {member.usercode} {member.rankTitle}
+             <b> {member.usercode} {member.rankTitle}</b>
             </h6>
           </div>
 

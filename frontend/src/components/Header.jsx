@@ -263,7 +263,7 @@ const Header = (props) => {
                 <Link to="/incidencias" onClick={() => instance.close()}>
                   <i className="medium material-icons white-text">whatshot</i>
                   <span style={{ color: 'white', fontSize: 14 }}>
-                    Incidencias
+                    Incidentes
                   </span>
                 </Link>
               </li>
