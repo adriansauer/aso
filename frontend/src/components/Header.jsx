@@ -291,12 +291,12 @@ const Header = (props) => {
 
           {/** Link de configuraciones */}
           <li>
-            <a href="#!" className="white-text">
+          <Link to="/configuracion" onClick={() => instance.close()}>
               <i className="medium material-icons white-text">settings</i>
-              <span style={{ color: 'white', fontSize: 16 }}>
-                Configuraciones
-              </span>
-            </a>
+                  <span style={{ color: 'white', fontSize: 14 }}>
+                    Configuración
+                  </span>
+            </Link>
           </li>
         </ul>
       </div>
