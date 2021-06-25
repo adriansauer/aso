@@ -20,6 +20,7 @@ import UsuarioPerfil from './components/UsuarioPerfil'
 import BrigadaList from './components/BigradaList'
 import Ciudades from './components/Ciudades'
 import Incidencias from './components/ListIncidencias'
+import Configuracion from './components/Configuracion'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
   const { execute: checkLoggedIn } = useCheckLoggedIn()
@@ -63,6 +64,12 @@ const App = () => {
                 redirect="/login"
                 path="/cities"
                 component={Ciudades}
+              />
+              <PrivateRoute
+                authed={isAutenticate}
+                redirect="/login"
+                path="/configuracion"
+                component={Configuracion}
               />
               <PrivateRoute
                 authed={isAutenticate}
