@@ -3,45 +3,28 @@ import M from 'materialize-css'
 import userContext from '../context/userContext'
 import useCreatePublication from '../api/publicaciones/useCreatePublication'
 import useCreateFile from '../api/files/useCreateFile'
-import useGetIncidencia from '../api/incidencias/useGetIncidencias'
+import useSearchIncidencia from '../api/incidencias/useSearchIncident'
 import PropTypes from 'prop-types'
 import PreviewImage from './PreviewImage'
 const InputPublicacion = (props) => {
   const [width, setWidth] = useState(window.innerWidth)
   const { execute: createPublicationExecute } = useCreatePublication()
-  const { execute: getIncidenciasExecute } = useGetIncidencia()
+  const { execute: searchIncidenciasExecute } = useSearchIncidencia()
   const { execute: createFileExecute } = useCreateFile()
   const [body, setBody] = useState('')
   const [files, setFiles] = useState([])
-  const [incidencias, setIncidencias] = useState(null)
+  const [incidencias, setIncidencias] = useState([])
   const [incidenciaId, setIncidenciaId] = useState(null)
-  const [totalPages, setTotalPages] = useState([])
-  const [pagActual, setPagActual] = useState(1)
+  const [text, setText] = useState('')
   const { userData } = useContext(userContext)
   function handleWindowSizeChange () {
     setWidth(window.innerWidth)
   }
 
-  const handleIncrementPage = () => {
-    if (pagActual < totalPages.length) {
-      setPagActual(pagActual + 1)
-    }
-  }
-  const handleDecrementPage = () => {
-    if (pagActual > 1) {
-      setPagActual(pagActual - 1)
-    }
-  }
   const handleLoadIncidencia = () => {
     setIncidencias(null)
-    getIncidenciasExecute(pagActual)
+    searchIncidenciasExecute(text)
       .then((res) => {
-        setTotalPages(
-          Array.apply(null, { length: res.data.totalPages }).map(
-            Number.call,
-            Number
-          )
-        )
         setIncidencias(res.data.content)
         M.AutoInit()
       })
@@ -55,7 +38,11 @@ const InputPublicacion = (props) => {
       })
   }
   useEffect(() => {
-    handleLoadIncidencia()
+    if (text.length > 2) {
+      handleLoadIncidencia()
+    }
+  }, [text])
+  useEffect(() => {
     const elem = document.getElementById('dropdown_destination')
     M.FormSelect.init(elem, {})
     window.addEventListener('resize', handleWindowSizeChange)
@@ -64,9 +51,6 @@ const InputPublicacion = (props) => {
       window.removeEventListener('resize', handleWindowSizeChange)
     }
   }, [])
-  useEffect(() => {
-    console.log(incidenciaId)
-  }, [incidenciaId])
 
   const createPublication = (e) => {
     let publication = {}
@@ -160,8 +144,52 @@ const InputPublicacion = (props) => {
     >
       <br />
       <form onSubmit={createPublication}>
+
+        {userData.roles[0].authority === 'ROLE_BRIGADE'
+          ? (
+          <div className='row'>
+            <div className="input-field col m6">
+              <label>Buscar Incidente: </label>
+              <input
+                required
+                type="text"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              />
+            </div>
+            <div className="col m4 s4">
+              {incidencias !== null
+                ? (
+                <div className="input-field col s12">
+                  <select
+                    defaultValue={null}
+                    onChange={(e) => {
+                      setIncidenciaId(
+                        e.target.options[e.target.options.selectedIndex].value
+                      )
+                    }}
+                  >
+                    <option value={null}>Incidentes</option>
+                    {incidencias.map((incidencia) => (
+                      <option key={incidencia.id} value={incidencia.id}>
+                        {incidencia.code}-{incidencia.description}
+                      </option>
+                    ))}
+
+                  </select>
+
+                  <label>Incidencia</label>
+                </div>
+
+                  )
+                : null}
+            </div>
+            </div>
+            )
+          : null}
+
         <div className="row">
-          <div className="input-field col m4 s2">
+          <div className="input-field col m6 s6">
             <textarea
               id="textarea1"
               required
@@ -196,62 +224,7 @@ const InputPublicacion = (props) => {
           </div>
         </div>
         <div className="row">
-          {userData.roles[0].authority === 'ROLE_BRIGADE'
-            ? (
-            <div className="col m4 s4">
-              {incidencias !== null
-                ? (
-                <div className="input-field col s12">
-                  <select
-                    defaultValue={null}
-                    onChange={(e) => {
-                      setIncidenciaId(
-                        e.target.options[e.target.options.selectedIndex].value
-                      )
-                    }}
-                  >
-                    <option value={null}>Incidentes</option>
-                    {incidencias.map((incidencia) => (
-                      <option key={incidencia.id} value={incidencia.id}>
-                        {incidencia.code}-{incidencia.description}
-                      </option>
-                    ))}
-
-                    <ul className="pagination">
-                      <li>
-                        <a href="#!" onClick={handleDecrementPage}>
-                          <i className="material-icons">chevron_left</i>
-                        </a>
-                      </li>
-                      {totalPages.length !== 0
-                        ? totalPages.map((t) => (
-                            <li
-                              key={t}
-                              onClick={() => setPagActual(t + 1)}
-                              className={pagActual === t + 1 ? 'active' : ''}
-                            >
-                              <a href="#!">{t + 1}</a>
-                            </li>
-                        ))
-                        : null}
-
-                      <li>
-                        <a href="#!" onClick={handleIncrementPage}>
-                          <i className="material-icons">chevron_right</i>
-                        </a>
-                      </li>
-                    </ul>
-                  </select>
-
-                  <label>Incidencia</label>
-                </div>
-                  )
-                : null}
-            </div>
-              )
-            : null}
-
-          <div className="file-field input-field col m6 s6">
+          <div className="file-field input-field col m12 s12">
             <div
               className="btn btn-medium"
               style={{
