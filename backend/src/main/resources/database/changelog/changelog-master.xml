@@ -67,5 +67,7 @@
 		file="/database/changelog/changes/inserts/insert-incidence_codes-1.xml" />
 	<include
 		file="/database/changelog/changes/inserts/insert-brigade_histories-1.xml" />
+	<include
+		file="/database/changelog/changes/inserts/insert-publications-2.xml" />
 	
 </databaseChangeLog>
