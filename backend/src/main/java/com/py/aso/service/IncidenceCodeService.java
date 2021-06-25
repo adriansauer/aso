@@ -32,6 +32,24 @@ public class IncidenceCodeService implements BaseService<IncidenceCodeDTO,Incide
 		return this.incidenceCodeRepository.findAllByDeleted(false, pageable)//
 				.map(this.incidenceCodeMapper::toDTO);
 	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public Page<IncidenceCodeDTO> findLikeByCode(final String code, final Pageable pageable) {
+		return this.incidenceCodeRepository.searchByCodeAndDeletedStartsWith(code, false, pageable)//
+				.map(this.incidenceCodeMapper::toDTO);
+	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public Page<IncidenceCodeDTO> findLikeByDescription(final String description, final Pageable pageable) {
+		return this.incidenceCodeRepository.searchByDescriptionAndDeletedStartsWith(description, false, pageable)//
+				.map(this.incidenceCodeMapper::toDTO);
+	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public Page<IncidenceCodeDTO> findLikeByDescriptionAndCode(final String value, final Pageable pageable) {
+		return this.incidenceCodeRepository.searchByDescriptionAndCodeAndDeletedStartsWith(value, value, false, pageable)//
+				.map(this.incidenceCodeMapper::toDTO);
+	}
 
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)

@@ -28,27 +28,48 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @Api(value = "Controlador de codigos de incidencia")
 @RequestMapping("/api")
-public class IncidenceCodeController implements BaseController<IncidenceCodeDTO,IncidenceCodeDetailDTO,IncidenceCodeCreateDTO,IncidenceCodeUpdateDTO> {
-	
+public class IncidenceCodeController implements
+		BaseController<IncidenceCodeDTO, IncidenceCodeDetailDTO, IncidenceCodeCreateDTO, IncidenceCodeUpdateDTO> {
+
 	@Autowired
 	private IncidenceCodeService incidenceCodeService;
 
 	@Override
 	@GetMapping("incidence-code")
-	@ApiOperation(value="Obtener todos los codigos de incidencias, permite paginación")
+	@ApiOperation(value = "Obtener todos los codigos de incidencias, permite paginación")
 	public Page<IncidenceCodeDTO> index(final Pageable pageable) {
 		return this.incidenceCodeService.findAll(pageable);
 	}
 
+	@GetMapping("incidence-code/code/{code}")
+	@ApiOperation(value = "Busca por el comienzo del codigo que sea igual a lo recibido")
+	public Page<IncidenceCodeDTO> findAllByCode(@PathVariable final String code, final Pageable pageable) {
+		return this.incidenceCodeService.findLikeByCode(code, pageable);
+	}
+
+	@GetMapping("incidence-code/description/{description}")
+	@ApiOperation(value = "Busca por el comienzo de la descripción que sea igual a lo recibido")
+	public Page<IncidenceCodeDTO> findAllByDescription(@PathVariable final String description,
+			final Pageable pageable) {
+		return this.incidenceCodeService.findLikeByDescription(description, pageable);
+	}
+	
+	@GetMapping("incidence-code/description-code/{text}")
+	@ApiOperation(value = "Busca por el comienzo del codigo o descripción que sea igual a lo recibido")
+	public Page<IncidenceCodeDTO> findAllByDescriptionAndCode(@PathVariable final String text,
+			final Pageable pageable) {
+		return this.incidenceCodeService.findLikeByDescriptionAndCode(text, pageable);
+	}
+
 	@Override
 	@GetMapping("/incidence-code/{id}")
-	@ApiOperation(value="Obtener un codigo de incidencia por el id")
+	@ApiOperation(value = "Obtener un codigo de incidencia por el id")
 	public IncidenceCodeDetailDTO find(@PathVariable final long id) throws Exception {
 		return this.incidenceCodeService.findById(id);
 	}
-	
+
 	@GetMapping("/incidence-code/bycode/{code}")
-	@ApiOperation(value="Obtener un codigo de incidencia por el codigo")
+	@ApiOperation(value = "Obtener un codigo de incidencia por el codigo")
 	public IncidenceCodeDetailDTO findByCode(@PathVariable final String code) throws Exception {
 		return this.incidenceCodeService.findByCode(code);
 	}
@@ -57,7 +78,8 @@ public class IncidenceCodeController implements BaseController<IncidenceCodeDTO,
 	@PostMapping("/incidence-code")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
 	@ApiOperation(value = "Crea un nuevo codigo de incidencia")
-	public IncidenceCodeDetailDTO create(@Validated @RequestBody final IncidenceCodeCreateDTO incidenceCodeCreateDTO) throws Exception {
+	public IncidenceCodeDetailDTO create(@Validated @RequestBody final IncidenceCodeCreateDTO incidenceCodeCreateDTO)
+			throws Exception {
 		return this.incidenceCodeService.save(incidenceCodeCreateDTO);
 	}
 
@@ -65,7 +87,8 @@ public class IncidenceCodeController implements BaseController<IncidenceCodeDTO,
 	@PutMapping("/incidence-code/{id}")
 	@PreAuthorize("hasRole('ROLE_SUPERUSER') or hasRole('ROLE_BRIGADE')")
 	@ApiOperation(value = "Actualiza un codigo de incidencia por el id")
-	public IncidenceCodeDetailDTO update(@PathVariable final long id, @Validated @RequestBody final IncidenceCodeUpdateDTO incidenceCodeUpdateDTO) throws Exception {
+	public IncidenceCodeDetailDTO update(@PathVariable final long id,
+			@Validated @RequestBody final IncidenceCodeUpdateDTO incidenceCodeUpdateDTO) throws Exception {
 		return this.incidenceCodeService.update(id, incidenceCodeUpdateDTO);
 	}
 
