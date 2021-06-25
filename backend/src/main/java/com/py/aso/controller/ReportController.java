@@ -22,10 +22,28 @@ public class ReportController {
 	@Autowired
 	private ReportService reportService;
 	
-	@PostMapping("/reports")
-	@ApiOperation(value = "Obtener detalles de un like del usuario a una publicación")
-	public ReportDTO findByYear(@Validated @RequestBody final DashboardDTO dashboardDTO) throws Exception {
-		return this.reportService.findByYear(dashboardDTO);
+	@PostMapping("/reports/year-code")
+	@ApiOperation(value = "Obtener las incidencias por el año y el codigo")
+	public ReportDTO findByYearAndCode(@Validated @RequestBody final DashboardDTO dashboardDTO) throws Exception {
+		return this.reportService.findByYearAndCode(dashboardDTO);
+	}
+	
+	@PostMapping("/reports/year-user-code")
+	@ApiOperation(value = "Obtener las incidencias por año el usuario y el codigo")
+	public ReportDTO findByYearAndUserAndCode(@Validated @RequestBody final DashboardDTO dashboardDTO) throws Exception {
+		return this.reportService.findByYearAndUserAndCode(dashboardDTO);
+	}
+	
+	@PostMapping("/reports/year-user")
+	@ApiOperation(value = "Obtener las incidencias por año y el usuario")
+	public ReportDTO findByYearAndUser(@Validated @RequestBody final DashboardDTO dashboardDTO) throws Exception {
+		return this.reportService.findByYearAndUser(dashboardDTO);
+	}
+	
+	@PostMapping("/reports/code-user")
+	@ApiOperation(value = "Obtener las incidencias por el codigo y el usuario")
+	public ReportDTO findByCodeAndUser(@Validated @RequestBody final DashboardDTO dashboardDTO) throws Exception {
+		return this.reportService.findByCodeAndUser(dashboardDTO);
 	}
 
 }

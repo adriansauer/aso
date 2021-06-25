@@ -1,8 +1,5 @@
 package com.py.aso.dto;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Positive;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -11,12 +8,13 @@ import lombok.Data;
 @ApiModel(description = "Objeto que representa a un dashboard")
 public class DashboardDTO {
 
-	@NotBlank(message = "El codigo de la insidencia es requerido")
-	@ApiModelProperty(notes = "Codigo de insidencia", example = "10.70", required = true)
+	@ApiModelProperty(notes = "Codigo de insidencia", example = "10.70")
 	private String code;
 	
-	@Positive(message = "El año es requerido")
-	@ApiModelProperty(notes = "Año del dashboard", example = "2021", required = true)
+	@ApiModelProperty(notes = "Año del dashboard", example = "2021")
 	private long year;
+	
+	@ApiModelProperty(notes = "El id del usuario", example = "2021")
+	private long userId;
 	
 }
