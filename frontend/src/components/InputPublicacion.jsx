@@ -151,7 +151,6 @@ const InputPublicacion = (props) => {
             <div className="input-field col m6">
               <label>Buscar Incidente: </label>
               <input
-                required
                 type="text"
                 value={text}
                 onChange={(e) => setText(e.target.value)}

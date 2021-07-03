@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from 'react'
-import perfil from '../images/default.jpg'
 import './components.css'
 import M from 'materialize-css'
 import CreateBrigadaForm from './modals/CreateBrigadaForm'
@@ -17,11 +16,8 @@ const BrigadaList = () => {
   const [totalPages, setTotalPages] = useState([])
   const [pagActual, setPagActual] = useState(1)
   const history = useHistory()
-  const [width, setWidth] = useState(window.innerWidth)
   const { userData, setSelectData, selectData } = useContext(userContext)
-  function handleWindowSizeChange () {
-    setWidth(window.innerWidth)
-  }
+
   useEffect(() => {
     handleLoadBrigades()
   }, [pagActual])
@@ -55,12 +51,7 @@ const BrigadaList = () => {
       setPagActual(pagActual - 1)
     }
   }
-  useEffect(() => {
-    window.addEventListener('resize', handleWindowSizeChange)
-    return () => {
-      window.removeEventListener('resize', handleWindowSizeChange)
-    }
-  }, [])
+
   useEffect(() => {
     handleLoadBrigades()
 
@@ -140,46 +131,6 @@ const BrigadaList = () => {
                       <br />
                       <span className='responsive'>{b.numberMember} MIEMBROS</span>
                     </div>
-                    {(width <= 768)
-                      ? null
-                      : <div className="col s3 m4">
-                    <img
-                      src={perfil}
-                      alt=""
-                      className="circle secondary-content responsive"
-                      style={{
-                        height: 50,
-                        width: 50,
-                        marginBottom: '5%',
-                        left: 'auto'
-                      }}
-                    />
-                    <img
-                      src={perfil}
-                      alt=""
-                      className="circle secondary-content"
-                      style={{
-                        height: 50,
-                        width: 50,
-                        marginBottom: '5%',
-                        left: 'auto',
-                        marginRight: '30px'
-                      }}
-                    />
-                    <img
-                      src={perfil}
-                      alt=""
-                      className="circle secondary-content"
-                      style={{
-                        height: 50,
-                        width: 50,
-                        marginBottom: '5%',
-                        left: 'auto',
-                        marginRight: '60px'
-                      }}
-                    />
-                  </div>
-                    }
 
                   </div>
                 </div>

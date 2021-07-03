@@ -12,10 +12,12 @@ import PreLoader from './PreLoader'
 import userContext from '../context/userContext'
 import BrigadaPublications from './BrigadaPublications'
 import useGetHistoryByBrigadeId from '../api/historias/useGetHistoryByBrigadeId'
+import useGetReports from '../api/reportes/useGetReports'
 import Graphic from './Graphic'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: getHistoryByBrigadeIdExecute } = useGetHistoryByBrigadeId()
+  const { execute: getReportsExecute } = useGetReports()
   const { execute: updateBrigadaExecute } = useUpdateBrigada()
   const [isLoading, setIsLoading] = useState(false)
   const [brigada, setBrigada] = useState(null)
@@ -26,7 +28,7 @@ const BrigadaPerfil = (props) => {
   const [agregarModal, setAgregarModal] = useState(null)
   const [historyModal, setHistoryModal] = useState(null)
   const { userData, selectData } = useContext(userContext)
-
+  const [reports, setReports] = useState(null)
   const fetchHistory = () => {
     if (brigada !== null) {
       getHistoryByBrigadeIdExecute(brigada.id)
@@ -36,8 +38,23 @@ const BrigadaPerfil = (props) => {
         .catch()
     }
   }
+  const fetchReports = () => {
+    if (brigada !== null) {
+      const data = {
+        userId: brigada.userId,
+        year: 2020
+      }
+      getReportsExecute(data)
+        .then((res) => {
+          setReports(res.data)
+          console.log(reports)
+        })
+        .catch()
+    }
+  }
   useEffect(() => {
     fetchHistory()
+    fetchReports()
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
     const elem2 = document.getElementById('modal2')
     const agregarModalInstance = M.Modal.init(elem2, {
