@@ -6,7 +6,7 @@ import useCheckLoggedIn from './autenticacion/CheckLoggedIn'
 import 'materialize-css/dist/css/materialize.min.css'
 import 'materialize-css/dist/js/materialize.min.js'
 /** Enrutamietno */
-import { BrowserRouter as Router, Switch } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute'
 /** Context de usuario */
 import UserContext from './context/userContext'
@@ -21,6 +21,7 @@ import BrigadaList from './components/BigradaList'
 import Ciudades from './components/Ciudades'
 import Incidencias from './components/ListIncidencias'
 import Configuracion from './components/Configuracion'
+import Dashboard from './components/Dashboard'
 const App = () => {
   const [isAutenticate, setIsAutenticate] = useState(false)
   const { execute: checkLoggedIn } = useCheckLoggedIn()
@@ -53,6 +54,9 @@ const App = () => {
           <Header />
           <>
             <Switch>
+            <Route path="/dashboard">
+              <Dashboard />
+            </Route>
               <PrivateRoute
                 authed={!isAutenticate}
                 redirect="/"

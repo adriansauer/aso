@@ -1,8 +1,8 @@
 import api from '../api'
 
 const useUpdatePublication = () => {
-  const execute = (id, body, destination) => {
-    return api.put(`api/publications/${id}`, { body, destination })
+  const execute = (id, incidenceCodeId, body, destination) => {
+    return api.put(`api/publications/${id}`, { body, destination, incidenceCodeId })
   }
   return { execute }
 }

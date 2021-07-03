@@ -115,6 +115,12 @@ const Header = (props) => {
     localStorage.setItem('token', null)
     setIsAutenticate(false)
   }
+  const handleDashboard = () => {
+    history.push('/dashboard')
+  }
+  const handleLogin = () => {
+    history.push('/login')
+  }
 
   return (
     <>
@@ -179,10 +185,36 @@ const Header = (props) => {
                     <i className="material-icons">dehaze</i>
                   </button>
                 </li>
+                <li>
+                <h5>ASO</h5>
+                </li>
+
               </ul>
             </>
               )
-            : null}
+            : <a href="#" className="brand-logo right">
+            <ul>
+               <li>
+                <i
+                  className="material-icons"
+                  onClick={handleLogin}
+                  style={{ marginLeft: '2%', fontSize: 45 }}
+                >
+                  assignment_ind
+                </i>
+              </li>
+            <li>
+                <i
+                  className="material-icons"
+                  onClick={handleDashboard}
+                  style={{ marginLeft: '2%', fontSize: 45 }}
+                >
+                  insert_chart
+                </i>
+              </li>
+              </ul>
+              </a>
+              }
         </div>
       </nav>
       {/** Vista del Sidebar */}
@@ -201,6 +233,19 @@ const Header = (props) => {
             >
               <i className="medium material-icons white-text">home</i>
               <span style={{ color: 'white', fontSize: 16 }}>Home</span>
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={{
+                pathname: '/dashboard'
+              }}
+              onClick={() => {
+                instance.close()
+              }}
+            >
+              <i className="medium material-icons white-text">insert_chart</i>
+              <span style={{ color: 'white', fontSize: 16 }}>Dashboard</span>
             </Link>
           </li>
           {/** Link del perfil del usuario */}
@@ -278,7 +323,7 @@ const Header = (props) => {
                   ? (
               <li>
                 <Link to="/cities" onClick={() => instance.close()}>
-                  <i className="medium material-icons white-text">group</i>
+                  <i className="medium material-icons white-text">location_city</i>
                   <span style={{ color: 'white', fontSize: 14 }}>
                     Ciudades y Departamentos
                   </span>

@@ -12,21 +12,25 @@ import PreLoader from './PreLoader'
 import userContext from '../context/userContext'
 import BrigadaPublications from './BrigadaPublications'
 import useGetHistoryByBrigadeId from '../api/historias/useGetHistoryByBrigadeId'
+import useGetReports from '../api/reportes/useGetReports'
 import Graphic from './Graphic'
 const BrigadaPerfil = (props) => {
   const { execute: getBrigadaByIdExecute } = useGetBrigadaById()
   const { execute: getHistoryByBrigadeIdExecute } = useGetHistoryByBrigadeId()
+  const { execute: getReportsExecute } = useGetReports()
   const { execute: updateBrigadaExecute } = useUpdateBrigada()
   const [isLoading, setIsLoading] = useState(false)
   const [brigada, setBrigada] = useState(null)
   const [historia, setHistoria] = useState(null)
   const history = useHistory()
+  const [isInPublication, setIsInPublication] = useState(false)
   /** INSTANCIA DE LOS MODALES */
   const [editarModal, setEditarModal] = useState(null)
   const [agregarModal, setAgregarModal] = useState(null)
   const [historyModal, setHistoryModal] = useState(null)
+  const [year, setYear] = useState(new Date().getFullYear())
   const { userData, selectData } = useContext(userContext)
-
+  const [reports, setReports] = useState(null)
   const fetchHistory = () => {
     if (brigada !== null) {
       getHistoryByBrigadeIdExecute(brigada.id)
@@ -36,8 +40,26 @@ const BrigadaPerfil = (props) => {
         .catch()
     }
   }
+  const fetchReports = () => {
+    if (brigada !== null) {
+      const data = {
+        userId: brigada.userId,
+        year: 2020
+      }
+      getReportsExecute(data)
+        .then((res) => {
+          setReports(res.data)
+          console.log(reports)
+        })
+        .catch()
+    }
+  }
+  useEffect(() => {
+    console.log(year)
+  }, [year])
   useEffect(() => {
     fetchHistory()
+    fetchReports()
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
     const elem2 = document.getElementById('modal2')
     const agregarModalInstance = M.Modal.init(elem2, {
@@ -256,23 +278,56 @@ const BrigadaPerfil = (props) => {
         <div className="row">
           <div className="col s12">
             <ul className="tabs">
-              <li className="tab col s4">
+              <li className="tab col s4" onClick={() => setIsInPublication(true)}>
                 <a href="#test1">Publicaciones</a>
               </li>
-              <li className="tab col s4">
+              <li className="tab col s4" onClick={() => setIsInPublication(false)}>
                 <a className="active" href="#test2">
                   Dashboard
                 </a>
               </li>
-              <li className="tab col s4">
+              <li className="tab col s4" onClick={() => setIsInPublication(false)}>
                 <a href="#test4">Historia</a>
               </li>
             </ul>
           </div>
           <div id="test1" className="col s12">
-            <BrigadaPublications userId={brigada.userId} />
+            {isInPublication
+              ? <BrigadaPublications userId={brigada.userId} />
+              : null
+          }
+
           </div>
           <div id="test2" className="col s12">
+          <div className="input-field col m4 s12 right">
+                  <select
+                    defaultValue={new Date().getFullYear()}
+                    onChange={(e) => {
+                      setYear(
+                        e.target.options[e.target.options.selectedIndex].value
+                      )
+                    }}
+                  >
+                    <option value={new Date().getFullYear()}>{new Date().getFullYear()}</option>
+                    <option value={new Date().getFullYear() - 1}>{new Date().getFullYear() - 1}</option>
+                    <option value={new Date().getFullYear() - 2}>{new Date().getFullYear() - 2}</option>
+                    <option value={new Date().getFullYear() - 3}>{new Date().getFullYear() - 3}</option>
+                    <option value={new Date().getFullYear() - 4}>{new Date().getFullYear() - 4}</option>
+                    <option value={new Date().getFullYear() - 5}>{new Date().getFullYear() - 5}</option>
+                    <option value={new Date().getFullYear() - 6}>{new Date().getFullYear() - 6}</option>
+                    <option value={new Date().getFullYear() - 7}>{new Date().getFullYear() - 7}</option>
+                    <option value={new Date().getFullYear() - 8}>{new Date().getFullYear() - 8}</option>
+                    <option value={new Date().getFullYear() - 9}>{new Date().getFullYear() - 9}</option>
+                    <option value={new Date().getFullYear() - 10}>{new Date().getFullYear() - 10}</option>
+                    <option value={new Date().getFullYear() - 11}>{new Date().getFullYear() - 11}</option>
+                    <option value={new Date().getFullYear() - 12}>{new Date().getFullYear() - 12}</option>
+                    <option value={new Date().getFullYear() - 13}>{new Date().getFullYear() - 13}</option>
+                    <option value={new Date().getFullYear() - 14}>{new Date().getFullYear() - 14}</option>
+
+                  </select>
+
+                  <label>Año</label>
+                </div>
             <Graphic />
           </div>
           <div id="test4" className="col s12">
@@ -286,6 +341,7 @@ const BrigadaPerfil = (props) => {
                   marginRight: '10%'
                 }}
               >
+
                 <b>{historia}</b>
               </div>
                 )
