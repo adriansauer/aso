@@ -1,6 +1,9 @@
 package com.py.aso.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +24,12 @@ public class ReportController {
 	
 	@Autowired
 	private ReportService reportService;
+	
+	@PostMapping("/reports/all/year-user")
+	@ApiOperation(value = "Obtener las incidencias por el año y el codigo")
+	public List<ReportDTO> findAllByYearAndUser(@Validated @RequestBody final DashboardDTO dashboardDTO, final Pageable pageable) throws Exception {
+		return this.reportService.findAllByYearAndUser(dashboardDTO, pageable);
+	}
 	
 	@PostMapping("/reports/year-code")
 	@ApiOperation(value = "Obtener las incidencias por el año y el codigo")
