@@ -326,7 +326,7 @@ const BrigadaPerfil = (props) => {
 
                   </select>
 
-                  <label>Incidencia</label>
+                  <label>Año</label>
                 </div>
             <Graphic />
           </div>
