@@ -11,7 +11,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var useGetReportes = function useGetReportes() {
   var execute = function execute(data) {
-    return _api["default"].post('/api/reports/year-user', data);
+    return _api["default"].post('/api/reports/all/year-user', data);
   };
 
   return {
