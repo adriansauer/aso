@@ -1,12 +1,38 @@
 import React, { useEffect, useState } from 'react'
 import M from 'materialize-css'
+import useGetReports from '../api/reportes/useGetReports'
+import Graphic from './Graphic'
 const Dashboard = () => {
+  const { execute: getReportsExecute } = useGetReports()
   const [year, setYear] = useState(new Date().getFullYear())
+  const [reports, setReports] = useState(null)
   useEffect(() => {
     M.AutoInit()
   }, [])
+  const fetchReports = () => {
+    const data = {
+      userId: 2,
+      year: year
+    }
+    getReportsExecute(data)
+      .then((res) => {
+        if (res.data.lenght === 0) {
+          setReports(null)
+        } else {
+          setReports(res.data)
+        }
+      })
+      .catch((err) => {
+        M.toast({
+          html:
+              err.response === undefined
+                ? 'Hubo un error con la conexión'
+                : err.response.data.description
+        })
+      })
+  }
   useEffect(() => {
-    console.log(year)
+    fetchReports()
   }, [year])
   return (
         <div className='container'>
@@ -41,6 +67,11 @@ const Dashboard = () => {
 
                   <label>Año</label>
                 </div>
+                {reports !== null
+                  ? reports.map(r => (
+                   <Graphic key={r.code} report={r} />
+                  ))
+                  : null}
            </div>
 
         </div>
