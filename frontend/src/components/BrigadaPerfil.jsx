@@ -62,9 +62,6 @@ const BrigadaPerfil = (props) => {
   useEffect(() => {
     fetchReports()
   }, [year])
-  useEffect(() => {
-    console.log(reports)
-  }, [reports])
 
   useEffect(() => {
     fetchHistory()
