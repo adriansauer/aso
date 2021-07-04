@@ -196,10 +196,13 @@ const TagsPublicaciones = (props) => {
           </div>
           <div className="divider" />
           <div>
-            {publication.incidenceCode !== null & publication.incidenceCode !== undefined
-              ? <b>{publication.incidenceCode.code}-{publication.incidenceCode.description}</b>
+            {publication !== null
+              ? publication.incidenceCode !== null & publication.incidenceCode !== undefined
+                ? <b>{publication.incidenceCode.code}-{publication.incidenceCode.description}</b>
 
+                : null
               : null}
+
             <br/>
             <p align="left" style={{ marginLeft: '5%', marginRight: '5%' }}>
               {props.description}

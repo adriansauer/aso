@@ -41,25 +41,33 @@ const BrigadaPerfil = (props) => {
     }
   }
   const fetchReports = () => {
+    setIsLoading(true)
     if (brigada !== null) {
       const data = {
         userId: brigada.userId,
-        year: 2020
+        year: year
       }
       getReportsExecute(data)
         .then((res) => {
-          setReports(res.data)
-          console.log(reports)
+          if (res.data.lenght === 0) {
+            setReports(null)
+          } else {
+            setReports(res.data)
+          }
+          setIsLoading(false)
         })
-        .catch()
+        .catch(() => setIsLoading(false))
     }
   }
   useEffect(() => {
-    console.log(year)
+    fetchReports()
   }, [year])
   useEffect(() => {
+    console.log(reports)
+  }, [reports])
+
+  useEffect(() => {
     fetchHistory()
-    fetchReports()
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
     const elem2 = document.getElementById('modal2')
     const agregarModalInstance = M.Modal.init(elem2, {
@@ -328,7 +336,12 @@ const BrigadaPerfil = (props) => {
 
                   <label>Año</label>
                 </div>
-            <Graphic />
+                {reports !== null
+                  ? reports.map(r => (
+                   <Graphic key={r.code} report={r} />
+                  ))
+                  : null}
+
           </div>
           <div id="test4" className="col s12">
             {historia !== null
