@@ -1,18 +1,18 @@
 package com.py.aso.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Controller
 @Api(value = "Controlador que responde la vista principal")
-public class IndexController {
+public class HomeController {
 
-	@GetMapping(value = "/")
+	@RequestMapping(value = "/home")
 	@ApiOperation(value = "Responde la pagina inicial")
-	public String index() {
+	public String home() {
 		return "index.html";
 	}
 }
