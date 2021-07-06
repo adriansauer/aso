@@ -35,6 +35,13 @@ public class ReportService {
 				dashboardDTO.getYear(), dashboardDTO.getUserId(), false, true, (long) pageable.getPageSize());
 		return this.createListReportByYearAndUser(a, dashboardDTO.getYear());
 	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<ReportDTO> findAllByYear(final DashboardDTO dashboardDTO, final Pageable pageable) throws Exception {
+		List<Object[]> a = this.reportRepository.findAllYearAndDeletedAndEnabledAndLimit(
+				dashboardDTO.getYear(), false, true, (long) pageable.getPageSize());
+		return this.createListReportByYearAndUser(a, dashboardDTO.getYear());
+	}
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public ReportDTO findByYearAndCode(final DashboardDTO dashboardDTO) throws Exception {

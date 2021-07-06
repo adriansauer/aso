@@ -277,13 +277,14 @@ public class PublicationService
 			incidenceCodeEntity.setId(incidenceCodeDetailDTO.getId());
 			incidenceCodeEntity.setCode(incidenceCodeDetailDTO.getCode());
 			incidenceCodeEntity.setDescription(incidenceCodeDetailDTO.getDescription());
+			entity.setIncidence(incidenceCodeEntity);
 		}
-
+		
 		// Se setean los datos
 		entity.setBody(dto.getBody());
 		entity.setDestination(destination(dto.getDestination(), userId, dto.getBrigadeId()));
 		entity.setUpdated_at(new Date());
-		entity.setIncidence(incidenceCodeEntity);
+		
 		// Se guardan los cambios
 		return this.publicationMapper.toDetailDTO(this.publicationRepository.save(entity));
 	}

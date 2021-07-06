@@ -51,4 +51,12 @@ public interface ReportRepository extends JpaRepository<PublicationEntity, Long>
 			+ "", nativeQuery = true)
 	public List<Object[]> findAllYearAndUserIdAndDeletedAndEnabledAndLimit(final Long year, final Long userId,
 			final boolean deleted, final boolean enabled, final Long limit);
+	
+	@Query(value = "SELECT p.INCIDENCE_CODE_ID, month(p.CREATED_AT), COUNT(p.id)\r\n"
+			+ "FROM PUBLICATIONS p INNER JOIN USERS u ON p.user_id = u.id \r\n"
+			+ "WHERE YEAR(p.created_at) = ?1  AND p.deleted = ?2 AND u.enabled = ?3 And p.INCIDENCE_CODE_ID IN(SELECT  id FROM INCIDENCE_CODES LIMIT ?4)\r\n"
+			+ "GROUP BY p.INCIDENCE_CODE_ID, month(p.CREATED_AT)\r\n" 
+			+ "ORDER BY p.INCIDENCE_CODE_ID, month(p.CREATED_AT), COUNT(p.id)\r\n"
+			+ "", nativeQuery = true)
+	public List<Object[]> findAllYearAndDeletedAndEnabledAndLimit(final Long year, final boolean deleted, final boolean enabled, final Long limit);
 }
