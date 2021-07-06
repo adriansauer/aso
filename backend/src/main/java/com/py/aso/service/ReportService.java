@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.py.aso.dto.DashboardDTO;
 import com.py.aso.dto.Months;
 import com.py.aso.dto.ReportDTO;
+import com.py.aso.dto.detail.BrigadeDetailDTO;
 import com.py.aso.dto.detail.IncidenceCodeDetailDTO;
 import com.py.aso.repository.ReportRepository;
 
@@ -24,11 +25,21 @@ public class ReportService {
 
 	@Autowired
 	private ReportRepository reportRepository;
+	
+	@Autowired
+	private BrigadeService brigadeService;
 
 	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
 	public List<ReportDTO> findAllByYearAndUser(final DashboardDTO dashboardDTO, final Pageable pageable) throws Exception {
 		List<Object[]> a = this.reportRepository.findAllYearAndUserIdAndDeletedAndEnabledAndLimit(
 				dashboardDTO.getYear(), dashboardDTO.getUserId(), false, true, (long) pageable.getPageSize());
+		return this.createListReportByYearAndUser(a, dashboardDTO.getYear());
+	}
+	
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public List<ReportDTO> findAllByYear(final DashboardDTO dashboardDTO, final Pageable pageable) throws Exception {
+		List<Object[]> a = this.reportRepository.findAllYearAndDeletedAndEnabledAndLimit(
+				dashboardDTO.getYear(), false, true, (long) pageable.getPageSize());
 		return this.createListReportByYearAndUser(a, dashboardDTO.getYear());
 	}
 
@@ -129,6 +140,49 @@ public class ReportService {
 		Months months = new Months();
 		final Long year = dashboardDTO.getYear();
 		final Long user = dashboardDTO.getUserId();
+		months.setJanuary(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 1L, user, false, true));
+		months.setFebruary(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 2L, user, false, true));
+		months.setMarch(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 3L, user, false, true));
+		months.setApril(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 4L, user, false, true));
+		months.setMay(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 5L, user, false, true));
+		months.setJune(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 6L, user, false, true));
+		months.setJuly(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 7L, user, false, true));
+		months.setAugust(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 8L, user, false, true));
+		months.setSeptember(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 9L, user, false, true));
+		months.setOctober(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 10L, user, false, true));
+		months.setNovember(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 11L, user, false, true));
+		months.setDecember(
+				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 12L, user, false, true));
+		reportDTO.setMonths(months);
+
+		reportDTO.setQuantity(this.reportRepository.countByYearAndUserIdAndDeletedAndEnabled(year, user, false, true));
+
+		return reportDTO;
+	}
+	
+	
+	@Transactional(readOnly = true, propagation = Propagation.SUPPORTS)
+	public ReportDTO findByYearAndBrigade(final DashboardDTO dashboardDTO) throws Exception {
+		
+		final BrigadeDetailDTO brigadeDTO = this.brigadeService.findById(dashboardDTO.getUserId());
+
+		ReportDTO reportDTO = new ReportDTO();
+		reportDTO.setYear(dashboardDTO.getYear());
+
+		Months months = new Months();
+		final Long year = dashboardDTO.getYear();
+		final Long user = brigadeDTO.getUserId();
 		months.setJanuary(
 				this.reportRepository.countByYearAndMonthAndUserIdAndDeletedAndEnabled(year, 1L, user, false, true));
 		months.setFebruary(
