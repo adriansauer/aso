@@ -40,6 +40,12 @@ public class BrigadeController
 	public Page<BrigadeDTO> index(final Pageable pageable) {
 		return this.brigadeService.findAll(pageable);
 	}
+	
+	@GetMapping("/public/brigades")
+	@ApiOperation(value = "Obtener todas las brigadas, permite paginacion")
+	public Page<BrigadeDTO> indexPublic(final Pageable pageable) {
+		return this.brigadeService.findAll(pageable);
+	}
 
 	@Override
 	@GetMapping("/brigades/{id}")

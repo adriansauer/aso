@@ -49,6 +49,12 @@ public class ReportController {
 		return this.reportService.findByYearAndUser(dashboardDTO);
 	}
 	
+	@PostMapping("/public/reports/year-user")
+	@ApiOperation(value = "Obtener las incidencias por año y la brigada")
+	public ReportDTO findByYearAndBrigadePublic(@Validated @RequestBody final DashboardDTO dashboardDTO) throws Exception {
+		return this.reportService.findByYearAndBrigade(dashboardDTO);
+	}
+	
 	@PostMapping("/reports/code-user")
 	@ApiOperation(value = "Obtener las incidencias por el codigo y el usuario")
 	public ReportDTO findByCodeAndUser(@Validated @RequestBody final DashboardDTO dashboardDTO) throws Exception {
