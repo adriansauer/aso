@@ -1,0 +1,1 @@
+"use strict";module.exports={env:{browser:!0,es2021:!0},extends:["plugin:react/recommended","standard"],parserOptions:{ecmaFeatures:{jsx:!0},ecmaVersion:12,sourceType:"module"},plugins:["react"],rules:{}};
