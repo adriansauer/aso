@@ -50,7 +50,7 @@ const App = () => {
       <UserContext.Provider
         value={{ isAutenticate, setIsAutenticate, userData, setUserData, selectData, setSelectData }}
       >
-        <Router>
+        <Router basename={'/aso'}>
           <Header />
           <>
             <Switch>
