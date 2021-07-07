@@ -162,9 +162,6 @@ const CreateBrigadaForm = (props) => {
                 <select
                   defaultValue={'null'}
                   onChange={(e) => {
-                    console.log(
-                      e.target.options[e.target.options.selectedIndex].value
-                    )
                     setCityId(
                       e.target.options[e.target.options.selectedIndex].value
                     )
@@ -189,9 +186,6 @@ const CreateBrigadaForm = (props) => {
                 <select
                   defaultValue={'null'}
                   onChange={(e) => {
-                    console.log(
-                      e.target.options[e.target.options.selectedIndex].value
-                    )
                     setDepartamentId(
                       e.target.options[e.target.options.selectedIndex].value
                     )

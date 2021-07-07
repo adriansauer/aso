@@ -15,8 +15,6 @@ const Dashboard = () => {
     }
     getPublicsReportsExecute(data)
       .then((res) => {
-        console.log(res.data)
-
         if (res.data.length === 0) {
           M.toast({ html: 'No hay datos que mostrar' })
           setReports(null)
