@@ -24,7 +24,6 @@ const UsuarioList = () => {
     if (brigadaId !== null) {
       setMembers(null)
       setIsLoading(true)
-      console.log(brigadaId)
       getMembersExecute(brigadaId, pagActual)
         .then((res) => {
           setTotalPages(

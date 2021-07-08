@@ -85,11 +85,9 @@ const InputPublicacion = (props) => {
                       props.reloadPublications()
                     }
                   })
-                  .catch((err) => {
-                    console.log(err)
-                  })
+                  .catch()
               })
-              .catch((err) => console.log(err))
+              .catch()
           }
         } else {
           M.toast({ html: 'Gracias por publicar ' })
@@ -98,7 +96,6 @@ const InputPublicacion = (props) => {
         }
       })
       .catch((err) => {
-        console.log(err)
         M.toast({
           html:
             err.response === undefined

@@ -263,7 +263,7 @@ const Header = (props) => {
                       instance.close()
                     }}
                   >
-                    <i className="medium material-icons white-text">group</i>
+                    <i className="medium material-icons white-text">account_circle</i>
                     <span style={{ color: 'white', fontSize: 16 }}>
                       Mi perfil
                     </span>
@@ -281,7 +281,7 @@ const Header = (props) => {
                       instance.close()
                     }}
                   >
-                    <i className="medium material-icons white-text">group</i>
+                    <i className="medium material-icons white-text">account_circle</i>
                     <span style={{ color: 'white', fontSize: 16 }}>
                       Mi perfil
                     </span>

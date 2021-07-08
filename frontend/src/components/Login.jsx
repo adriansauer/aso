@@ -12,7 +12,6 @@ const Login = () => {
   const { execute: checkLoggedIn } = useCheckLoggedIn()
   const { setIsAutenticate, setUserData } = useContext(UserContext)
   const submit = (e) => {
-    console.log(isLoading)
     setIsLoading(true)
     loginExecute({ password, usercode })
       .then((res) => {

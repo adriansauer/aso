@@ -6,7 +6,7 @@ const EditarPublicacionModal = (props) => {
   const [description, setDescription] = useState(props.body)
   const { execute: updatePublicationExecute } = useUpdatePublication()
   const handleEditPublication = (e) => {
-    updatePublicationExecute(props.publicationId, description, props.destination === 0 ? 'Todos' : (props.destination > 0 ? 'Mi Brigada' : 'Publico'))
+    updatePublicationExecute(props.publicationId, description, parseInt(props.destination) === 0 ? 'Todos' : (parseInt(props.destination) > 0 ? 'Mi Brigada' : 'Publico'))
       .then((res) => {
         M.toast({ html: 'Publicacion modificada ' })
         props.close()
