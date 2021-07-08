@@ -9,9 +9,9 @@ var _api = _interopRequireDefault(require("../api"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var UseGetDepartament = function UseGetDepartament() {
+var UseGetDepartamentWithoutPage = function UseGetDepartamentWithoutPage() {
   var execute = function execute(pag) {
-    return _api["default"].get("api/departaments?size=6&page=".concat(pag - 1));
+    return _api["default"].get("api/departaments?size=99&page=".concat(pag - 1));
   };
 
   return {
@@ -19,5 +19,5 @@ var UseGetDepartament = function UseGetDepartament() {
   };
 };
 
-var _default = UseGetDepartament;
+var _default = UseGetDepartamentWithoutPage;
 exports["default"] = _default;

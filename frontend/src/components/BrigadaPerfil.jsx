@@ -27,7 +27,7 @@ const BrigadaPerfil = (props) => {
   /** INSTANCIA DE LOS MODALES */
   const [editarModal, setEditarModal] = useState(null)
   const [agregarModal, setAgregarModal] = useState(null)
-  const [historyModal, setHistoryModal] = useState(null)
+  const [historyModal, setHistoryModal] = useState(' ')
   const [year, setYear] = useState(new Date().getFullYear())
   const { userData, selectData } = useContext(userContext)
   const [reports, setReports] = useState(null)
@@ -35,9 +35,13 @@ const BrigadaPerfil = (props) => {
     if (brigada !== null) {
       getHistoryByBrigadeIdExecute(brigada.id)
         .then((res) => {
-          setHistoria(res.data.text)
+          if (res.data.test === null) {
+            setHistoria(' ')
+          } else {
+            setHistoria(res.data.text)
+          }
         })
-        .catch()
+        .catch(() => setHistoria(' '))
     }
   }
   const fetchReports = () => {
@@ -62,7 +66,9 @@ const BrigadaPerfil = (props) => {
   useEffect(() => {
     fetchReports()
   }, [year])
-
+  useEffect(() => {
+    fetchReports()
+  }, [brigada])
   useEffect(() => {
     fetchHistory()
     /** INSTANCIA DEL MODAL AGREGAR UN NUEVO MIEMBRO */
@@ -361,15 +367,12 @@ const BrigadaPerfil = (props) => {
       </div>
       <CreateUserForm brigada={brigada} close={closeModal} />
       <EditBrigadaForm brigada={brigada} close={closeModal} />
-      {historia !== null
-        ? (
         <HistoryModal
           brigadeId={brigada.id}
           text={historia}
           close={closeModal}
         />
-          )
-        : null}
+
     </div>
       )
     : (

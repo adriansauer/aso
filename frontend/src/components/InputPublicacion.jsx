@@ -66,44 +66,47 @@ const InputPublicacion = (props) => {
         incidenceCodeId: incidenciaId
       }
     }
-    createPublicationExecute(publication)
-      .then((res) => {
+    if (document.getElementById('dropdown_destination').value !== 'Todos' & incidenciaId !== null) {
+      M.toast({ html: 'Las publicaciones con incidentes deben ser para todos' })
+    } else {
+      createPublicationExecute(publication)
+        .then((res) => {
         // publicar archivos
-        if (files.length > 0) {
-          for (let i = 0; i < files.length; i++) {
-            getBase64(files[i])
-              .then((result) => {
-                createFileExecute({
-                  publicationId: res.data.id,
-                  name: files[i].name,
-                  file: result
-                })
-                  .then(() => {
-                    if (i === files.length - 1) {
-                      M.toast({ html: 'Gracias por publicar ' })
-                      setBody('')
-                      props.reloadPublications()
-                    }
+          if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+              getBase64(files[i])
+                .then((result) => {
+                  createFileExecute({
+                    publicationId: res.data.id,
+                    name: files[i].name,
+                    file: result
                   })
-                  .catch()
-              })
-              .catch()
+                    .then(() => {
+                      if (i === files.length - 1) {
+                        M.toast({ html: 'Gracias por publicar ' })
+                        setBody('')
+                        props.reloadPublications()
+                      }
+                    })
+                    .catch()
+                })
+                .catch()
+            }
+          } else {
+            M.toast({ html: 'Gracias por publicar ' })
+            setBody('')
+            props.reloadPublications()
           }
-        } else {
-          M.toast({ html: 'Gracias por publicar ' })
-          setBody('')
-          props.reloadPublications()
-        }
-      })
-      .catch((err) => {
-        M.toast({
-          html:
+        })
+        .catch((err) => {
+          M.toast({
+            html:
             err.response === undefined
               ? 'Hubo un error con la conexión'
               : err.response.data.description
+          })
         })
-      })
-
+    }
     e.preventDefault()
   }
   const getBase64 = (file) => {

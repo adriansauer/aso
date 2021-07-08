@@ -37,6 +37,9 @@ const Dashboard = () => {
   return (
     <div className="container">
       <br />
+    <blockquote style={{ borderColor: '#0C0019' }}>
+      Estadísticas de incidentes del Cuerpo de Bomberos Voluntarios de Paraguay
+    </blockquote>
       <div className="row">
         <div className="input-field col m4 s12 right">
           <select
