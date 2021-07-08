@@ -112,7 +112,9 @@ const Header = (props) => {
     }
   }
   const handleLogout = () => {
-    handleToggle()
+    if (instance.isOpen) {
+      instance.close()
+    }
     localStorage.setItem('token', null)
     setIsAutenticate(false)
   }
